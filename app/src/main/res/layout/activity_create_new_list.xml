@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:focusable="false"
+    android:focusableInTouchMode="true"
+    tools:context="example.com.groupeasy.activities.CreateNewListActivity">
+
+    <LinearLayout
+        android:gravity="center|left"
+        android:background="@color/white"
+        android:id="@+id/toolbar_layout"
+        android:orientation="horizontal"
+        android:layout_height="56dp"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/very_large_text_size"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="New List"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/group_header_text_size"
+            android:layout_gravity="center"
+            android:text="SAVE"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/saveDetails"
+            android:onClick="saveDetails"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_below="@id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <EditText
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:textSize="@dimen/group_header_text_size"
+                android:hint="Event Name"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/eventName"/>
+
+            <EditText
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="8dp"
+                android:textSize="@dimen/group_header_text_size"
+                android:hint="Location"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/location"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="@dimen/group_header_text_size"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Participant Limit"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+            <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/range_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:corner_radius="10"
+                app:min_value="00"
+                app:max_value="100"
+                app:bar_color="#723547"
+                app:bar_highlight_color="@color/colorPrimary"
+                app:left_thumb_color="@color/colorPrimary"
+                app:left_thumb_color_pressed="@color/colorPrimaryDark"
+                app:data_type="_integer"/>
+
+            <LinearLayout
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_range_limit"
+                    android:textSize="@dimen/group_header_text_size"
+                    android:text="0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dp"
+                    android:layout_width="0dp"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:paddingRight="8dp"
+                    android:gravity="end"
+                    android:textSize="@dimen/group_header_text_size"
+                    android:text="100"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="@dimen/header_text_size"
+                        android:text="From "
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners_shape"
+                        android:id="@+id/layout_from_date"
+                        android:padding="8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="dateFrom">
+
+                        <TextView
+                            android:id="@+id/tv_from_date"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="@dimen/header_text_size"
+                            android:text="02/02/2017"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="14dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_calendar_grey600_48dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="24dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="@dimen/header_text_size"
+                        android:text=""
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_from_time"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners_shape"
+                        android:padding="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="timeFrom">
+
+                        <TextView
+                            android:id="@+id/tv_from_time"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="@dimen/header_text_size"
+                            android:text="10:00 AM"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_timer_grey600_48dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="@dimen/header_text_size"
+                        android:text="To "
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners_shape"
+                        android:id="@+id/layout_to_date"
+                        android:padding="8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="dateTo">
+
+                        <TextView
+                            android:id="@+id/tv_to_date"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="@dimen/header_text_size"
+                            android:text="02/02/2017"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="14dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_calendar_grey600_48dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="24dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="@dimen/header_text_size"
+                        android:text=" "
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_to_time"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners_shape"
+                        android:padding="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="timeTo">
+
+                        <TextView
+                            android:id="@+id/tv_to_time"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="@dimen/header_text_size"
+                            android:text="10:00 AM"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_timer_grey600_48dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

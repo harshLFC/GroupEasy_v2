@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    android:focusable="false"
+    android:focusableInTouchMode="true"
+    tools:context="example.com.groupeasy.activities.CreatePollActivity">
+
+    <LinearLayout
+        android:gravity="center|left"
+        android:background="@color/white"
+        android:id="@+id/toolbar_layout"
+        android:orientation="horizontal"
+        android:layout_height="56dp"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/very_large_text_size"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="New Poll"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"/>
+
+        <TextView
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/group_header_text_size"
+            android:layout_gravity="center"
+            android:text="SAVE"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar_layout"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:textSize="@dimen/group_header_text_size"
+                android:hint="Event Name"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <EditText
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="8dp"
+                android:textSize="@dimen/group_header_text_size"
+                android:hint="Location"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/black"
+                    android:layout_width="16dp"
+                    android:layout_height="1dp"/>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="@dimen/group_header_text_size"
+                    android:text="Poll Options"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"/>
+
+                <View
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/black"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+
+                <Button
+                    android:layout_marginRight="8dp"
+                    android:background="#e6e6e6"
+                    android:id="@+id/btn_add_options"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/header_text_size"
+                    android:textAllCaps="false"
+                    android:text="+ Add options"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#F2FFFF"
+                android:id="@+id/layout_for_options"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="12dp"
+                        android:textSize="@dimen/very_large_text_size"
+                        android:text="From "
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners_shape"
+                        android:id="@+id/layout_from_date"
+                        android:padding="8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_marginLeft="8dp"
+                            android:textSize="@dimen/header_text_size"
+                            android:text="02/02/2017"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="14dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_calendar_grey600_48dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="24dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="12dp"
+                        android:textSize="@dimen/very_large_text_size"
+                        android:text="At "
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/rounded_corners_shape"
+                        android:padding="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_marginLeft="8dp"
+                            android:textSize="@dimen/header_text_size"
+                            android:text="10:00 AM"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_timer_grey600_48dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:textSize="@dimen/header_text_size"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_margin="8dp"
+                android:text="Allow anyone to add options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:textSize="@dimen/header_text_size"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_margin="8dp"
+                android:text="Allow multiple choices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <CheckBox
+                android:textSize="@dimen/header_text_size"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_margin="8dp"
+                android:text="Make event global !"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="see what this means"
+                android:paddingLeft="190dp"
+                android:onClick=""/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

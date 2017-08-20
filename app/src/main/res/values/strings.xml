@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">GroupEasy</string>
+    <string name="sample">sample</string>
+
+    <array name="allot_to_array">
+        <item>Select People</item>
+        <item>Person 1</item>
+        <item>Person 2</item>
+        <item>Person 3</item>
+        <item>Person 4</item>
+        <item>Person 5</item>
+    </array>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+</resources>

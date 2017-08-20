@@ -1,0 +1,203 @@
+{
+  "project_info": {
+    "project_number": "397506106465",
+    "firebase_url": "https://groupiz-4bde3.firebaseio.com",
+    "project_id": "groupiz-4bde3",
+    "storage_bucket": "groupiz-4bde3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397506106465:android:e3c9bf1ec0c148de",
+        "android_client_info": {
+          "package_name": "com.example.lenovo.groupeasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397506106465-n66v96f8gh2bosdgcmms6rb713i2bo7h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lenovo.groupeasy",
+            "certificate_hash": "04d7a547a500dc81904943fe9cfc7a723f752c67"
+          }
+        },
+        {
+          "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "397506106465-2dc2ii05ucmgqbnncio3nf7ic6c74rat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPFbVoWurTJ9BIJaTlap3j4M3KzJxxuWI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397506106465:android:4574e3cf705bda64",
+        "android_client_info": {
+          "package_name": "com.example.lenovo.mychat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397506106465-tanb4ta6m9s7djidj9dtv9dfjfkj5ajv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lenovo.mychat",
+            "certificate_hash": "04d7a547a500dc81904943fe9cfc7a723f752c67"
+          }
+        },
+        {
+          "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "397506106465-2dc2ii05ucmgqbnncio3nf7ic6c74rat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPFbVoWurTJ9BIJaTlap3j4M3KzJxxuWI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397506106465:android:30480fed83c72ced",
+        "android_client_info": {
+          "package_name": "com.example.lenovo.groupeasy_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397506106465-k8irv0oakek58fs2tmit7rr1uu8khdk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lenovo.groupeasy_v1",
+            "certificate_hash": "04d7a547a500dc81904943fe9cfc7a723f752c67"
+          }
+        },
+        {
+          "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "397506106465-2dc2ii05ucmgqbnncio3nf7ic6c74rat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPFbVoWurTJ9BIJaTlap3j4M3KzJxxuWI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397506106465:android:0d9de06dfc6df146",
+        "android_client_info": {
+          "package_name": "example.com.groupeasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397506106465-rahito180bp38o2mb9eut0r8qr7lnlr3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "example.com.groupeasy",
+            "certificate_hash": "04d7a547a500dc81904943fe9cfc7a723f752c67"
+          }
+        },
+        {
+          "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "397506106465-2dc2ii05ucmgqbnncio3nf7ic6c74rat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPFbVoWurTJ9BIJaTlap3j4M3KzJxxuWI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397506106465-rchmea69oagrd0dlo0l71cki1d44rof2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

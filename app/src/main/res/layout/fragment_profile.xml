@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="@dimen/group_header_text_size"
+        android:gravity="center"
+        android:text="Welcome Jacob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_profile"
+        android:background="@drawable/oval_group_shape"
+        android:layout_height="100dp"
+        android:layout_width="100dp"/>
+
+    <LinearLayout
+        android:gravity="center|left"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/rounded_corners_shape"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_margin="16dp"
+            android:textSize="@dimen/group_header_text_size"
+            android:text="Total Polls Created "
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/rectangle_shape"
+            android:textColor="#670309"
+            android:textColorHint="#670309"
+            android:text="22"
+            android:gravity="center"
+            android:textSize="@dimen/group_header_text_size"
+            android:layout_height="36dp"
+            android:layout_width="36dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center|left"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/rounded_corners_shape"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_margin="16dp"
+            android:textSize="@dimen/group_header_text_size"
+            android:text="Total Lists Created "
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/circle_shape"
+            android:text="8"
+            android:gravity="center"
+            android:textSize="@dimen/group_header_text_size"
+            android:layout_height="36dp"
+            android:layout_width="36dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center|left"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/rounded_corners_shape"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_margin="16dp"
+            android:textSize="@dimen/group_header_text_size"
+            android:text="Total Roasters Created "
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/hexagon_shape"
+            android:text="12"
+            android:gravity="center"
+            android:textSize="@dimen/group_header_text_size"
+            android:layout_height="36dp"
+            android:layout_width="36dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center|left"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/rounded_corners_shape"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_margin="16dp"
+            android:textSize="@dimen/group_header_text_size"
+            android:text="Favourite Events "
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/ic_heart"
+            android:text="4"
+            android:padding="16dp"
+            android:gravity="center"
+            android:textSize="@dimen/group_header_text_size"
+            android:layout_height="36dp"
+            android:layout_width="36dp"/>
+    </LinearLayout>
+</LinearLayout>
