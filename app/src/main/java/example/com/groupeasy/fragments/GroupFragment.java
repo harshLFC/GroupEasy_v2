@@ -1,5 +1,6 @@
 package example.com.groupeasy.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,11 +36,11 @@ import example.com.groupeasy.pojo.Groups;
 public class GroupFragment extends Fragment {
 
    /** Ui elements init */
+   //list & views
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
-    private List<Group> mLstGroup;
+    private List<Group> mLstGroups;
 
-    private List<Groups> mLstGroups;
     private AdapterForAllGroups adapterForAllGroups;
     private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
@@ -56,10 +57,19 @@ public class GroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_group,null);
+        //we need this because we are working with a fragment
+        final Context mcontext = getActivity();
+
+        //inflate is used to populate the recycler view in this case
+        View rootView = inflater.inflate(R.layout.fragment_group,container,false);
+
         initElementsWithIds(rootView);
         createListView();
         initElementsWithListeners();
+
+        mLstGroups = new ArrayList<>();
+        // initialize adapter to our List of <group>
+        mGroupAdapter = new GroupAdapter(mLstGroups);
 
         //Initialize the Recycler view and set an adapter to populate the JSON data
         mGroupRecyclerView = (RecyclerView) rootView.findViewById(R.id.groupRecyclerView);
@@ -127,16 +137,16 @@ public class GroupFragment extends Fragment {
 
     private void createListView()
     {
-        mLstGroup = new ArrayList<>();
+//        mLstGroups = new ArrayList<>();
 
             groupRef.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Map<String, String> map =  (Map<String,String>) dataSnapshot.getValue();
 
-                    mLstGroup.add(new Group(map.get("name")));
-                    mLstGroup.add(new Group(map.get("icon")));
-                    mGroupAdapter.notifyItemInserted(mLstGroup.size()-1);
+                    mLstGroups.add(new Group(map.get("name")));
+//                    mLstGroup.add(new Group(map.get("icon")));
+                    mGroupAdapter.notifyItemInserted(mLstGroups.size()-1);
 
 
                 }

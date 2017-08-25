@@ -15,7 +15,7 @@ import example.com.groupeasy.R;
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Group> mLstGroups;
 
-    public GroupAdapter(){};
+    public GroupAdapter(){}
 
 
     public GroupAdapter(List<Group> mLstGroups) {
