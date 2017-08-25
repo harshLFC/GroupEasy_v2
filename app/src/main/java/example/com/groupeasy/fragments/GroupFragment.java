@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.activities.CreateGroupActivity;
 import example.com.groupeasy.activities.CreateNewListActivity;
 import example.com.groupeasy.activities.CreatePollActivity;
 import example.com.groupeasy.activities.CreateRosterActivity;
@@ -47,6 +48,7 @@ public class GroupFragment extends Fragment {
     private FloatingActionButton fabCreatePoll;
     private FloatingActionButton fabCreateRoaster;
     private FloatingActionButton fabCreateList;
+    private FloatingActionButton fabCreateGroup;
 
     /** Firebase db init*/
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -86,6 +88,7 @@ public class GroupFragment extends Fragment {
         fabCreatePoll = (FloatingActionButton) view.findViewById(R.id.fab_create_poll);
         fabCreateRoaster = (FloatingActionButton) view.findViewById(R.id.fab_create_roaster);
         fabCreateList = (FloatingActionButton) view.findViewById(R.id.fab_create_list);
+        fabCreateGroup = (FloatingActionButton) view.findViewById(R.id.fab_create_group);
 
     }
 
@@ -128,6 +131,15 @@ public class GroupFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CreateRosterActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        fabCreateGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CreateGroupActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
