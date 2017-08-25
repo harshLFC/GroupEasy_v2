@@ -43,7 +43,8 @@
             android:text="NEXT"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:id="@+id/next"/>
 
     </LinearLayout>
 
@@ -70,7 +71,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Group Name" />
+            android:hint="Enter Group Name"
+            android:id="@+id/input"/>
     </android.support.design.widget.TextInputLayout>
 
 
