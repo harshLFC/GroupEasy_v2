@@ -37,7 +37,7 @@
         fab:menu_colorPressed="#dc4b3f"
         fab:menu_colorRipple="#99d4d4d4"
         fab:menu_fab_label="Close"
-        fab:menu_fab_size="mini"
+        fab:menu_fab_size="normal"
         fab:menu_icon="@drawable/fab_add"
         fab:menu_labels_colorNormal="#333"
         fab:menu_labels_colorPressed="#444"
@@ -63,6 +63,7 @@
         fab:menu_shadowYOffset="4dp"
         fab:menu_showShadow="true">
 
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_create_poll"
             android:layout_width="wrap_content"
@@ -86,6 +87,15 @@
             android:src="@drawable/circle_shape"
             fab:fab_label="Create List"
             fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_create_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_stat_create"
+            fab:fab_label="Create Group"
+            fab:fab_size="mini" />
+
     </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>

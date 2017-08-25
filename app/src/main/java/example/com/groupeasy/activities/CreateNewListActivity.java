@@ -33,8 +33,8 @@ public class CreateNewListActivity extends AppCompatActivity {
     public static final String TAG = CreateNewListActivity.class.getSimpleName();
     private Context context;
     private TextView tvRangeLimit;
-    private TextView eventName;
-    private TextView location;
+    private EditText eventName;
+    private EditText location;
     private TextView TvFrom;
     private TextView TvTo;
     private CrystalSeekbar participantRangeBar;
@@ -82,8 +82,8 @@ public class CreateNewListActivity extends AppCompatActivity {
         tvRangeLimit = (TextView) findViewById(R.id.tv_range_limit);
         location = (EditText) findViewById(R.id.location);
         eventName = (EditText) findViewById(R.id.eventName);
-        TvFrom = (EditText) findViewById(R.id.tv_from_date);
-        TvTo = (EditText) findViewById(R.id.tv_to_date);
+        TvFrom = (TextView) findViewById(R.id.tv_from_date);
+        TvTo = (TextView) findViewById(R.id.tv_to_date);
     }
 
     @Override
@@ -154,14 +154,14 @@ public class CreateNewListActivity extends AppCompatActivity {
 
 }
 
- class myOnDateChangedListener implements DatePicker.OnDateChangedListener{
-
-//     EditText TvFrom = (EditText) findViewById(R.id.tv_from_date);
-
-    @Override
-    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-//        TvFrom.setText(dayOfMonth+(monthOfYear+1)+year);
-//        TvTo.setText(dayOfMonth+(monthOfYear+1)+year);
-    }
-}
+// class myOnDateChangedListener implements DatePicker.OnDateChangedListener{
+//
+////     EditText TvFrom = (EditText) findViewById(R.id.tv_from_date);
+//
+//    @Override
+//    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//
+////        TvFrom.setText(dayOfMonth+(monthOfYear+1)+year);
+////        TvTo.setText(dayOfMonth+(monthOfYear+1)+year);
+//    }
+//}
