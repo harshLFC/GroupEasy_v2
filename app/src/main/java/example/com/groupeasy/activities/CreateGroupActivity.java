@@ -43,6 +43,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 Toast.makeText(context, "Will open gallery",Toast.LENGTH_LONG).show();
             }
         });
