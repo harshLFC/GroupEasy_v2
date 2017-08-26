@@ -73,20 +73,22 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String members = null;
                 String icon = null;
 
-                if(groupName.isEmpty()){
+                if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
+
+                    Toast.makeText(context, "Please enter a Name for the Group",Toast.LENGTH_LONG).show();
                 }
 // else the entered string will be pushed to the firebase database reference
+
                 else {
+
+                    chatPOJO chatPOJO = new chatPOJO(groupName, members,icon);
+
+                    groupRef.push().setValue(chatPOJO);
+
+                    Intent intent = new Intent(context,DashboardActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-
-                chatPOJO chatPOJO = new chatPOJO(groupName, members,icon);
-
-                groupRef.push().setValue(chatPOJO);
-
-                Intent intent = new Intent(context,DashboardActivity.class);
-                startActivity(intent);
-                finish();
-
             }
         });
     }

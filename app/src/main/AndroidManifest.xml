@@ -52,7 +52,8 @@
             android:name=".activities.NextBuildActivity"
             android:parentActivityName=".activities.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
         <activity
             android:name=".Main2Activity"

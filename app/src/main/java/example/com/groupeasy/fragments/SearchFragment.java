@@ -1,5 +1,6 @@
 package example.com.groupeasy.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,18 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.NextBuildActivity;
 
-/**
- * Created by swanandvaidya on 04/08/17.
- */
 
 public class SearchFragment extends Fragment {
 
     /** Ui elements init */
     private Button eventsGlobal, eventsLocal;
+
+
 
     @Nullable
     @Override
@@ -36,18 +37,27 @@ public class SearchFragment extends Fragment {
         eventsGlobal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /**commenting out intent for NEXTBUILD
                 Intent intent = new Intent(getActivity(), NextBuildActivity.class);
                 startActivity(intent);
-                getActivity().finish();
+                getActivity().finish();*/
+
+                Toast.makeText(getActivity(), "This part of the app is in construction",Toast.LENGTH_LONG).show();
+
             }
         });
 
         eventsLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NextBuildActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+
+                /**commenting out intent for NEXTBUILD
+                 Intent intent = new Intent(getActivity(), NextBuildActivity.class);
+                 startActivity(intent);
+                 getActivity().finish();*/
+
+                Toast.makeText(getActivity(), "This part of the app is in construction",Toast.LENGTH_LONG).show();
 
             }
         });

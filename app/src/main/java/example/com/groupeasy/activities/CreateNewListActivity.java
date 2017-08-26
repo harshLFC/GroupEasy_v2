@@ -4,20 +4,20 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
-import android.media.Image;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
@@ -32,14 +32,20 @@ public class CreateNewListActivity extends AppCompatActivity {
 
     public static final String TAG = CreateNewListActivity.class.getSimpleName();
     private Context context;
-    private TextView tvRangeLimit;
+
     private EditText eventName;
     private EditText location;
+
+    private TextView tvRangeLimit1,tvRangeLimit2;
     private TextView TvFrom;
     private TextView TvTo;
-    private CrystalSeekbar participantRangeBar;
+    private TextView saveBtn;
+
+    private CrystalRangeSeekbar participantRangeBar;
     private ImageView ivClose;
-    private Button saveBtn;
+
+
+
 
 
     @Override
@@ -47,9 +53,11 @@ public class CreateNewListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
         context = CreateNewListActivity.this;
+
         initElementsWithIds();
         initElementsWithListeners();
         changeTime();
+        updateDisplay();
     }
 
     private void changeTime() {
@@ -59,10 +67,12 @@ public class CreateNewListActivity extends AppCompatActivity {
     }
 
     private void initElementsWithListeners() {
-        participantRangeBar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
+
+        participantRangeBar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override
-            public void valueChanged(Number value) {
-                tvRangeLimit.setText(String.valueOf(value));
+            public void valueChanged(Number minValue, Number maxValue) {
+                tvRangeLimit1.setText(String.valueOf(minValue));
+                tvRangeLimit2.setText(String.valueOf(maxValue));
             }
         });
 
@@ -74,16 +84,44 @@ public class CreateNewListActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        participantRangeBar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
+            @Override
+            public void finalValue(Number minValue, Number maxValue) {
+                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String EventName;
+                EventName = eventName.getText().toString();
+
+                //Code for form Validation
+                if(EventName.isEmpty()){
+                    Toast.makeText(context, "Please enter a Name for the event",Toast.LENGTH_LONG).show();
+                }
+                //push to firebase
+                else {
+                    Toast.makeText(context, EventName,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void initElementsWithIds() {
         ivClose = (ImageView) findViewById(R.id.iv_close);
-        participantRangeBar = (CrystalSeekbar) findViewById(R.id.range_seekbar);
-        tvRangeLimit = (TextView) findViewById(R.id.tv_range_limit);
+        participantRangeBar = (CrystalRangeSeekbar) findViewById(R.id.range_seekbar);
+        tvRangeLimit1 = (TextView) findViewById(R.id.textMin1);
+        tvRangeLimit2 = (TextView) findViewById(R.id.textMax1);
         location = (EditText) findViewById(R.id.location);
         eventName = (EditText) findViewById(R.id.eventName);
         TvFrom = (TextView) findViewById(R.id.tv_from_date);
         TvTo = (TextView) findViewById(R.id.tv_to_date);
+        saveBtn = (TextView) findViewById(R.id.saveDetails);
+
     }
 
     @Override
@@ -94,35 +132,24 @@ public class CreateNewListActivity extends AppCompatActivity {
     }
 
 
-    public void saveDetails(View view) {
-
-
-       //Code for form Validation and subsequent code
-        String EventName;
-        EventName = eventName.getText().toString();
-        if(EventName == "" || EventName == null || EventName.equals(null) ){
-            Toast.makeText(this, "Please enter a Name for the event",Toast.LENGTH_LONG).show();
-        }
-        else {
-            Toast.makeText(this, "Intent for choosing groups to assign",Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    public void dateFrom(View v) {
+   public void dateFrom(View v) {
 
         // code for opening calender
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Date Picker");
 
 
+
     }
-    final Calendar c = Calendar.getInstance();
-    int year = c.get(Calendar.YEAR);
-    int month = c.get(Calendar.MONTH);
-    int day = c.get(Calendar.DAY_OF_MONTH);
 
     private void updateDisplay() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        Toast.makeText(this, year+""+month+""+day,Toast.LENGTH_LONG).show();
+
 
     }
 
