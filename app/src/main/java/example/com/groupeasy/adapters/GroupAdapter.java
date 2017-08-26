@@ -1,11 +1,13 @@
 package example.com.groupeasy.adapters;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ import example.com.groupeasy.R;
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Group> mLstGroups;
+    private static GroupViewHolder.ClickListener clickListener;
+
 
     public GroupAdapter(){}
 
@@ -37,7 +41,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.textView.setText(mLstGroups.get(position).getGroupName());
-
     }
 
     @Override
@@ -45,7 +48,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mLstGroups.size();
     }
 
-    public class GroupViewHolder extends RecyclerView.ViewHolder {
+    public static class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         //declare views of your custom class here
         //ex. TextView txtGroupName
         private TextView textView;
@@ -58,6 +61,29 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ///ex. txtGroupName = itemView.findViewById(R.id.txtname)
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             textView = (TextView) itemView.findViewById(R.id.textView);
+            textView.setOnClickListener(this);
+            imageView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == textView.getId()) {
+                Toast.makeText(v.getContext(), "Clicked Text!!!", Toast.LENGTH_SHORT).show();
+//            clickListener.onItemClick(getAdapterPosition(),v);
+            }
+            else if (v.getId() == imageView.getId()) {
+                Toast.makeText(v.getContext(), "Clicked Image!!!", Toast.LENGTH_SHORT).show();
+//            clickListener.onItemClick(getAdapterPosition(),v);
+            }
+        }
+
+        public void setOnItemClickListener(ClickListener clickListener) {
+            GroupAdapter.clickListener = clickListener;
+        }
+
+        public interface ClickListener {
+            void onItemClick(int position, View v);
+            void onItemLongClick(int position, View v);
         }
     }
 }

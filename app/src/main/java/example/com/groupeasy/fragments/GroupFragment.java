@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -69,6 +70,7 @@ public class GroupFragment extends Fragment {
         createListView();
         initElementsWithListeners();
 
+
         mLstGroups = new ArrayList<>();
         // initialize adapter to our List of <group>
         mGroupAdapter = new GroupAdapter(mLstGroups);
@@ -78,8 +80,20 @@ public class GroupFragment extends Fragment {
         mGroupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mGroupRecyclerView.setAdapter(mGroupAdapter);
 
+//        clickAbleGroups();
+        mGroupRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "this one is also clicked !!!",Toast.LENGTH_LONG).show();
+            }
+        });return rootView;
 
-        return rootView;
+    }
+
+    private void clickAbleGroups() {
+
+
+
     }
 
     private void initElementsWithIds(View view) {
@@ -198,5 +212,6 @@ public class GroupFragment extends Fragment {
 //        adapterForAllGroups = new AdapterForAllGroups(getActivity(), mLstGroups);
 
 // mGroupRecyclerView.setAdapter(adapterForAllGroups);
+
     }
 }
