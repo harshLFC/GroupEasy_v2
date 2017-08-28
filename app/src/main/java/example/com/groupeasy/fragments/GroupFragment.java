@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ import example.com.groupeasy.pojo.Groups;
 public class GroupFragment extends Fragment {
 
    /** Ui elements init */
-   //list & views
+   //Declare list, view, and adapter
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
     private List<Group> mLstGroups;
@@ -79,6 +80,7 @@ public class GroupFragment extends Fragment {
         mGroupRecyclerView = (RecyclerView) rootView.findViewById(R.id.groupRecyclerView);
         mGroupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mGroupRecyclerView.setAdapter(mGroupAdapter);
+        mGroupRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 //        clickAbleGroups();
         mGroupRecyclerView.setOnClickListener(new View.OnClickListener() {
