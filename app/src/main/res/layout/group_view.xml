@@ -41,6 +41,7 @@
             android:textSize="12sp"
             android:layout_below="@+id/textView"
             android:layout_alignParentRight="true"
+
              />
 
         <LinearLayout
