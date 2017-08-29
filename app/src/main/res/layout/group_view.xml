@@ -1,25 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorAccent" />
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@drawable/oval_group_shape"
+        android:src="@drawable/ic_default_groups"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/sample"
-        android:textSize="25sp" />
+        android:layout_marginLeft="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="Family Katta get together"
+            android:textColor="@color/black"
+            android:textSize="@dimen/group_header_text_size" />
+
+        <TextView
+            android:id="@+id/textViewAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Admin: Harsh Phoujdar"
+            android:textSize="12sp"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentRight="true"
+             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            android:layout_below="@+id/textViewAdmin">
+
+
+            <TextView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:background="@drawable/rectangle_shape"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="4"
+                android:textSize="@dimen/header_text_size" />
+
+            <TextView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/circle_shape"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="4"
+                android:textSize="@dimen/header_text_size" />
+
+            <TextView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/hexagon_shape"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="2"
+                android:textSize="@dimen/header_text_size" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
