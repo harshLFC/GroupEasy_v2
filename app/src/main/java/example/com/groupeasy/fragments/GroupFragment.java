@@ -166,6 +166,7 @@ public class GroupFragment extends Fragment {
     private void createListView()
     {
 //        mLstGroups = new ArrayList<>();
+            groupRef.keepSynced(true);
 
             groupRef.addChildEventListener(new ChildEventListener() {
                 @Override

@@ -1,6 +1,5 @@
 package example.com.groupeasy.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.activities.DashboardActivity;
-import example.com.groupeasy.activities.chatRoom;
+import example.com.groupeasy.activities.chatRoomActivity;
 
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -76,7 +74,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
-                Intent i = new Intent(context,chatRoom.class);
+                Intent i = new Intent(context,chatRoomActivity.class);
                 i.putExtra("room_name",((TextView)v).getText().toString());
                 context.startActivity(i);
 
