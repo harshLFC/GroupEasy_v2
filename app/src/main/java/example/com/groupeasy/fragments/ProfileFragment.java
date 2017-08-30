@@ -44,22 +44,26 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-
+//check if user is Logged in and do the needful
         if (mUser == null){
-            log_in_out.setText("Log in");
-
-            user_name.setText("You are not logged in");
+            loggedOut();
 
         }
         else{
-            checkUserLogin();
+            loggedIn();
+
         }
 
 
         return  view;
     }
 
-    private void checkUserLogin() {
+    private void loggedOut() {
+        log_in_out.setText("Log in");
+        user_name.setText("You are not logged in");
+    }
+
+    private void loggedIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
         user_name.setText(uid);
@@ -68,9 +72,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initElementWIthListeners() {
-
-
-
 
         profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +84,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //different outcomes for user log in status
                 if(mUser == null){
                     Intent intent = new Intent(v.getContext(),LoginGoogle.class);
                     startActivity(intent);
-
                 }
                 else    {
                     mAuth.signOut();
@@ -96,12 +97,8 @@ public class ProfileFragment extends Fragment {
 
                     Toast.makeText(v.getContext(), "You have been logged out",Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
-
-
     }
 
     private void initElementWIthIds(View view) {
@@ -109,8 +106,5 @@ public class ProfileFragment extends Fragment {
         log_in_out = (TextView) view.findViewById(R.id.log_in_out);
         profile_pic = (ImageView) view.findViewById(R.id.displayPic);
         logOut = (LinearLayout) view.findViewById(R.id.log_out);
-
-
-
     }
 }
