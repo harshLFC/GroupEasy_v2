@@ -80,7 +80,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         @Override
         public void onClick(View v) {
             if (v.getId() == textView.getId() || v.getId() == textView2.getId()) {
-                Toast.makeText(v.getContext(), "Clicked Text!!!", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
