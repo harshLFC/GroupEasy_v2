@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp">
-
-    <ImageView
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:background="@drawable/oval_group_shape"
-        android:src="@drawable/ic_default_groups"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/imageView"/>
+    android:padding="5dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="3dp">
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -27,61 +18,103 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:text="Family Katta get together"
             android:textColor="@color/black"
             android:textSize="@dimen/group_header_text_size" />
 
         <TextView
-            android:id="@+id/textViewAdmin"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Admin: Harsh Phoujdar"
-            android:textSize="12sp"
+            android:layout_height="20dp"
             android:layout_below="@+id/textView"
-            android:layout_alignParentRight="true"
-             />
+            android:text="last few messages be like, last few messages be like"
+            android:layout_alignRight="@+id/textViewAdmin"
+            android:layout_alignEnd="@+id/textViewAdmin"
+            android:maxLines="1"
+            android:maxLength="42"
+            android:ellipsize="end"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="3dp"/>
+
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:layout_below="@+id/textViewAdmin">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2"
+            android:orientation="horizontal">
 
-
+    <!---rectangle-->
             <TextView
                 android:layout_width="40sp"
-                android:layout_height="40sp"
+                android:layout_height="50sp"
                 android:background="@drawable/rectangle_shape"
                 android:gravity="center"
-                android:padding="10dp"
                 android:text="4"
-                android:textSize="@dimen/header_text_size" />
+                android:textSize="@dimen/header_text_size"
+                android:id="@+id/rectangle"/>
 
+    <!---circle-->
             <TextView
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/circle_shape"
                 android:gravity="center"
-                android:padding="4dp"
                 android:text="4"
-                android:textSize="@dimen/header_text_size" />
+                android:textSize="@dimen/header_text_size"
+                android:id="@+id/circle"/>
 
+    <!---hex-->
             <TextView
-                android:layout_width="40sp"
-                android:layout_height="40sp"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/hexagon_shape"
                 android:gravity="center"
-                android:padding="8dp"
                 android:text="2"
-                android:textSize="@dimen/header_text_size" />
+                android:textSize="@dimen/header_text_size"
+                android:id="@+id/hex"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Admin: Harsh Phoujdar"
+            android:textSize="12sp"
+            android:layout_below="@+id/imageView"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_toRightOf="@id/linearLayout"
+            />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:background="@drawable/oval_group_shape"
+            android:padding="10dp"
+            android:src="@drawable/ic_default_groups" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="3dp"
+            />
     </RelativeLayout>
+
+
 
 </LinearLayout>
