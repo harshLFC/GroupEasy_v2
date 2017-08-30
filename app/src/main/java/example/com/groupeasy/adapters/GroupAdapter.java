@@ -20,9 +20,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<Group> mLstGroups;
     private static GroupViewHolder.ClickListener clickListener;
 
-
     public GroupAdapter(){}
-
 
     public GroupAdapter(List<Group> mLstGroups) {
         this.mLstGroups = mLstGroups;
@@ -55,6 +53,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //ex. TextView txtGroupName
         private TextView textView;
         private ImageView imageView;
+        private TextView textView2;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -63,30 +62,30 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ///ex. txtGroupName = itemView.findViewById(R.id.txtname)
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             textView = (TextView) itemView.findViewById(R.id.textView);
+            textView2 = (TextView) itemView.findViewById(R.id.textView2);
+
             textView.setOnClickListener(this);
+            textView2.setOnClickListener(this);
             imageView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == textView.getId()) {
+            if (v.getId() == textView.getId() || v.getId() == textView2.getId()) {
                 Toast.makeText(v.getContext(), "Clicked Text!!!", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
                 Intent i = new Intent(context,chatRoomActivity.class);
-                i.putExtra("room_name",((TextView)v).getText().toString());
+                i.putExtra("room_name",((textView.getText().toString())));
                 context.startActivity(i);
 
             }
             else if (v.getId() == imageView.getId()) {
-                Toast.makeText(v.getContext(), "Clicked Image!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
         }
-
-
-
 
         public void setOnItemClickListener(ClickListener clickListener) {
             GroupAdapter.clickListener = clickListener;
