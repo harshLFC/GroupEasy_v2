@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
-    private Button btnLogin;
+    private Button btnLogin,btnLoginGoogle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initElementsWithListeners() {
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,9 +38,21 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnLoginGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,LoginGoogle.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
-    private void initElementsWithIds() {
+    private void initElementsWithIds()
+    {
         btnLogin = (Button) findViewById(R.id.btn_login);
+        btnLoginGoogle = (Button) findViewById(R.id.btn_login_google);
     }
 }

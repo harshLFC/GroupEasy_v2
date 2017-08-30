@@ -64,6 +64,15 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity android:name=".activities.LoginGoogle"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activities.DashboardActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -6,14 +6,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import example.com.groupeasy.R;
 
-/**
- * Created by swanandvaidya on 04/08/17.
- */
 
 public class ProfileFragment extends Fragment {
+
+    TextView user_name;
+
+    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -21,6 +27,22 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile,null);
 
+        initElementWIthIds(view);
+        initElementWIthListeners();
+
         return  view;
+    }
+
+    private void initElementWIthListeners() {
+
+        String uid = current_user.getUid();
+
+
+        user_name.setText(uid);
+
+    }
+
+    private void initElementWIthIds(View view) {
+        user_name = (TextView) view.findViewById(R.id.user_name);
     }
 }

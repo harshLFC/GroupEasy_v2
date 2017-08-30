@@ -4,7 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import example.com.groupeasy.R;
 
@@ -21,21 +26,18 @@ public class chatRoomActivity extends AppCompatActivity {
 
         initElementWithIds();
 
-
+        //snippet to stop keyboard from appearing onCreate
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         // get room name from last intent and override the chatroom title
         room_name = getIntent().getExtras().get("room_name").toString();
         setSupportActionBar(mToolBar);
-
-
         getSupportActionBar().setTitle(room_name);
         roomName.setText(room_name);
         roomName.setVisibility(View.VISIBLE);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-    }
+       }
 
     private void initElementWithIds() {
 

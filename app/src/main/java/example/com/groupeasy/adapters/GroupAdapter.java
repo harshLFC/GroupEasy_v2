@@ -17,27 +17,35 @@ import example.com.groupeasy.activities.chatRoomActivity;
 
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private List<Group> mLstGroups;
     private static GroupViewHolder.ClickListener clickListener;
 
-    public GroupAdapter(){}
+    public GroupAdapter(){
 
-    public GroupAdapter(List<Group> mLstGroups) {
+    }
+
+    public GroupAdapter(List<Group> mLstGroups)
+    {
         this.mLstGroups = mLstGroups;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        // TODO: 30-08-2017 remove comments
         //replace R.layout.group_view with your custom layout
-        //this file indicates how your custom view should look like (just remember to set parent tags height to wrapcontent)
+        //this file indicates how your custom view should look like (just remember to set parent tags height to wrap content)
+
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_view, parent, false);
         return new GroupViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
         GroupViewHolder viewHolder = (GroupViewHolder) holder;
+
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.textView.setText(mLstGroups.get(position).getGroupName());

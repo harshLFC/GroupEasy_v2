@@ -6,4 +6,8 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="faint_black">#44424F</color>
+
+    <!--taken from v_1-->
+    <color name="colorLight">#387C3D</color>
+
 </resources>

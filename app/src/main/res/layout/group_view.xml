@@ -95,17 +95,18 @@
             android:layout_toRightOf="@id/linearLayout"
             />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imageView"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:background="@drawable/oval_group_shape"
-            android:padding="10dp"
-            android:src="@drawable/ic_default_groups" />
+            android:src="@drawable/ic_default_groups"
+            app:civ_border_width="1.5dp"
+            app:civ_border_color="#FF000000"
+            android:padding="1dp"/>
+
 
         <View
             android:layout_width="match_parent"
