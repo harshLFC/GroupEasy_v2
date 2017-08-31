@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
@@ -44,6 +46,12 @@ public class DashboardActivity extends AppCompatActivity {
         setupTabIcons();
         initElementsWithListeners();
 
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     private void initElementsWithListeners() {
@@ -87,4 +95,21 @@ public class DashboardActivity extends AppCompatActivity {
 
         viewPager.setCurrentItem(1);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+         super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.main2,menu);
+
+    return true;
+    }
 }
+

@@ -2,6 +2,8 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
-    private Button btnLogin,btnLoginGoogle;
+    private Button btnLogin,btnLoginGoogle,btnLoginEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,12 @@ public class LoginActivity extends AppCompatActivity {
         initElementsWithIds();
         initElementsWithListeners();
     }
+    //this snippet to disallow back key
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
 
     private void initElementsWithListeners() {
 
@@ -48,11 +56,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LoginEmail.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void initElementsWithIds()
     {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLoginGoogle = (Button) findViewById(R.id.btn_login_google);
+        btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
     }
+
+
+
+
 }

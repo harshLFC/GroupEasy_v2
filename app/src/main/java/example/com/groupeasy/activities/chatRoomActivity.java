@@ -31,6 +31,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
         // get room name from last intent and override the chatroom title
         room_name = getIntent().getExtras().get("room_name").toString();
+
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle(room_name);
         roomName.setText(room_name);
