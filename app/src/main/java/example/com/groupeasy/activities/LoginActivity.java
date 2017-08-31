@@ -2,12 +2,11 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import example.com.groupeasy.R;
 
@@ -19,7 +18,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
-    private Button btnLogin,btnLoginGoogle,btnLoginEmail;
+    private Button btnLogin,btnLoginEmail;
+    private TextView googleSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +47,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnLoginGoogle.setOnClickListener(new View.OnClickListener() {
+
+        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,LoginGoogle.class);
+                Intent intent = new Intent(context, createAccount.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
+        googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LoginEmail.class);
+                Intent intent = new Intent(context,LoginGoogle.class);
                 startActivity(intent);
                 finish();
             }
@@ -70,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
     private void initElementsWithIds()
     {
         btnLogin = (Button) findViewById(R.id.btn_login);
-        btnLoginGoogle = (Button) findViewById(R.id.btn_login_google);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
+        googleSignIn = (TextView) findViewById(R.id.sign_in_with_google);
     }
 
 

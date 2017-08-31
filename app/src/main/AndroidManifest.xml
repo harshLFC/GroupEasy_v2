@@ -73,7 +73,7 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".activities.LoginEmail"
+        <activity android:name=".activities.createAccount"
             android:parentActivityName=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

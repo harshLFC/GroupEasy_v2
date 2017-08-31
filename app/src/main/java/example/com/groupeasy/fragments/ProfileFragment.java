@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
 
                 //different outcomes for user log in status
                 if(mUser == null){
-                    Intent intent = new Intent(v.getContext(),LoginGoogle.class);
+                    Intent intent = new Intent(v.getContext(),LoginActivity.class);
                     startActivity(intent);
                 }
                 else    {
