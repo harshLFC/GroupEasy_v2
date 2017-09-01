@@ -112,7 +112,7 @@ public class createAccount extends AppCompatActivity {
 
                     mRegProcess.hide();
 
-                    Toast.makeText(createAccount.this, "Please enter a Name for the event", Toast.LENGTH_LONG).show();
+                    Toast.makeText(createAccount.this, "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG).show();
                 }
 
             }

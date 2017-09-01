@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:layout_below="@+id/textInputLayout5"
+        android:layout_below="@+id/user_password"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="21dp" />
@@ -74,13 +74,14 @@
         android:layout_alignParentStart="true" />
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/user_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="58dp"
-        android:id="@+id/textInputLayout4">
+        >
 
         <EditText
             android:layout_width="match_parent"
@@ -90,13 +91,14 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/user_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
-        android:layout_below="@+id/textInputLayout4"
+        android:layout_below="@+id/user_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/textInputLayout5">
+        >
 
         <EditText
             android:layout_width="match_parent"
