@@ -12,40 +12,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+
+        >
 
         <TextView
         android:textSize="@dimen/group_header_text_size"
-        android:gravity="center"
+        android:gravity="start"
         android:text="@string/welcome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:padding="10dp"/>
     <TextView
         android:id="@+id/user_name"
         android:textSize="@dimen/group_header_text_size"
-        android:gravity="center"
-        android:text="User"
+        android:gravity="start"
+        android:text="UserUserUserUserUserUserUser"
         android:maxLines="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"/>
-    </LinearLayout>
-
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/displayPic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="6dp"
-        android:src="@drawable/ic_profile"
-        android:background="@drawable/oval_group_shape"
-        android:layout_gravity="center"/>
+        android:padding="10dp"
+        android:maxLength="15"/>
 
+        <TextView
+            android:id="@+id/user_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="StatusStatusStatusStatusStatusStatus"
+            android:padding="10dp"
+            android:maxLength="25"
+            />
+    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:layout_weight="1">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/displayPic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_profile"
+                    android:background="@drawable/oval_group_shape"
+
+                    />
+                </LinearLayout>
+
+            </LinearLayout>
 
 
     <LinearLayout

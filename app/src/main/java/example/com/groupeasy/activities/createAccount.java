@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 import example.com.groupeasy.R;
 
@@ -29,7 +34,9 @@ public class createAccount extends AppCompatActivity {
     private Toolbar mToolBar;
     private TextInputLayout userName,password,email;
     private Button mCreateBtn;
+
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     private ProgressDialog mRegProcess;
 
@@ -94,7 +101,7 @@ public class createAccount extends AppCompatActivity {
         });
     }
 
-    private void register_user(String mUserEmail, String mUserName, String mUserPass) {
+    private void register_user(final String mUserEmail, final String mUserName, String mUserPass) {
 
         mAuth.createUserWithEmailAndPassword(mUserEmail,mUserPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -102,17 +109,61 @@ public class createAccount extends AppCompatActivity {
 
                 if(task.isSuccessful()){
 
-                    mRegProcess.dismiss();
-                    Intent i = new Intent(createAccount.this,DashboardActivity.class);
-                    startActivity(i);
-                    finish();
+                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if(current_user != null)
+                    {
+                        String uid = current_user.getUid();
+
+                        mDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+
+                        HashMap<String,String> userMap = new HashMap<String, String>();
+                        userMap.put("member",mUserName);
+                        userMap.put("status","Hi! Im on GroupEasy");
+                        userMap.put("image","Default");
+                        userMap.put("favs","0");
+                        userMap.put("polls","0");
+                        userMap.put("rosters","0");
+                        userMap.put("lists","0");
+
+                        userMap.put("thumb_image","Default");
+
+                        mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if(task.isSuccessful()){
+
+                                    mRegProcess.dismiss();
+                                    Intent i = new Intent(createAccount.this,DashboardActivity.class);
+                                    startActivity(i);
+                                    finish();
+
+                                }
+                                else{
+                                    Toast.makeText(createAccount.this,
+                                            "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                            }
+                        });
+                    }
+                    else
+                        {
+                        mRegProcess.hide();
+
+                        Toast.makeText(createAccount.this,
+                                "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
+                                .show();
+                    }
                 }
-
-                else {
-
+                else
+                    {
                     mRegProcess.hide();
 
-                    Toast.makeText(createAccount.this, "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG).show();
+                    Toast.makeText(createAccount.this,
+                            "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
+                            .show();
                 }
 
             }
