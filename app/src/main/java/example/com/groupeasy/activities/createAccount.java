@@ -1,13 +1,17 @@
 package example.com.groupeasy.activities;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,11 +31,31 @@ public class createAccount extends AppCompatActivity {
     private Button mCreateBtn;
     private FirebaseAuth mAuth;
 
+    private ProgressDialog mRegProcess;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        System.out.println("Inside opOptionsItemSelected");
+        switch (item.getItemId()) {
+
+
+
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        mAuth = FirebaseAuth.getInstance();
 
         mToolBar = (Toolbar) findViewById(R.id.create_acc_tool);
         setSupportActionBar(mToolBar);
@@ -40,6 +64,7 @@ public class createAccount extends AppCompatActivity {
 
         initElementsWithIds();
         initElementsWithListeners();
+
 
 
     }
@@ -56,6 +81,13 @@ public class createAccount extends AppCompatActivity {
 
                 if( !TextUtils.isEmpty(mUserEmail) || !TextUtils.isEmpty(mUserName) || !TextUtils.isEmpty(mUserPass))
                 {
+
+                    mRegProcess = new ProgressDialog(v.getContext());
+                    mRegProcess.setTitle("Registering User");
+                    mRegProcess.setMessage("Please Wait");
+                    mRegProcess.setCanceledOnTouchOutside(false);
+                    mRegProcess.show();
+
                     register_user(mUserEmail,mUserName,mUserPass);
                 }
             }
@@ -70,10 +102,17 @@ public class createAccount extends AppCompatActivity {
 
                 if(task.isSuccessful()){
 
+                    mRegProcess.dismiss();
+                    Intent i = new Intent(createAccount.this,DashboardActivity.class);
+                    startActivity(i);
+                    finish();
                 }
 
                 else {
 
+                    mRegProcess.hide();
+
+                    Toast.makeText(createAccount.this, "Please enter a Name for the event", Toast.LENGTH_LONG).show();
                 }
 
             }
