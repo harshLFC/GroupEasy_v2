@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -75,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, createAccount.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -84,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context,LoginGoogle.class);
                 startActivity(intent);
-                finish();
             }
         });
 

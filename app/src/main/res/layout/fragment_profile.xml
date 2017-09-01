@@ -4,7 +4,14 @@
     android:padding="@dimen/activity_horizontal_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +45,8 @@
         android:src="@drawable/ic_profile"
         android:background="@drawable/oval_group_shape"
         android:layout_gravity="center"/>
+
+
 
     <LinearLayout
         android:id="@+id/polls"
@@ -137,7 +146,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/log_out"
+        android:id="@+id/help"
         android:gravity="center|left"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/rounded_corners_shape"
@@ -162,4 +171,6 @@
             android:layout_height="36dp"
             android:layout_width="36dp"/>
     </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

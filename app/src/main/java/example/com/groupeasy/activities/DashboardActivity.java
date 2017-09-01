@@ -3,13 +3,13 @@ package example.com.groupeasy.activities;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
@@ -105,9 +105,25 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
          super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.main2,menu);
+        getMenuInflater().inflate(R.menu.activity_main2_drawer,menu);
 
     return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        int id = item.getItemId();
+
+        if(id == R.id.settings){
+            Toast.makeText(this, "Settings clicked", Toast.LENGTH_LONG).show();
+        }
+        else if(id == R.id.help){
+            Toast.makeText(this, "Log ot clicked", Toast.LENGTH_LONG).show();
+        }
+
+        return true;
     }
 }
 

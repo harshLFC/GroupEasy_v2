@@ -13,15 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.LoginActivity;
-import example.com.groupeasy.activities.LoginGoogle;
 
 
 public class ProfileFragment extends Fragment {
@@ -144,7 +141,7 @@ public class ProfileFragment extends Fragment {
 
         profile_pic = (ImageView) view.findViewById(R.id.displayPic);
 
-        logOut = (LinearLayout) view.findViewById(R.id.log_out);
+        logOut = (LinearLayout) view.findViewById(R.id.help);
         polls = (LinearLayout) view.findViewById(R.id.polls);
         lists = (LinearLayout) view.findViewById(R.id.lists);
         rosters = (LinearLayout) view.findViewById(R.id.rosters);
