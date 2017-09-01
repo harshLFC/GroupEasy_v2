@@ -16,22 +16,28 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.LoginActivity;
 
 
 public class ProfileFragment extends Fragment {
 
-    TextView user_name;
+    private TextView user_name, user_status;
     TextView log_in_out;
-    ImageView profile_pic;
+    private CircleImageView profile_pic;
     LinearLayout logOut, polls, lists, rosters, favourites;
-    private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
-    private GoogleApiClient mGoogleApiClient;
 
-    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference mUserDatabase;
+    private FirebaseUser mCurrentUser;
+    private FirebaseAuth mAuth;
+    private GoogleApiClient mGoogleApiClient;
 
     @Nullable
     @Override
@@ -42,20 +48,39 @@ public class ProfileFragment extends Fragment {
         initElementWIthIds(view);
         initElementWIthListeners();
 
-        mAuth = FirebaseAuth.getInstance();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+//code for pulling data from server and displaying details on screen
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String current_uid = mCurrentUser.getUid();
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(current_uid);
+        mUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
+                    String name = dataSnapshot.child("member").getValue().toString();
+                    String image = dataSnapshot.child("image").getValue().toString();
+                    String status = dataSnapshot.child("status").getValue().toString();
+                    String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
+
+                    user_name.setText(name);
+                    user_status.setText(status);
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //handle errors here
+            }
+        });
 
 //check if user is Logged in and do the needful
-        if (mUser == null){
+        if (mCurrentUser == null){
             loggedOut();
-
         }
         else{
             loggedIn();
-
         }
-
-
         return  view;
     }
 
@@ -65,11 +90,29 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loggedIn() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = current_user.getUid();
-        user_name.setText(uid);
+//        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        final String uid = mCurrentUser.getUid();
+//        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+//
+//
+//        mUserDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//                //handle errors here
+//
+//            }
+//        });
 
-            Toast.makeText(getContext(), "User is "+user,Toast.LENGTH_LONG).show();
+
+
+
     }
 
     private void initElementWIthListeners() {
@@ -86,7 +129,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 //different outcomes for user log in status
-                if(mUser == null){
+                if(mCurrentUser == null){
                     Intent intent = new Intent(v.getContext(),LoginActivity.class);
                     startActivity(intent);
                 }
@@ -137,9 +180,10 @@ public class ProfileFragment extends Fragment {
 
     private void initElementWIthIds(View view) {
         user_name = (TextView) view.findViewById(R.id.user_name);
+        user_status = (TextView) view.findViewById(R.id.user_status);
         log_in_out = (TextView) view.findViewById(R.id.log_in_out);
 
-        profile_pic = (ImageView) view.findViewById(R.id.displayPic);
+        profile_pic = (CircleImageView) view.findViewById(R.id.displayPic);
 
         logOut = (LinearLayout) view.findViewById(R.id.help);
         polls = (LinearLayout) view.findViewById(R.id.polls);
