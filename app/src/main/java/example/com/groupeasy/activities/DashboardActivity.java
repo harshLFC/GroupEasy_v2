@@ -41,10 +41,11 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         this.context = DashboardActivity.this;
         initElementsWithIds();
-       // initToolbar();
+        initToolbar();
         setupViewPager(viewPager);
         setupTabIcons();
         initElementsWithListeners();
+
 
 
 
@@ -63,14 +64,11 @@ public class DashboardActivity extends AppCompatActivity {
         myTool.setTitle(AppConstants.DASHBOARD_ACTIVITY_TITLE);
         myTool.setTitleTextColor(ContextCompat.getColor(context,R.color.white));
         setSupportActionBar(myTool);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     /** this method is used to initialize the widgets and fields and toolbar*/
     private void initElementsWithIds() {
-        myTool = (Toolbar) findViewById(R.id.toolbar);
+        myTool = (Toolbar) findViewById(R.id.mToolBar);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
     }
