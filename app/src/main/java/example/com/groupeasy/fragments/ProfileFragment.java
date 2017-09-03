@@ -49,12 +49,13 @@ public class ProfileFragment extends Fragment {
         initElementWIthIds(view);
         initElementWIthListeners();
 
-
 //code for pulling data from server and displaying details on screen
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
+
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(current_uid);
         mUserDatabase.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
@@ -65,9 +66,7 @@ public class ProfileFragment extends Fragment {
 
                     user_name.setText(name);
                     user_status.setText(status);
-
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -110,10 +109,6 @@ public class ProfileFragment extends Fragment {
 //
 //            }
 //        });
-
-
-
-
     }
 
     private void initElementWIthListeners() {
