@@ -21,7 +21,14 @@
         android:fontFamily="sans-serif"
         android:id="@+id/textView7" />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in for existing users:"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:textSize="@dimen/header_text_size"
@@ -41,7 +48,7 @@
         android:textSize="@dimen/header_text_size"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@drawable/all_btn_rect_shape_red"
+        android:background="@drawable/all_btn_rect_shape_other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
@@ -64,7 +71,7 @@
         android:textSize="@dimen/header_text_size"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@drawable/all_btn_rect_shape_other"
+        android:background="@drawable/all_btn_rect_shape_red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"

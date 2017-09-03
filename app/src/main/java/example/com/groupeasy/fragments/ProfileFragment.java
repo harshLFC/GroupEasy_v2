@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.LoginActivity;
+import example.com.groupeasy.editProfileActivity;
 
 
 public class ProfileFragment extends Fragment {
@@ -32,7 +33,7 @@ public class ProfileFragment extends Fragment {
     private TextView user_name, user_status;
     TextView log_in_out;
     private CircleImageView profile_pic;
-    LinearLayout logOut, polls, lists, rosters, favourites;
+    LinearLayout logOut, polls, lists, rosters, favourites,userProfile;
 
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
@@ -117,14 +118,7 @@ public class ProfileFragment extends Fragment {
 
     private void initElementWIthListeners() {
 
-        profile_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Will open up gallery", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        logOut.setOnClickListener(new View.OnClickListener() {
+         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -176,6 +170,16 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(v.getContext(), "Will open up Favourites", Toast.LENGTH_SHORT).show();
             }
         });
+
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(),edit);
+                Intent intent = new Intent(v.getContext(), editProfileActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void initElementWIthIds(View view) {
@@ -190,5 +194,6 @@ public class ProfileFragment extends Fragment {
         lists = (LinearLayout) view.findViewById(R.id.lists);
         rosters = (LinearLayout) view.findViewById(R.id.rosters);
         favourites = (LinearLayout) view.findViewById(R.id.fav_events);
+        userProfile = (LinearLayout) view.findViewById(R.id.user_profile);
     }
 }
