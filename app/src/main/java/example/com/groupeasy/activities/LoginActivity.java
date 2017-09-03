@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-
     private void initElementsWithListeners() {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,15 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                 String email = userEmail.getEditText().getText().toString();
                 String password = userPassword.getEditText().getText().toString();
 
-
                 if(!TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)){
-
 
                     mRegProgress.setTitle("Checking your credentials");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.setMessage("Please wait");
                     mRegProgress.show();
-
 
                     loginUser(email,password);
                 }
@@ -108,13 +102,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Please enter email and password",Toast.LENGTH_LONG).show();
                     //code for if empty
                 }
-
             }
         });
-
     }
-
-
 
     private void initElementsWithIds()
     {
@@ -123,13 +113,9 @@ public class LoginActivity extends AppCompatActivity {
         googleSignIn = (TextView) findViewById(R.id.sign_in_with_google);
         register = (Button) findViewById(R.id.Register);
 
-
         userEmail = (TextInputLayout) findViewById(R.id.user_email);
         userPassword = (TextInputLayout) findViewById(R.id.user_password);
-
-
     }
-
 
     private void loginUser(String email, String password) {
 
@@ -153,11 +139,5 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
-
-
 }

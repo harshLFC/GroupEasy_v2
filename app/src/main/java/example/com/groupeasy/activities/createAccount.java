@@ -44,18 +44,12 @@ public class createAccount extends AppCompatActivity {
 
         System.out.println("Inside opOptionsItemSelected");
         switch (item.getItemId()) {
-
-
-
-
             case android.R.id.home:
                 onBackPressed();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,9 +65,6 @@ public class createAccount extends AppCompatActivity {
 
         initElementsWithIds();
         initElementsWithListeners();
-
-
-
     }
 
     private void initElementsWithListeners() {
@@ -88,7 +79,6 @@ public class createAccount extends AppCompatActivity {
 
                 if( !TextUtils.isEmpty(mUserEmail) || !TextUtils.isEmpty(mUserName) || !TextUtils.isEmpty(mUserPass))
                 {
-
                     mRegProcess = new ProgressDialog(v.getContext());
                     mRegProcess.setTitle("Registering User");
                     mRegProcess.setMessage("Please Wait");
@@ -108,7 +98,6 @@ public class createAccount extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-
                     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if(current_user != null)
@@ -125,7 +114,6 @@ public class createAccount extends AppCompatActivity {
                         userMap.put("polls","0");
                         userMap.put("rosters","0");
                         userMap.put("lists","0");
-
                         userMap.put("thumb_image","Default");
 
                         mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -133,12 +121,10 @@ public class createAccount extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if(task.isSuccessful()){
-
                                     mRegProcess.dismiss();
                                     Intent i = new Intent(createAccount.this,DashboardActivity.class);
                                     startActivity(i);
                                     finish();
-
                                 }
                                 else{
                                     Toast.makeText(createAccount.this,
@@ -165,10 +151,8 @@ public class createAccount extends AppCompatActivity {
                             "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
                             .show();
                 }
-
             }
         });
-
     }
 
     private void initElementsWithIds() {
@@ -178,6 +162,4 @@ public class createAccount extends AppCompatActivity {
 
         mCreateBtn = (Button) findViewById(R.id.btn_create_acc);
     }
-
-
 }

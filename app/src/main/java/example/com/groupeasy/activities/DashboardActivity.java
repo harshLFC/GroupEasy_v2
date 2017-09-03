@@ -45,10 +45,6 @@ public class DashboardActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         setupTabIcons();
         initElementsWithListeners();
-
-
-
-
     }
     @Override
     public void onBackPressed() {
@@ -97,8 +93,6 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
     }
 
     @Override
@@ -122,7 +116,6 @@ public class DashboardActivity extends AppCompatActivity {
         else if(id == R.id.help){
             Toast.makeText(this, "Log ot clicked", Toast.LENGTH_LONG).show();
         }
-
         return true;
     }
 }
