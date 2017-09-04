@@ -3,6 +3,7 @@ package example.com.groupeasy;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +16,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.activities.DashboardActivity;
@@ -36,6 +44,7 @@ public class editProfileActivity extends AppCompatActivity {
 
     private DatabaseReference mStatusDatabase;
     private FirebaseUser mCurrentUser;
+    private StorageReference mStorageRef;
 
     private static final int GALLERY_PICK = 1;
 
@@ -63,6 +72,7 @@ public class editProfileActivity extends AppCompatActivity {
         String uid = mCurrentUser.getUid();
 
         mStatusDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
     private void initElementsWithListeners() {
@@ -146,7 +156,9 @@ public class editProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 CropImage.activity()
+
                         .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1,1)
                         .start(editProfileActivity.this);
 
                 //trying for button effect
@@ -195,5 +207,46 @@ public class editProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+
+                Uri resultUri = result.getUri();
+                String image_uri = resultUri.toString();
+                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
+
+
+                Uri file = Uri.fromFile(new File(image_uri));
+                StorageReference filePath = mStorageRef.child("profile_images").child("profile_image.jpg");
+
+                filePath.putFile(resultUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+//                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                Toast.makeText(editProfileActivity.this, "Success",Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                                Toast.makeText(editProfileActivity.this, "Error",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+
+                Exception error = result.getError();
+
+            }
+        }
     }
 }
