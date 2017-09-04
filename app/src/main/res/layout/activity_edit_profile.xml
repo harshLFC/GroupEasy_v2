@@ -80,7 +80,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Hi! Im using GroupEasy" />
+            android:hint="Status" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
