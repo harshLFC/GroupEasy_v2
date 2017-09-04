@@ -170,7 +170,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(v.getContext(),edit);
+
+                String user_value_name = user_name.getText().toString();
+                String user_value_status = user_status.getText().toString();
+
                 Intent intent = new Intent(v.getContext(), editProfileActivity.class);
+
+                intent.putExtra("user_value_name",user_value_name);
+                intent.putExtra("user_value_status",user_value_status);
+
                 startActivity(intent);
 
             }

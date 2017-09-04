@@ -43,19 +43,20 @@ public class editProfileActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Edit your Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //get username and status from previous intent
+        String user_value_name = getIntent().getStringExtra("user_value_name");
+        String user_value_status = getIntent().getStringExtra("user_value_status");
+
         initElementsWithIds();
         initElementsWithListeners();
+
+        userName.getEditText().setText(user_value_name);
+        userStatus.getEditText().setText(user_value_status);
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = mCurrentUser.getUid();
 
         mStatusDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
-
-        String currentStatus = mStatusDatabase.child("status").toString();
-        String currentName = mStatusDatabase.child("member").toString();
-
-        userStatus.getEditText().setText(currentStatus);
-        userName.getEditText().setText(currentName);
     }
 
     private void initElementsWithListeners() {
