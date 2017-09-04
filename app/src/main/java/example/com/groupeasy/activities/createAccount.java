@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -77,7 +80,7 @@ public class createAccount extends AppCompatActivity {
                 String mUserEmail = email.getEditText().getText().toString();
                 String mUserPass = password.getEditText().getText().toString();
 
-                if( !TextUtils.isEmpty(mUserEmail) || !TextUtils.isEmpty(mUserName) || !TextUtils.isEmpty(mUserPass))
+                if( !TextUtils.isEmpty(mUserEmail) && !TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mUserPass))
                 {
                     mRegProcess = new ProgressDialog(v.getContext());
                     mRegProcess.setTitle("Registering User");
@@ -86,6 +89,11 @@ public class createAccount extends AppCompatActivity {
                     mRegProcess.show();
 
                     register_user(mUserEmail,mUserName,mUserPass);
+                }
+                else {
+                    Toast.makeText(createAccount.this,
+                            "All inputs are required, please check", Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         });
@@ -134,22 +142,40 @@ public class createAccount extends AppCompatActivity {
                             }
                         });
                     }
-                    else
-                        {
-                        mRegProcess.hide();
-
-                        Toast.makeText(createAccount.this,
-                                "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
-                                .show();
-                    }
+//                    else
+//                        {
+//                        mRegProcess.hide();
+//
+//                        Toast.makeText(createAccount.this,
+//                                "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
+//                                .show();
+//                    }
                 }
                 else
                     {
                     mRegProcess.hide();
 
-                    Toast.makeText(createAccount.this,
-                            "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
-                            .show();
+                        String error;
+
+                        try {
+                            throw task.getException();
+                        }
+                        catch (FirebaseAuthWeakPasswordException e){
+                            error = "Password is weak";
+                        } catch (FirebaseAuthInvalidUserException e) {
+                            error = "Invalid Email!";
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            error = "Please check if you already have an account, or the entered details are right";
+                        } catch (Exception e) {
+                            error = "Unknown error!";
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(createAccount.this, error, Toast.LENGTH_LONG).show();
+
+//                    Toast.makeText(createAccount.this,
+//                            "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
+//                            .show();
                 }
             }
         });

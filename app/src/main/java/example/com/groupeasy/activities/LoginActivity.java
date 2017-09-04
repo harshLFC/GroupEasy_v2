@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 import example.com.groupeasy.R;
 
@@ -133,9 +136,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 else{
+
                     mRegProgress.hide();
 
-                    Toast.makeText(LoginActivity.this, "You have some error please try again", Toast.LENGTH_LONG).show();
+                   Toast.makeText(LoginActivity.this, "You have some error please try again", Toast.LENGTH_LONG).show();
                 }
             }
         });

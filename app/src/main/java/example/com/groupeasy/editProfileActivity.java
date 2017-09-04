@@ -220,9 +220,9 @@ public class editProfileActivity extends AppCompatActivity {
                 String image_uri = resultUri.toString();
                 Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
-
+                String uid = mCurrentUser.getUid();
                 Uri file = Uri.fromFile(new File(image_uri));
-                StorageReference filePath = mStorageRef.child("profile_images").child("profile_image.jpg");
+                StorageReference filePath = mStorageRef.child("profile_images").child(uid+".jpg");
 
                 filePath.putFile(resultUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
