@@ -44,10 +44,6 @@ public class CreateNewListActivity extends AppCompatActivity {
     private CrystalRangeSeekbar participantRangeBar;
     private ImageView ivClose;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,15 +127,10 @@ public class CreateNewListActivity extends AppCompatActivity {
         finish();
     }
 
-
    public void dateFrom(View v) {
-
         // code for opening calender
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Date Picker");
-
-
-
     }
 
     private void updateDisplay() {
@@ -149,34 +140,26 @@ public class CreateNewListActivity extends AppCompatActivity {
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         Toast.makeText(this, year+""+month+""+day,Toast.LENGTH_LONG).show();
-
-
     }
 
     public void dateTo(View view) {
-
         // code for opening calender
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Date Picker");
-
     }
 
     public void timeFrom(View view) {
-
         // code for opening clock
 //this code did not work -       newFragment.show(getSupportFragmentManager(), "timePicker");
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(),"Time Picker");
-
     }
 
     public void timeTo(View view) {
-
         // code for opening clock
         DialogFragment newFragment = new TimePickerFragment();
 //this code did not work -       newFragment.show(getSupportFragmentManager(), "timePicker");
         newFragment.show(getFragmentManager(),"Time Picker");
-
     }
 
 }

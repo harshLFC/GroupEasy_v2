@@ -23,7 +23,7 @@ public class CreatePollActivity extends AppCompatActivity {
 
     private final static String TAG = CreatePollActivity.class.getSimpleName();
     private Context context;
-    private Button          btnAddOptions;
+    private Button  btnAddOptions;
     private LinearLayout layoutForOptions;
     private ImageView ivClose;
 

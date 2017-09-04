@@ -9,6 +9,7 @@ package example.com.groupeasy.activities;
                import android.support.annotation.NonNull;
                import android.support.v7.app.ActionBar;
                import android.support.v7.app.AppCompatActivity;
+               import android.support.v7.widget.Toolbar;
                import android.util.Log;
                import android.view.View;
                import android.view.Window;
@@ -60,6 +61,7 @@ public class LoginGoogle extends AppCompatActivity implements
     private TextView eMail;
     private ImageView userPhoto;
     private String name;
+    private Toolbar mToolBar;
 
 
     @Override
@@ -75,10 +77,15 @@ public class LoginGoogle extends AppCompatActivity implements
         eMail = (TextView) findViewById(R.id.eMail);
         userPhoto = (ImageView) findViewById(R.id.userPhoto);
 
+        mToolBar = (Toolbar) findViewById(R.id.create_acc_tool);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setTitle("Create An Account");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.go_to_chat).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);
+//        findViewById(R.id.go_to_chat).setOnClickListener(this);
+//        findViewById(R.id.disconnect_button).setOnClickListener(this);
 
         // [START config_signin]
         // Configure Google Sign In
@@ -224,28 +231,6 @@ public class LoginGoogle extends AppCompatActivity implements
     }
     // [END signin]
 
-    private void goToChat()
-    {
-        if (name == null) {
-            request_user_name();
-        }
-        else {
-            Intent i = new Intent(LoginGoogle.this, DashboardActivity.class);
-            startActivity(i);
-        }
-//        // Firebase sign out
-//        mAuth.signOut();
-//
-//        // Google sign out
-//        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-//                new ResultCallback<Status>() {
-//                    @Override
-//                    public void onResult(@NonNull Status status) {
-//                        updateUI(null);
-//                    }
-//                });
-    }
-
     private void request_user_name() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter User Name");
@@ -327,20 +312,18 @@ public class LoginGoogle extends AppCompatActivity implements
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.sign_in_button)
-        {
+        if (i == R.id.sign_in_button) {
             signIn();
-        }
-        else if (i == R.id.go_to_chat)
-        {
-            goToChat();
-        }
-        else if (i == R.id.disconnect_button)
-        {
-            revokeAccess();
+//        }
+//        else if (i == R.id.go_to_chat)
+//        {
+//        }
+//        else if (i == R.id.disconnect_button)
+//        {
+//            revokeAccess();
+//        }
         }
     }
 

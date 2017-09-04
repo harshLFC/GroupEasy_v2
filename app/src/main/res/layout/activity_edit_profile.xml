@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.com.groupeasy.editProfileActivity">
+
+
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/myToolBar"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
+    </include>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/ic_profile"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="44dp"
+        app:layout_constraintTop_toBottomOf="@+id/myToolBar"
+        app:layout_constraintHorizontal_bias="0.502"
+        android:background="@drawable/oval_group_shape"
+        android:id="@+id/circleImageView"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/edit_dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_camera_black"
+        android:layout_marginTop="110dp"
+        app:layout_constraintTop_toTopOf="@+id/circleImageView"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/circleImageView"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/circleImageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:background="@drawable/oval_group_shape"
+        app:civ_fill_color="@color/colorPrimary"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView"
+        android:id="@+id/user_name"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="UserName" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        app:layout_constraintTop_toBottomOf="@+id/user_name"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/user_status"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hi! Im using GroupEasy" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/save_changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        android:layout_marginTop="44dp"
+        app:layout_constraintTop_toBottomOf="@+id/user_status"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        android:background="@drawable/all_btn_rect_shape_red"
+        android:textColor="@color/white"
+        android:padding="10dp"/>
+
+
+</android.support.constraint.ConstraintLayout>

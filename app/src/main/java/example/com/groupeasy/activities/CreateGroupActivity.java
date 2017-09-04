@@ -40,8 +40,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
         initElementsWithIds();
         initElementsWithListeners();
-
-
     }
 
     private void initElementsWithListeners() {
