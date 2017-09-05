@@ -69,7 +69,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             //these views should be in your R.layout.groupview
             ///ex. txtGroupName = itemView.findViewById(R.id.txtname)
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            textView = (TextView) itemView.findViewById(R.id.textView);
+            textView = (TextView) itemView.findViewById(R.id.message_text);
             textView2 = (TextView) itemView.findViewById(R.id.textView2);
 
             textView.setOnClickListener(this);
