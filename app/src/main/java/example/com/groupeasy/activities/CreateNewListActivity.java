@@ -1,7 +1,9 @@
 package example.com.groupeasy.activities;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -40,6 +42,7 @@ public class CreateNewListActivity extends AppCompatActivity {
     private TextView TvFrom;
     private TextView TvTo;
     private TextView saveBtn;
+    private TextView whatThisMeans;
 
     private CrystalRangeSeekbar participantRangeBar;
     private ImageView ivClose;
@@ -101,8 +104,28 @@ public class CreateNewListActivity extends AppCompatActivity {
                 }
                 //push to firebase
                 else {
-                    Toast.makeText(context, EventName,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, EventName,Toast.LENGTH_SHORT).show();
+
+
+
                 }
+            }
+        });
+
+        whatThisMeans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewListActivity.this);
+                builder
+                        .setMessage(R.string.Lorem_Ipsum_large)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }
@@ -117,6 +140,7 @@ public class CreateNewListActivity extends AppCompatActivity {
         TvFrom = (TextView) findViewById(R.id.tv_from_date);
         TvTo = (TextView) findViewById(R.id.tv_to_date);
         saveBtn = (TextView) findViewById(R.id.saveDetails);
+        whatThisMeans = (TextView) findViewById(R.id.see_what_this_means);
 
     }
 

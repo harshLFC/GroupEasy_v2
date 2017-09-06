@@ -55,7 +55,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
         initElementsWithIds();
         initElementsWithListeners();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
     private void initElementsWithListeners() {

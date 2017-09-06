@@ -158,6 +158,18 @@
                     </LinearLayout>
 
             </LinearLayout>
+            <CheckBox
+                android:textSize="@dimen/header_text_size"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_margin="8dp"
+                android:text="One day event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/calender_and_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <LinearLayout
                 android:layout_margin="@dimen/activity_horizontal_margin"
@@ -346,6 +358,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+                </LinearLayout>
 
                         <LinearLayout
                 android:layout_width="match_parent"
@@ -353,11 +366,6 @@
                 android:orientation="vertical"
                 android:paddingTop="10dp">
 
-                <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                    android:text="One day event"/>
                 <CheckBox
                     android:textSize="@dimen/header_text_size"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -366,14 +374,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/see_what_this_means"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="see what this means"
                     android:paddingLeft="190dp"
-                    android:onClick=""/>
+                    />
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

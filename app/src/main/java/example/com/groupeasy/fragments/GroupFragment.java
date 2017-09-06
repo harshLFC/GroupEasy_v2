@@ -166,6 +166,7 @@ public class GroupFragment extends Fragment {
     private void createListView()
     {
 //        mLstGroups = new ArrayList<>();
+        //code to keep firebase database offline functionality synced
             groupRef.keepSynced(true);
 
             groupRef.addChildEventListener(new ChildEventListener() {
@@ -176,8 +177,6 @@ public class GroupFragment extends Fragment {
                     mLstGroups.add(new Group(map.get("name")));
 //                    mLstGroup.add(new Group(map.get("icon")));
                     mGroupAdapter.notifyItemInserted(mLstGroups.size()-1);
-
-
                 }
 
                 @Override
