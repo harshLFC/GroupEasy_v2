@@ -9,11 +9,13 @@ import java.util.Date;
 public class chatMessage {
 
     private String content;
+    private String messageUser;
     private String messageUserId;
     private long time;
 
     public chatMessage(String content, String messageUserId, String user) {
         this.content = content;
+        this.messageUser = user;
         time = new Date().getTime();
         this.messageUserId = messageUserId;
     }
@@ -36,6 +38,14 @@ public class chatMessage {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getMessageUser() {
+        return messageUser;
+    }
+
+    public void setMessageUser(String messageUser) {
+        this.messageUser = messageUser;
     }
 
     public long getTime() {
