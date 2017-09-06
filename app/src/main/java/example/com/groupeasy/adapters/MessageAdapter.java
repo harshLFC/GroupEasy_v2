@@ -51,30 +51,34 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
 
     }
 
-    @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
-        chatMessage chat_message = getItem(position);
-        if (chat_message.getMessageUserId().equals(activity.getLoggedInUserName()))
-            view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
-        else
-            view = activity.getLayoutInflater().inflate(R.layout.item_in_message, viewGroup, false);
-
-        //generating view
-        populateView(view, chat_message, position);
-
-        return view;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        // return the total number of view types. this value should never change
-        // at runtime
-        return 2;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        // return a value between 0 and (getViewTypeCount - 1)
-        return position % 2;
-    }
+//    @Override
+//    public View getView(int position, View view, ViewGroup viewGroup) {
+//        chatMessage chat_message = getItem(position);
+//
+//        if (chat_message.getMessageUserId().equals(activity.getLoggedInUserName()))
+//
+//            view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
+//
+//        else
+//
+//            view = activity.getLayoutInflater().inflate(R.layout.item_in_message, viewGroup, false);
+//
+//        //generating view
+//        populateView(view, chat_message, position);
+//
+//        return view;
+//    }
+//
+//    @Override
+//    public int getViewTypeCount() {
+//        // return the total number of view types. this value should never change
+//        // at runtime
+//        return 2;
+//    }
+//
+//    @Override
+//    public int getItemViewType(int position) {
+//        // return a value between 0 and (getViewTypeCount - 1)
+//        return position % 2;
+//    }
 }

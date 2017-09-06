@@ -9,13 +9,13 @@ import java.util.Date;
 public class chatMessage {
 
     private String content;
-    private String messageUser;
+    private String group;
     private String messageUserId;
     private long time;
 
-    public chatMessage(String content, String messageUserId, String user) {
+    public chatMessage(String content, String messageUserId, String group) {
         this.content = content;
-        this.messageUser = user;
+        this.group = group;
         time = new Date().getTime();
         this.messageUserId = messageUserId;
     }
@@ -40,12 +40,12 @@ public class chatMessage {
         this.content = content;
     }
 
-    public String getMessageUser() {
-        return messageUser;
+    public String getGroup() {
+        return group;
     }
 
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public long getTime() {

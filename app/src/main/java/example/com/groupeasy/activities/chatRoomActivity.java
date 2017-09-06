@@ -15,8 +15,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.MessageAdapter;
@@ -30,7 +36,9 @@ public class chatRoomActivity extends AppCompatActivity {
     private ListView listView;
     private ImageView sendButton;
     private EditText messageContent;
-    private String temp_key;
+
+    private DatabaseReference mUserDatabase;
+    private FirebaseUser mCurrentUser;
 
     MessageAdapter adapter;
 
@@ -56,13 +64,21 @@ public class chatRoomActivity extends AppCompatActivity {
         roomName.setVisibility(View.VISIBLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child("");
+
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String current_uid = mCurrentUser.getUid();
+
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(current_uid);
+
        }
 
-    private void initElementsWithListeners() {
+    public void initElementsWithListeners() {
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
 // if entered string is null a tost will prompt
                 if(messageContent.getText().toString().isEmpty()){
@@ -70,16 +86,41 @@ public class chatRoomActivity extends AppCompatActivity {
                 }
 // else the entered string will be pushed to the firebase database reference
                 else {
-//
-                    FirebaseDatabase.getInstance()
-                            .getReference()
-                            .child("Messages")
-                            .push()
-                            .setValue(new chatMessage(messageContent.getText().toString(),
-                                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                    FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                    mUserDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.child("member").getValue().toString();
 
-                    messageContent.setText("");
+                            String key = room_name;
+                            Map<String,Object> value = new HashMap<>();
+                            value.put("content",messageContent.getText().toString());
+                            value.put("name",name);
+                            value.put("group",room_name);
+
+                            FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .child("messages")
+//                                    .child("")
+                                    .push()
+                                    .setValue(new chatMessage(messageContent.getText().toString(),
+                                            name,
+                                            room_name));
+
+                                            /*messageContent.getText().toString(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                            */
+
+                            messageContent.setText("");
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
             }
         });
@@ -94,7 +135,7 @@ public class chatRoomActivity extends AppCompatActivity {
         Log.d("Main", "user id: " + loggedInUserName);
 
          adapter = new MessageAdapter(this, chatMessage.class, R.layout.item_in_message,
-                FirebaseDatabase.getInstance().getReference().child("Messages").child(""));
+                FirebaseDatabase.getInstance().getReference().child("messages").child(""));
         listView.setAdapter(adapter);
 
     }
@@ -112,4 +153,8 @@ public class chatRoomActivity extends AppCompatActivity {
     public String getLoggedInUserName() {
         return loggedInUserName;
     }
+
+
 }
+
+

@@ -54,6 +54,8 @@ public class ProfileFragment extends Fragment {
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
 
+        mAuth = FirebaseAuth.getInstance();
+
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(current_uid);
         mUserDatabase.addValueEventListener(new ValueEventListener() {
 
@@ -130,6 +132,7 @@ public class ProfileFragment extends Fragment {
                 }
                 else    {
                     mAuth.signOut();
+
 //                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
 
                     Intent intent = new Intent(v.getContext(),LoginActivity.class);
