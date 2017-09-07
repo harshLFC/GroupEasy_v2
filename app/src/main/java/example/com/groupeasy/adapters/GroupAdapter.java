@@ -3,6 +3,7 @@ package example.com.groupeasy.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,33 +17,30 @@ import java.util.List;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
+import example.com.groupeasy.pojo.new_groups;
 
 import static example.com.groupeasy.R.id.image_view;
 
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
-
-    private List<Group> mLstGroups;
+    private List<new_groups> mLstGroups;
     private static GroupViewHolder.ClickListener clickListener;
+    Context mContext;
 
     public GroupAdapter(){
 
     }
 
-
     /**add a constructor to the custom adapter to handle data that
      RecyclerView displays.data is in the form of a List of <Group> objects**/
-
-    public GroupAdapter(List<Group> mLstGroups)
+    public GroupAdapter(List<new_groups> mLstGroups)
     {
         this.mLstGroups = mLstGroups;
     }
 
     /**We specify the layout that each item of the RecyclerView should use.This is done by
      inflating the layout using LayoutInflater, passing the output to the constructor of the custom ViewHolder**/
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -54,6 +52,11 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return new GroupViewHolder(rootView);
     }
 
+    /***Override the onBindViewHolder to specify the contents of each item of the RecyclerView.
+    * This method is very similar to the getView method of a ListView's adapter.
+     * Here's where you have to set the values of the name, admin, and photo fields of the RecycleView.
+    **/
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
@@ -61,17 +64,27 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
-        viewHolder.textView.setText(mLstGroups.get(position).getGroupName());
+        viewHolder.textView.setText(mLstGroups.get(position).getName());
+
 //        viewHolder.imageView.setImage
 
-        String image = "try";
+        String image = (mLstGroups.get(position).getImage());
 
         // getting context from view object
 
-        Picasso.with(((GroupViewHolder) holder).imageView.getContext())
+        Picasso.with(mContext)
                 .load(image)
                 .resize(100,100)
                 .into(((GroupViewHolder) holder).imageView);
+
+        viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
+
+        viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
+        System.out.println("image link is"+image);
+
+//        Log.w("groupName",image);
+//        Log.w("groupName",mLstGroups.get(position).getLast_msg());
+//        Log.w("groupName",mLstGroups.get(position).getAdmin());
 
     }
 
@@ -84,6 +97,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //declare views of your custom class here
         //ex. TextView txtGroupName
         private TextView textView;
+        private TextView Admin;
         private ImageView imageView;
         private TextView textLastMessage;
 
@@ -94,6 +108,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ///ex. txtGroupName = itemView.findViewById(R.id.txtname)
             imageView = (ImageView) itemView.findViewById(image_view);
             textView = (TextView) itemView.findViewById(R.id.message_text);
+            Admin = (TextView) itemView.findViewById(R.id.textViewAdmin);
             textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
 
             textView.setOnClickListener(this);

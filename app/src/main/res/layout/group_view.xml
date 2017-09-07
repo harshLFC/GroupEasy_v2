@@ -18,9 +18,13 @@
             android:id="@+id/message_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Family Katta get together"
+            android:text="Family Katta getFamily Katta get together together"
             android:textColor="@color/black"
-            android:textSize="@dimen/group_header_text_size" />
+            android:textSize="@dimen/group_header_text_size"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:ellipsize="end"
+            />
 
         <TextView
         android:id="@+id/text_last_message"

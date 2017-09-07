@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import example.com.groupeasy.adapters.AdapterForAllGroups;
 import example.com.groupeasy.adapters.Group;
 import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.pojo.Groups;
+import example.com.groupeasy.pojo.new_groups;
 
 
 public class GroupFragment extends Fragment {
@@ -42,7 +44,7 @@ public class GroupFragment extends Fragment {
    //Declare list, view, and adapter
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
-    private List<Group> mLstGroups;
+    private List<new_groups> mLstGroups;
 
     private AdapterForAllGroups adapterForAllGroups;
     private FloatingActionMenu floatingActionMenu;
@@ -55,7 +57,7 @@ public class GroupFragment extends Fragment {
     /** Firebase db init*/
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-    final DatabaseReference groupRef = myRef.child("Groups").child("");
+    final DatabaseReference groupRef = myRef.child("groups").child("");
 
     @Nullable
     @Override
@@ -174,28 +176,17 @@ public class GroupFragment extends Fragment {
         //code to keep firebase database offline functionality synced
             groupRef.keepSynced(true);
 
-            groupRef.addChildEventListener(new ChildEventListener() {
+            groupRef.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Map<String, String> map =  (Map<String,String>) dataSnapshot.getValue();
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    mLstGroups.add(new Group(map.get("name")));
-//                    mLstGroup.add(new Group(map.get("icon")));
-                    mGroupAdapter.notifyItemInserted(mLstGroups.size()-1);
-                }
+                    mLstGroups.removeAll(mLstGroups);
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        new_groups newGroups = snapshot.getValue(new_groups.class);
+                        mLstGroups.add(newGroups);
+                    }
+                    mGroupAdapter.notifyDataSetChanged();
 
                 }
 
@@ -205,27 +196,39 @@ public class GroupFragment extends Fragment {
                 }
             });
 
+//            groupRef.addChildEventListener(new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                    Map<String, String> map =  (Map<String,String>) dataSnapshot.getValue();
 //
+//                    mLstGroups.add(new new_groups(map.get("name")));
+////                    mLstGroup.add(new Group(map.get("icon")));
+//                    mGroupAdapter.notifyItemInserted(mLstGroups.size()-1);
+//                }
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                }
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                }
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//                }
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                }});
+
 //        /** fetch your list from the json and add this to adapter*/
 //        mLstGroups = new ArrayList<>();
-//
-//        mLstGroups.add(null);
-//        mLstGroups.add(null);
-//        mLstGroups.add(null);
 //        mLstGroups.add(null);
 //        mLstGroups.add(null);
 //        mLstGroups.add(null);
 //        mLstGroups.add(null);
 //        adapterForAllGroups = new AdapterForAllGroups(getActivity(), mLstGroups);
-
 // mGroupRecyclerView.setAdapter(adapterForAllGroups);
-
     }
-
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 }

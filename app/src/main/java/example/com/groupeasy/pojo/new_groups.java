@@ -6,10 +6,10 @@ package example.com.groupeasy.pojo;
 
 public class new_groups {
 
-    public String admin;
-    public String image;
-    public String last_msg;
-    public String name;
+    private String admin;
+    private String image;
+    private String last_msg;
+    private String name;
 
     public new_groups(){
 
