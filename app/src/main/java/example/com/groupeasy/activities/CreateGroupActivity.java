@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -79,8 +80,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1,1)
                         .start(CreateGroupActivity.this);
-
-
             }
         });
 
@@ -90,11 +89,11 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String groupName = input.getText().toString();
+                final String groupName = input.getText().toString();
                 String members = "";
-                String icon = "";
-                String admin = "this is admin";
-                String last_msg = "";
+                final String icon = "";
+                final String admin = "this is admin";
+                final String last_msg = "";
 
                 if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
 
@@ -104,16 +103,26 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 else {
 
-//                    chatPOJO chatPOJO = new chatPOJO(groupName, members,icon);
+                    mStorageRef = FirebaseStorage.getInstance().getReference();
+                    final StorageReference filePath = mStorageRef.child("group_image").child("try"+".jpg");
+
+                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+//                            String download_url = taskSnapshot.getDownloadUrl().toString();
+
+                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName);
+
+                            groupRef.push().setValue(newGroups);
+
+                            Intent intent = new Intent(context,DashboardActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
 
 
-                    new_groups newGroups = new new_groups(admin,icon,last_msg,groupName);
-
-                    groupRef.push().setValue(newGroups);
-
-                    Intent intent = new Intent(context,DashboardActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
             }
         });
@@ -149,6 +158,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String Groupuid = groupRef.getKey();
                 String groupName = input.getText().toString();
 
+                Picasso.with(CreateGroupActivity.this)
+                        .load(image_uri)
+                        .resize(100,100)
+                        .into(groupDP);
+
                 Uri file = Uri.fromFile(new File(image_uri));
                 mStorageRef = FirebaseStorage.getInstance().getReference();
                 StorageReference filePath = mStorageRef.child("group_image").child("try"+".jpg");
@@ -163,7 +177,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 Toast.makeText(CreateGroupActivity.this, "Success",Toast.LENGTH_LONG).show();
 
                                 final DatabaseReference groupRef = myRef.child("groups").child("");
-
+//
 //                                groupRef.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
 //                                    @Override
 //                                    public void onComplete(@NonNull Task<Void> task) {
