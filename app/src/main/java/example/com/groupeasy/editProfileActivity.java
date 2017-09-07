@@ -37,8 +37,6 @@ import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static example.com.groupeasy.R.id.imageView;
-
 public class editProfileActivity extends AppCompatActivity {
 
     Toolbar mToolBar;

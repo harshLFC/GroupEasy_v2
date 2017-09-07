@@ -78,7 +78,12 @@ public class GroupFragment extends Fragment {
 
         //Initialize the Recycler view and set an adapter to populate the JSON data
         mGroupRecyclerView = (RecyclerView) rootView.findViewById(R.id.groupRecyclerView);
+        mGroupRecyclerView.setHasFixedSize(true);
+
+        // a RecyclerView needs a LayoutManager to manage the positioning of its items
         mGroupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //a RecyclerView needs an adapter to access its data
         mGroupRecyclerView.setAdapter(mGroupAdapter);
         mGroupRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -214,6 +219,13 @@ public class GroupFragment extends Fragment {
 //        adapterForAllGroups = new AdapterForAllGroups(getActivity(), mLstGroups);
 
 // mGroupRecyclerView.setAdapter(adapterForAllGroups);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
 
     }
 }

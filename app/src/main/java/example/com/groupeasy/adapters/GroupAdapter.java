@@ -10,13 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
 
+import static example.com.groupeasy.R.id.image_view;
+
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
 
     private List<Group> mLstGroups;
     private static GroupViewHolder.ClickListener clickListener;
@@ -25,10 +31,17 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
+
+    /**add a constructor to the custom adapter to handle data that
+     RecyclerView displays.data is in the form of a List of <Group> objects**/
+
     public GroupAdapter(List<Group> mLstGroups)
     {
         this.mLstGroups = mLstGroups;
     }
+
+    /**We specify the layout that each item of the RecyclerView should use.This is done by
+     inflating the layout using LayoutInflater, passing the output to the constructor of the custom ViewHolder**/
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -49,6 +62,17 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.textView.setText(mLstGroups.get(position).getGroupName());
+//        viewHolder.imageView.setImage
+
+        String image = "try";
+
+        // getting context from view object
+
+        Picasso.with(((GroupViewHolder) holder).imageView.getContext())
+                .load(image)
+                .resize(100,100)
+                .into(((GroupViewHolder) holder).imageView);
+
     }
 
     @Override
@@ -61,25 +85,25 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //ex. TextView txtGroupName
         private TextView textView;
         private ImageView imageView;
-        private TextView textView2;
+        private TextView textLastMessage;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
             //Initialize your views here
             //these views should be in your R.layout.groupview
             ///ex. txtGroupName = itemView.findViewById(R.id.txtname)
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView = (ImageView) itemView.findViewById(image_view);
             textView = (TextView) itemView.findViewById(R.id.message_text);
-            textView2 = (TextView) itemView.findViewById(R.id.textView2);
+            textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
 
             textView.setOnClickListener(this);
-            textView2.setOnClickListener(this);
+            textLastMessage.setOnClickListener(this);
             imageView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == textView.getId() || v.getId() == textView2.getId()) {
+            if (v.getId() == textView.getId() || v.getId() == textLastMessage.getId()) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
