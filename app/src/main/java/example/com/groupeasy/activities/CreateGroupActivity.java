@@ -105,11 +105,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                 else {
 
 //                    chatPOJO chatPOJO = new chatPOJO(groupName, members,icon);
+
+
                     new_groups newGroups = new new_groups(admin,icon,last_msg,groupName);
 
                     groupRef.push().setValue(newGroups);
-
-//                    groupRef.push().setValue(chatPOJO);
 
                     Intent intent = new Intent(context,DashboardActivity.class);
                     startActivity(intent);
@@ -145,11 +145,13 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String image_uri = resultUri.toString();
                 Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
-//               String uid = mCurrentUser.getUid();
+                final DatabaseReference groupRef = myRef.child("groups").child("");
+                String Groupuid = groupRef.getKey();
                 String groupName = input.getText().toString();
 
                 Uri file = Uri.fromFile(new File(image_uri));
-                StorageReference filePath = mStorageRef.child("group_image").child(groupName+".jpg");
+                mStorageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference filePath = mStorageRef.child("group_image").child("try"+".jpg");
 
                 filePath.putFile(resultUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -160,17 +162,19 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
                                 Toast.makeText(CreateGroupActivity.this, "Success",Toast.LENGTH_LONG).show();
 
-                               /* mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(CreateGroupActivity.this, "Success Uploading image in databse",Toast.LENGTH_LONG).show();
-                                        }
-                                        else{
-                                            Toast.makeText(CreateGroupActivity.this, "There was some error",Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });*/
+                                final DatabaseReference groupRef = myRef.child("groups").child("");
+
+//                                groupRef.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if(task.isSuccessful()){
+//                                            Toast.makeText(CreateGroupActivity.this, "Success Uploading image in databse",Toast.LENGTH_LONG).show();
+//                                        }
+//                                        else{
+//                                            Toast.makeText(CreateGroupActivity.this, "There was some error",Toast.LENGTH_LONG).show();
+//                                        }
+//                                    }
+//                                });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

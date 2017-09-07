@@ -173,6 +173,9 @@ public class GroupFragment extends Fragment {
                         new_groups newGroups = snapshot.getValue(new_groups.class);
                         mLstGroups.add(newGroups);
                     }
+//                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
+//                    mLstGroups.add(newGroups);
+
                     mGroupAdapter.notifyDataSetChanged();
 
                 }

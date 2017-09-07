@@ -74,6 +74,7 @@ public class editProfileActivity extends AppCompatActivity {
         userName.getEditText().setText(user_value_name);
         userStatus.getEditText().setText(user_value_status);
 
+       //code for getting userID
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = mCurrentUser.getUid();
 
@@ -241,7 +242,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
-                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
                 String uid = mCurrentUser.getUid();
                 Uri file = Uri.fromFile(new File(image_uri));
