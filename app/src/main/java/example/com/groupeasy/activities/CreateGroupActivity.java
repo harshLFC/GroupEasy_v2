@@ -32,6 +32,7 @@ import java.io.File;
 import example.com.groupeasy.R;
 import example.com.groupeasy.editProfileActivity;
 import example.com.groupeasy.pojo.chatPOJO;
+import example.com.groupeasy.pojo.new_groups;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
@@ -83,7 +84,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference groupRef = myRef.child("Groups").child("");
+        final DatabaseReference groupRef = myRef.child("groups").child("");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +93,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String groupName = input.getText().toString();
                 String members = "";
                 String icon = "";
+                String admin = "this is admin";
+                String last_msg = "";
 
                 if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
 
@@ -101,9 +104,12 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 else {
 
-                    chatPOJO chatPOJO = new chatPOJO(groupName, members,icon);
+//                    chatPOJO chatPOJO = new chatPOJO(groupName, members,icon);
+                    new_groups newGroups = new new_groups(admin,icon,last_msg,groupName);
 
-                    groupRef.push().setValue(chatPOJO);
+                    groupRef.push().setValue(newGroups);
+
+//                    groupRef.push().setValue(chatPOJO);
 
                     Intent intent = new Intent(context,DashboardActivity.class);
                     startActivity(intent);

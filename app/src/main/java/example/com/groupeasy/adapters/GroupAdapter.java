@@ -65,28 +65,22 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.textView.setText(mLstGroups.get(position).getName());
-
-//        viewHolder.imageView.setImage
-
         String image = (mLstGroups.get(position).getImage());
+        viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
+        viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
 
         // getting context from view object
 
-        Picasso.with(mContext)
-                .load(image)
-                .placeholder(R.drawable.ic_default_groups)
-                .resize(100,100)
-                .into(((GroupViewHolder) holder).imageView);
-
-        viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
-
-        viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
-        System.out.println("image link is"+image);
-
-//        Log.w("groupName",image);
-//        Log.w("groupName",mLstGroups.get(position).getLast_msg());
-//        Log.w("groupName",mLstGroups.get(position).getAdmin());
-
+        if(image.isEmpty()){
+                viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+        }
+        else    {
+            Picasso.with(mContext)
+                    .load(image)
+                    .placeholder(R.drawable.ic_default_groups)
+                    .resize(100,100)
+                    .into(((GroupViewHolder) holder).imageGroupView);
+        }
     }
 
     @Override
@@ -99,7 +93,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //ex. TextView txtGroupName
         private TextView textView;
         private TextView Admin;
-        private ImageView imageView;
+        private ImageView imageGroupView;
         private TextView textLastMessage;
 
         public GroupViewHolder(View itemView) {
@@ -107,14 +101,14 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             //Initialize your views here
             //these views should be in your R.layout.groupview
             ///ex. txtGroupName = itemView.findViewById(R.id.txtname)
-            imageView = (ImageView) itemView.findViewById(image_view);
+            imageGroupView = (ImageView) itemView.findViewById(image_view);
             textView = (TextView) itemView.findViewById(R.id.message_text);
             Admin = (TextView) itemView.findViewById(R.id.textViewAdmin);
             textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
 
             textView.setOnClickListener(this);
             textLastMessage.setOnClickListener(this);
-            imageView.setOnClickListener(this);
+            imageGroupView.setOnClickListener(this);
         }
 
         @Override
@@ -128,7 +122,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 context.startActivity(i);
 
             }
-            else if (v.getId() == imageView.getId()) {
+            else if (v.getId() == imageGroupView.getId()) {
                 Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
