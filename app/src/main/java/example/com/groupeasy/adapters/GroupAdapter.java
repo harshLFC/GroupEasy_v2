@@ -74,6 +74,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Picasso.with(mContext)
                 .load(image)
+                .placeholder(R.drawable.ic_default_groups)
                 .resize(100,100)
                 .into(((GroupViewHolder) holder).imageView);
 

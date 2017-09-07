@@ -73,7 +73,6 @@ public class GroupFragment extends Fragment {
         createListView();
         initElementsWithListeners();
 
-
         mLstGroups = new ArrayList<>();
         // initialize adapter to our List of <group>
         mGroupAdapter = new GroupAdapter(mLstGroups);
@@ -89,23 +88,12 @@ public class GroupFragment extends Fragment {
         mGroupRecyclerView.setAdapter(mGroupAdapter);
         mGroupRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        clickAbleGroups();
-        mGroupRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "this one is also clicked !!!",Toast.LENGTH_LONG).show();
-            }
-        });return rootView;
-
-    }
-
-    private void clickAbleGroups() {
-
-
+            return rootView;
 
     }
 
     private void initElementsWithIds(View view) {
+
         floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floating_action_button);
         backgroundView = view.findViewById(R.id.group_background);
         fabCreatePoll = (FloatingActionButton) view.findViewById(R.id.fab_create_poll);
@@ -172,7 +160,6 @@ public class GroupFragment extends Fragment {
 
     private void createListView()
     {
-//        mLstGroups = new ArrayList<>();
         //code to keep firebase database offline functionality synced
             groupRef.keepSynced(true);
 
@@ -196,6 +183,7 @@ public class GroupFragment extends Fragment {
                 }
             });
 
+//What code i was writing wrong
 //            groupRef.addChildEventListener(new ChildEventListener() {
 //                @Override
 //                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -226,6 +214,7 @@ public class GroupFragment extends Fragment {
 //        mLstGroups.add(null);
 //        adapterForAllGroups = new AdapterForAllGroups(getActivity(), mLstGroups);
 // mGroupRecyclerView.setAdapter(adapterForAllGroups);
+
     }
     @Override
     public void onStart() {
