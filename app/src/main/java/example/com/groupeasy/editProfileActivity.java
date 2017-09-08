@@ -36,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import example.com.groupeasy.activities.DashboardActivity;
 
 public class editProfileActivity extends AppCompatActivity {
 
@@ -128,6 +129,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                                 mDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Updated",Toast.LENGTH_LONG).show();
+
                             }
                             else{
                                 mDialog.hide();
@@ -146,9 +148,6 @@ public class editProfileActivity extends AppCompatActivity {
                                     mDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Updated",Toast.LENGTH_LONG).show();
 
-//                                    Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
-//                                    startActivity(intent);
-//                                    finish();
                                 }
                                 else{
                                     mDialog.hide();
@@ -175,6 +174,10 @@ public class editProfileActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

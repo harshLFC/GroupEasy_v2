@@ -45,6 +45,8 @@ public class DashboardActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         setupTabIcons();
         initElementsWithListeners();
+
+
     }
     @Override
     public void onBackPressed() {
