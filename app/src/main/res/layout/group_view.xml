@@ -15,24 +15,31 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/message_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Family Katta get together"
+            android:text="Family Katta getFamily Katta get together together"
             android:textColor="@color/black"
-            android:textSize="@dimen/group_header_text_size" />
+            android:textSize="@dimen/group_header_text_size"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:ellipsize="end"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginLeft="10dp"
+            />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_below="@+id/textView"
+        android:id="@+id/text_last_message"
+            android:layout_below="@+id/message_text"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="last few messages be like, last few messages be like"
-            android:layout_alignRight="@+id/textViewAdmin"
             android:maxLines="1"
             android:maxLength="45"
             android:ellipsize="end"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="3dp"/>
 
 
@@ -41,11 +48,11 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView2"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_below="@+id/text_last_message"
+            >
     <!---rectangle-->
             <TextView
                 android:id="@+id/rectangle"
@@ -83,29 +90,45 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewAdmin"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Admin: Harsh Phoujdar"
-            android:textSize="12sp"
-            android:layout_below="@+id/imageView"
-            android:layout_toLeftOf="@+id/imageView"
-            android:layout_toRightOf="@id/linearLayout"
-            />
+            android:gravity="end"
+            android:layout_below="@+id/image_view"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Admin:"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textViewAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Harsh Phoujdar"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:maxLength="15"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/imageView"
+            android:id="@+id/image_view"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:src="@drawable/ic_default_groups"
             app:civ_border_width="1.5dp"
             app:civ_border_color="#FF000000"
-            android:padding="1dp"/>
+            android:padding="1dp"
+            android:layout_marginTop="5dp"/>
 
 
         <View

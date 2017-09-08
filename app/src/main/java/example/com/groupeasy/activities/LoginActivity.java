@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 import example.com.groupeasy.R;
 
@@ -89,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = userEmail.getEditText().getText().toString();
                 String password = userPassword.getEditText().getText().toString();
 
-                if(!TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)){
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
 
                     mRegProgress.setTitle("Checking your credentials");
                     mRegProgress.setCanceledOnTouchOutside(false);
@@ -135,7 +138,23 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     mRegProgress.hide();
 
-                    Toast.makeText(LoginActivity.this, "You have some error please try again", Toast.LENGTH_LONG).show();
+                    String error;
+
+                    try {
+                        throw task.getException();
+                    }
+                    catch (FirebaseAuthWeakPasswordException e){
+                        error = "Password is weak";
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        error = "Invalid Email!";
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                        error = "Please check if you do not have an account, or the entered details are right";
+                    } catch (Exception e) {
+                        error = "Unknown error!";
+                        e.printStackTrace();
+                    }
+
+                   Toast.makeText(LoginActivity.this, R.string.check_details_or_resigistered, Toast.LENGTH_LONG).show();
                 }
             }
         });

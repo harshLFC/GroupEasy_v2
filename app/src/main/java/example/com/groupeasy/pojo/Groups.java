@@ -6,10 +6,14 @@ import java.io.Serializable;
 public class Groups implements Serializable {
 
     private String groupName;
-    private String groupCreatedOnDate;
+    private String image;
+    private String lastMsg;
+
+
     private int roasterCount;
     private int listCounter;
     private int pollCount;
+
     private String groupAuthorName;
 
     public Groups(){
@@ -24,12 +28,12 @@ public class Groups implements Serializable {
         this.groupName = groupName;
     }
 
-    public String getGroupCreatedOnDate() {
-        return groupCreatedOnDate;
+    public String getLastMsg() {
+        return lastMsg;
     }
 
-    public void setGroupCreatedOnDate(String groupCreatedOnDate) {
-        this.groupCreatedOnDate = groupCreatedOnDate;
+    public void setLastMsg(String lastMsg) {
+        this.lastMsg = lastMsg;
     }
 
     public int getRoasterCount() {
