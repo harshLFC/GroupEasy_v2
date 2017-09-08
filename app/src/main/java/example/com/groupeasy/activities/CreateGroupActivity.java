@@ -61,8 +61,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-
-
         Context mContext;
 
         initElementsWithIds();
@@ -113,8 +111,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String members = "";
                 final String icon = "";
                 final String admin = uid;
-                final String last_msg = "";
-
+                final String last_msg = "You have no messages in the group";
 
                 if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
 
@@ -179,8 +176,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupDP = (CircleImageView) findViewById(R.id.GroupDPImageView);
         next = (TextView) findViewById(R.id.next);
         input = (EditText) findViewById(R.id.input);
-
-
     }
 
     @Override
@@ -253,7 +248,6 @@ public class CreateGroupActivity extends AppCompatActivity {
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
                 Exception error = result.getError();
-
             }
         }
     }
