@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -45,6 +46,7 @@ public class GroupFragment extends Fragment {
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
     private List<new_groups> mLstGroups;
+    private TextView emptyView;
 
     private AdapterForAllGroups adapterForAllGroups;
     private FloatingActionMenu floatingActionMenu;
@@ -88,7 +90,11 @@ public class GroupFragment extends Fragment {
         mGroupRecyclerView.setAdapter(mGroupAdapter);
         mGroupRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+
+
             return rootView;
+
+
 
     }
 
@@ -100,6 +106,7 @@ public class GroupFragment extends Fragment {
         fabCreateRoaster = (FloatingActionButton) view.findViewById(R.id.fab_create_roaster);
         fabCreateList = (FloatingActionButton) view.findViewById(R.id.fab_create_list);
         fabCreateGroup = (FloatingActionButton) view.findViewById(R.id.fab_create_group);
+        emptyView = (TextView) view.findViewById(R.id.empty_view);
 
     }
 
@@ -177,6 +184,19 @@ public class GroupFragment extends Fragment {
 //                    mLstGroups.add(newGroups);
 
                     mGroupAdapter.notifyDataSetChanged();
+
+                    //COde for displaying something when RecyclerView data is empty
+
+                    if(mLstGroups.isEmpty()){
+                        emptyView.setVisibility(View.VISIBLE);
+                        mGroupRecyclerView.setVisibility(View.GONE);
+                    }
+                    else{
+
+                        emptyView.setVisibility(View.GONE);
+                        mGroupRecyclerView.setVisibility(View.VISIBLE);
+
+                    }
 
                 }
 

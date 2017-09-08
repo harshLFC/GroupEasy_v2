@@ -28,6 +28,9 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static GroupViewHolder.ClickListener clickListener;
     Context mContext;
 
+    private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
+    private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+
     public GroupAdapter(){
 
     }
@@ -44,11 +47,22 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_view, parent, false);
+
+        switch(viewType) {
+            case VIEW_TYPE_EMPTY_LIST_PLACEHOLDER:
+                Toast.makeText(mContext, "Empty",Toast.LENGTH_LONG).show();
+                break;
+            case VIEW_TYPE_OBJECT_VIEW:
+
+                return new GroupViewHolder(rootView);
+        }
+
         // TODO: 30-08-2017 remove comments
         //replace R.layout.group_view with your custom layout
         //this file indicates how your custom view should look like (just remember to set parent tags height to wrap content)
 
-        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_view, parent, false);
+
         return new GroupViewHolder(rootView);
     }
 
@@ -135,6 +149,15 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public interface ClickListener {
             void onItemClick(int position, View v);
             void onItemLongClick(int position, View v);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mLstGroups.isEmpty()) {
+            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
+        } else {
+            return VIEW_TYPE_OBJECT_VIEW;
         }
     }
 }

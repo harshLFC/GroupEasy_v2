@@ -24,6 +24,14 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="You have no groups yet!\nClick on the Button below to get started " />
+
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"

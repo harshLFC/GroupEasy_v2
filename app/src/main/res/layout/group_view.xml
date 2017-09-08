@@ -127,7 +127,8 @@
             android:src="@drawable/ic_default_groups"
             app:civ_border_width="1.5dp"
             app:civ_border_color="#FF000000"
-            android:padding="1dp"/>
+            android:padding="1dp"
+            android:layout_marginTop="5dp"/>
 
 
         <View
