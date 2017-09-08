@@ -1,12 +1,11 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,7 +30,9 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
+import java.util.Random;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.editProfileActivity;
 import example.com.groupeasy.pojo.chatPOJO;
@@ -38,9 +41,11 @@ import example.com.groupeasy.pojo.new_groups;
 public class CreateGroupActivity extends AppCompatActivity {
 
     private Context context;
-    private ImageView ivClose, groupDP;
+    private ImageView ivClose;
+    private CircleImageView groupDP;
     private TextView next;
     private EditText input;
+    String tempChar = random();
 
     //initilize elements
     //database
@@ -55,8 +60,19 @@ public class CreateGroupActivity extends AppCompatActivity {
         context = CreateGroupActivity.this;
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+
+
+        Context mContext;
+
         initElementsWithIds();
         initElementsWithListeners();
+
+//        Picasso.with(getApplicationContext())
+//                .load(R.drawable.ic_default_groups)
+//                .resize(100,100)
+//                .centerCrop()
+//                .into(groupDP);
     }
 
     private void initElementsWithListeners() {
@@ -74,7 +90,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "Will open gallery",Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, "Will open gallery",Toast.LENGTH_LONG).show();
 
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
@@ -90,10 +106,15 @@ public class CreateGroupActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String groupName = input.getText().toString();
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = current_user.getUid();
+                String Groupuid = groupRef.getKey();
+
                 String members = "";
                 final String icon = "";
-                final String admin = "this is admin";
+                final String admin = uid;
                 final String last_msg = "";
+
 
                 if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
 
@@ -101,14 +122,24 @@ public class CreateGroupActivity extends AppCompatActivity {
                 }
 // else the entered string will be pushed to the firebase database reference
 
+                else if(groupDP == null){
+                    Toast.makeText(CreateGroupActivity.this, "group is null put code here",Toast.LENGTH_LONG).show();
+                }
+
                 else {
 
                     mStorageRef = FirebaseStorage.getInstance().getReference();
-                    final StorageReference filePath = mStorageRef.child("group_image").child("try"+".jpg");
+
+                    //This code is not pushing image ??
+
+                    final StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
+
+//                    if(groupDP.equals(R.drawable.ic_default_groups))
 
                     filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+
 
 //                            String download_url = taskSnapshot.getDownloadUrl().toString();
 
@@ -120,9 +151,24 @@ public class CreateGroupActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
+
                     });
 
+                    filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
+                            String defaultImage = "https://firebasestorage.googleapis.com/v0/b/groupiz-4bde3.appspot.com/o/group_image%2Fic_default_groups.png?alt=media&token=645c5e94-6ed7-4fc9-a422-09830206454d";
+
+                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName);
+
+                            groupRef.push().setValue(newGroups);
+
+                            Intent intent = new Intent(context,DashboardActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                 }
             }
         });
@@ -130,9 +176,11 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     private void initElementsWithIds() {
         ivClose = (ImageView) findViewById(R.id.iv_close);
-        groupDP = (ImageView) findViewById(R.id.GroupDPImageView);
+        groupDP = (CircleImageView) findViewById(R.id.GroupDPImageView);
         next = (TextView) findViewById(R.id.next);
         input = (EditText) findViewById(R.id.input);
+
+
     }
 
     @Override
@@ -165,7 +213,9 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 Uri file = Uri.fromFile(new File(image_uri));
                 mStorageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference filePath = mStorageRef.child("group_image").child("try"+".jpg");
+
+                //this code is pushing image
+                StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
 
                 filePath.putFile(resultUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -206,5 +256,17 @@ public class CreateGroupActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public static String random() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(10);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
     }
 }
