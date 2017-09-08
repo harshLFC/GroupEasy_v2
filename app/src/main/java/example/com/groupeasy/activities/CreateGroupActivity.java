@@ -158,7 +158,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
-                            String defaultImage = "https://firebasestorage.googleapis.com/v0/b/groupiz-4bde3.appspot.com/o/group_image%2Fic_default_groups.png?alt=media&token=645c5e94-6ed7-4fc9-a422-09830206454d";
+                            String defaultImage = getString(R.string.default_firebase_groups);
 
                             new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName);
 

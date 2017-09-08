@@ -24,6 +24,8 @@
             android:maxLines="1"
             android:maxLength="30"
             android:ellipsize="end"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginLeft="10dp"
             />
 
         <TextView
@@ -32,11 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="last few messages be like, last few messages be like"
-            android:layout_alignRight="@+id/textViewAdmin"
             android:maxLines="1"
             android:maxLength="45"
             android:ellipsize="end"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="3dp"/>
 
 
@@ -45,11 +48,11 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:orientation="horizontal"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
             android:layout_below="@+id/text_last_message"
-            android:orientation="horizontal">
-
+            >
     <!---rectangle-->
             <TextView
                 android:id="@+id/rectangle"
@@ -87,25 +90,40 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewAdmin"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Admin: Harsh Phoujdar"
-            android:textSize="12sp"
+            android:gravity="end"
             android:layout_below="@+id/image_view"
-            android:layout_toLeftOf="@+id/image_view"
-            android:layout_toRightOf="@id/linearLayout"
-            />
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Admin:"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textViewAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Harsh Phoujdar"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:maxLength="15"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image_view"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:src="@drawable/ic_default_groups"
             app:civ_border_width="1.5dp"
             app:civ_border_color="#FF000000"

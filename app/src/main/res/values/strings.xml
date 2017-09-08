@@ -20,5 +20,6 @@
     <string name="welcome">Welcome:</string>
     <string name="check_details_or_resigistered">Please check if the entered details are right, or you have registered before</string>
     <string name="Lorem_Ipsum_large">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, orci a pulvinar sollicitudin, nunc risus dapibus arcu, id congue massa eros in augue. Aenean at dui id eros ultricies facilisis vitae ac elit. Etiam tempus molestie leo, at feugiat orci vestibulum at. Ut quis porttitor mi. In vulputate odio nec nulla pretium suscipit</string>
+    <string name="default_firebase_groups"><![CDATA[https://firebasestorage.googleapis.com/v0/b/groupiz-4bde3.appspot.com/o/group_image%2Fic_default_groups.png?alt=media&token=645c5e94-6ed7-4fc9-a422-09830206454d]]></string>
 
 </resources>
