@@ -125,6 +125,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             imageGroupView.setOnClickListener(this);
         }
 
+
+
         @Override
         public void onClick(View v) {
             if (v.getId() == textView.getId() || v.getId() == textLastMessage.getId()) {
@@ -141,6 +143,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
         }
+
+
 
         public void setOnItemClickListener(ClickListener clickListener) {
             GroupAdapter.clickListener = clickListener;

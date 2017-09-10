@@ -13,6 +13,8 @@ import android.widget.DatePicker;
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
+    int yearFinal, monthFinal, dayFinal;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,10 +31,30 @@ public class DatePickerFragment extends DialogFragment
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         // Do something with the date chosen by the user
-            updateDisplay();
+        yearFinal = year;
+        monthFinal = month +1;
+        dayFinal = dayOfMonth;
+
+        updateDisplay();
     }
 
     private void updateDisplay() {
 
+
+
     }
+
+
+    class myOnDateChangedListener implements DatePicker.OnDateChangedListener{
+
+        @Override
+        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//        DatePicker myDatePicker = (DatePicker) findViewById(R.id.mydatepicker);
+//        String selectedDate = DateFormat.getDateInstance().format(myDatePicker.getCalendarView().getDate());
+
+
+
+        }
+    }
+
 }

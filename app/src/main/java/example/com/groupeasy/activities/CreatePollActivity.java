@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+
 import example.com.groupeasy.R;
 
 /** This activity is used to create polls
@@ -27,13 +31,20 @@ public class CreatePollActivity extends AppCompatActivity {
     private LinearLayout layoutForOptions;
     private ImageView ivClose;
 
+    //database
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference();
+    private StorageReference mStorageRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll);
         this.context = CreatePollActivity.this;
+
         initElementsWithIds();
         initElementsWithListeners();
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
@@ -46,10 +57,13 @@ public class CreatePollActivity extends AppCompatActivity {
                 /** inflate the options view and add it to the main view
                  * also you can delete your option*/
                 LayoutInflater inflater = getLayoutInflater();
+
                 final View addView = inflater.inflate(R.layout.row_view_for_add_options,null);
                 addView.setPadding(30,20,30,16);
+
                 EditText etOption = (EditText) addView.findViewById(R.id.et_option);
                 ImageView ivDeleteOption = (ImageView) addView.findViewById(R.id.iv_delete_option);
+
                 /** delete your particular option */
                 ivDeleteOption.setOnClickListener(new View.OnClickListener() {
                     @Override

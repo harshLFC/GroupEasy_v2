@@ -20,6 +20,8 @@ import example.com.groupeasy.activities.CreateNewListActivity;
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
+//    private final TimePicker mTimePicker;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -52,16 +54,12 @@ public class TimePickerFragment extends DialogFragment
 
     }
 
-
-
-}
-
-
-class myOnDateChangedListener implements DatePicker.OnDateChangedListener{
-
-    @Override
-    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//        DatePicker myDatePicker = (DatePicker) findViewById(R.id.mydatepicker);
-//        String selectedDate = DateFormat.getDateInstance().format(myDatePicker.getCalendarView().getDate());
+    public void updateTime(int hourOfDay, int minuteOfHour) {
+//        mTimePicker.setCurrentHour(hourOfDay);
+//        mTimePicker.setCurrentMinute(minuteOfHour);
     }
+
+
+
 }
+
