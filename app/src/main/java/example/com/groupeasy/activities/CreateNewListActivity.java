@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -53,6 +54,8 @@ public class CreateNewListActivity extends AppCompatActivity {
     private TextView whatThisMeans;
     private ImageView ivClose;
 
+    private CheckBox oneDayEvent, globalEvent;
+
     private CrystalRangeSeekbar participantRangeBar;
 
     final Calendar c = Calendar.getInstance();
@@ -81,8 +84,29 @@ public class CreateNewListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String EventName, Location;
+                //intitlize data
+                String EventName, Location = "", minLimit = "", maxLimit = "", fromDATE = "", fromTIME="", toDATE="", toTIME="";
+                Boolean oneday_Event, global_Event;
+
+                // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
+
+                if(!location.toString().isEmpty()){
+                    Location = location.getText().toString();
+                }
+
+                minLimit = tvRangeLimit1.getText().toString();
+                maxLimit = tvRangeLimit2.getText().toString();
+
+                //is enabled returns true if pressed
+                oneday_Event = oneDayEvent.isEnabled();
+                global_Event = globalEvent.isEnabled();
+
+                fromDATE = TvFrom.getText().toString();
+                fromTIME = timeFrom.getText().toString();
+                toDATE = TvTo.getText().toString();
+                toTIME = timeTo.getText().toString();
+
                 //Code for form Validation
                 if(EventName.isEmpty()){
                     Toast.makeText(context, "Please enter a Name for the event",Toast.LENGTH_LONG).show();
@@ -91,8 +115,12 @@ public class CreateNewListActivity extends AppCompatActivity {
                 else {
                     mStorageRef = FirebaseStorage.getInstance().getReference();
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
-                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
+
+//                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
+                    new_list newList = new new_list(EventName,Location,minLimit,maxLimit,oneday_Event,fromDATE,fromTIME,toDATE,toTIME,global_Event);
                     groupRef.push().setValue(newList);
+
+
                 }
             }
         });
@@ -113,13 +141,6 @@ public class CreateNewListActivity extends AppCompatActivity {
             public void valueChanged(Number minValue, Number maxValue) {
                 tvRangeLimit1.setText(String.valueOf(minValue));
                 tvRangeLimit2.setText(String.valueOf(maxValue));
-            }
-        });
-
-        participantRangeBar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
-            @Override
-            public void finalValue(Number minValue, Number maxValue) {
-                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
             }
         });
 
@@ -157,6 +178,9 @@ public class CreateNewListActivity extends AppCompatActivity {
         timeFrom = (TextView) findViewById(R.id.tv_from_time);
         timeTo = (TextView) findViewById(R.id.tv_to_time);
 
+        oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
+        globalEvent = (CheckBox) findViewById(R.id.global_event);
+
     }
 
     @Override
@@ -170,7 +194,7 @@ public class CreateNewListActivity extends AppCompatActivity {
     private void updateDisplay() {
 
         int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+        int month = c.get(Calendar.MONTH)+1;
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         TvFrom.setText(day+"/"+month+"/"+year);
@@ -184,7 +208,7 @@ public class CreateNewListActivity extends AppCompatActivity {
 //        DialogFragment newFragment = new DatePickerFragment();
 //        newFragment.show(getFragmentManager(), "Date Picker");
 
-       new DatePickerDialog(this,d, c.get(Calendar.YEAR),c.get(Calendar.MONTH+1),c.get(Calendar.DAY_OF_MONTH)).show();
+       new DatePickerDialog(this,d, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
    }
 
     //Code to update TimeFromm field by selected data
@@ -193,17 +217,17 @@ public class CreateNewListActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                 c.set(Calendar.YEAR, year);
-                c.set(Calendar.MONTH, month);
+                c.set((Calendar.MONTH)+1, month);
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-             TvFrom.setText(dayOfMonth+"/"+month+"/"+year);
+             TvFrom.setText(dayOfMonth+"/"+(month+1)+"/"+year);
         }
     };
 
     // code for opening calender
     public void dateTo(View view) {
 
-        new DatePickerDialog(this,e, c.get(Calendar.YEAR),c.get(Calendar.MONTH+1),c.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(this,e, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     //Code to update TimeTO field by selected data
@@ -212,10 +236,10 @@ public class CreateNewListActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
             c.set(Calendar.YEAR, year);
-            c.set(Calendar.MONTH , month);
+            c.set((Calendar.MONTH)+1 , month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            TvTo.setText(dayOfMonth+"/"+month+"/"+year);
+            TvTo.setText(dayOfMonth+"/"+(month+1)+"/"+year);
 
         }
     };

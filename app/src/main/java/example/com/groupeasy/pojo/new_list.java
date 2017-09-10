@@ -15,7 +15,7 @@ public class new_list {
 
     }
 
-    public new_list(String name, String location, int min, int max, boolean oneDay, String fromDate,
+    public new_list(String name, String location, String min, String  max, boolean oneDay, String fromDate,
                     String fromTime, String toDate, String toTime, boolean global)
     {
         this.name = name;
@@ -80,19 +80,19 @@ public class new_list {
         this.toDate = toDate;
     }
 
-    public int getMin() {
+    public String getMin() {
         return min;
     }
 
-    public void setMin(int min) {
+    public void setMin(String min) {
         this.min = min;
     }
 
-    public int getMax() {
+    public String getMax() {
         return max;
     }
 
-    public void setMax(int max) {
+    public void setMax(String max) {
         this.max = max;
     }
 
@@ -114,8 +114,8 @@ public class new_list {
 
     private String toDate;
 
-    private int min;
-    private int max;
+    private String min;
+    private String max;
 
     private boolean oneDay;
     private boolean global;
