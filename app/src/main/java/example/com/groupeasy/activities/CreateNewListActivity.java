@@ -86,7 +86,6 @@ public class CreateNewListActivity extends AppCompatActivity {
 
                 //intitlize data
                 String EventName, Location = "", minLimit = "", maxLimit = "", fromDATE = "", fromTIME="", toDATE="", toTIME="";
-                Boolean oneday_Event, global_Event;
 
                 // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
@@ -99,8 +98,8 @@ public class CreateNewListActivity extends AppCompatActivity {
                 maxLimit = tvRangeLimit2.getText().toString();
 
                 //is enabled returns true if pressed
-                oneday_Event = oneDayEvent.isEnabled();
-                global_Event = globalEvent.isEnabled();
+                oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
+                globalEvent = (CheckBox) findViewById(R.id.global_event);
 
                 fromDATE = TvFrom.getText().toString();
                 fromTIME = timeFrom.getText().toString();
@@ -117,7 +116,7 @@ public class CreateNewListActivity extends AppCompatActivity {
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
 
 //                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
-                    new_list newList = new new_list(EventName,Location,minLimit,maxLimit,oneday_Event,fromDATE,fromTIME,toDATE,toTIME,global_Event);
+                    new_list newList = new new_list(EventName,Location,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
                     groupRef.push().setValue(newList);
 
 
@@ -178,8 +177,7 @@ public class CreateNewListActivity extends AppCompatActivity {
         timeFrom = (TextView) findViewById(R.id.tv_from_time);
         timeTo = (TextView) findViewById(R.id.tv_to_time);
 
-        oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
-        globalEvent = (CheckBox) findViewById(R.id.global_event);
+
 
     }
 
