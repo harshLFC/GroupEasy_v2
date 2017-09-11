@@ -11,6 +11,13 @@ public class new_list {
     private String fromDate;
     private String fromTime;
 
+    private String toDate;
+    private String min;
+    private String max;
+    private boolean oneDay;
+    private boolean global;
+
+
     public new_list(){
 
     }
@@ -111,12 +118,4 @@ public class new_list {
     public void setGlobal(boolean global) {
         this.global = global;
     }
-
-    private String toDate;
-
-    private String min;
-    private String max;
-
-    private boolean oneDay;
-    private boolean global;
 }

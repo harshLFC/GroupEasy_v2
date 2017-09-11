@@ -82,18 +82,13 @@ public class GroupFragment extends Fragment {
         mGroupRecyclerView.setHasFixedSize(true);
 
         // a RecyclerView needs a LayoutManager to manage the positioning of its items
-        mGroupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mGroupRecyclerView.setLayoutManager(new LinearLayoutManager(mcontext));
 
         //a RecyclerView needs an adapter to access its data
         mGroupRecyclerView.setAdapter(mGroupAdapter);
         mGroupRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
-
             return rootView;
-
-
-
     }
 
     private void initElementsWithIds(View view) {
