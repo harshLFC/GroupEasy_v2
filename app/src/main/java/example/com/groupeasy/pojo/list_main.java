@@ -9,6 +9,9 @@ public class list_main {
     String name;
     String admin;
 
+    public list_main(){
+
+    }
 
     public list_main(String name, String admin) {
         this.name = name;

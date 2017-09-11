@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,12 +38,16 @@ public class lists_activity extends AppCompatActivity {
     final DatabaseReference myRef = database.getReference();
     final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
 
-    protected View onCreate(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lists);
 
-        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
+        Toast.makeText(lists_activity.this, "You are on recyclerview",Toast.LENGTH_LONG).show();
+//        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
 
-        initElementsByIds(rootView);
+        emptyView = (TextView) findViewById(R.id.empty_view_list);
+
+//        initElementsByIds(rootView);
         createListView();
         initElementsByListeners();
 
@@ -60,7 +65,7 @@ public class lists_activity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        return rootView;
+//        return rootView;
 
     }
 
