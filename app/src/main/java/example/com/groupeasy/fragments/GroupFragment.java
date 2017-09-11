@@ -33,9 +33,7 @@ import example.com.groupeasy.activities.CreateNewListActivity;
 import example.com.groupeasy.activities.CreatePollActivity;
 import example.com.groupeasy.activities.CreateRosterActivity;
 import example.com.groupeasy.adapters.AdapterForAllGroups;
-import example.com.groupeasy.adapters.Group;
 import example.com.groupeasy.adapters.GroupAdapter;
-import example.com.groupeasy.pojo.Groups;
 import example.com.groupeasy.pojo.new_groups;
 
 

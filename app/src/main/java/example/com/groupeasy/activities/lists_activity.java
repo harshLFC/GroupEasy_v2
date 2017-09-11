@@ -1,4 +1,4 @@
-package example.com.groupeasy;
+package example.com.groupeasy.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.EventsAdapter;
 import example.com.groupeasy.pojo.new_groups;
 

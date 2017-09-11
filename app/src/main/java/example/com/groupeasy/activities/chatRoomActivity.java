@@ -1,5 +1,7 @@
 package example.com.groupeasy.activities;
 
+import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +39,7 @@ public class chatRoomActivity extends AppCompatActivity {
     private ListView listView;
     private ImageView sendButton;
     private EditText messageContent;
+    private ConstraintLayout myEventsFrame;
 
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
@@ -119,9 +123,16 @@ public class chatRoomActivity extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
+            }
+        });
+
+        myEventsFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(chatRoomActivity.this,lists_activity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -148,6 +159,7 @@ public class chatRoomActivity extends AppCompatActivity {
         sendButton = (ImageView) findViewById(R.id.send_button);
         messageContent = (EditText) findViewById(R.id.message_content);
 
+        myEventsFrame = (ConstraintLayout) findViewById(R.id.active_events);
     }
 
     public String getLoggedInUserName() {
