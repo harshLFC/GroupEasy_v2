@@ -118,8 +118,6 @@ public class CreateNewListActivity extends AppCompatActivity {
 //                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
                     new_list newList = new new_list(EventName,Location,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
                     groupRef.push().setValue(newList);
-
-
                 }
             }
         });

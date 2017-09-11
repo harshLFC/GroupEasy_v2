@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="example.com.groupeasy">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".activities.groupeasy"
@@ -63,32 +63,24 @@
             android:name=".activities.chatRoomActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.LoginGoogle"
             android:parentActivityName=".activities.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.createAccount"
             android:parentActivityName=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".editProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".editProfileActivity"
             android:parentActivityName=".activities.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-
-        </activity>
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".lists_activity"></activity>
     </application>
 
 </manifest>
