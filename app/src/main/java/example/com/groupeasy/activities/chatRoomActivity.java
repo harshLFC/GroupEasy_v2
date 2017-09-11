@@ -131,7 +131,7 @@ public class chatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(chatRoomActivity.this, "Cicked",Toast.LENGTH_LONG).show();
+                Toast.makeText(chatRoomActivity.this, "Your Active Events will be displayed here",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(chatRoomActivity.this,lists_activity.class);
                 startActivity(intent);
                 finish();

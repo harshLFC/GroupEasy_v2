@@ -28,6 +28,8 @@ import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListen
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import example.com.groupeasy.R;
 import example.com.groupeasy.fragments.DatePickerFragment;
 import example.com.groupeasy.fragments.TimePickerFragment;
+import example.com.groupeasy.pojo.list_main;
 import example.com.groupeasy.pojo.new_list;
 
 /** Activity which creates new list */
@@ -115,9 +118,22 @@ public class CreateNewListActivity extends AppCompatActivity {
                     mStorageRef = FirebaseStorage.getInstance().getReference();
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
 
+                    String push_id = groupRef.push().getKey();
+
+                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = current_user.getUid();
+
+
+
 //                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
+                    list_main listMain = new list_main(EventName,uid);
+
+                    groupRef.child(push_id).setValue(listMain);
+
                     new_list newList = new new_list(EventName,Location,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
-                    groupRef.push().setValue(newList);
+                    groupRef.child(push_id).child("extra").setValue(newList);
+
+
                 }
             }
         });

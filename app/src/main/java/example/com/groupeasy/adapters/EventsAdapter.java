@@ -13,7 +13,7 @@ import java.util.List;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
-import example.com.groupeasy.pojo.new_list;
+import example.com.groupeasy.pojo.list_main;
 
 /**
  * Created by Harsh on 11-09-2017.
@@ -21,7 +21,7 @@ import example.com.groupeasy.pojo.new_list;
 
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<new_list> mListl;
+    private List<list_main> mListl;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
@@ -32,7 +32,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
    }
 
 
-    public EventsAdapter(List<new_list> mLstGroups)
+    public EventsAdapter(List<list_main> mLstGroups)
     {
         this.mListl = mLstGroups;
     }
@@ -42,6 +42,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_view, parent, false);
+
 
         switch(viewType) {
             case VIEW_TYPE_EMPTY_LIST_PLACEHOLDER:
@@ -63,7 +64,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //        String adminName = "harsh";
 
         viewHolder.eventName.setText(mListl.get(position).getName());
-        viewHolder.admin.setText(mListl.get(position).getLocation());
+        viewHolder.admin.setText(mListl.get(position).getAdmin());
 
 
     }

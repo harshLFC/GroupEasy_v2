@@ -23,15 +23,14 @@ import java.util.List;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.EventsAdapter;
-import example.com.groupeasy.pojo.new_groups;
-import example.com.groupeasy.pojo.new_list;
+import example.com.groupeasy.pojo.list_main;
 
 public class lists_activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<new_list> mLstGroups;
+    private List<list_main> mLstGroups;
     private TextView emptyView;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -51,7 +50,7 @@ public class lists_activity extends AppCompatActivity {
         mAdapter = new EventsAdapter(mLstGroups);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setHasFixedSize(true);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(lists_activity.this));
 
@@ -76,16 +75,16 @@ public class lists_activity extends AppCompatActivity {
 
     private void createListView() {
 
-//        groupRef.keepSynced(true);
+        groupRef.keepSynced(true);
 
         groupRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-//                mLstGroups.removeAll(mLstGroups);
+                mLstGroups.removeAll(mLstGroups);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    new_list newList = snapshot.getValue(new_list.class);
+                    list_main newList = snapshot.getValue(list_main.class);
                     mLstGroups.add(newList);
 
                     System.out.println(mLstGroups);
