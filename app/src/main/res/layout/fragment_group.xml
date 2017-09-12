@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/hexagon_shape"
-            fab:fab_label="Create Roaster"
+            fab:fab_label="Create Roster"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton

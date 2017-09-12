@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import example.com.groupeasy.R;
 /** Activity which creates rosters*/
@@ -14,6 +17,7 @@ public class CreateRosterActivity extends AppCompatActivity {
     public static final String TAG = CreateRosterActivity.class.getSimpleName();
     private Context context;
     private ImageView ivClose;
+    private TextView saveRoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +37,20 @@ public class CreateRosterActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        saveRoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(v.getContext(), "Will Push Roster Data to server",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+            }
+        });
     }
 
     private void initElementsWithIds() {
         ivClose = (ImageView) findViewById(R.id.iv_close);
+        saveRoster = (TextView) findViewById(R.id.save_roster);
     }
 
     @Override

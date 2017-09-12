@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,6 +32,7 @@ public class CreatePollActivity extends AppCompatActivity {
     private Button  btnAddOptions;
     private LinearLayout layoutForOptions;
     private ImageView ivClose;
+    private TextView savePoll;
 
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -86,6 +89,15 @@ public class CreatePollActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        savePoll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(v.getContext(), "Will Push Poll Data to server",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+            }
+        });
     }
 
     /* initialize your widgets with their ids */
@@ -93,6 +105,7 @@ public class CreatePollActivity extends AppCompatActivity {
         ivClose = (ImageView) findViewById(R.id.iv_close);
         btnAddOptions = (Button) findViewById(R.id.btn_add_options);
         layoutForOptions = (LinearLayout) findViewById(R.id.layout_for_options);
+        savePoll = (TextView) findViewById(R.id.save_poll);
     }
 
     @Override
