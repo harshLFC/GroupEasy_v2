@@ -134,7 +134,6 @@ public class chatRoomActivity extends AppCompatActivity {
 //                Toast.makeText(chatRoomActivity.this, "Your Active Events will be displayed here",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(),lists_activity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

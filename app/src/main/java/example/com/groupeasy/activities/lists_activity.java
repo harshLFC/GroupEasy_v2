@@ -2,11 +2,13 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ public class lists_activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<list_main> mLstGroups;
     private TextView emptyView;
+    private Toolbar mToolbar;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
@@ -46,6 +49,19 @@ public class lists_activity extends AppCompatActivity {
 //        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);
+
+        mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
+//        mToolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
 //        initElementsByIds(rootView);
         createListView();

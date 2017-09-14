@@ -7,12 +7,18 @@
     tools:context="example.com.groupeasy.activities.lists_activity"
     android:orientation="vertical">
 
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/lists_app_bar">
+
+    </include>
+
 <android.support.v7.widget.RecyclerView
     android:id="@+id/events_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="8dp"
-    tools:layout_editor_absoluteX="8dp">
+    tools:layout_editor_absoluteX="8dp"
+    android:layout_below="@+id/lists_app_bar">
 
 </android.support.v7.widget.RecyclerView>
 
@@ -21,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:text="@string/no_data_events" />
 
 
