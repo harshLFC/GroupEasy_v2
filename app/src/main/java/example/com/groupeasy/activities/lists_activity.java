@@ -1,17 +1,12 @@
 package example.com.groupeasy.activities;
 
-import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +21,14 @@ import java.util.List;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.EventsAdapter;
-import example.com.groupeasy.pojo.list_main;
+import example.com.groupeasy.pojo.list_primary;
 
 public class lists_activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<list_main> mLstGroups;
+    private List<list_primary> mLstGroups;
     private TextView emptyView;
     private Toolbar mToolbar;
 
@@ -51,7 +46,6 @@ public class lists_activity extends AppCompatActivity {
         emptyView = (TextView) findViewById(R.id.empty_view_list);
 
         mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
-//        mToolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -61,7 +55,6 @@ public class lists_activity extends AppCompatActivity {
                 finish();
             }
         });
-
 
 //        initElementsByIds(rootView);
         createListView();
@@ -105,7 +98,7 @@ public class lists_activity extends AppCompatActivity {
                 mLstGroups.removeAll(mLstGroups);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    list_main newList = snapshot.getValue(list_main.class);
+                    list_primary newList = snapshot.getValue(list_primary.class);
                     mLstGroups.add(newList);
 
                     System.out.println(mLstGroups);
@@ -121,9 +114,7 @@ public class lists_activity extends AppCompatActivity {
 
                     emptyView.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
-
                 }
-
             }
 
             @Override
@@ -131,8 +122,6 @@ public class lists_activity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     @Override

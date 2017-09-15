@@ -4,18 +4,20 @@ package example.com.groupeasy.pojo;
  * Created by Harsh on 11-09-2017.
  */
 
-public class list_main {
+public class list_primary {
 
     String name;
     String admin;
+    String location;
 
-    public list_main(){
+    public list_primary(){
 
     }
 
-    public list_main(String name, String admin) {
+    public list_primary(String name, String admin, String location) {
         this.name = name;
         this.admin = admin;
+        this.location = location;
     }
 
     public String getName() {
@@ -34,5 +36,12 @@ public class list_main {
         this.admin = admin;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
 }

@@ -189,7 +189,6 @@ public class ProfileFragment extends Fragment {
                 intent.putExtra("user_value_status",user_value_status);
 
                 startActivity(intent);
-
             }
         });
     }
@@ -198,9 +197,7 @@ public class ProfileFragment extends Fragment {
         user_name = (TextView) view.findViewById(R.id.user_name);
         user_status = (TextView) view.findViewById(R.id.user_status);
         log_in_out = (TextView) view.findViewById(R.id.log_in_out);
-
         profile_pic = (CircleImageView) view.findViewById(R.id.displayPic);
-
         logOut = (LinearLayout) view.findViewById(R.id.help);
         polls = (LinearLayout) view.findViewById(R.id.polls);
         lists = (LinearLayout) view.findViewById(R.id.lists);

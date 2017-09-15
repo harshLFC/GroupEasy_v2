@@ -40,10 +40,7 @@ public class DatePickerFragment extends DialogFragment
 
     private void updateDisplay() {
 
-
-
     }
-
 
     class myOnDateChangedListener implements DatePicker.OnDateChangedListener{
 
@@ -51,9 +48,6 @@ public class DatePickerFragment extends DialogFragment
         public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 //        DatePicker myDatePicker = (DatePicker) findViewById(R.id.mydatepicker);
 //        String selectedDate = DateFormat.getDateInstance().format(myDatePicker.getCalendarView().getDate());
-
-
-
         }
     }
 

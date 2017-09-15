@@ -20,8 +20,6 @@ public class SearchFragment extends Fragment {
     /** Ui elements init */
     private Button eventsGlobal, eventsLocal;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,5 +65,4 @@ public class SearchFragment extends Fragment {
         eventsGlobal = (Button) view.findViewById(R.id.global_event);
         eventsLocal = (Button) view.findViewById(R.id.local_event);
     }
-
 }

@@ -41,12 +41,14 @@ public class NextBuildActivity extends AppCompatActivity{
     }
 
     private void initElementsWithIds() {
+
         goBack = (Button) findViewById(R.id.backButton);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         assert ab != null;
         ab.setDisplayHomeAsUpEnabled(true);
+
     }
 
 }

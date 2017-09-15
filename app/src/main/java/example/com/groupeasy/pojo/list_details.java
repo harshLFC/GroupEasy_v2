@@ -4,29 +4,25 @@ package example.com.groupeasy.pojo;
  * Created by Harsh on 09-09-2017.
  */
 
-public class new_list {
+public class list_details {
 
     private String name;
-    private String location;
     private String fromDate;
     private String fromTime;
-
     private String toDate;
     private String min;
     private String max;
     private boolean oneDay;
     private boolean global;
 
-
-    public new_list(){
+    public list_details(){
 
     }
 
-    public new_list(String name, String location, String min, String  max, boolean oneDay, String fromDate,
-                    String fromTime, String toDate, String toTime, boolean global)
+    public list_details(String name, String min, String  max, boolean oneDay, String fromDate,
+                        String fromTime, String toDate, String toTime, boolean global)
     {
         this.name = name;
-        this.location = location;
         this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.toTime = toTime;
@@ -45,14 +41,6 @@ public class new_list {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getFromDate() {

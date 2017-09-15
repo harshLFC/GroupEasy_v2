@@ -5,13 +5,36 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="4dp"
-    android:layout_margin="15dp">
+    android:layout_margin="5dp">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/location_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintLeft_toRightOf="@+id/event_logo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/event_type"
+                android:visibility="gone"
+                 />
+
+            <TextView
+                android:id="@+id/location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                app:layout_constraintLeft_toRightOf="@+id/location_image"
+                android:layout_marginLeft="9dp"
+                app:layout_constraintTop_toTopOf="@+id/location_image"
+                android:layout_marginTop="3dp"
+                android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/event_logo"
@@ -103,7 +126,7 @@
                 android:src="@drawable/user2"
                 android:background="@drawable/editborder"
                 android:padding="2dp"
-                app:layout_constraintRight_toLeftOf="@+id/textView2"
+                app:layout_constraintRight_toLeftOf="@+id/add_me"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="@+id/imageView"
@@ -115,7 +138,7 @@
                 app:layout_constraintHorizontal_bias="0.3" />
 
                 <TextView
-                android:text="Sample"
+                android:text="Harsh"
                     android:layout_height="18dp"
                     android:layout_width="241dp"
                     android:id="@+id/textView1"
@@ -140,13 +163,13 @@
                 app:layout_constraintHorizontal_bias="0.529" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImage2"
+                android:id="@+id/user_dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/user2"
                 android:background="@drawable/editborder"
                 android:padding="2dp"
-                app:layout_constraintRight_toLeftOf="@+id/textView2"
+                app:layout_constraintRight_toLeftOf="@+id/add_me"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
@@ -157,10 +180,11 @@
                 app:layout_constraintHorizontal_bias="0.0" />
 
             <TextView
-                android:text="Sample2"
+
+                android:text="+ Add me"
                 android:layout_height="19dp"
                 android:layout_width="242dp"
-                android:id="@+id/textView2"
+                android:id="@+id/add_me"
                 android:layout_marginTop="59dp"
                 android:layout_marginRight="29dp"
                 app:layout_constraintRight_toRightOf="@+id/imageView"
@@ -179,7 +203,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView1"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintBottom_toTopOf="@+id/add_me"
                 app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintVertical_bias="0.583"
                 android:id="@+id/view2" />

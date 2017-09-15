@@ -58,8 +58,5 @@ public class TimePickerFragment extends DialogFragment
 //        mTimePicker.setCurrentHour(hourOfDay);
 //        mTimePicker.setCurrentMinute(minuteOfHour);
     }
-
-
-
 }
 

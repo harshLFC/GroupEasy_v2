@@ -9,7 +9,6 @@ public class Groups implements Serializable {
     private String image;
     private String lastMsg;
 
-
     private int roasterCount;
     private int listCounter;
     private int pollCount;

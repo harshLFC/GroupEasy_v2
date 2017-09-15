@@ -83,7 +83,6 @@ public class chatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
 // if entered string is null a tost will prompt
                 if(messageContent.getText().toString().isEmpty()){
                     Toast.makeText(chatRoomActivity.this, "You have entered nothing", Toast.LENGTH_SHORT).show();
@@ -136,7 +135,6 @@ public class chatRoomActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private String loggedInUserName = "";
@@ -169,5 +167,3 @@ public class chatRoomActivity extends AppCompatActivity {
 
 
 }
-
-

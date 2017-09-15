@@ -2,7 +2,6 @@ package example.com.groupeasy.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,9 +11,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,10 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
-import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
-import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
-import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +30,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.fragments.DatePickerFragment;
-import example.com.groupeasy.fragments.TimePickerFragment;
-import example.com.groupeasy.pojo.list_main;
-import example.com.groupeasy.pojo.new_list;
+import example.com.groupeasy.pojo.list_primary;
+import example.com.groupeasy.pojo.list_details;
 
 /** Activity which creates new list */
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -123,16 +115,13 @@ public class CreateNewListActivity extends AppCompatActivity {
                     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = current_user.getUid();
 
-
-
 //                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
-                    list_main listMain = new list_main(EventName,uid);
+                    list_primary listMain = new list_primary(EventName,uid,Location);
 
                     groupRef.child(push_id).setValue(listMain);
 
-                    new_list newList = new new_list(EventName,Location,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
+                    list_details newList = new list_details(EventName,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
                     groupRef.child(push_id).child("extra").setValue(newList);
-
 
                 }
             }
@@ -190,8 +179,6 @@ public class CreateNewListActivity extends AppCompatActivity {
         whatThisMeans = (TextView) findViewById(R.id.see_what_this_means);
         timeFrom = (TextView) findViewById(R.id.tv_from_time);
         timeTo = (TextView) findViewById(R.id.tv_to_time);
-
-
 
     }
 
@@ -294,8 +281,6 @@ public class CreateNewListActivity extends AppCompatActivity {
             c.set(Calendar.MINUTE, minute);
 
             timeTo.setText(hourOfDay+":"+minute + "");
-
         }
     };
-
 }

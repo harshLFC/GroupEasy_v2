@@ -40,12 +40,13 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         this.context = DashboardActivity.this;
+
         initElementsWithIds();
         initToolbar();
+
         setupViewPager(viewPager);
         setupTabIcons();
         initElementsWithListeners();
-
 
     }
     @Override
@@ -58,10 +59,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     /* initialization of your toolbar with title ,color etc */
-    private void initToolbar() {
+    private void initToolbar()
+    {
         myTool.setTitle(AppConstants.DASHBOARD_ACTIVITY_TITLE);
         myTool.setTitleTextColor(ContextCompat.getColor(context,R.color.white));
         setSupportActionBar(myTool);
+
     }
 
     /** this method is used to initialize the widgets and fields and toolbar*/
@@ -81,10 +84,12 @@ public class DashboardActivity extends AppCompatActivity {
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     /** set icons to your tabs*/
     private void setupTabIcons() {
+
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
@@ -99,6 +104,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
          super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.activity_main2_drawer,menu);
@@ -108,6 +114,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         super.onOptionsItemSelected(item);
 
         int id = item.getItemId();
