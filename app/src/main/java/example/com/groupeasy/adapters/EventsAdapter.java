@@ -2,9 +2,11 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +36,7 @@ import example.com.groupeasy.pojo.list_primary;
 
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<list_primary> mListl;
+    static List<list_primary> mListl;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
@@ -66,12 +70,46 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
-        EventViewHolder viewHolder = (EventViewHolder) holder;
+        final EventViewHolder viewHolder = (EventViewHolder) holder;
         //setValues
 //        String adminName = "harsh";
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
+        viewHolder.locationText.setText(mListl.get(position).getLocation());
+
+        DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
+        final String key = eventRef.getKey();
+
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String key1 = ds.getKey();
+
+//                    viewHolder.eventName.setText(key1);
+
+//                    list_primary list = ds.getValue(list_primary.class);
+//                    list.setMessageid(ds.getKey());
+
+//                        Log.d("This_key",list.toString());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        String uid = eventRef.getKey();
+        Log.i("uid", uid);
+
+        eventRef.addListenerForSingleValueEvent(eventListener);
+
+
 
         viewHolder.userImageRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,10 +121,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         .placeholder(R.drawable.ic_default_groups)
                         .resize(50,50)
                         .into(((EventsAdapter.EventViewHolder) holder).userImage);
-
-
-
-
             }
 
             @Override
@@ -98,8 +132,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         String location = mListl.get(position).getLocation();
 
 //        if(!location.isEmpty()){
-//
-            viewHolder.locationText.setText(mListl.get(position).getLocation());
+        viewHolder.locationText.setVisibility(View.VISIBLE);
+        viewHolder.locationText.setText(mListl.get(position).getLocation());
             viewHolder.locationImage.setVisibility(View.VISIBLE);
 //        }
     }
@@ -118,9 +152,11 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private ImageView locationImage;
         private ImageView userImage;
 
+
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
         DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+        DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
 
 
         public EventViewHolder(View itemView) {
@@ -152,27 +188,84 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
             else if (v.getId() == addMe.getId()){
 
-                Toast.makeText(v.getContext(), "Clicked on add me ",Toast.LENGTH_SHORT).show();
+                final String key = eventRef.getKey();
+                Log.w("type_this",key);
+
+                String test = eventRef.child(key).getKey();
+                Log.w("type_this_test",key);
+
+                final DatabaseReference groupRef = eventRef.child("").child(key);
+//                groupRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                        userImageRef.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                final String uName = dataSnapshot.child("member").getValue().toString();
+//                                addMe.setText(uName);
+//
+//                                groupRef.child("members").setValue(uName).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        Toast.makeText(v.getContext(), "Success Adding you in Event",Toast.LENGTH_LONG).show();
+//
+//                                    }
+//                                });
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//                      }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Toast.makeText(v.getContext(), "some error",Toast.LENGTH_LONG).show();
+//
+//                    }
+//                });
+
+
 
                 userImageRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String uName = dataSnapshot.child("member").getValue().toString();
+                        final String uName = dataSnapshot.child("member").getValue().toString();
                         addMe.setText(uName);
 
+//                        locationText.setText(mListl.get(position).getLocation());
+                        int position = 0;
+
+                        eventRef.child(mListl.get(position).getId()).child("members").setValue(uid);
+
                         Snackbar snackbar = Snackbar
-                                .make(v, "You have been added to the event!", Snackbar.LENGTH_INDEFINITE)
+                                .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
                                 .setAction("- Remove me", new View.OnClickListener() {
                                     @Override
-                                    public void onClick(View view) {
+                                    public void onClick(final View view) {
+
                                         Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
+                                        View snackbarView = snackbar1.getView();
+                                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                        textView.setTextColor(Color.YELLOW);
+                                        textView.setTextSize(14);
                                         snackbar1.show();
                                     }
                                 });
 
+                        snackbar.setActionTextColor(Color.WHITE);
+                        TextView snackbarActionTextView = (TextView) snackbar.getView().findViewById( android.support.design.R.id.snackbar_action );
+                        snackbarActionTextView.setTextSize(10);
+
+                        View snackbarView = snackbar.getView();
+                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.YELLOW);
+                        textView.setTextSize(14);
+
                         snackbar.show();
-
-
                     }
 
                     @Override

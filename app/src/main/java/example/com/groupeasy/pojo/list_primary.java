@@ -9,17 +9,26 @@ public class list_primary {
     String name;
     String admin;
     String location;
+    String id;
 
     public list_primary(){
 
     }
 
-    public list_primary(String name, String admin, String location) {
+    public list_primary(String name, String admin, String location, String id) {
         this.name = name;
         this.admin = admin;
         this.location = location;
+        this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }

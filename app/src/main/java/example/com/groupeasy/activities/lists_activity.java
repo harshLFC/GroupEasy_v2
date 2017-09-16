@@ -101,7 +101,6 @@ public class lists_activity extends AppCompatActivity {
                     list_primary newList = snapshot.getValue(list_primary.class);
                     mLstGroups.add(newList);
 
-                    System.out.println(mLstGroups);
                 }
 
                 mAdapter.notifyDataSetChanged();

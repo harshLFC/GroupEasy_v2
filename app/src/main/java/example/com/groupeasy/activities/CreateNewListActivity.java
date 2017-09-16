@@ -11,6 +11,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -115,8 +116,9 @@ public class CreateNewListActivity extends AppCompatActivity {
                     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = current_user.getUid();
 
+
 //                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
-                    list_primary listMain = new list_primary(EventName,uid,Location);
+                    list_primary listMain = new list_primary(EventName,uid,Location,push_id);
 
                     groupRef.child(push_id).setValue(listMain);
 
