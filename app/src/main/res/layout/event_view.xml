@@ -84,6 +84,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/event_key"
+                android:text="SAMPLE"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Auhor:"
                 android:layout_marginTop="7dp"
                 app:layout_constraintTop_toBottomOf="@+id/event_name"
@@ -112,7 +120,7 @@
                 android:layout_height="120dp"
                 android:background="@color/lemon_yellow"
                 tools:mockup_opacity="10"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="-17dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -120,7 +128,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/imageView"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="8dp"
+                app:layout_constraintHorizontal_bias="0.0">
             </ImageView>
 
             <de.hdodenhof.circleimageview.CircleImageView

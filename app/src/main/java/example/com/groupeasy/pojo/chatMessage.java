@@ -12,18 +12,28 @@ public class chatMessage {
     private String group;
     private String messageUserId;
     private long time;
+    String grpid;
 
-    public chatMessage(String content, String messageUserId, String group) {
+
+
+    public chatMessage(String content, String messageUserId, String group, String grpid) {
         this.content = content;
         this.group = group;
         time = new Date().getTime();
         this.messageUserId = messageUserId;
+        this.grpid = grpid;
     }
 
     public chatMessage(){
 
     }
+    public String getGrpid() {
+        return grpid;
+    }
 
+    public void setGrpid(String grpid) {
+        this.grpid = grpid;
+    }
     public String getMessageUserId() {
         return messageUserId;
     }

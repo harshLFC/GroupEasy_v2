@@ -43,11 +43,13 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         TextView messageText = (TextView) v.findViewById(R.id.message_text);
         TextView messageUser = (TextView) v.findViewById(R.id.message_user);
         TextView messageTime = (TextView) v.findViewById(R.id.message_time);
+        TextView groupIdKey = (TextView) v.findViewById(R.id.group_id_key);
 
         messageText.setText(model.getContent());
         messageUser.setText(model.getMessageUserId());
 
         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
+
 
     }
 

@@ -10,18 +10,27 @@ public class new_groups {
     private String image;
     private String last_msg;
     private String name;
+    private String group_id;
 
     public new_groups(){
 
     }
 
-    public new_groups(String admin, String image, String last_msg, String name) {
+    public new_groups(String admin, String image, String last_msg, String name, String group_id) {
         this.admin = admin;
         this.image = image;
         this.last_msg = last_msg;
         this.name = name;
+        this.group_id = group_id;
     }
 
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
     public String getAdmin() {
         return admin;
     }

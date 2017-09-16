@@ -35,7 +35,9 @@ public class chatRoomActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;
     private String room_name;
+    private String groupKey;
     private TextView roomName;
+    private TextView groupIdKey;
     private ListView listView;
     private ImageView sendButton;
     private EditText messageContent;
@@ -61,11 +63,13 @@ public class chatRoomActivity extends AppCompatActivity {
 
         // get room name from last intent and override the chatroom title
         room_name = getIntent().getExtras().get("room_name").toString();
+        groupKey = getIntent().getExtras().get("groupKey").toString();
 
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle(room_name);
         roomName.setText(room_name);
         roomName.setVisibility(View.VISIBLE);
+        groupIdKey.setText(groupKey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child("");
@@ -103,16 +107,19 @@ public class chatRoomActivity extends AppCompatActivity {
                             FirebaseDatabase.getInstance()
                                     .getReference()
                                     .child("messages")
-//                                    .child("")
                                     .push()
                                     .setValue(new chatMessage(messageContent.getText().toString(),
                                             name,
-                                            room_name));
+                                            room_name,groupIdKey.getText().toString()));
 
                                             /*messageContent.getText().toString(),
                                             FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                                             FirebaseAuth.getInstance().getCurrentUser().getUid()
                                             */
+
+
+
+
 
                             messageContent.setText("");
                         }
@@ -154,6 +161,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
         mToolBar = (Toolbar) findViewById(R.id.toolbar_chat);
         roomName = (TextView) findViewById(R.id.room_name);
+        groupIdKey = (TextView) findViewById(R.id.group_id_key);
         listView = (ListView) findViewById(R.id.list);
         sendButton = (ImageView) findViewById(R.id.send_button);
         messageContent = (EditText) findViewById(R.id.message_content);

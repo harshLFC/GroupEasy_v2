@@ -98,6 +98,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         });
 
         final DatabaseReference groupRef = myRef.child("groups").child("");
+        final DatabaseReference msgRef = myRef.child("messages").child("");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,17 +133,22 @@ public class CreateGroupActivity extends AppCompatActivity {
                     final StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
 
 //                    if(groupDP.equals(R.drawable.ic_default_groups))
+                   final String group_id = groupRef.push().getKey();
+
 
                     filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
 
-
 //                            String download_url = taskSnapshot.getDownloadUrl().toString();
 
-                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName);
+                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
 
-                            groupRef.push().setValue(newGroups);
+                            groupRef.child(group_id).setValue(newGroups);
+
+                            msgRef.setValue(group_id);
+
+//                            groupRef.push().setValue(newGroups);
 
                             Intent intent = new Intent(context,DashboardActivity.class);
                             startActivity(intent);
@@ -157,9 +163,12 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                             String defaultImage = getString(R.string.default_firebase_groups);
 
-                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName);
 
-                            groupRef.push().setValue(newGroups);
+                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName,group_id);
+
+                            groupRef.child(group_id).setValue(newGroups);
+
+                            msgRef.child(group_id).setValue(true);
 
                             Intent intent = new Intent(context,DashboardActivity.class);
                             startActivity(intent);

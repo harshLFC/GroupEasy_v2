@@ -82,6 +82,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         String image = (mLstGroups.get(position).getImage());
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
         viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
+        viewHolder.groupKey.setText(mLstGroups.get(position).getGroup_id());
 
         // getting context from view object
 
@@ -109,6 +110,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView Admin;
         private ImageView imageGroupView;
         private TextView textLastMessage;
+        private TextView groupKey;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -119,6 +121,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             textView = (TextView) itemView.findViewById(R.id.message_text);
             Admin = (TextView) itemView.findViewById(R.id.textViewAdmin);
             textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
+            groupKey = (TextView) itemView.findViewById(R.id.group_key);
 
             textView.setOnClickListener(this);
             textLastMessage.setOnClickListener(this);
@@ -133,6 +136,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 Intent i = new Intent(context,chatRoomActivity.class);
                 i.putExtra("room_name",((textView.getText().toString())));
+                i.putExtra("groupKey",((groupKey.getText().toString())));
+
                 context.startActivity(i);
 
             }

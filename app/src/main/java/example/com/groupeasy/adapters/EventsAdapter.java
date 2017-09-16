@@ -77,6 +77,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
         viewHolder.locationText.setText(mListl.get(position).getLocation());
+        viewHolder.eventID.setText(mListl.get(position).getId());
 
         DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
         final String key = eventRef.getKey();
@@ -146,6 +147,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView eventName;
+        private TextView eventID;
         private TextView admin;
         private TextView addMe;
         private TextView locationText;
@@ -168,6 +170,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             locationImage = (ImageView) itemView.findViewById(R.id.location_image);
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
             addMe = (TextView) itemView.findViewById(R.id.add_me);
+            eventID = (TextView) itemView.findViewById(R.id.event_key);
 
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
@@ -227,9 +230,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //
 //                    }
 //                });
-
-
-
                 userImageRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -239,7 +239,9 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                        locationText.setText(mListl.get(position).getLocation());
                         int position = 0;
 
-                        eventRef.child(mListl.get(position).getId()).child("members").setValue(uid);
+                        String event_id = eventID.getText().toString();
+
+                        eventRef.child(event_id).child("members").child(uid).setValue(true);
 
                         Snackbar snackbar = Snackbar
                                 .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
