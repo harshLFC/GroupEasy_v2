@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp">
+    android:padding="3dp">
     
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="60dp"

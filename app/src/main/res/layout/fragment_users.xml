@@ -3,14 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="@dimen/activity_horizontal_margin"
+    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView">
+
+    </SearchView>
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/users_list"
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:layout_below="@+id/searchView">
 
    </android.support.v7.widget.RecyclerView>
 
