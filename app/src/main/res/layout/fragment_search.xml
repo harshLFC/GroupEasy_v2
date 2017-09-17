@@ -7,25 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/local_event"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/faint_black"
-        android:text="Search for local events"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/header_text_size" />
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/users_list"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/global_event"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/faint_black"
-        android:text="Search for Global events"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/header_text_size" />
+   </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -15,7 +15,7 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
 import example.com.groupeasy.fragments.GroupFragment;
 import example.com.groupeasy.fragments.ProfileFragment;
-import example.com.groupeasy.fragments.SearchFragment;
+import example.com.groupeasy.fragments.UsersFragment;
 import example.com.groupeasy.utility.AppConstants;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -79,7 +79,7 @@ public class DashboardActivity extends AppCompatActivity {
         adapter = new DashboardPagerAdapter(getSupportFragmentManager());
 
         /** add more fragments if you want to*/
-        adapter.addFragment(new SearchFragment(), "Search");
+        adapter.addFragment(new UsersFragment(), "Users");
         adapter.addFragment(new GroupFragment(), "Groups");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
@@ -123,7 +123,13 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(this, "Settings clicked", Toast.LENGTH_LONG).show();
         }
         else if(id == R.id.help){
-            Toast.makeText(this, "Log ot clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Help clicked", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.local_eve){
+            Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.global_eve){
+            Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
         }
         return true;
     }

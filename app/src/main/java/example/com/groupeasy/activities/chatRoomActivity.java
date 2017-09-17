@@ -35,7 +35,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;
     private String room_name;
-    private String groupKey;
+    private String groupKey ;
     private TextView roomName;
     private TextView groupIdKey;
     private ListView listView;
@@ -56,7 +56,7 @@ public class chatRoomActivity extends AppCompatActivity {
         initElementWithIds();
         initElementsWithListeners();
 
-        showAllOldMessages();
+
 
         //snippet to stop keyboard from appearing onCreate
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -65,6 +65,8 @@ public class chatRoomActivity extends AppCompatActivity {
         room_name = getIntent().getExtras().get("room_name").toString();
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
+        showAllOldMessages(groupKey);
+
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle(room_name);
         roomName.setText(room_name);
@@ -72,7 +74,7 @@ public class chatRoomActivity extends AppCompatActivity {
         groupIdKey.setText(groupKey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child("");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child(groupKey).child("groupMsgs").child("");
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
@@ -107,7 +109,8 @@ public class chatRoomActivity extends AppCompatActivity {
                             FirebaseDatabase.getInstance()
                                     .getReference()
                                     .child("messages")
-                                    .push()
+                                    .child(groupKey)
+                                    .child("groupMsgs").push()
                                     .setValue(new chatMessage(messageContent.getText().toString(),
                                             name,
                                             room_name,groupIdKey.getText().toString()));
@@ -146,13 +149,14 @@ public class chatRoomActivity extends AppCompatActivity {
 
     private String loggedInUserName = "";
 
-    private void showAllOldMessages() {
+    private void showAllOldMessages(String group_key) {
 
         loggedInUserName = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("Main", "user id: " + loggedInUserName);
 
+
          adapter = new MessageAdapter(this, chatMessage.class, R.layout.item_in_message,
-                FirebaseDatabase.getInstance().getReference().child("messages").child(""));
+                FirebaseDatabase.getInstance().getReference().child("messages").child(group_key).child("groupMsgs").child(""));
         listView.setAdapter(adapter);
 
     }

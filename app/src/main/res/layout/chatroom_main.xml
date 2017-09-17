@@ -42,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/group_id_key"
-                android:text="sample"/>
+                android:text="sample"
+                android:visibility="gone"/>
 
 
         <ImageView
