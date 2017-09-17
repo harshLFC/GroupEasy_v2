@@ -12,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,14 +23,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.CreateGroupActivity;
 import example.com.groupeasy.activities.CreateNewListActivity;
 import example.com.groupeasy.activities.CreatePollActivity;
 import example.com.groupeasy.activities.CreateRosterActivity;
-import example.com.groupeasy.adapters.AdapterForAllGroups;
+import example.com.groupeasy.adapters.SampleAdapter;
 import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.pojo.new_groups;
 
@@ -46,7 +43,7 @@ public class GroupFragment extends Fragment {
     private List<new_groups> mLstGroups;
     private TextView emptyView;
 
-    private AdapterForAllGroups adapterForAllGroups;
+    private SampleAdapter sampleAdapter;
     private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
     private FloatingActionButton fabCreatePoll;

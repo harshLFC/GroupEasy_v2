@@ -7,13 +7,10 @@ package example.com.groupeasy.activities;
                import android.net.Uri;
                import android.os.Bundle;
                import android.support.annotation.NonNull;
-               import android.support.v7.app.ActionBar;
                import android.support.v7.app.AppCompatActivity;
                import android.support.v7.widget.Toolbar;
                import android.util.Log;
                import android.view.View;
-               import android.view.Window;
-               import android.view.WindowManager;
                import android.widget.EditText;
                import android.widget.ImageView;
                import android.widget.TextView;
@@ -73,7 +70,7 @@ public class LoginGoogle extends AppCompatActivity implements
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);
-        userName = (TextView) findViewById(R.id.userName);
+        userName = (TextView) findViewById(R.id.user_name);
         eMail = (TextView) findViewById(R.id.eMail);
         userPhoto = (ImageView) findViewById(R.id.userPhoto);
 
@@ -285,7 +282,7 @@ public class LoginGoogle extends AppCompatActivity implements
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            findViewById(R.id.userName).setVisibility(View.VISIBLE);
+            findViewById(R.id.user_name).setVisibility(View.VISIBLE);
 
             Intent i = new Intent(LoginGoogle.this, DashboardActivity.class);
             startActivity(i);

@@ -48,7 +48,7 @@
             tools:text="Firebase User ID: 123456789abc" />
 
         <TextView
-            android:id="@+id/userName"
+            android:id="@+id/user_name"
             style="@style/ThemeOverlay.MyTextDetail"
             tools:text="User Name: 123456789abc" />
 

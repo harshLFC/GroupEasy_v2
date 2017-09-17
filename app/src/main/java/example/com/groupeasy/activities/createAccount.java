@@ -112,10 +112,10 @@ public class createAccount extends AppCompatActivity {
                     {
                         String uid = current_user.getUid();
 
-                        mDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+                        mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
 
                         HashMap<String,String> userMap = new HashMap<String, String>();
-                        userMap.put("member",mUserName);
+                        userMap.put("name",mUserName);
                         userMap.put("status","Hi! Im on GroupEasy");
                         userMap.put("image","Default");
                         userMap.put("favs","0");
@@ -123,6 +123,8 @@ public class createAccount extends AppCompatActivity {
                         userMap.put("rosters","0");
                         userMap.put("lists","0");
                         userMap.put("thumb_image","Default");
+                        userMap.put("last_seen","Default");
+
 
                         mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

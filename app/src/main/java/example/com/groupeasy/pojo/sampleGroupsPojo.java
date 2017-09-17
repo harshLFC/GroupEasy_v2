@@ -3,7 +3,7 @@ package example.com.groupeasy.pojo;
 import java.io.Serializable;
 
 
-public class Groups implements Serializable {
+public class sampleGroupsPojo implements Serializable {
 
     private String groupName;
     private String image;
@@ -15,7 +15,7 @@ public class Groups implements Serializable {
 
     private String groupAuthorName;
 
-    public Groups(){
+    public sampleGroupsPojo(){
 
     }
 
