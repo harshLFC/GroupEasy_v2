@@ -125,6 +125,9 @@ public class CreateNewListActivity extends AppCompatActivity {
                     list_details newList = new list_details(EventName,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
                     groupRef.child(push_id).child("extra").setValue(newList);
 
+                    Intent intent = new Intent(context,chooseGroup.class);
+                    startActivity(intent);
+
                 }
             }
         });

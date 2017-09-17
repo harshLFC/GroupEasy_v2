@@ -40,7 +40,6 @@ public class lists_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
-        Toast.makeText(lists_activity.this, "You are on recyclerview",Toast.LENGTH_LONG).show();
 //        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);

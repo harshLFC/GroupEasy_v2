@@ -140,7 +140,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                     if (!TextUtils.isEmpty(Name)){
 
-                        mUserDatabase.child("member").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        mUserDatabase.child("name").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
@@ -159,7 +159,7 @@ public class editProfileActivity extends AppCompatActivity {
                 }
 
                 else if(!TextUtils.isEmpty(Name)){
-                    mUserDatabase.child("member").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    mUserDatabase.child("name").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {

@@ -79,7 +79,7 @@ public class chatRoomActivity extends AppCompatActivity {
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(current_uid);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
 
        }
 
@@ -98,7 +98,7 @@ public class chatRoomActivity extends AppCompatActivity {
                     mUserDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String name = dataSnapshot.child("member").getValue().toString();
+                            String name = dataSnapshot.child("name").getValue().toString();
 
                             String key = room_name;
                             Map<String,Object> value = new HashMap<>();

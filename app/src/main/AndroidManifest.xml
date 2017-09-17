@@ -58,33 +58,29 @@
             android:name=".activities.chatRoomActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.LoginGoogle"
             android:parentActivityName=".activities.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.createAccount"
             android:parentActivityName=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".editProfileActivity"
             android:parentActivityName=".activities.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".activities.lists_activity"
+            android:theme="@style/AppTheme.NoActionBar">
 
-        <activity android:name=".activities.lists_activity"
+        </activity>
+        <activity android:name=".activities.chooseGroup"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

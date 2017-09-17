@@ -157,7 +157,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
-        DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+        DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
         DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
 
 
@@ -233,7 +233,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 userImageRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        final String uName = dataSnapshot.child("member").getValue().toString();
+                        final String uName = dataSnapshot.child("name").getValue().toString();
                         addMe.setText(uName);
 
 //                        locationText.setText(mListl.get(position).getLocation());
