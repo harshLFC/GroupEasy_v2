@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="3dp">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Family Katta getFamily Katta get together together"
+            android:textColor="@color/black"
+            android:textSize="@dimen/group_header_text_size"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:ellipsize="end"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/group_key"
+            android:text="sample"
+            android:visibility="gone"/>
+
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linearLayout"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_toEndOf="@+id/image_view"-->
+            <!--android:layout_toRightOf="@+id/image_view"-->
+            <!--android:layout_below="@+id/message_text"-->
+            <!--&gt;-->
+    <!--&lt;!&ndash;-rectangle&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:id="@+id/rectangle"-->
+                <!--android:layout_width="40sp"-->
+                <!--android:layout_height="50sp"-->
+                <!--android:background="@drawable/rectangle_shape"-->
+                <!--android:gravity="center"-->
+                <!--android:text="4"-->
+                <!--android:textSize="@dimen/header_text_size"-->
+                <!--/>-->
+
+    <!--&lt;!&ndash;-circle&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:id="@+id/circle"-->
+                <!--android:layout_width="40sp"-->
+                <!--android:layout_height="40sp"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:background="@drawable/circle_shape"-->
+                <!--android:gravity="center"-->
+                <!--android:text="4"-->
+                <!--android:textSize="@dimen/header_text_size"-->
+                <!--/>-->
+
+    <!--&lt;!&ndash;-hex&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:id="@+id/hex"-->
+                <!--android:layout_width="45sp"-->
+                <!--android:layout_height="45sp"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:background="@drawable/hexagon_shape"-->
+                <!--android:gravity="center"-->
+                <!--android:text="2"-->
+                <!--android:textSize="@dimen/header_text_size"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+
+        <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" No Active events"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_alignBaseline="@+id/check_box"
+            android:layout_alignBottom="@+id/check_box"
+            android:layout_alignLeft="@+id/message_text"
+            android:layout_alignStart="@+id/message_text" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/image_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_default_groups"
+            app:civ_border_width="1.5dp"
+            app:civ_border_color="#FF000000"
+            android:padding="1dp"
+            android:layout_marginTop="5dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="3dp"
+            android:id="@+id/view3" />
+
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_below="@+id/message_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

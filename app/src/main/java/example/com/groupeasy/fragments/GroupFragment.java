@@ -42,8 +42,9 @@ public class GroupFragment extends Fragment {
     private GroupAdapter mGroupAdapter;
     private List<new_groups> mLstGroups;
     private TextView emptyView;
-
     private SampleAdapter sampleAdapter;
+
+
     private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
     private FloatingActionButton fabCreatePoll;
