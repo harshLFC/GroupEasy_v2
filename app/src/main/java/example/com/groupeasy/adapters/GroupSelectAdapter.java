@@ -1,5 +1,6 @@
 package example.com.groupeasy.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -108,6 +109,7 @@ public class GroupSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private ImageView imageGroupView;
         private TextView groupKey;
         private CheckBox checkBox;
+        private Context mContext;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -126,29 +128,15 @@ public class GroupSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == textView.getId() ) {
-//            clickListener.onItemClick(getAdapterPosition(),v);
-                Context context = v.getContext();
+            if (v.getId() == checkBox.getId() ) {
+//
 
-                Intent i = new Intent(context,chatRoomActivity.class);
-                i.putExtra("room_name",((textView.getText().toString())));
-                i.putExtra("groupKey",((groupKey.getText().toString())));
-
-                context.startActivity(i);
-
-            }
-            else if (v.getId() == imageGroupView.getId()) {
-                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
-//            clickListener.onItemClick(getAdapterPosition(),v);
-            }
-            else if (v.getId() == checkBox.getId()) {
-                Toast.makeText(v.getContext(), "Will select group?", Toast.LENGTH_SHORT).show();
-//            clickListener.onItemClick(getAdapterPosition(),v);
             }
         }
 
         public void setOnItemClickListener(ClickListener clickListener) {
             GroupSelectAdapter.clickListener = clickListener;
+            Toast.makeText( mContext, "",Toast.LENGTH_SHORT).show();
         }
 
         public interface ClickListener {

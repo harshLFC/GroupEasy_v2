@@ -1,5 +1,6 @@
 package example.com.groupeasy.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,13 +10,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,8 @@ import java.util.List;
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.adapters.GroupSelectAdapter;
+import example.com.groupeasy.pojo.list_details;
+import example.com.groupeasy.pojo.list_primary;
 import example.com.groupeasy.pojo.new_groups;
 
 public class chooseGroup extends AppCompatActivity {
@@ -35,6 +43,7 @@ public class chooseGroup extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
     final DatabaseReference groupRef = myRef.child("groups").child("");
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,7 @@ public class chooseGroup extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Choose Group");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +105,49 @@ public class chooseGroup extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_assign) {
 
-            Toast.makeText(this, "Clicked on assign",Toast.LENGTH_SHORT).show();
+            //intitlize data
+            String EventName, Location = "", minLimit = "", maxLimit = "", fromDATE = "", fromTIME="", toDATE="", toTIME="";
+            Boolean oneDayEvent, globalEvent;
+
+            Intent intent = new Intent(chooseGroup.this,DashboardActivity.class);
+
+            EventName = getIntent().getStringExtra("event_name");
+            Location = getIntent().getStringExtra("location");
+            minLimit =  getIntent().getStringExtra("min_limit");
+            maxLimit =  getIntent().getStringExtra("max_limit");
+
+            oneDayEvent = getIntent().getExtras().getBoolean("one_day_event");
+            globalEvent = getIntent().getExtras().getBoolean("global_event");
+
+            fromDATE = getIntent().getStringExtra("from_date");
+            fromTIME = getIntent().getStringExtra("from_time");
+            toDATE = getIntent().getStringExtra("to_date");
+            toTIME = getIntent().getStringExtra("to_time");
+
+                mStorageRef = FirebaseStorage.getInstance().getReference();
+                final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+
+                String push_id = groupRef.push().getKey();
+
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = current_user.getUid();
+
+
+//                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
+                list_primary listMain = new list_primary(EventName,uid,Location,push_id);
+
+                groupRef.child(push_id).setValue(listMain);
+
+                list_details newList = new list_details(EventName,minLimit,maxLimit,oneDayEvent,fromDATE,fromTIME,toDATE,toTIME,globalEvent);
+                groupRef.child(push_id).child("extra").setValue(newList);
+
+                startActivity(intent);
+
+            Toast.makeText(this, "Event Created! ",Toast.LENGTH_SHORT).show();
 //            return true;
+            startActivity(intent);
+            finish();
+
         }
 
         return super.onOptionsItemSelected(item);

@@ -83,24 +83,39 @@ public class CreateNewListActivity extends AppCompatActivity {
                 //intitlize data
                 String EventName, Location = "", minLimit = "", maxLimit = "", fromDATE = "", fromTIME="", toDATE="", toTIME="";
 
+                Intent intent = new Intent(context,chooseGroup.class);
+
+
                 // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
+                intent.putExtra("event_name",EventName);
 
                 if(!location.toString().isEmpty()){
                     Location = location.getText().toString();
+                    intent.putExtra("location",Location);
                 }
 
                 minLimit = tvRangeLimit1.getText().toString();
                 maxLimit = tvRangeLimit2.getText().toString();
+                intent.putExtra("min_limit",minLimit);
+                intent.putExtra("max_limit",maxLimit);
 
                 //is enabled returns true if pressed
                 oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
                 globalEvent = (CheckBox) findViewById(R.id.global_event);
+                intent.putExtra("one_day_event",oneDayEvent.isChecked());
+                intent.putExtra("global_event",globalEvent.isChecked());
+
 
                 fromDATE = TvFrom.getText().toString();
                 fromTIME = timeFrom.getText().toString();
                 toDATE = TvTo.getText().toString();
                 toTIME = timeTo.getText().toString();
+                intent.putExtra("from_date",fromDATE);
+                intent.putExtra("from_time",fromTIME);
+                intent.putExtra("to_date",toDATE);
+                intent.putExtra("to_time",toTIME);
+
 
                 //Code for form Validation
                 if(EventName.isEmpty()){
@@ -108,24 +123,7 @@ public class CreateNewListActivity extends AppCompatActivity {
                 }
                 //push to firebase
                 else {
-                    mStorageRef = FirebaseStorage.getInstance().getReference();
-                    final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
 
-                    String push_id = groupRef.push().getKey();
-
-                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-                    String uid = current_user.getUid();
-
-
-//                    new_list newList = new new_list("new poll","Dublin",10,20,false,"1238","92371","192837","92873",true);
-                    list_primary listMain = new list_primary(EventName,uid,Location,push_id);
-
-                    groupRef.child(push_id).setValue(listMain);
-
-                    list_details newList = new list_details(EventName,minLimit,maxLimit,(oneDayEvent.isPressed()),fromDATE,fromTIME,toDATE,toTIME,(globalEvent.isPressed()));
-                    groupRef.child(push_id).child("extra").setValue(newList);
-
-                    Intent intent = new Intent(context,chooseGroup.class);
                     startActivity(intent);
 
                 }
