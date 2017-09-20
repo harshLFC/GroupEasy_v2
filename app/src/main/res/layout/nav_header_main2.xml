@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Active Events"
-        android:textSize="20sp"
+        style="@android:style/TextAppearance.Medium"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="3dp"
@@ -29,6 +29,7 @@
         android:text="You have no active events in this group"
         app:layout_constraintRight_toLeftOf="@+id/imageView8"
         android:layout_marginRight="59dp"
+        style="@android:style/TextAppearance.Small"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 

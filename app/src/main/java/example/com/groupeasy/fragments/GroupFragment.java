@@ -2,6 +2,7 @@ package example.com.groupeasy.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -43,7 +46,6 @@ public class GroupFragment extends Fragment {
     private List<new_groups> mLstGroups;
     private TextView emptyView;
     private SampleAdapter sampleAdapter;
-
 
     private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
@@ -104,6 +106,7 @@ public class GroupFragment extends Fragment {
     /** handle your all on click events */
     private void initElementsWithListeners()
     {
+
         floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
@@ -161,7 +164,8 @@ public class GroupFragment extends Fragment {
         //code to keep firebase database offline functionality synced
             groupRef.keepSynced(true);
 
-            groupRef.addValueEventListener(new ValueEventListener() {
+
+        groupRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 

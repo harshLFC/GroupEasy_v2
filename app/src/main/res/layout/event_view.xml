@@ -15,12 +15,10 @@
 
             <ImageView
                 android:id="@+id/location_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:src="@drawable/ic_location"
                 app:layout_constraintLeft_toRightOf="@+id/event_logo"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintTop_toBottomOf="@+id/event_type"
                 android:visibility="gone"
                  />
@@ -31,9 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="Location"
                 app:layout_constraintLeft_toRightOf="@+id/location_image"
-                android:layout_marginLeft="9dp"
                 app:layout_constraintTop_toTopOf="@+id/location_image"
-                android:layout_marginTop="3dp"
                 android:visibility="gone"/>
 
         <ImageView
@@ -87,18 +83,20 @@
                 android:id="@+id/event_key"
                 android:text="SAMPLE"
                 android:visibility="gone"
-                />
+                tools:layout_editor_absoluteY="86dp"
+                tools:layout_editor_absoluteX="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Auhor:"
-                android:layout_marginTop="7dp"
-                app:layout_constraintTop_toBottomOf="@+id/event_name"
                 android:id="@+id/textView"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="@+id/imageView"
                 app:layout_constraintLeft_toRightOf="@+id/event_logo"
-                android:layout_marginLeft="126dp"
-                android:layout_marginStart="126dp" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/event_name" />
 
             <TextView
                 android:id="@+id/author_of_event"
@@ -111,25 +109,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/event_name"
                 android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp" />
 
             <ImageView
-                android:layout_width="328dp"
-                android:layout_height="120dp"
-                android:background="@color/lemon_yellow"
-                tools:mockup_opacity="10"
-                android:layout_marginTop="-17dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/imageView"
-                android:layout_marginStart="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintHorizontal_bias="0.0">
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/lemon_yellow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.076"
+                tools:mockup_opacity="10">
+
             </ImageView>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -139,106 +138,112 @@
                 android:src="@drawable/user2"
                 android:background="@drawable/editborder"
                 android:padding="2dp"
-                app:layout_constraintRight_toLeftOf="@+id/add_me"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="13dp"
-                android:id="@+id/profileImage1"
-                app:layout_constraintHorizontal_bias="0.3" />
+                android:id="@+id/user_dp"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="@+id/imageView"
+                android:layout_marginRight="13dp"
+                app:layout_constraintRight_toRightOf="@+id/imageView"
+                app:layout_constraintHorizontal_bias="0.0" />
 
                 <TextView
                 android:text="Harsh"
                     android:layout_height="18dp"
-                    android:layout_width="241dp"
-                    android:id="@+id/textView1"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/add_me"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView1"
+                    app:layout_constraintLeft_toRightOf="@+id/profileImage1"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginRight="30dp"
                     app:layout_constraintRight_toRightOf="@+id/imageView"
-                    android:layout_marginEnd="30dp" />
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintHorizontal_bias="0.0" />
 
             <View
-                android:layout_width="295dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                android:layout_marginTop="47dp"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
                 android:id="@+id/view"
-                app:layout_constraintHorizontal_bias="0.529" />
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="@+id/view2"
+                app:layout_constraintRight_toRightOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/add_me" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_dp"
+                android:id="@+id/profileImage1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/user2"
                 android:background="@drawable/editborder"
                 android:padding="2dp"
-                app:layout_constraintRight_toLeftOf="@+id/add_me"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="13dp"
-                app:layout_constraintTop_toBottomOf="@+id/profileImage1"
+                android:layout_marginRight="13dp"
+                app:layout_constraintRight_toRightOf="@+id/imageView"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="0.0" />
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="18dp"
+                app:layout_constraintTop_toBottomOf="@+id/user_dp" />
 
             <TextView
 
                 android:text="+ Add me"
                 android:layout_height="19dp"
-                android:layout_width="242dp"
-                android:id="@+id/add_me"
-                android:layout_marginTop="59dp"
-                android:layout_marginRight="29dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:id="@+id/textView1"
                 android:layout_marginEnd="30dp"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                android:layout_marginTop="16dp"
+                app:layout_constraintLeft_toRightOf="@+id/user_dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="30dp"
+                app:layout_constraintRight_toRightOf="@+id/imageView"
+                android:layout_marginStart="8dp"
+                app:layout_constraintHorizontal_bias="0.0" />
 
             <View
-                android:layout_width="295dp"
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
                 android:layout_alignParentLeft="true"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
+                android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
                 app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView1"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/add_me"
-                app:layout_constraintHorizontal_bias="0.529"
-                app:layout_constraintVertical_bias="0.583"
-                android:id="@+id/view2" />
+                app:layout_constraintRight_toRightOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
             <ImageButton
                 android:id="@+id/full_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="22dp"
+                android:layout_height="21dp"
                 android:src="@drawable/ic_down_arrow"
                 android:background="#80000000"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="0dp"
                 app:layout_constraintTop_toBottomOf="@+id/view"
-                android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="@+id/imageView"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="@+id/imageView"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintVertical_bias="0.428"
+                app:layout_constraintVertical_bias="1.0"
                 android:padding="-10dp"
-                android:layout_margin="-10dp"/>
+                android:layout_margin="-10dp"
+                android:layout_marginStart="8dp" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

@@ -6,8 +6,8 @@
     android:padding="3dp">
     
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_default_user_single"
         app:civ_border_color="@color/black"
         app:civ_border_width="1.5dp"
@@ -22,7 +22,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="7dp"
-        android:textSize="20sp"
+        style="@android:style/TextAppearance.Large"
         android:text="Harsh P"
         android:textColor="@color/black"
         android:layout_alignTop="@+id/user_dp"
@@ -31,16 +31,19 @@
 
     <TextView
         android:id="@+id/user_status"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My Status"
+        style="@android:style/TextAppearance.Small"
         android:layout_alignBottom="@+id/user_dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/user_name"
-        android:layout_alignStart="@+id/user_name"
-        android:layout_marginBottom="8dp" />
+        android:layout_alignStart="@+id/user_name" />
 
     <TextView
         android:id="@+id/last_seen"
+        style="@android:style/TextAppearance.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

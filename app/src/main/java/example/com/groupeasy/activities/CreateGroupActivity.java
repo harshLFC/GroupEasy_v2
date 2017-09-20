@@ -146,7 +146,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                             groupRef.child(group_id).setValue(newGroups);
 
-                            msgRef.setValue(group_id);
+                            msgRef.child(group_id).setValue(true);
 
 //                            groupRef.push().setValue(newGroups);
 
@@ -194,6 +194,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         finish();
     }
 
+    //This method is called on CropImage activity result
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -204,7 +205,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
-                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
                 final DatabaseReference groupRef = myRef.child("groups").child("");
                 String Groupuid = groupRef.getKey();

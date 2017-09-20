@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="Semra"
-        android:textStyle="normal|bold"
+        style="@android:style/TextAppearance.Small"
+        android:textStyle="bold"
         android:layout_toLeftOf="@+id/imageView1"/>
 
     <TextView
@@ -31,10 +32,11 @@
         android:text="Hello"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        style="@android:style/TextAppearance.Medium"
         android:layout_toLeftOf="@+id/imageView1"/>
 
     <TextView
+        style="@android:style/TextAppearance.Small"
         android:id="@+id/message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

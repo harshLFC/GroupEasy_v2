@@ -48,7 +48,7 @@
 
     </LinearLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
         android:src="@drawable/ic_camera_black"
         android:id="@+id/GroupDPImageView"
