@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,8 +21,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -53,6 +57,13 @@ public class CreateGroupActivity extends AppCompatActivity {
     final DatabaseReference myRef = database.getReference();
     private StorageReference mStorageRef;
 
+    final DatabaseReference groupRef = myRef.child("groups").child("");
+
+    final String group_id = groupRef.push().getKey();
+
+    String Groupuid = groupRef.push().getKey();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +83,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 //                .centerCrop()
 //                .into(groupDP);
     }
+
 
     private void initElementsWithListeners() {
 
@@ -97,7 +109,6 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference groupRef = myRef.child("groups").child("");
         final DatabaseReference msgRef = myRef.child("messages").child("");
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -106,76 +117,93 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 final String groupName = input.getText().toString();
                 FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = current_user.getUid();
-                String Groupuid = groupRef.getKey();
+                final String uid = current_user.getUid();
 
-                String members = "";
-                final String icon = "";
-                final String admin = uid;
-                final String last_msg = "You have no messages in the group";
+                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final String admin = dataSnapshot.getValue().toString();
 
-                if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
+                        String members = "";
+                        final String icon = "";
+                        final String last_msg = "You have no messages in the group";
 
-                    Toast.makeText(context, "Please enter a Name for the Group",Toast.LENGTH_LONG).show();
-                }
+                        if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
+
+                            Toast.makeText(context, "Please enter a Name for the Group",Toast.LENGTH_LONG).show();
+                        }
 // else the entered string will be pushed to the firebase database reference
 
-                else if(groupDP == null){
-                    Toast.makeText(CreateGroupActivity.this, "group is null put code here",Toast.LENGTH_LONG).show();
-                }
+                        else if(groupDP == null){
+                            Toast.makeText(CreateGroupActivity.this, "group is null put code here",Toast.LENGTH_LONG).show();
+                        }
 
-                else {
+                        else {
 
-                    mStorageRef = FirebaseStorage.getInstance().getReference();
+                            mStorageRef = FirebaseStorage.getInstance().getReference();
 
-                    //This code is not pushing image ??
+                            //This code is not pushing image ??
 
-                    final StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
 
+                            final StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
 //                    if(groupDP.equals(R.drawable.ic_default_groups))
-                   final String group_id = groupRef.push().getKey();
+
+// If image is selected
+//                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//
+////                            String download_url = taskSnapshot.getDownloadUrl().toString();
+//
+//                                    new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
+//
+//                                    groupRef.child(group_id).setValue(newGroups);
+//
+//                                    msgRef.child(group_id).setValue(true);
+//
+////                            groupRef.push().setValue(newGroups);
+//
+//                                    Intent intent = new Intent(context,chooseUserActivity.class);
+//                                    startActivity(intent);
+//                                }
+//
+//                            });
+//
+//
+////If image is not selected
+//                            filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//
+//                                    String defaultImage = getString(R.string.default_firebase_groups);
+//
+//
+//                                    new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName,group_id);
+//
+//                                    groupRef.child(group_id).setValue(newGroups);
+//
+//                                    msgRef.child(group_id).setValue(true);
+//
+//                                    Intent intent = new Intent(context,chooseUserActivity.class);
+//                                    startActivity(intent);
+//                                }
+//                            });
 
 
-                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-
-//                            String download_url = taskSnapshot.getDownloadUrl().toString();
-
-                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
-
-                            groupRef.child(group_id).setValue(newGroups);
-
-                            msgRef.child(group_id).setValue(true);
-
-//                            groupRef.push().setValue(newGroups);
-
-                            Intent intent = new Intent(context,DashboardActivity.class);
+                            Intent intent = new Intent(context,chooseUserActivity.class);
                             startActivity(intent);
-                            finish();
                         }
 
-                    });
+                    }
 
-                    filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                            String defaultImage = getString(R.string.default_firebase_groups);
+                    }
+                });
 
 
-                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName,group_id);
 
-                            groupRef.child(group_id).setValue(newGroups);
-
-                            msgRef.child(group_id).setValue(true);
-
-                            Intent intent = new Intent(context,DashboardActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                }
             }
         });
     }
@@ -220,7 +248,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 mStorageRef = FirebaseStorage.getInstance().getReference();
 
                 //this code is pushing image
-                StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
+                StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
 
                 filePath.putFile(resultUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
