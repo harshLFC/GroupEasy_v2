@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="3dp">
-    
+    android:padding="3dp"
+    android:id="@+id/my_relative_layout">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -60,12 +61,25 @@
         android:layout_alignParentEnd="true" />
 
     <CheckBox
+        android:id="@+id/my_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select"
         android:layout_above="@+id/view5"
         android:layout_alignRight="@+id/last_seen"
         android:layout_alignEnd="@+id/last_seen" />
+
+
+    <Button
+        android:id="@+id/the_userselect_button"
+        android:layout_width="match_parent"
+        android:layout_height= "60dp"
+        android:background="@android:color/transparent"
+        android:layout_alignRight="@+id/user_name"
+        android:layout_alignEnd="@+id/user_name"
+        android:layout_toRightOf="@+id/user_dp"
+        android:layout_toEndOf="@+id/user_dp" />
+
 
     <View
         android:layout_width="match_parent"

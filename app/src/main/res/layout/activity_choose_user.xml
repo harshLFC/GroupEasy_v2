@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="example.com.groupeasy.activities.chooseUserActivity"
     android:orientation="vertical"
+    android:background="@drawable/selector_row"
+    android:id="@+id/my_linear_layout"
     >
 
     <include layout="@layout/app_bar_layout"

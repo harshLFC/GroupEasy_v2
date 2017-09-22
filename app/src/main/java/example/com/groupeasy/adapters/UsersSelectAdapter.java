@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import example.com.groupeasy.pojo.new_groups;
 import example.com.groupeasy.pojo.users_list;
 
 import static example.com.groupeasy.R.id.image_view;
+import static example.com.groupeasy.R.id.view;
 
 
 public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,6 +31,11 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+
+
+
+
+
 
     public UsersSelectAdapter(){
 
@@ -73,13 +80,24 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-       UserViewHolder viewHolder = (UserViewHolder) holder;
+       final UserViewHolder viewHolder = (UserViewHolder) holder;
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
         String image = (mLstGroups.get(position).getImage());
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
+
+        viewHolder.myCheck.setOnCheckedChangeListener(null);
+        viewHolder.myCheck.setChecked(mLstGroups.get(position).isSelected());
+
+        viewHolder.myCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                mLstGroups.get(viewHolder.getAdapterPosition()).setSelected(isChecked);
+            }
+        });
 
         // getting context from view object
 
@@ -108,6 +126,7 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView userName;
         private TextView userStatus;
         private TextView userLastSeen;
+        private CheckBox myCheck;
 
         private ImageView userDP;
 
@@ -120,20 +139,32 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userName = (TextView) itemView.findViewById(R.id.user_name);
             userStatus = (TextView) itemView.findViewById(R.id.user_status);
             userLastSeen = (TextView) itemView.findViewById(R.id.last_seen);
+            myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
 
             userDP = (ImageView) itemView.findViewById(R.id.user_dp);
 
                     userName.setOnClickListener(this);
                     userDP.setOnClickListener(this);
+                    myCheck.setOnClickListener(this);
 
-        }
+
+
+                }
 
         @Override
         public void onClick(View v) {
 
-            notifyItemChanged(selectedPos);
-            selectedPos = getLayoutPosition();
-            notifyItemChanged(selectedPos);
+            if(v.getId() == myCheck.getId()){
+
+                Toast.makeText(v.getContext(), "Clicked",Toast.LENGTH_SHORT).show();
+
+
+
+            }
+
+//            notifyItemChanged(selectedPos);
+//            selectedPos = getLayoutPosition();
+//            notifyItemChanged(selectedPos);
 //            Toast.makeText(v.getContext(), selectedPos,Toast.LENGTH_SHORT).show();
 
 
