@@ -21,17 +21,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import example.com.groupeasy.R;
-import example.com.groupeasy.adapters.UserAdapter;
 import example.com.groupeasy.adapters.UsersSelectAdapter;
-import example.com.groupeasy.pojo.list_details;
-import example.com.groupeasy.pojo.list_primary;
+import example.com.groupeasy.pojo.new_groups;
 import example.com.groupeasy.pojo.users_list;
 
 public class chooseUserActivity extends AppCompatActivity {
@@ -51,7 +48,12 @@ public class chooseUserActivity extends AppCompatActivity {
     /** Firebase db init*/
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
+
     final DatabaseReference userRef = myRef.child("members").child("");
+    final DatabaseReference groupRef = myRef.child("groups").child("");
+
+    final String group_id = groupRef.push().getKey();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,25 @@ public class chooseUserActivity extends AppCompatActivity {
 
         mLstGroups = new ArrayList<>();
         // initialize adapter to our List of <group>
-        mUserAdapter = new UsersSelectAdapter(mLstGroups);
+
+        mUserAdapter = new UsersSelectAdapter(mLstGroups, new UsersSelectAdapter.OnItemCheckListener(){
+
+            @Override
+            public void onItemCheck(users_list mListGroups) {
+                mLstGroups.add(mListGroups);
+
+                Toast.makeText(chooseUserActivity.this, "inside onItemCheck",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onItemUncheck(users_list mListGroups) {
+                mLstGroups.remove(mListGroups);
+            }
+
+        });
+
+//        mUserAdapter = new UsersSelectAdapter(mLstGroups, onItemCheckListener);
 
         mUserRecyclerView = (RecyclerView) findViewById(R.id.choose_users_recyclerview);
         mUserRecyclerView.setHasFixedSize(true);
@@ -115,7 +135,45 @@ public class chooseUserActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
-            Toast.makeText(this, "Clicked! ",Toast.LENGTH_SHORT).show();
+            final DatabaseReference msgRef = myRef.child("messages").child("");
+
+            final String groupName = getIntent().getStringExtra("groupName");
+            final String imagePic = getIntent().getStringExtra("imagePic");
+
+//            Toast.makeText(this, groupName,Toast.LENGTH_SHORT).show();
+
+            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+            final String uid = current_user.getUid();
+
+            myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    final String admin = dataSnapshot.getValue().toString();
+                    String members = "";
+                    final String icon = "";
+                    final String last_msg = "You have no messages in the group";
+
+                    new_groups newGroups = new new_groups(admin,imagePic,last_msg,groupName,group_id);
+
+                    groupRef.child(group_id).setValue(newGroups);
+
+                    msgRef.child(group_id).setValue(true);
+
+
+                    Toast.makeText(chooseUserActivity.this, "Group has been created ",Toast.LENGTH_LONG).show();
+
+                    Intent i = new Intent(getApplicationContext(),DashboardActivity.class);
+                    startActivity(i);
+//                    finish();
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
         }
 
