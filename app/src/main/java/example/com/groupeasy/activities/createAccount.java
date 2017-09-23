@@ -52,33 +52,32 @@ public class createAccount extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase ;
+    final DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference userRef = mDatabase1.child("members").child("");
+
     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     StorageReference mStorageRef;
 
-
-
     private ProgressDialog mRegProcess;
 
-    public boolean onOptionsItemSelected(MenuItem item) {
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        System.out.println("Inside opOptionsItemSelected");
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                onBackPressed();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
-        System.out.println("Inside opOptionsItemSelected");
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
-//        String uid = current_user.getUid();
-
 
         mToolBar = (Toolbar) findViewById(R.id.create_acc_tool);
         setSupportActionBar(mToolBar);
@@ -133,30 +132,51 @@ public class createAccount extends AppCompatActivity {
 
     private void register_user(final String mUserEmail, final String mUserName, String mUserPass) {
 
+        final String uid = current_user.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
+
+        final HashMap<String,String> userMap = new HashMap<>();
+
+        userMap.put("name",mUserName);
+        userMap.put("status","Hi! Im on GroupEasy");
+        userMap.put("image","Default");
+        userMap.put("favs","0");
+        userMap.put("polls","0");
+        userMap.put("rosters","0");
+        userMap.put("lists","0");
+        userMap.put("thumb_image","Default");
+        userMap.put("last_seen","Default");
+
         mAuth.createUserWithEmailAndPassword(mUserEmail,mUserPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
 
-
                     if(current_user != null)
                     {
+                        StorageReference filePath = mStorageRef.child("profile_images").child(uid+".jpg");
 
-                        String uid = current_user.getUid();
-                        mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
-                        HashMap<String,String> userMap = new HashMap<String, String>();
-                        userMap.put("name",mUserName);
-                        userMap.put("status","Hi! Im on GroupEasy");
-                        userMap.put("favs","0");
-                        userMap.put("polls","0");
-                        userMap.put("rosters","0");
-                        userMap.put("lists","0");
-                        userMap.put("thumb_image","Default");
-                        userMap.put("last_seen","Default");
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+
+                                userMap.put("image",uri.toString());
 
 
 
+                            }
+                        });
+
+                        filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                userMap.put("image","Default");
+
+                            }
+                        });
 
                         mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -188,9 +208,7 @@ public class createAccount extends AppCompatActivity {
                 else
                 {
                     mRegProcess.hide();
-
                     String error;
-
                     try {
                         throw task.getException();
                     }
@@ -271,14 +289,6 @@ public class createAccount extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-
-
-
-
 
     private void initElementsWithIds() {
         userName = (TextInputLayout) findViewById(R.id.text_input_user_name);

@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -59,7 +60,6 @@ public class chooseUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_user);
-        ButterKnife.bind(this);
 
         mToolbar = (Toolbar) findViewById(R.id.choose_users_toolbar);
         setSupportActionBar(mToolbar);
@@ -76,28 +76,9 @@ public class chooseUserActivity extends AppCompatActivity {
         createListView();
         initElementsWithListeners();
 
-
         mLstGroups = new ArrayList<>();
         // initialize adapter to our List of <group>
-
-        mUserAdapter = new UsersSelectAdapter(mLstGroups, new UsersSelectAdapter.OnItemCheckListener(){
-
-            @Override
-            public void onItemCheck(users_list mListGroups) {
-                mLstGroups.add(mListGroups);
-
-                Toast.makeText(chooseUserActivity.this, "inside onItemCheck",Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onItemUncheck(users_list mListGroups) {
-                mLstGroups.remove(mListGroups);
-            }
-
-        });
-
-//        mUserAdapter = new UsersSelectAdapter(mLstGroups, onItemCheckListener);
+        mUserAdapter = new UsersSelectAdapter(mLstGroups);
 
         mUserRecyclerView = (RecyclerView) findViewById(R.id.choose_users_recyclerview);
         mUserRecyclerView.setHasFixedSize(true);
@@ -132,6 +113,16 @@ public class chooseUserActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        final HashMap <String, Boolean> myMap = new HashMap<>();
+
+        myMap.put("pmSmEyC3iaQAD3dkN9gHR0fcREA2",true);
+        myMap.put("nHJ6MMihesPYq4vCdcmHknw6fmh1",true);
+        myMap.put("ihTSFQWQpWYCGSTJsU1NvKmroR02",true);
+        myMap.put("ETxXyU2OkVNL9jPhII2V5Pt7gVp2",true);
+        myMap.put("9eNvtKPaoOTwLuuq27pPyUk7XRx2",true);
+
+
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
@@ -159,6 +150,8 @@ public class chooseUserActivity extends AppCompatActivity {
                     groupRef.child(group_id).setValue(newGroups);
 
                     msgRef.child(group_id).setValue(true);
+
+                    groupRef.child(group_id).child("members").child("").setValue(myMap);
 
 
                     Toast.makeText(chooseUserActivity.this, "Group has been created ",Toast.LENGTH_LONG).show();
@@ -188,7 +181,7 @@ public class chooseUserActivity extends AppCompatActivity {
 
     private void createListView() {
 
-        userRef.keepSynced(true);
+//        userRef.keepSynced(true);
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override

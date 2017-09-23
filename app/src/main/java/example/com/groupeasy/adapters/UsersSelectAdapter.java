@@ -27,7 +27,6 @@ import static example.com.groupeasy.R.id.view;
 
 public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final OnItemCheckListener onItemClick;
     private List<users_list> mLstGroups;
     Context mContext;
     private int selectedPos = 0;
@@ -35,27 +34,15 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
 
+    public UsersSelectAdapter(){
 
-    public interface OnItemCheckListener {
-        void onItemCheck(users_list mLstGroups);
-        void onItemUncheck(users_list mLstGroups);
     }
-
-    @NonNull
-    private OnItemCheckListener onItemCheckListener ;
-
-//    public UsersSelectAdapter(@NonNull OnItemCheckListener onItemCheckListener){
-//
-//        this.OnItemCheckListener  = onItemCheckListener;
-//
-//    }
 
     /**add a constructor to the custom adapter to handle data that
      RecyclerView displays.data is in the form of a List of <Group> objects**/
-    public UsersSelectAdapter(List<users_list> mLstGroups, @NonNull OnItemCheckListener onItemCheckListener)
+    public UsersSelectAdapter(List<users_list> mLstGroups)
     {
         this.mLstGroups = mLstGroups;
-        this.onItemClick = onItemCheckListener;
     }
 
     /**We specify the layout that each item of the RecyclerView should use.This is done by
@@ -88,58 +75,15 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     **/
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof MyViewHolder){
-
-           final users_list currentItem = mLstGroups.get(position);
-
-
-            ((MyViewHolder)holder).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    ((MyViewHolder) holder).checkbox.setChecked(
-                            !((MyViewHolder) holder).checkbox.isChecked());
-                    if (((MyViewHolder) holder).checkbox.isChecked()) {
-//                        onItemCheckListener.onItemCheck(currentItem);
-                        onItemClick.onItemCheck(currentItem);
-                    } else {
-//                        onItemCheckListener.onItemUncheck(currentItem);
-                        onItemClick.onItemUncheck(currentItem);
-                    }
-
-
-                }
-            });
-
-
-        }
-
-
-       final UserViewHolder viewHolder = (UserViewHolder) holder;
-
-
+       UserViewHolder viewHolder = (UserViewHolder) holder;
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
         String image = (mLstGroups.get(position).getImage());
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
-
-        viewHolder.myCheck.setOnCheckedChangeListener(null);
-        viewHolder.myCheck.setChecked(mLstGroups.get(position).isSelected());
-
-        viewHolder.myCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                mLstGroups.get(viewHolder.getAdapterPosition()).setSelected(isChecked);
-
-//                Toast.makeText(mContext, "inside hereeeeeee",Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
         // getting context from view object
 
@@ -163,10 +107,7 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return mLstGroups.size();
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder
-//            implements View.OnClickListener
-
-    {
+    public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView userName;
         private TextView userStatus;
@@ -188,48 +129,32 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userDP = (ImageView) itemView.findViewById(R.id.user_dp);
 
-//                    userName.setOnClickListener(this);
-//                    userDP.setOnClickListener(this);
-                    myCheck.setClickable(false);
+                    userName.setOnClickListener(this);
+                    userDP.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            notifyItemChanged(selectedPos);
+            selectedPos = getLayoutPosition();
+            notifyItemChanged(selectedPos);
+//            Toast.makeText(v.getContext(), selectedPos,Toast.LENGTH_SHORT).show();
 
 
-
-                }
-
-                public void setOnClickListener(View.OnClickListener onClickListener){
-
-                    itemView.setOnClickListener(onClickListener);
-                }
-
-//        @Override
-//        public void onClick(View v) {
-////
-////            if(v.getId() == myCheck.getId()){
-////
-////                Toast.makeText(v.getContext(), "Clicked",Toast.LENGTH_SHORT).show();
-////
-////
-////
-////            }
 //
-////            notifyItemChanged(selectedPos);
-////            selectedPos = getLayoutPosition();
-////            notifyItemChanged(selectedPos);
-////            Toast.makeText(v.getContext(), selectedPos,Toast.LENGTH_SHORT).show();
+//            if (v.getId() == userName.getId()) {
 //
+//                Toast.makeText(v.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
 //
-////
-////            if (v.getId() == userName.getId()) {
-////
-////                Toast.makeText(v.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
-////
-////            } else if (v.getId() == userDP.getId()) {
-////
-////                Toast.makeText(v.getContext(), "ClickedIMAGE", Toast.LENGTH_SHORT).show();
-////            }
+//            } else if (v.getId() == userDP.getId()) {
 //
-//
-//        }
+//                Toast.makeText(v.getContext(), "ClickedIMAGE", Toast.LENGTH_SHORT).show();
+//            }
+
+
+        }
 
 
     }
@@ -242,23 +167,4 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return VIEW_TYPE_OBJECT_VIEW;
         }
     }
-
-
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-        CheckBox checkbox;
-        View itemView;
-
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            this.itemView = itemView;
-            checkbox = (CheckBox) itemView.findViewById(R.id.checkbox);
-            checkbox.setClickable(false);
-        }
-
-        public void setOnClickListener(View.OnClickListener onClickListener) {
-            itemView.setOnClickListener(onClickListener);
-        }
-    }
 }
-

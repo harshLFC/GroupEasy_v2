@@ -16,16 +16,12 @@ public class users_list {
     String thumb_image;
     String last_seen;
 
-
-
-    boolean isSelected;
-
     public users_list(){
 
     }
 
     public users_list(String name, String status, String image, String rosters, String polls,
-                      String lists, String favs, String thumb_image, String last_seen, boolean isSelected) {
+                      String lists, String favs, String thumb_image, String last_seen) {
         this.name = name;
         this.status = status;
         this.image = image;
@@ -35,7 +31,6 @@ public class users_list {
         this.favs = favs;
         this.thumb_image = thumb_image;
         this.last_seen = last_seen;
-        this.isSelected = isSelected;
     }
 
     public String getName() {
@@ -110,11 +105,4 @@ public class users_list {
         this.last_seen = last_seen;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
 }
