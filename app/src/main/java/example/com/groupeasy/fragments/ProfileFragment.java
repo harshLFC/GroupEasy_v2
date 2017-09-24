@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
-                        String name = dataSnapshot.child("name").getValue().toString();
+                    String name = dataSnapshot.child("name").getValue().toString();
                     String image = dataSnapshot.child("image").getValue().toString();
                     String status = dataSnapshot.child("status").getValue().toString();
                     String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
