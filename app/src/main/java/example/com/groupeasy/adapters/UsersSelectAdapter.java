@@ -33,6 +33,7 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+    private List<users_list> studentist;
 
     public UsersSelectAdapter(){
 
@@ -78,12 +79,29 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
        UserViewHolder viewHolder = (UserViewHolder) holder;
+        final int pos = position;
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
         String image = (mLstGroups.get(position).getImage());
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
+
+        viewHolder.myCheck.setChecked(mLstGroups.get(position).isSelected());
+        viewHolder.myCheck.setTag(mLstGroups.get(position));
+
+        viewHolder.myCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CheckBox cb = (CheckBox) v;
+                users_list contact = (users_list) cb.getTag();
+
+                contact.setSelected(cb.isChecked());
+                mLstGroups.get(pos).setSelected(cb.isChecked());
+
+                }
+        });
 
         // getting context from view object
 
@@ -105,6 +123,10 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         return mLstGroups.size();
+    }
+
+    public List<users_list> getUserId() {
+        return mLstGroups;
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

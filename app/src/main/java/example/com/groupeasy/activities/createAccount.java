@@ -165,6 +165,7 @@ public class createAccount extends AppCompatActivity {
                                 userMap.put("lists","0");
                                 userMap.put("thumb_image","Default");
                                 userMap.put("last_seen","Default");
+                                userMap.put("id",uid);
 
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -203,6 +204,7 @@ public class createAccount extends AppCompatActivity {
                                 userMap.put("lists","0");
                                 userMap.put("thumb_image","Default");
                                 userMap.put("last_seen","Default");
+                                userMap.put("id",uid);
 
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

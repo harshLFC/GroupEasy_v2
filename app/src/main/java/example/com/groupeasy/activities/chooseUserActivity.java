@@ -50,7 +50,7 @@ public class chooseUserActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
 
-    final DatabaseReference userRef = myRef.child("members").child("");
+    final DatabaseReference userRef = myRef.child("members");
     final DatabaseReference groupRef = myRef.child("groups").child("");
 
     final String group_id = groupRef.push().getKey();
@@ -111,24 +111,52 @@ public class chooseUserActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        final String groupName = getIntent().getStringExtra("groupName");
+
         int id = item.getItemId();
-
-        final HashMap <String, Boolean> myMap = new HashMap<>();
-
-        myMap.put("pmSmEyC3iaQAD3dkN9gHR0fcREA2",true);
-        myMap.put("nHJ6MMihesPYq4vCdcmHknw6fmh1",true);
-        myMap.put("ihTSFQWQpWYCGSTJsU1NvKmroR02",true);
-        myMap.put("ETxXyU2OkVNL9jPhII2V5Pt7gVp2",true);
-        myMap.put("9eNvtKPaoOTwLuuq27pPyUk7XRx2",true);
-
-
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
+
+            String data = "";
+            List<users_list> uList = mUserAdapter
+                    .getUserId();
+
+            final HashMap <String, Boolean> myMap = new HashMap<>();
+
+
+            for (int i = 0; i < uList.size(); i++) {
+                users_list singleUser = uList.get(i);
+                if (singleUser.isSelected()) {
+
+//                    data = data + "\n" + singleUser.getId();
+                    myMap.put(singleUser.getId(),true);
+
+                    userRef.child(singleUser.getId()).child("groupsIn").child(groupName).setValue(true);
+
+      /*
+       * Toast.makeText( CardViewActivity.this, " " +
+       * singleStudent.getName() + " " +
+       * singleStudent.getEmailId() + " " +
+       * singleStudent.isSelected(),
+       * Toast.LENGTH_SHORT).show();
+       */
+                }
+
+            }
+
+            Toast.makeText(chooseUserActivity.this,
+                    "Selected Students: \n" + data, Toast.LENGTH_LONG)
+                    .show();
+
+            //code to push data to firebase
+
+
+
             final DatabaseReference msgRef = myRef.child("messages").child("");
 
-            final String groupName = getIntent().getStringExtra("groupName");
+//            groupName = getIntent().getStringExtra("groupName");
             final String imagePic = getIntent().getStringExtra("imagePic");
 
 //            Toast.makeText(this, groupName,Toast.LENGTH_SHORT).show();
@@ -168,6 +196,12 @@ public class chooseUserActivity extends AppCompatActivity {
                 }
             });
 
+
+
+            //end code push
+
+
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -183,7 +217,7 @@ public class chooseUserActivity extends AppCompatActivity {
 
 //        userRef.keepSynced(true);
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

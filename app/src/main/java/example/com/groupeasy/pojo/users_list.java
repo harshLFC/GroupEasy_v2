@@ -16,12 +16,17 @@ public class users_list {
     String thumb_image;
     String last_seen;
 
+
+
+    String id;
+    boolean selected;
+
     public users_list(){
 
     }
 
     public users_list(String name, String status, String image, String rosters, String polls,
-                      String lists, String favs, String thumb_image, String last_seen) {
+                      String lists, String favs, String thumb_image, String last_seen, String id) {
         this.name = name;
         this.status = status;
         this.image = image;
@@ -31,6 +36,7 @@ public class users_list {
         this.favs = favs;
         this.thumb_image = thumb_image;
         this.last_seen = last_seen;
+        this.id = id;
     }
 
     public String getName() {
@@ -105,4 +111,20 @@ public class users_list {
         this.last_seen = last_seen;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }
