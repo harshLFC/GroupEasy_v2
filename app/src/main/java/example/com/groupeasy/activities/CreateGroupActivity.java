@@ -1,31 +1,23 @@
 package example.com.groupeasy.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,14 +25,8 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
-import java.util.Random;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
-import example.com.groupeasy.editProfileActivity;
-import example.com.groupeasy.pojo.chatPOJO;
-import example.com.groupeasy.pojo.new_groups;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
@@ -217,9 +203,9 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
 
-                final DatabaseReference groupRef = myRef.child("groups").child("");
-                String Groupuid = groupRef.getKey();
-                String groupName = input.getText().toString();
+//                final DatabaseReference groupRef = myRef.child("groups").child("");
+//                String Groupuid = groupRef.getKey();
+//                String groupName = input.getText().toString();
 
                 //Loads image onto the UI
                 Picasso.with(CreateGroupActivity.this)
@@ -227,10 +213,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                         .resize(100,100)
                         .into(groupDP);
 
-                Uri file = Uri.fromFile(new File(image_uri));
-
                 //this code is pushing image
+//                Uri file = Uri.fromFile(new File(image_uri));
                 StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+
 
                 filePath.putFile(resultUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

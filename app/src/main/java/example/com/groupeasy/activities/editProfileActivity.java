@@ -1,4 +1,4 @@
-package example.com.groupeasy;
+package example.com.groupeasy.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,7 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import example.com.groupeasy.activities.DashboardActivity;
+import example.com.groupeasy.R;
 
 public class editProfileActivity extends AppCompatActivity {
 

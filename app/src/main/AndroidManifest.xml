@@ -69,7 +69,7 @@
             android:parentActivityName=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".editProfileActivity"
+            android:name=".activities.editProfileActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
