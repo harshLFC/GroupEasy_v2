@@ -1,5 +1,6 @@
 package example.com.groupeasy.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,17 +24,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
+import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.adapters.MessageAdapter;
 import example.com.groupeasy.pojo.chatMessage;
 
 public class chatRoomActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;
+    private Button chatRoomButton;
     private String room_name;
     private String groupKey ;
     private TextView roomName;
@@ -42,8 +47,9 @@ public class chatRoomActivity extends AppCompatActivity {
     private ImageView sendButton;
     private EditText messageContent;
     private ConstraintLayout myEventsFrame;
+    private CircleImageView groupImageView;
 
-    private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserDatabase,mGroupDatabase;
     private FirebaseUser mCurrentUser;
 
     MessageAdapter adapter;
@@ -52,11 +58,10 @@ public class chatRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatroom_main);
+        Context context = chatRoomActivity.this;
 
         initElementWithIds();
         initElementsWithListeners();
-
-
 
         //snippet to stop keyboard from appearing onCreate
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -66,6 +71,7 @@ public class chatRoomActivity extends AppCompatActivity {
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
         showAllOldMessages(groupKey);
+        loadImage(groupKey);
 
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle(room_name);
@@ -73,6 +79,8 @@ public class chatRoomActivity extends AppCompatActivity {
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child(groupKey).child("groupMsgs").child("");
 
@@ -83,7 +91,53 @@ public class chatRoomActivity extends AppCompatActivity {
 
        }
 
+    private void loadImage(String groupKey) {
+        mGroupDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupKey);
+
+        mGroupDatabase.child("image").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String image = dataSnapshot.getValue().toString();
+
+                if(image.isEmpty()){
+                    groupImageView.setImageResource(R.drawable.ic_default_groups);
+                }
+                else    {
+                    Picasso.with(chatRoomActivity.this)
+                            .load(image)
+                            .placeholder(R.drawable.ic_default_groups)
+                            .resize(100,100)
+                            .into(groupImageView);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
+
     public void initElementsWithListeners() {
+
+
+
+        chatRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(chatRoomActivity.this,aboutChatRoom.class);
+
+
+            }
+        });
+
+
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +223,8 @@ public class chatRoomActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         sendButton = (ImageView) findViewById(R.id.send_button);
         messageContent = (EditText) findViewById(R.id.message_content);
+        groupImageView = (CircleImageView) findViewById(R.id.group_image_view);
+        chatRoomButton = (Button) findViewById(R.id.chat_room_button);
 
         myEventsFrame = (ConstraintLayout) findViewById(R.id.active_events);
     }

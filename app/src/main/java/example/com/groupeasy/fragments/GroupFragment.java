@@ -3,12 +3,16 @@ package example.com.groupeasy.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +22,19 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.Key;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.CreateGroupActivity;
@@ -39,8 +48,8 @@ import example.com.groupeasy.pojo.new_groups;
 
 public class GroupFragment extends Fragment {
 
-   /** Ui elements init */
-   //Declare list, view, and adapter
+    /** Ui elements init */
+    //Declare list, view, and adapter
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
     private List<new_groups> mLstGroups;
@@ -57,6 +66,9 @@ public class GroupFragment extends Fragment {
     /** Firebase db init*/
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
+
+    final DatabaseReference userRef = myRef.child("members");
+
     final DatabaseReference groupRef = myRef.child("groups").child("");
 
     @Nullable
@@ -88,7 +100,7 @@ public class GroupFragment extends Fragment {
         mGroupRecyclerView.setAdapter(mGroupAdapter);
         mGroupRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-            return rootView;
+        return rootView;
     }
 
     private void initElementsWithIds(View view) {
@@ -162,46 +174,149 @@ public class GroupFragment extends Fragment {
     private void createListView()
     {
         //code to keep firebase database offline functionality synced
-            groupRef.keepSynced(true);
+        groupRef.keepSynced(true);
+
+        final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = current_user.getUid();
 
 
-        groupRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+        userRef.child(uid).child("groupsIn").child("").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final ArrayList myArray = new ArrayList();
+                final ArrayList myGroupArray = new ArrayList();
 
-                    mLstGroups.removeAll(mLstGroups);
+                for(final DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        new_groups newGroups = snapshot.getValue(new_groups.class);
-                        mLstGroups.add(newGroups);
-                    }
+                    /**I am getting correct list of groups in here, and adding them successfully to an array**/
+                    String temp = snapshot.getKey();
+                    myArray.add(temp);
+
+                }
+
+                for(int k=0; k<myArray.size();k++){
+
+                    myRef.child("groups").child((String) myArray.get(k)).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+//                            mLstGroups.removeAll(mLstGroups);
+
+//                            for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                new_groups newGroups = dataSnapshot.getValue(new_groups.class);
+                                mLstGroups.add(newGroups);
+//                            }
 //                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
 //                    mLstGroups.add(newGroups);
 
-                    mGroupAdapter.notifyDataSetChanged();
+                            mGroupAdapter.notifyDataSetChanged();
 
-                    //COde for displaying something when RecyclerView data is empty
+                            //COde for displaying something when RecyclerView data is empty
 
-                    if(mLstGroups.isEmpty()){
-                        emptyView.setVisibility(View.VISIBLE);
-                        mGroupRecyclerView.setVisibility(View.GONE);
-                    }
-                    else{
+                            if(mLstGroups.isEmpty()){
+                                emptyView.setVisibility(View.VISIBLE);
+                                mGroupRecyclerView.setVisibility(View.GONE);
+                            }
+                            else{
 
-                        emptyView.setVisibility(View.GONE);
-                        mGroupRecyclerView.setVisibility(View.VISIBLE);
+                                emptyView.setVisibility(View.GONE);
+                                mGroupRecyclerView.setVisibility(View.VISIBLE);
+                            }
+                        }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
+                        }
+                    });
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+//                        for(int i=0; i<myArray.size();i++) {
+//                            Log.w((String) myArray.get(i), "xyzzyspoon");
+//                        }
 
+                /**After here i wish to iterate through the previous array list and check if the keys of groups match,
+                 if they do, then print out the group details**/
+//                        groupRef.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                                mLstGroups.removeAll(mLstGroups);
+//
+//                                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                                    String temp = snapshot.getKey();
+//                                    myGroupArray.add(temp);
+//                                }
+////                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
+////                    mLstGroups.add(newGroups);
+//
+//                                mGroupAdapter.notifyDataSetChanged();
+//
+//                                //COde for displaying something when RecyclerView data is empty
+//
+//                                if(mLstGroups.isEmpty()){
+//                                    emptyView.setVisibility(View.VISIBLE);
+//                                    mGroupRecyclerView.setVisibility(View.GONE);
+//                                }
+//                                else{
+//
+//                                    emptyView.setVisibility(View.GONE);
+//                                    mGroupRecyclerView.setVisibility(View.VISIBLE);
+//
+//                                }
+//
+//
+//
+//
+////                                for (int i=0; i < myArray.size(); i++){
+////
+////                                    String temp = myArray.toString();
+//////                                    Log.w(temp,"xyzzyspoonTEMP");
+////
+////                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+////
+////                                        if(snapshot.toString().equals(myArray.toString())){
+////
+////                                            new_groups newGroups = snapshot.getValue(new_groups.class);
+////                                            mLstGroups.add(newGroups);
+////                                        }
+////
+////                                        mGroupAdapter.notifyDataSetChanged();
+////
+////                                        if(mLstGroups.isEmpty()){
+////                                            emptyView.setVisibility(View.VISIBLE);
+////                                            mGroupRecyclerView.setVisibility(View.GONE);
+////                                        }
+////                                        else{
+////                                            emptyView.setVisibility(View.GONE);
+////                                            mGroupRecyclerView.setVisibility(View.VISIBLE);
+////                                        }
+////                                    }
+////                                }
+//                            }
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
+                {
+//                            new_groups newGroups = snapshot.getValue(new_groups.class);
+//                            mLstGroups.add(newGroups);
                 }
-            });
+//                    }
 
-//What code i was writing wrong
+//                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
+//                    mLstGroups.add(newGroups);
+                //COde for displaying something when RecyclerView data is empty
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+// code i was writing wrong
 //            groupRef.addChildEventListener(new ChildEventListener() {
 //                @Override
 //                public void onChildAdded(DataSnapshot dataSnapshot, String s) {

@@ -6,6 +6,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="1">
@@ -21,7 +22,10 @@
         android:id="@+id/toolbar_chat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,14 +49,21 @@
                 android:text="sample"
                 android:visibility="gone"/>
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/group_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_default_groups"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"/>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:layout_below="@+id/group_id_key"
-            android:layout_toRightOf="@+id/group_id_key"
-            android:layout_toEndOf="@+id/group_id_key" />
+            <Button
+                android:id="@+id/chat_room_button"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>

@@ -133,7 +133,7 @@ public class chooseUserActivity extends AppCompatActivity {
 //                    data = data + "\n" + singleUser.getId();
                     myMap.put(singleUser.getId(),true);
 
-                    userRef.child(singleUser.getId()).child("groupsIn").child(groupName).setValue(true);
+                    userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
 
       /*
        * Toast.makeText( CardViewActivity.this, " " +
@@ -146,9 +146,7 @@ public class chooseUserActivity extends AppCompatActivity {
 
             }
 
-            Toast.makeText(chooseUserActivity.this,
-                    "Selected Students: \n" + data, Toast.LENGTH_LONG)
-                    .show();
+
 
             //code to push data to firebase
 
@@ -180,7 +178,6 @@ public class chooseUserActivity extends AppCompatActivity {
                     msgRef.child(group_id).setValue(true);
 
                     groupRef.child(group_id).child("members").child("").setValue(myMap);
-
 
                     Toast.makeText(chooseUserActivity.this, "Group has been created ",Toast.LENGTH_LONG).show();
 
