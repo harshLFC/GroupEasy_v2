@@ -50,7 +50,8 @@ public class chatRoomActivity extends AppCompatActivity {
     private CircleImageView groupImageView;
 
     private DatabaseReference mUserDatabase,mGroupDatabase;
-    private FirebaseUser mCurrentUser;
+    private FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String current_uid = mCurrentUser.getUid();
 
     MessageAdapter adapter;
 
@@ -70,6 +71,7 @@ public class chatRoomActivity extends AppCompatActivity {
         room_name = getIntent().getExtras().get("room_name").toString();
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
+
         showAllOldMessages(groupKey);
         loadImage(groupKey);
 
@@ -84,8 +86,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child(groupKey).child("groupMsgs").child("");
 
-        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String current_uid = mCurrentUser.getUid();
+
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
 
@@ -154,11 +155,13 @@ public class chatRoomActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.child("name").getValue().toString();
 
+
                             String key = room_name;
                             Map<String,Object> value = new HashMap<>();
                             value.put("content",messageContent.getText().toString());
                             value.put("name",name);
                             value.put("group",room_name);
+                            value.put("from",current_uid);
 
                             FirebaseDatabase.getInstance()
                                     .getReference()
@@ -167,16 +170,13 @@ public class chatRoomActivity extends AppCompatActivity {
                                     .child("groupMsgs").push()
                                     .setValue(new chatMessage(messageContent.getText().toString(),
                                             name,
-                                            room_name,groupIdKey.getText().toString()));
+                                            current_uid,
+                                            groupIdKey.getText().toString()));
 
                                             /*messageContent.getText().toString(),
                                             FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                                             FirebaseAuth.getInstance().getCurrentUser().getUid()
                                             */
-
-
-
-
 
                             messageContent.setText("");
                         }

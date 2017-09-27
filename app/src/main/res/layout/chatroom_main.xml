@@ -64,7 +64,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -82,13 +81,13 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/active_events"
         android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         android:layout_above="@+id/input"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:layout_below="@+id/active_events" />
 
     <include
         android:id="@+id/input"

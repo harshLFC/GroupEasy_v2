@@ -41,6 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_single_layout, parent, false);
 
         switch (viewType) {
@@ -77,7 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (image.isEmpty()) {
             viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
         } else {
-            Picasso.with(mContext)
+            Picasso.with(viewHolder.itemView.getContext())
                     .load(image)
                     .placeholder(R.drawable.ic_default_user_single)
                     .resize(100, 100)
