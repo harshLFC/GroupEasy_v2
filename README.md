@@ -7,7 +7,8 @@ It is a group messaging app which users can create events in and keep a tab on t
 - what
 - when
 and 
-- where of all their events
+- where of all their events 
+
 ![](https://user-images.githubusercontent.com/25711956/30968212-77dbfe4c-a456-11e7-9981-5e15483ecb2f.jpg)
 ![](https://user-images.githubusercontent.com/25711956/30968227-82ac8738-a456-11e7-97f3-8d21aebee331.jpg)
 
