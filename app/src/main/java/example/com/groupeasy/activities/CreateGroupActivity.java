@@ -89,6 +89,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1,1)
+                        .setMaxCropResultSize(100,100)
                         .start(CreateGroupActivity.this);
             }
         });
@@ -211,6 +212,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Picasso.with(CreateGroupActivity.this)
                         .load(image_uri)
                         .resize(100,100)
+                        .onlyScaleDown()
                         .into(groupDP);
 
                 //this code is pushing image
