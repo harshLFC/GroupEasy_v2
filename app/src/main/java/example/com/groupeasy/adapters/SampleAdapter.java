@@ -10,16 +10,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.pojo.Groups;
+import example.com.groupeasy.pojo.sampleGroupsPojo;
 
 
-public class AdapterForAllGroups extends BaseAdapter {
+public class SampleAdapter extends BaseAdapter {
 
-    private List<Groups> listOfAllGroups;
+    private List<sampleGroupsPojo> listOfAllGroups;
     private LayoutInflater inflater;
     private Context context;
 
-    public AdapterForAllGroups(Context con ,List<Groups> list)
+    public SampleAdapter(Context con , List<sampleGroupsPojo> list)
     {
         this.context = con;
         this.listOfAllGroups = list;

@@ -6,6 +6,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="1">
@@ -21,7 +22,10 @@
         android:id="@+id/toolbar_chat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,22 +42,38 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_id_key"
+                android:text="sample"
+                android:visibility="gone"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/group_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_default_groups"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"/>
+
+            <Button
+                android:id="@+id/chat_room_button"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/nav_header_main2"
+
         android:id="@+id/active_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_chat"
+
         >
     </include>
 
@@ -61,13 +81,13 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/active_events"
         android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         android:layout_above="@+id/input"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:layout_below="@+id/active_events" />
 
     <include
         android:id="@+id/input"

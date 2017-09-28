@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="3dp"
+    android:id="@+id/my_relative_layout">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_default_user_single"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="1.5dp"
+        android:layout_margin="5dp"
+        android:padding="2dp"
+        android:id="@+id/user_dp" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        style="@android:style/TextAppearance.Large"
+        android:text="Harsh Phoujdar Harsh Phoujdar"
+        android:maxLines="1"
+        android:maxLength="18"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:layout_alignTop="@+id/user_dp"
+        android:layout_toRightOf="@+id/user_dp"
+        android:layout_toEndOf="@+id/user_dp" />
+
+    <TextView
+        android:id="@+id/user_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Status My Status My status status "
+        android:scrollHorizontally="true"
+        android:maxLines="1"
+        android:maxLength="28"
+        android:ellipsize="end"
+        style="@android:style/TextAppearance.Small"
+        android:layout_alignBottom="@+id/user_dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/user_name"
+        android:layout_alignStart="@+id/user_name" />
+
+    <TextView
+        android:id="@+id/last_seen"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:text="Last seen"
+        android:layout_alignTop="@+id/user_dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:id="@+id/my_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:layout_above="@+id/view5"
+        android:layout_alignRight="@+id/last_seen"
+        android:layout_alignEnd="@+id/last_seen" />
+
+
+    <Button
+        android:id="@+id/the_userselect_button"
+        android:layout_width="match_parent"
+        android:layout_height= "60dp"
+        android:background="@android:color/transparent"
+        android:layout_alignRight="@+id/user_name"
+        android:layout_alignEnd="@+id/user_name"
+        android:layout_toRightOf="@+id/user_dp"
+        android:layout_toEndOf="@+id/user_dp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/user_status"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="6dp"
+        android:id="@+id/view5"
+        />
+
+
+</RelativeLayout>

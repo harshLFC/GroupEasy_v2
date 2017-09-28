@@ -158,7 +158,9 @@
                     </LinearLayout>
 
             </LinearLayout>
+
             <CheckBox
+                android:id="@+id/one_day_event"
                 android:textSize="@dimen/header_text_size"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:layout_margin="8dp"
@@ -367,6 +369,7 @@
                 android:paddingTop="10dp">
 
                 <CheckBox
+                    android:id="@+id/global_event"
                     android:textSize="@dimen/header_text_size"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:layout_margin="8dp"

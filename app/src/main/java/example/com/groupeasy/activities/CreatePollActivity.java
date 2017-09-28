@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
 
 import example.com.groupeasy.R;
 
@@ -26,14 +32,22 @@ public class CreatePollActivity extends AppCompatActivity {
     private Button  btnAddOptions;
     private LinearLayout layoutForOptions;
     private ImageView ivClose;
+    private TextView savePoll;
+
+    //database
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference();
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll);
         this.context = CreatePollActivity.this;
+
         initElementsWithIds();
         initElementsWithListeners();
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
@@ -46,10 +60,13 @@ public class CreatePollActivity extends AppCompatActivity {
                 /** inflate the options view and add it to the main view
                  * also you can delete your option*/
                 LayoutInflater inflater = getLayoutInflater();
+
                 final View addView = inflater.inflate(R.layout.row_view_for_add_options,null);
                 addView.setPadding(30,20,30,16);
+
                 EditText etOption = (EditText) addView.findViewById(R.id.et_option);
                 ImageView ivDeleteOption = (ImageView) addView.findViewById(R.id.iv_delete_option);
+
                 /** delete your particular option */
                 ivDeleteOption.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -72,6 +89,15 @@ public class CreatePollActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        savePoll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(v.getContext(), "Will Push Poll Data to server",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+            }
+        });
     }
 
     /* initialize your widgets with their ids */
@@ -79,6 +105,7 @@ public class CreatePollActivity extends AppCompatActivity {
         ivClose = (ImageView) findViewById(R.id.iv_close);
         btnAddOptions = (Button) findViewById(R.id.btn_add_options);
         layoutForOptions = (LinearLayout) findViewById(R.id.layout_for_options);
+        savePoll = (TextView) findViewById(R.id.save_poll);
     }
 
     @Override

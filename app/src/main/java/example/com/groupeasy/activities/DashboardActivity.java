@@ -15,7 +15,7 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
 import example.com.groupeasy.fragments.GroupFragment;
 import example.com.groupeasy.fragments.ProfileFragment;
-import example.com.groupeasy.fragments.SearchFragment;
+import example.com.groupeasy.fragments.UsersFragment;
 import example.com.groupeasy.utility.AppConstants;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -40,11 +40,14 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         this.context = DashboardActivity.this;
+
         initElementsWithIds();
         initToolbar();
+
         setupViewPager(viewPager);
         setupTabIcons();
         initElementsWithListeners();
+
     }
     @Override
     public void onBackPressed() {
@@ -56,10 +59,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     /* initialization of your toolbar with title ,color etc */
-    private void initToolbar() {
+    private void initToolbar()
+    {
         myTool.setTitle(AppConstants.DASHBOARD_ACTIVITY_TITLE);
         myTool.setTitleTextColor(ContextCompat.getColor(context,R.color.white));
         setSupportActionBar(myTool);
+
     }
 
     /** this method is used to initialize the widgets and fields and toolbar*/
@@ -73,16 +78,18 @@ public class DashboardActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new DashboardPagerAdapter(getSupportFragmentManager());
 
-        /** add more fragments if you want to*/
-        adapter.addFragment(new SearchFragment(), "Search");
+        /** add more fragments if you want to**/
+        adapter.addFragment(new UsersFragment(), "Users");
         adapter.addFragment(new GroupFragment(), "Groups");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     /** set icons to your tabs*/
     private void setupTabIcons() {
+
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
@@ -97,6 +104,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
          super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.activity_main2_drawer,menu);
@@ -106,6 +114,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         super.onOptionsItemSelected(item);
 
         int id = item.getItemId();
@@ -114,7 +123,13 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(this, "Settings clicked", Toast.LENGTH_LONG).show();
         }
         else if(id == R.id.help){
-            Toast.makeText(this, "Log ot clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Help clicked", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.local_eve){
+            Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.global_eve){
+            Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
         }
         return true;
     }

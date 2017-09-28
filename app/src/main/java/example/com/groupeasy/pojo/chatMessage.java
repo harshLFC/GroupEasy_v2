@@ -9,21 +9,31 @@ import java.util.Date;
 public class chatMessage {
 
     private String content;
-    private String group;
+    private String msgFrom;
     private String messageUserId;
     private long time;
+    String grpid;
 
-    public chatMessage(String content, String messageUserId, String group) {
+
+
+    public chatMessage(String content, String messageUserId, String msgFrom, String grpid) {
         this.content = content;
-        this.group = group;
+        this.msgFrom = msgFrom;
         time = new Date().getTime();
         this.messageUserId = messageUserId;
+        this.grpid = grpid;
     }
 
     public chatMessage(){
 
     }
+    public String getGrpid() {
+        return grpid;
+    }
 
+    public void setGrpid(String grpid) {
+        this.grpid = grpid;
+    }
     public String getMessageUserId() {
         return messageUserId;
     }
@@ -40,12 +50,12 @@ public class chatMessage {
         this.content = content;
     }
 
-    public String getGroup() {
-        return group;
+    public String getMsgFrom() {
+        return msgFrom;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setMsgFrom(String group) {
+        this.msgFrom = group;
     }
 
     public long getTime() {

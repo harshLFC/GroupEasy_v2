@@ -15,12 +15,14 @@
         />
 
     <TextView
+        style="@android:style/TextAppearance.Small"
         android:id="@+id/message_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="Harsh"
-        android:textStyle="normal|bold"
+
+        android:textStyle="bold"
         android:layout_toRightOf="@+id/imageView2"/>
 
     <TextView
@@ -32,10 +34,11 @@
         android:text="Whats the craic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        style="@android:style/TextAppearance.Medium"
         android:layout_toRightOf="@+id/imageView2"/>
 
     <TextView
+        style="@android:style/TextAppearance.Small"
         android:id="@+id/message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

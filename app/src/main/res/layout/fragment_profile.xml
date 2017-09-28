@@ -28,7 +28,7 @@
         >
 
         <TextView
-        android:textSize="@dimen/group_header_text_size"
+        style="@android:style/TextAppearance.Medium"
         android:gravity="start"
         android:text="@string/welcome"
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:padding="10dp"/>
     <TextView
         android:id="@+id/user_name"
-        android:textSize="@dimen/group_header_text_size"
+        style="@android:style/TextAppearance.Large"
         android:gravity="start"
         android:text="UserUserUserUserUserUserUser"
         android:maxLines="1"
@@ -46,13 +46,17 @@
         android:maxLength="15"/>
 
         <TextView
+            style="@android:style/TextAppearance.Small"
             android:id="@+id/user_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:gravity="start"
-            android:text="StatusStatusStatusStatusStatusStatus"
+            android:text="StatusStatStatusStatusStatusStatusStatusStatus"
             android:padding="10dp"
-            android:maxLength="25"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:ellipsize="end"
+
             />
     </LinearLayout>
                 <LinearLayout
@@ -84,8 +88,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
         <TextView
+            style="@android:style/TextAppearance.Medium"
             android:layout_margin="16dp"
-            android:textSize="@dimen/group_header_text_size"
             android:text="Total Polls Created "
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -97,9 +101,9 @@
             android:textColorHint="#670309"
             android:text="22"
             android:gravity="center"
-            android:textSize="@dimen/group_header_text_size"
-            android:layout_height="36dp"
-            android:layout_width="36dp"/>
+            style="@android:style/TextAppearance.Small"
+            android:layout_height="30dp"
+            android:layout_width="30dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/lists"
@@ -110,7 +114,7 @@
         android:layout_width="match_parent">
         <TextView
             android:layout_margin="16dp"
-            android:textSize="@dimen/group_header_text_size"
+            style="@android:style/TextAppearance.Medium"
             android:text="Total Lists Created "
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -119,10 +123,11 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/circle_shape"
             android:text="8"
+            android:textColor="#670309"
+            style="@android:style/TextAppearance.Small"
             android:gravity="center"
-            android:textSize="@dimen/group_header_text_size"
-            android:layout_height="36dp"
-            android:layout_width="36dp"/>
+            android:layout_height="30dp"
+            android:layout_width="30dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/rosters"
@@ -133,7 +138,7 @@
         android:layout_width="match_parent">
         <TextView
             android:layout_margin="16dp"
-            android:textSize="@dimen/group_header_text_size"
+            style="@android:style/TextAppearance.Medium"
             android:text="Total Roasters Created "
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -143,7 +148,9 @@
             android:background="@drawable/hexagon_shape"
             android:text="12"
             android:gravity="center"
-            android:textSize="@dimen/group_header_text_size"
+            android:textColor="#670309"
+            style="@android:style/TextAppearance.Small"
+
             android:layout_height="36dp"
             android:layout_width="36dp"/>
     </LinearLayout>
@@ -156,7 +163,7 @@
         android:layout_width="match_parent">
         <TextView
             android:layout_margin="16dp"
-            android:textSize="@dimen/group_header_text_size"
+            style="@android:style/TextAppearance.Medium"
             android:text="Favourite Events "
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -169,8 +176,8 @@
             android:padding="16dp"
             android:gravity="center"
             android:textSize="@dimen/group_header_text_size"
-            android:layout_height="36dp"
-            android:layout_width="36dp"/>
+            android:layout_height="30dp"
+            android:layout_width="30dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -183,7 +190,7 @@
         <TextView
             android:id="@+id/log_in_out"
             android:layout_margin="16dp"
-            android:textSize="@dimen/group_header_text_size"
+            style="@android:style/TextAppearance.Medium"
             android:text="Logout "
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -196,8 +203,8 @@
             android:padding="16dp"
             android:gravity="center"
             android:textSize="@dimen/group_header_text_size"
-            android:layout_height="36dp"
-            android:layout_width="36dp"/>
+            android:layout_height="30dp"
+            android:layout_width="30dp"/>
     </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:visibility="visible"
-        android:text="You have no groups yet!\nClick on the Button below to get started " />
+        android:text="@string/no_data_msg" />
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/floating_action_button"
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/hexagon_shape"
-            fab:fab_label="Create Roaster"
+            fab:fab_label="Create Roster"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton

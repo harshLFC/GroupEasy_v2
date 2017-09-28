@@ -1,23 +1,19 @@
 package example.com.groupeasy.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -29,66 +25,66 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
-import java.util.Random;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
-import example.com.groupeasy.editProfileActivity;
-import example.com.groupeasy.pojo.chatPOJO;
-import example.com.groupeasy.pojo.new_groups;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
+    //initilize elements
     private Context context;
     private ImageView ivClose;
     private CircleImageView groupDP;
     private TextView next;
     private EditText input;
-    String tempChar = random();
 
-    //initilize elements
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
     private StorageReference mStorageRef;
+
+    final DatabaseReference groupRef = myRef.child("groups").child("");
+
+    final String group_id = groupRef.push().getKey();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_create_group);
         context = CreateGroupActivity.this;
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-        Context mContext;
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         initElementsWithIds();
         initElementsWithListeners();
 
-//        Picasso.with(getApplicationContext())
-//                .load(R.drawable.ic_default_groups)
-//                .resize(100,100)
-//                .centerCrop()
-//                .into(groupDP);
     }
 
     private void initElementsWithListeners() {
 
+        //close button
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+
+                //If user changes his mind and cancels group creation, and if he had already uploaded image, This method deletes it
+                if(!filePath.toString().isEmpty()){
+                    filePath.delete();
+            //add an optional onSuccesslistner
+
+                }
+
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
+        //choose iage on cliking image button
         groupDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Toast.makeText(context, "Will open gallery",Toast.LENGTH_LONG).show();
 
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
@@ -97,75 +93,77 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference groupRef = myRef.child("groups").child("");
-
+        //Clicked on next button
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 final String groupName = input.getText().toString();
+
                 FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = current_user.getUid();
-                String Groupuid = groupRef.getKey();
+//                final String uid = current_user.getUid();
 
-                String members = "";
-                final String icon = "";
-                final String admin = uid;
-                final String last_msg = "You have no messages in the group";
-
+                //Input Validation
                 if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
 
                     Toast.makeText(context, "Please enter a Name for the Group",Toast.LENGTH_LONG).show();
                 }
-// else the entered string will be pushed to the firebase database reference
 
                 else if(groupDP == null){
                     Toast.makeText(CreateGroupActivity.this, "group is null put code here",Toast.LENGTH_LONG).show();
                 }
 
+                // else the entered string will be pushed to the firebase database reference
                 else {
 
-                    mStorageRef = FirebaseStorage.getInstance().getReference();
-
                     //This code is not pushing image ??
-
-                    final StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
-
+                    final StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
 //                    if(groupDP.equals(R.drawable.ic_default_groups))
 
+/**If image is selected
+ * The image is already uploaded to server
+ * this part sends the image to next activity via an intent
+ */
                     filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
 
-
 //                            String download_url = taskSnapshot.getDownloadUrl().toString();
 
-                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName);
+//                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
+//                            groupRef.child(group_id).setValue(newGroups);
+//                            msgRef.child(group_id).setValue(true);
 
-                            groupRef.push().setValue(newGroups);
+//                            groupRef.push().setValue(newGroups);
 
-                            Intent intent = new Intent(context,DashboardActivity.class);
+                            Intent intent = new Intent(context,chooseUserActivity.class);
+                            intent.putExtra("groupName",groupName);
+                            intent.putExtra("imagePic",uri.toString());
                             startActivity(intent);
-                            finish();
                         }
-
                     });
 
+/**If image is NOT selected
+ * There is no image uploaded to server
+ * this part sends the default image to next activity via an intent
+ */
                     filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
-                            String defaultImage = getString(R.string.default_firebase_groups);
+                            String imagePic = getString(R.string.default_firebase_groups);
 
-                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName);
+//                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName,group_id);
+//                            groupRef.child(group_id).setValue(newGroups);
+//                            msgRef.child(group_id).setValue(true);
 
-                            groupRef.push().setValue(newGroups);
-
-                            Intent intent = new Intent(context,DashboardActivity.class);
+                            Intent intent = new Intent(context,chooseUserActivity.class);
+                            intent.putExtra("groupName",groupName);
+                            intent.putExtra("imagePic",imagePic);
                             startActivity(intent);
-                            finish();
                         }
                     });
+
                 }
             }
         });
@@ -180,11 +178,20 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+
+        //If user changes his mind and cancels group creation, and if he had already uploaded image, This method deletes it
+        if(!filePath.toString().isEmpty()){
+            filePath.delete();
+        }
+
         Intent intent = new Intent(context,DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
+    //This method is called on CropImage activity result
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -195,22 +202,21 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
-                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
-                final DatabaseReference groupRef = myRef.child("groups").child("");
-                String Groupuid = groupRef.getKey();
-                String groupName = input.getText().toString();
+//                final DatabaseReference groupRef = myRef.child("groups").child("");
+//                String Groupuid = groupRef.getKey();
+//                String groupName = input.getText().toString();
 
+                //Loads image onto the UI
                 Picasso.with(CreateGroupActivity.this)
                         .load(image_uri)
                         .resize(100,100)
                         .into(groupDP);
 
-                Uri file = Uri.fromFile(new File(image_uri));
-                mStorageRef = FirebaseStorage.getInstance().getReference();
-
                 //this code is pushing image
-                StorageReference filePath = mStorageRef.child("group_image").child(tempChar+".jpg");
+//                Uri file = Uri.fromFile(new File(image_uri));
+                StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+
 
                 filePath.putFile(resultUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -219,7 +225,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 // Get a URL to the uploaded content
 
                                 @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
-                                Toast.makeText(CreateGroupActivity.this, "Success",Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateGroupActivity.this, "Image Successfully uploaded to Database",Toast.LENGTH_LONG).show();
 
                                 final DatabaseReference groupRef = myRef.child("groups").child("");
 //
@@ -241,26 +247,16 @@ public class CreateGroupActivity extends AppCompatActivity {
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle unsuccessful uploads
                                 // ...
-                                Toast.makeText(CreateGroupActivity.this, "Error",Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateGroupActivity.this, "Error"+exception,Toast.LENGTH_LONG).show();
                             }
                         });
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
                 Exception error = result.getError();
+                Toast.makeText(this, "You have some error"+error,Toast.LENGTH_SHORT).show();
+
             }
         }
-    }
-
-    public static String random() {
-        Random generator = new Random();
-        StringBuilder randomStringBuilder = new StringBuilder();
-        int randomLength = generator.nextInt(10);
-        char tempChar;
-        for (int i = 0; i < randomLength; i++){
-            tempChar = (char) (generator.nextInt(96) + 32);
-            randomStringBuilder.append(tempChar);
-        }
-        return randomStringBuilder.toString();
     }
 }

@@ -1,4 +1,4 @@
-package example.com.groupeasy;
+package example.com.groupeasy.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,6 +36,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import example.com.groupeasy.R;
 
 public class editProfileActivity extends AppCompatActivity {
 
@@ -78,7 +79,7 @@ public class editProfileActivity extends AppCompatActivity {
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = mCurrentUser.getUid();
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
@@ -128,6 +129,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                                 mDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Updated",Toast.LENGTH_LONG).show();
+
                             }
                             else{
                                 mDialog.hide();
@@ -138,7 +140,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                     if (!TextUtils.isEmpty(Name)){
 
-                        mUserDatabase.child("member").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        mUserDatabase.child("name").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
@@ -146,9 +148,6 @@ public class editProfileActivity extends AppCompatActivity {
                                     mDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Updated",Toast.LENGTH_LONG).show();
 
-//                                    Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
-//                                    startActivity(intent);
-//                                    finish();
                                 }
                                 else{
                                     mDialog.hide();
@@ -160,7 +159,7 @@ public class editProfileActivity extends AppCompatActivity {
                 }
 
                 else if(!TextUtils.isEmpty(Name)){
-                    mUserDatabase.child("member").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    mUserDatabase.child("name").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -175,6 +174,10 @@ public class editProfileActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

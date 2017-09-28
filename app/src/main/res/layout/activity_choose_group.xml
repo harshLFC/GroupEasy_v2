@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.com.groupeasy.activities.chooseGroup"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_bar_layout"
+        android:id="@+id/choose_groups_app_bar">
+
+    </include>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/choose_group_recycler_view">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.v7.widget.LinearLayoutCompat>

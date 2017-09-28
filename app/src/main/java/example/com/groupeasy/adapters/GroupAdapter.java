@@ -2,15 +2,23 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,6 +28,7 @@ import example.com.groupeasy.activities.chatRoomActivity;
 import example.com.groupeasy.pojo.new_groups;
 
 import static example.com.groupeasy.R.id.image_view;
+import static example.com.groupeasy.R.id.view;
 
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -74,7 +83,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        GroupViewHolder viewHolder = (GroupViewHolder) holder;
+        final GroupViewHolder viewHolder = (GroupViewHolder) holder;
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
@@ -82,6 +91,38 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         String image = (mLstGroups.get(position).getImage());
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
         viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
+        viewHolder.groupKey.setText(mLstGroups.get(position).getGroup_id());
+        String groupID = mLstGroups.get(position).getGroup_id();
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //Code to display last seen message by referencing the message database and looping through its children
+
+        Query query = mDatabase.child("messages").child(groupID).child("groupMsgs").orderByKey().limitToLast(1);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+//                String msg = dataSnapshot.child("content").getValue().toString();
+//                Log.w(msg,"msg");
+
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+
+                    Log.d("Testing", child.child("content").getValue().toString());
+                    viewHolder.textLastMessage.setText(child.child("content").getValue().toString());
+                    viewHolder.textLastMessage.setTextColor(Color.BLACK);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         // getting context from view object
 
@@ -109,6 +150,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView Admin;
         private ImageView imageGroupView;
         private TextView textLastMessage;
+        private TextView groupKey;
+        private Button theButton;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -119,20 +162,23 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             textView = (TextView) itemView.findViewById(R.id.message_text);
             Admin = (TextView) itemView.findViewById(R.id.textViewAdmin);
             textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
+            groupKey = (TextView) itemView.findViewById(R.id.group_key);
+            theButton = (Button) itemView.findViewById(R.id.the_button);
 
-            textView.setOnClickListener(this);
-            textLastMessage.setOnClickListener(this);
             imageGroupView.setOnClickListener(this);
+            theButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == textView.getId() || v.getId() == textLastMessage.getId()) {
+            if (v.getId() == theButton.getId()) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
                 Intent i = new Intent(context,chatRoomActivity.class);
                 i.putExtra("room_name",((textView.getText().toString())));
+                i.putExtra("groupKey",((groupKey.getText().toString())));
+
                 context.startActivity(i);
 
             }
@@ -140,6 +186,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
+
+
         }
 
         public void setOnItemClickListener(ClickListener clickListener) {

@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.LoginActivity;
-import example.com.groupeasy.editProfileActivity;
+import example.com.groupeasy.activities.editProfileActivity;
 
 
 public class ProfileFragment extends Fragment {
@@ -56,13 +55,13 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(current_uid);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
         mUserDatabase.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
-                    String name = dataSnapshot.child("member").getValue().toString();
+                    String name = dataSnapshot.child("name").getValue().toString();
                     String image = dataSnapshot.child("image").getValue().toString();
                     String status = dataSnapshot.child("status").getValue().toString();
                     String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
@@ -189,7 +188,6 @@ public class ProfileFragment extends Fragment {
                 intent.putExtra("user_value_status",user_value_status);
 
                 startActivity(intent);
-
             }
         });
     }
@@ -198,9 +196,7 @@ public class ProfileFragment extends Fragment {
         user_name = (TextView) view.findViewById(R.id.user_name);
         user_status = (TextView) view.findViewById(R.id.user_status);
         log_in_out = (TextView) view.findViewById(R.id.log_in_out);
-
         profile_pic = (CircleImageView) view.findViewById(R.id.displayPic);
-
         logOut = (LinearLayout) view.findViewById(R.id.help);
         polls = (LinearLayout) view.findViewById(R.id.polls);
         lists = (LinearLayout) view.findViewById(R.id.lists);

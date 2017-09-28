@@ -35,6 +35,7 @@
             android:layout_width="0dp"/>
 
         <TextView
+            android:id="@+id/save_poll"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:textSize="@dimen/group_header_text_size"
             android:layout_gravity="center"

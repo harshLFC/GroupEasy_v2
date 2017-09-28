@@ -13,16 +13,16 @@
 
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Search">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/local_eve"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Local events" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/global_eve"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Global events" />
         </menu>
     </item>
 

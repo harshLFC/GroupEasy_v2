@@ -1,17 +1,30 @@
 package example.com.groupeasy.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
 import example.com.groupeasy.pojo.chatMessage;
+import example.com.groupeasy.pojo.users_list;
 
 /**
  * Created by Harsh on 05-09-2017.
@@ -27,6 +40,16 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
      *                    combination of {@code limit()}, {@code startAt()}, and {@code endAt()}.
      */
 
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    Context mContext;
+
+    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = current_user.getUid();
+
+
+//    mDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
+
 
     private chatRoomActivity activity;
 
@@ -38,47 +61,113 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
     }
 
     @Override
-    protected void populateView(View v, chatMessage model, int position) {
+    protected void populateView(final View v, final chatMessage model, int position) {
 
         TextView messageText = (TextView) v.findViewById(R.id.message_text);
-        TextView messageUser = (TextView) v.findViewById(R.id.message_user);
+        final TextView messageUser = (TextView) v.findViewById(R.id.message_user);
         TextView messageTime = (TextView) v.findViewById(R.id.message_time);
+        TextView groupIdKey = (TextView) v.findViewById(R.id.group_id_key);
+        final ImageView userImage = (ImageView) v.findViewById(R.id.imageView1);
+        final ImageView senderImage = (ImageView) v.findViewById(R.id.imageView2);
 
         messageText.setText(model.getContent());
-        messageUser.setText(model.getMessageUserId());
+//        messageUser.setText(model.getMessageUserId());
+        String user = model.getMsgFrom();
+
+
+        mDatabase.child("members").child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                users_list usersList = new users_list;
+
+                users_list usersList = dataSnapshot.getValue(users_list.class);
+                String name = usersList.getName();
+                String image = usersList.getImage();
+
+                messageUser.setText(name);
+
+                if(image.isEmpty()) {
+
+                        senderImage.setImageResource(R.drawable.ic_default_user_single);
+
+                }
+
+            else    {
+
+                    if (usersList.getId().equals(uid)) {
+
+                        Picasso.with(mContext)
+                                .load(image)
+                                .resize(100, 100)
+                                .placeholder(R.drawable.ic_default_groups)
+                                .centerCrop()
+                                .into(userImage);
+                    }
+
+                    else{
+
+                        Picasso.with(mContext)
+                                .load(image)
+                                .resize(100, 100)
+                                .placeholder(R.drawable.ic_default_user_single)
+                                .centerCrop()
+                                .into(senderImage);
+
+                    }
+            }
+
+
+
+//                Log.w(name,"usersList");
+
+//                Toast.makeText(v.getContext() , "Username is:"+username,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
 
+
     }
 
-//    @Override
-//    public View getView(int position, View view, ViewGroup viewGroup) {
-//        chatMessage chat_message = getItem(position);
-//
-//        if (chat_message.getMessageUserId().equals(activity.getLoggedInUserName()))
-//
-//            view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
-//
-//        else
-//
-//            view = activity.getLayoutInflater().inflate(R.layout.item_in_message, viewGroup, false);
-//
-//        //generating view
-//        populateView(view, chat_message, position);
-//
-//        return view;
-//    }
-//
-//    @Override
-//    public int getViewTypeCount() {
-//        // return the total number of view types. this value should never change
-//        // at runtime
-//        return 2;
-//    }
-//
-//    @Override
-//    public int getItemViewType(int position) {
-//        // return a value between 0 and (getViewTypeCount - 1)
-//        return position % 2;
-//    }
+    @Override
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        chatMessage chat_message = getItem(position);
+
+        if (chat_message.getMsgFrom().equals(uid)) {
+
+            view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
+            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);
+
+        }
+
+        else {
+
+            view = activity.getLayoutInflater().inflate(R.layout.item_in_message, viewGroup, false);
+
+
+        }
+
+        //generating view
+        populateView(view, chat_message, position);
+
+        return view;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        // return the total number of view types. this value should never change
+        // at runtime
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // return a value between 0 and (getViewTypeCount - 1)
+        return position % 2;
+    }
 }

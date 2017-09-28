@@ -12,7 +12,6 @@ import java.util.Map;
 public class chatPOJO {
 
     // inititalize variables
-
     String name;
     String members;
     String icon;
@@ -45,4 +44,3 @@ public class chatPOJO {
         return icon;
     }
 }
-

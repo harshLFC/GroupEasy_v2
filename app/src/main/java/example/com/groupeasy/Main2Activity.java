@@ -73,9 +73,9 @@ public class Main2Activity extends AppCompatActivity
 
         } else if (id == R.id.settings) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.local_eve) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.global_eve) {
 
         }
 
