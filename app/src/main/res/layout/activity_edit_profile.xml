@@ -84,7 +84,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Status" />
+            android:hint="Status"
+            android:maxLength="45"/>
     </android.support.design.widget.TextInputLayout>
 
     <Button

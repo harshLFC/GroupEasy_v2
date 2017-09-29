@@ -88,7 +88,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.textView.setText(mLstGroups.get(position).getName());
-        String image = (mLstGroups.get(position).getImage());
+        String image = (mLstGroups.get(position).getThumb_image());
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
         viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
         viewHolder.groupKey.setText(mLstGroups.get(position).getGroup_id());

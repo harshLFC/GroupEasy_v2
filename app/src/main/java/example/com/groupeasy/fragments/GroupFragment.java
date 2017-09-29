@@ -184,7 +184,6 @@ public class GroupFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final ArrayList myArray = new ArrayList();
-                final ArrayList myGroupArray = new ArrayList();
 
                 for(final DataSnapshot snapshot : dataSnapshot.getChildren()) {
 

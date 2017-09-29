@@ -36,24 +36,28 @@ public class chooseUserActivity extends AppCompatActivity {
 
     RecyclerView mUserRecyclerView;
     Toolbar mToolbar;
+    private Context context;
+    private TextView emptyView;
+    String imagePic = "";
+    String imageThumb = "";
+    String group_id = "";
+
+
     //adapter
-    //list
     private UsersSelectAdapter mUserAdapter;
+    //list
     private List<users_list> mLstGroups;
 
-    private Context context;
-    //firebase
-
-    private TextView emptyView;
-
-    /** Firebase db init*/
+    /**
+     * Firebase db init
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
 
     final DatabaseReference userRef = myRef.child("members");
     final DatabaseReference groupRef = myRef.child("groups").child("");
 
-    final String group_id = groupRef.push().getKey();
+//    final String group_id = groupRef.push().getKey();
 
 
     @Override
@@ -72,6 +76,12 @@ public class chooseUserActivity extends AppCompatActivity {
             }
         });
 
+        //            groupName = getIntent().getStringExtra("groupName");
+
+//        Bundle extras = getIntent().getExtras();
+//        if(extras != null) {
+//
+//        }
         initElementsWithIds();
         createListView();
         initElementsWithListeners();
@@ -92,10 +102,7 @@ public class chooseUserActivity extends AppCompatActivity {
     }
 
 
-
-    private void initElementsWithListeners()
-    {
-
+    private void initElementsWithListeners() {
 
     }
 
@@ -112,29 +119,30 @@ public class chooseUserActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         final String groupName = getIntent().getStringExtra("groupName");
+        imagePic = getIntent().getStringExtra("imagePic");
+        imageThumb = getIntent().getStringExtra("imageThumb");
+        group_id = getIntent().getStringExtra("group_id");
 
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
-
             String data = "";
             List<users_list> uList = mUserAdapter
                     .getUserId();
 
-            final HashMap <String, Boolean> myMap = new HashMap<>();
+            final HashMap<String, Boolean> myMap = new HashMap<>();
 
-
+            //Loop to put groups in the members list
             for (int i = 0; i < uList.size(); i++) {
                 users_list singleUser = uList.get(i);
                 if (singleUser.isSelected()) {
 
 //                    data = data + "\n" + singleUser.getId();
-                    myMap.put(singleUser.getId(),true);
+                    myMap.put(singleUser.getId(), true);
 
                     userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
-
       /*
        * Toast.makeText( CardViewActivity.this, " " +
        * singleStudent.getName() + " " +
@@ -143,26 +151,19 @@ public class chooseUserActivity extends AppCompatActivity {
        * Toast.LENGTH_SHORT).show();
        */
                 }
-
             }
 
-
-
             //code to push data to firebase
-
-
-
             final DatabaseReference msgRef = myRef.child("messages").child("");
 
-//            groupName = getIntent().getStringExtra("groupName");
-            final String imagePic = getIntent().getStringExtra("imagePic");
+
 
 //            Toast.makeText(this, groupName,Toast.LENGTH_SHORT).show();
 
             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
             final String uid = current_user.getUid();
 
-            myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            myRef.child("members").child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -171,17 +172,24 @@ public class chooseUserActivity extends AppCompatActivity {
                     final String icon = "";
                     final String last_msg = "You have no messages in the group";
 
-                    new_groups newGroups = new new_groups(admin,imagePic,last_msg,groupName,group_id);
+                    if (imagePic == null) imagePic = "";
+                    if (imageThumb == null) imageThumb = "";
 
+                    new_groups newGroups = new new_groups(admin, imagePic, last_msg, groupName, group_id, imageThumb);
+//                    new_groups newGroups = new new_groups(admin, imagePic, last_msg, groupName, group_id, imageThumb);
+
+                    //Update Group DB with details
                     groupRef.child(group_id).setValue(newGroups);
 
+                    //Update Msg DB with Dummy value to initialize
                     msgRef.child(group_id).setValue(true);
 
+                    //Update Members DB with groups TRUE value
                     groupRef.child(group_id).child("members").child("").setValue(myMap);
 
-                    Toast.makeText(chooseUserActivity.this, "Group has been created ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(chooseUserActivity.this, "Group has been created ", Toast.LENGTH_LONG).show();
 
-                    Intent i = new Intent(getApplicationContext(),DashboardActivity.class);
+                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                     startActivity(i);
 //                    finish();
 
@@ -192,21 +200,15 @@ public class chooseUserActivity extends AppCompatActivity {
 
                 }
             });
-
-
-
             //end code push
 
-
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     private void initElementsWithIds() {
 
-    emptyView = (TextView) findViewById(R.id.empty_view_users);
+        emptyView = (TextView) findViewById(R.id.empty_view_users);
 
     }
 
@@ -220,7 +222,7 @@ public class chooseUserActivity extends AppCompatActivity {
 
                 mLstGroups.removeAll(mLstGroups);
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     users_list usersList = snapshot.getValue(users_list.class);
                     mLstGroups.add(usersList);
                 }
@@ -232,12 +234,9 @@ public class chooseUserActivity extends AppCompatActivity {
 //                    mUserRecyclerView.setVisibility(View.GONE);
 //                }
 //                else{
-//
 //                    emptyView.setVisibility(View.GONE);
 //                    mUserRecyclerView.setVisibility(View.VISIBLE);
-//
 //                }
-
             }
 
             @Override
@@ -245,19 +244,10 @@ public class chooseUserActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
     }
-//
-//    public void RecyclerListViewClicked(View v, int position){
-//
-//
-//
-//
-//    }
-
 }

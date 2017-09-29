@@ -2,6 +2,7 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,8 +28,13 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
+import id.zelory.compressor.Compressor;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
@@ -36,11 +44,12 @@ public class CreateGroupActivity extends AppCompatActivity {
     private CircleImageView groupDP;
     private TextView next;
     private EditText input;
+    private Bitmap thumb_bitmp = null;
 
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-    private StorageReference mStorageRef;
+    private StorageReference mStorageRef, mThumbRef;
 
     final DatabaseReference groupRef = myRef.child("groups").child("");
 
@@ -53,6 +62,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         context = CreateGroupActivity.this;
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        mThumbRef = FirebaseStorage.getInstance().getReference();
 
         initElementsWithIds();
         initElementsWithListeners();
@@ -67,6 +77,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+                StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
 
                 //If user changes his mind and cancels group creation, and if he had already uploaded image, This method deletes it
                 if(!filePath.toString().isEmpty()){
@@ -89,7 +100,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1,1)
-                        .setMaxCropResultSize(100,100)
                         .start(CreateGroupActivity.this);
             }
         });
@@ -119,7 +129,9 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                     //This code is not pushing image ??
                     final StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+                    final StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
 //                    if(groupDP.equals(R.drawable.ic_default_groups))
+//                    final Intent intent = new Intent(CreateGroupActivity.this,chooseUserActivity.class);
 
 /**If image is selected
  * The image is already uploaded to server
@@ -130,19 +142,48 @@ public class CreateGroupActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
 
 //                            String download_url = taskSnapshot.getDownloadUrl().toString();
+                            final Intent intent = new Intent(context,chooseUserActivity.class);
 
 //                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
 //                            groupRef.child(group_id).setValue(newGroups);
 //                            msgRef.child(group_id).setValue(true);
 
 //                            groupRef.push().setValue(newGroups);
-
-                            Intent intent = new Intent(context,chooseUserActivity.class);
-                            intent.putExtra("groupName",groupName);
+//                            Intent intent = new Intent(context,chooseUserActivity.class);
                             intent.putExtra("imagePic",uri.toString());
-                            startActivity(intent);
+//                            intent.putExtra("groupName",groupName);
+//                            startActivity(intent);
+                            mThumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    intent.putExtra("imagePic",uri.toString());
+                                    intent.putExtra("groupName",groupName);
+                                    intent.putExtra("imageThumb",uri.toString());
+                                    intent.putExtra("group_id",group_id);
+                                    startActivity(intent);
+
+
+                                }
+                            });
+
+
                         }
                     });
+
+
+
+//                    mThumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//                            intent.putExtra("imageThumb",uri.toString());
+//
+//
+//                        }
+//                    });
+
+
+
+
 
 /**If image is NOT selected
  * There is no image uploaded to server
@@ -161,7 +202,9 @@ public class CreateGroupActivity extends AppCompatActivity {
                             Intent intent = new Intent(context,chooseUserActivity.class);
                             intent.putExtra("groupName",groupName);
                             intent.putExtra("imagePic",imagePic);
-                            startActivity(intent);
+                            intent.putExtra("imageThumb",imagePic);
+
+//                            startActivity(intent);
                         }
                     });
 
@@ -181,10 +224,14 @@ public class CreateGroupActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+        StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
 
         //If user changes his mind and cancels group creation, and if he had already uploaded image, This method deletes it
         if(!filePath.toString().isEmpty()){
             filePath.delete();
+        }
+        if(!mThumbRef.toString().isEmpty()){
+            mThumbRef.delete();
         }
 
         Intent intent = new Intent(context,DashboardActivity.class);
@@ -200,15 +247,28 @@ public class CreateGroupActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (resultCode == RESULT_OK) {
-
                 Uri resultUri = result.getUri();
-                String image_uri = resultUri.toString();
 
-//                final DatabaseReference groupRef = myRef.child("groups").child("");
-//                String Groupuid = groupRef.getKey();
-//                String groupName = input.getText().toString();
+                //code to compress image
+                final File thumb_file = new File(resultUri.getPath());
+                try{
+                    thumb_bitmp = new Compressor(this)
+                            .setMaxWidth(200)
+                            .setMaxHeight(200)
+                            .setQuality(75)
+                            .compressToBitmap(thumb_file);
+                }
+                catch (IOException e)
+                {e.printStackTrace();}
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                thumb_bitmp.compress(Bitmap.CompressFormat.JPEG,75,byteArrayOutputStream);
+
+                final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
 
                 //Loads image onto the UI
+                String image_uri = resultUri.toString();
+
                 Picasso.with(CreateGroupActivity.this)
                         .load(image_uri)
                         .resize(100,100)
@@ -217,7 +277,9 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 //this code is pushing image
 //                Uri file = Uri.fromFile(new File(image_uri));
+
                 StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
+                final StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
 
 
                 filePath.putFile(resultUri)
@@ -226,22 +288,20 @@ public class CreateGroupActivity extends AppCompatActivity {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Get a URL to the uploaded content
 
-                                @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
-                                Toast.makeText(CreateGroupActivity.this, "Image Successfully uploaded to Database",Toast.LENGTH_LONG).show();
+//                                @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
+                                Toast.makeText(CreateGroupActivity.this, "Image Successfully uploaded to Database",Toast.LENGTH_SHORT).show();
 
-                                final DatabaseReference groupRef = myRef.child("groups").child("");
-//
-//                                groupRef.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                UploadTask uploadTask = mThumbRef.putBytes(thumb_byte);
+//                                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if(task.isSuccessful()){
-//                                            Toast.makeText(CreateGroupActivity.this, "Success Uploading image in databse",Toast.LENGTH_LONG).show();
-//                                        }
-//                                        else{
-//                                            Toast.makeText(CreateGroupActivity.this, "There was some error",Toast.LENGTH_LONG).show();
-//                                        }
+//                                    public void onSuccess(UploadTask.TaskSnapshot task) {
+//                                        String download_url = task.getDownloadUrl().toString();
+//                                        Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
+//
+//
 //                                    }
 //                                });
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -253,12 +313,29 @@ public class CreateGroupActivity extends AppCompatActivity {
                             }
                         });
 
+                try{
+                mThumbRef.putBytes(thumb_byte).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot task) {
+                        String download_url = task.getDownloadUrl().toString();
+                        Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
+
+                    }
+                });}
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
                 Exception error = result.getError();
                 Toast.makeText(this, "You have some error"+error,Toast.LENGTH_SHORT).show();
 
             }
+
+
         }
     }
 }

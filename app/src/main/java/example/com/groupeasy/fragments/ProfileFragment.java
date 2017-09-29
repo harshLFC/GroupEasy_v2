@@ -125,12 +125,15 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 //different outcomes for user log in status
-                if(mCurrentUser == null){
-                    Intent intent = new Intent(v.getContext(),LoginActivity.class);
-                    startActivity(intent);
-                }
-                else    {
+
+//                if(mCurrentUser == null){
+//                    Intent intent = new Intent(v.getContext(),LoginActivity.class);
+//                    startActivity(intent);
+//                }
+//                else    {
+//
                     mAuth.signOut();
+
 
 //                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
 
@@ -142,7 +145,7 @@ public class ProfileFragment extends Fragment {
                     toast.show();
 
 //                    Toast.makeText(v.getContext(), "You have been logged out",Toast.LENGTH_LONG).show();
-                }
+//                }
             }
         });
 
