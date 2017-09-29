@@ -86,7 +86,7 @@
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         android:layout_above="@+id/input"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_below="@+id/active_events" />
 
     <include

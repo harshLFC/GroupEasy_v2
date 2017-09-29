@@ -92,7 +92,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 Picasso.with(editProfileActivity.this)
                         .load(image)
-                        .resize(100,100)
+//                        .resize(100,100)
                         .into(profileImage);
             }
 

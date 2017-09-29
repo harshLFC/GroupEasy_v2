@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
                     user_status.setText(status);
                 Picasso.with(getContext())
                         .load(image)
-                        .resize(100,100)
+                        .resize(300,300)
                         .centerCrop()
                         .into(profile_pic);
             }
