@@ -80,11 +80,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.chooseGroup"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.chooseUserActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activities.aboutChatRoom"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.aboutChatRoom"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.allUsersActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activities.DashboardActivity">
+
+        </activity>
     </application>
 
 </manifest>

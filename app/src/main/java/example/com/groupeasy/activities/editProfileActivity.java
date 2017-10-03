@@ -108,7 +108,6 @@ public class editProfileActivity extends AppCompatActivity {
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Progress
                     mDialog = new ProgressDialog(editProfileActivity.this);
                     mDialog.setTitle("Saving Changes");
@@ -120,64 +119,60 @@ public class editProfileActivity extends AppCompatActivity {
 
                 //code for updating username and status
                 //// TODO: 04-09-2017 use different ? loop or switch statement
-                if(!TextUtils.isEmpty(Status)){
-                    mUserDatabase.child("status").setValue(Status).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
 
-                            if (task.isSuccessful()) {
 
-                                mDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Updated",Toast.LENGTH_LONG).show();
-
-                            }
-                            else{
-                                mDialog.hide();
-                                Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-                    if (!TextUtils.isEmpty(Name)){
-
-                        mUserDatabase.child("name").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                                if (task.isSuccessful()) {
-                                    mDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Updated",Toast.LENGTH_LONG).show();
-
-                                }
-                                else{
-                                    mDialog.hide();
-                                    Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-                    }
+                if((TextUtils.isEmpty(Status.trim()) || (TextUtils.isEmpty(Name.trim()))) || !(Name.length()>1) || !(Status.length()>1)){
+                    mDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Username or Status should not be empty !",Toast.LENGTH_SHORT).show();
                 }
 
-                else if(!TextUtils.isEmpty(Name)){
-                    mUserDatabase.child("name").setValue(Name).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
 
-                                mDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Username updated",Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                mDialog.hide();
-                                Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                else {
+                    mUserDatabase.child("status").setValue(Status.trim());
+//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//
+//                            if (task.isSuccessful()) {
+//
+//                                mDialog.dismiss();
+//                                Toast.makeText(getApplicationContext(), "Status Updated",Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                            else{
+//                                mDialog.hide();
+//                                Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+
+                        mUserDatabase.child("name").setValue(Name.trim());
+//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//
+//                                if (task.isSuccessful()) {
+//                                    mDialog.dismiss();
+//                                    Toast.makeText(getApplicationContext(), "UserName Updated",Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                                else{
+//                                    mDialog.hide();
+//                                    Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+
+                    mDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Updated !",Toast.LENGTH_SHORT).show();
+
                 }
 
-                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
-                startActivity(intent);
-                finish();
+
+
+//                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
 

@@ -83,7 +83,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                 if(!filePath.toString().isEmpty()){
                     filePath.delete();
             //add an optional onSuccesslistner
-
                 }
 
                 Intent intent = new Intent(context,DashboardActivity.class);
@@ -109,10 +108,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String groupName = input.getText().toString();
-
-                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-//                final String uid = current_user.getUid();
+                final String groupName = input.getText().toString().trim();
 
                 //Input Validation
                 if(groupName.isEmpty() || groupName == "" || !groupName.matches(".*\\w.*")){
@@ -127,15 +123,13 @@ public class CreateGroupActivity extends AppCompatActivity {
                 // else the entered string will be pushed to the firebase database reference
                 else {
 
-                    //This code is not pushing image ??
                     final StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
                     final StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
-//                    if(groupDP.equals(R.drawable.ic_default_groups))
-//                    final Intent intent = new Intent(CreateGroupActivity.this,chooseUserActivity.class);
 
 /**If image is selected
  * The image is already uploaded to server
  * this part sends the image to next activity via an intent
+ *
  */
                     filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -147,42 +141,24 @@ public class CreateGroupActivity extends AppCompatActivity {
 //                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
 //                            groupRef.child(group_id).setValue(newGroups);
 //                            msgRef.child(group_id).setValue(true);
-
-//                            groupRef.push().setValue(newGroups);
-//                            Intent intent = new Intent(context,chooseUserActivity.class);
-                            intent.putExtra("imagePic",uri.toString());
 //                            intent.putExtra("groupName",groupName);
 //                            startActivity(intent);
+//                            groupRef.push().setValue(newGroups);
+//                            Intent intent = new Intent(context,chooseUserActivity.class);
+
+                            intent.putExtra("imagePic",uri.toString());
+
                             mThumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    intent.putExtra("imagePic",uri.toString());
+                                public void onSuccess(Uri Thumburi) {
                                     intent.putExtra("groupName",groupName);
-                                    intent.putExtra("imageThumb",uri.toString());
+                                    intent.putExtra("imageThumb",Thumburi.toString());
                                     intent.putExtra("group_id",group_id);
                                     startActivity(intent);
-
-
                                 }
                             });
-
-
                         }
                     });
-
-
-
-//                    mThumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//                            intent.putExtra("imageThumb",uri.toString());
-//
-//
-//                        }
-//                    });
-
-
-
 
 
 /**If image is NOT selected
@@ -193,21 +169,22 @@ public class CreateGroupActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
-                            String imagePic = getString(R.string.default_firebase_groups);
+                            final String imagePic = getString(R.string.default_firebase_groups);
+;
 
-//                            new_groups newGroups = new new_groups(admin,defaultImage,last_msg,groupName,group_id);
-//                            groupRef.child(group_id).setValue(newGroups);
-//                            msgRef.child(group_id).setValue(true);
-
-                            Intent intent = new Intent(context,chooseUserActivity.class);
-                            intent.putExtra("groupName",groupName);
-                            intent.putExtra("imagePic",imagePic);
-                            intent.putExtra("imageThumb",imagePic);
-
-//                            startActivity(intent);
+                            mThumbRef.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Intent intent = new Intent(context,chooseUserActivity.class);
+                                    intent.putExtra("groupName",groupName);
+                                    intent.putExtra("imagePic",imagePic);
+                                    intent.putExtra("imageThumb",imagePic);
+                                    intent.putExtra("group_id",group_id);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     });
-
                 }
             }
         });
@@ -297,8 +274,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 //                                    public void onSuccess(UploadTask.TaskSnapshot task) {
 //                                        String download_url = task.getDownloadUrl().toString();
 //                                        Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
-//
-//
 //                                    }
 //                                });
 
@@ -312,30 +287,23 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 Toast.makeText(CreateGroupActivity.this, "Error"+exception,Toast.LENGTH_LONG).show();
                             }
                         });
-
                 try{
                 mThumbRef.putBytes(thumb_byte).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot task) {
                         String download_url = task.getDownloadUrl().toString();
                         Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
-
                     }
                 });}
                 catch (Exception e){
                     e.printStackTrace();
                 }
 
-
-
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
                 Exception error = result.getError();
                 Toast.makeText(this, "You have some error"+error,Toast.LENGTH_SHORT).show();
-
             }
-
-
         }
     }
 }

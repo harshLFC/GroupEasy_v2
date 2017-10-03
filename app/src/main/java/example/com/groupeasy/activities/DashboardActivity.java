@@ -1,6 +1,7 @@
 package example.com.groupeasy.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -30,7 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     /** set icons to your tabs*/
     private int[] tabIcons = {
-            R.drawable.eye_white_48,
+//            R.drawable.eye_white_48,
             R.drawable.ic_user_group,
             R.drawable.user_profile
     };
@@ -79,7 +80,7 @@ public class DashboardActivity extends AppCompatActivity {
         adapter = new DashboardPagerAdapter(getSupportFragmentManager());
 
         /** add more fragments if you want to**/
-        adapter.addFragment(new UsersFragment(), "Users");
+//        adapter.addFragment(new UsersFragment(), "Users");
         adapter.addFragment(new GroupFragment(), "Groups");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
@@ -90,11 +91,11 @@ public class DashboardActivity extends AppCompatActivity {
     /** set icons to your tabs*/
     private void setupTabIcons() {
 
+//        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
 
     @Override
@@ -130,6 +131,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
         else if (id == R.id.global_eve){
             Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.all_users){
+            Intent intent = new Intent(context,allUsersActivity.class);
+            startActivity(intent);
         }
         return true;
     }

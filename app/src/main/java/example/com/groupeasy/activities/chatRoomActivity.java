@@ -40,7 +40,7 @@ public class chatRoomActivity extends AppCompatActivity {
     private Toolbar mToolBar;
     private Button chatRoomButton;
     private String room_name;
-    private String groupKey ;
+    private String groupKey;
     private TextView roomName;
     private TextView groupIdKey;
     private ListView listView;
@@ -52,6 +52,8 @@ public class chatRoomActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase,mGroupDatabase;
     private FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
     String current_uid = mCurrentUser.getUid();
+
+
 
     MessageAdapter adapter;
 
@@ -132,8 +134,12 @@ public class chatRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(chatRoomActivity.this,aboutChatRoom.class);
+                String roomname = getIntent().getExtras().get("room_name").toString();
+                String groupkey = getIntent().getExtras().get("groupKey").toString();
 
-
+                i.putExtra("roomname",roomname);
+                i.putExtra("groupkey",groupkey);
+                startActivity(i);
             }
         });
 

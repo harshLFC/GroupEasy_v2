@@ -183,9 +183,10 @@ public class GroupFragment extends Fragment {
         userRef.child(uid).child("groupsIn").child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 final ArrayList myArray = new ArrayList();
 
-                for(final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for( DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     /**I am getting correct list of groups in here, and adding them successfully to an array**/
                     String temp = snapshot.getKey();

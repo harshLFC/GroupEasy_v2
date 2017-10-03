@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:background="@drawable/rounded_corner">
+    android:background="@drawable/rounded_corner1"
+    android:layout_margin="10dp">
+
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="0dp"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
         android:src="@drawable/user1"
-        android:layout_margin="10dp"
         />
 
-    <TextView
-        android:id="@+id/message_user"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Semra"
-        style="@android:style/TextAppearance.Small"
-        android:textStyle="bold"
-        android:layout_toLeftOf="@+id/imageView1"/>
+        android:orientation="vertical"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        >
 
-    <TextView
+        <TextView
+            android:id="@+id/message_user"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/imageView1"
+            android:text="Semra"
+            android:textStyle="bold" />
+
+        <TextView
         android:id="@+id/message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,16 +41,26 @@
         android:text="Hello"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
-        style="@android:style/TextAppearance.Large"
-        android:layout_toLeftOf="@+id/imageView1"/>
+        style="@android:style/TextAppearance.Material.Medium"
+        android:layout_toLeftOf="@+id/imageView1"
+        tools:targetApi="lollipop"
+            android:gravity="left"
+            android:layout_gravity="start"/>
 
-    <TextView
-        style="@android:style/TextAppearance.Small"
-        android:id="@+id/message_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/message_text"
-        android:text="10:58pm"
-        android:layout_toLeftOf="@+id/imageView1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Item out msg"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/message_text"
+            android:layout_toLeftOf="@+id/imageView1"
+            android:text="10:58pm"
+            android:textSize="8dp"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+
+</LinearLayout>

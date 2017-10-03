@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Harsh on 06-09-2017.
  */
 
-public class    new_groups implements Serializable{
+public class new_groups implements Serializable{
 
     private String admin;
     private String image;

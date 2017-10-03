@@ -15,10 +15,8 @@ public class users_list {
     String favs;
     String thumb_image;
     String last_seen;
-
-
-
     String id;
+
     boolean selected;
 
     public users_list(){

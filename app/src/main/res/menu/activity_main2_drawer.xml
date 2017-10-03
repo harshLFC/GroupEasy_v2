@@ -10,6 +10,10 @@
             android:id="@+id/help"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Help" />
+        <item
+            android:id="@+id/all_users"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="All Users" />
 
     </group>
 

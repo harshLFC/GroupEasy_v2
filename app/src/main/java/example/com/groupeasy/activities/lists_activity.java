@@ -30,7 +30,6 @@ public class lists_activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<list_primary> mLstGroups;
     private TextView emptyView;
-    private Toolbar mToolbar;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
@@ -44,7 +43,7 @@ public class lists_activity extends AppCompatActivity {
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

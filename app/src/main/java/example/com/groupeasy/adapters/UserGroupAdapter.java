@@ -21,20 +21,20 @@ import example.com.groupeasy.pojo.users_list;
  * Created by Harsh on 17-09-2017.
  */
 
-public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class UserGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<users_list> mLstGroups;
-    private static UserAdapter.UserViewHolder.ClickListener clickListener;
+    private static UserGroupAdapter.UserViewHolder.ClickListener clickListener;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
 
-    public UserAdapter() {
+    public UserGroupAdapter() {
 
     }
 
-    public UserAdapter(List<users_list> mLstGroups) {
+    public UserGroupAdapter(List<users_list> mLstGroups) {
         this.mLstGroups = mLstGroups;
     }
 
@@ -66,7 +66,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        UserAdapter.UserViewHolder viewHolder = (UserAdapter.UserViewHolder) holder;
+        UserGroupAdapter.UserViewHolder viewHolder = (UserGroupAdapter.UserViewHolder) holder;
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
@@ -132,7 +132,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void setOnItemClickListener(ClickListener clickListener) {
-            UserAdapter.clickListener = clickListener;
+            UserGroupAdapter.clickListener = clickListener;
         }
 
         public interface ClickListener {
