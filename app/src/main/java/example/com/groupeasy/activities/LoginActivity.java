@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import example.com.groupeasy.R;
 
@@ -108,6 +113,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    // code for checking if device is connected to internet??
+
+//    public static boolean hasActiveInternetConnection(Context context) {
+//        if (isNetwokAvailable(context)) {
+//            try {
+//                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
+//                urlc.setRequestProperty("User-Agent", "Test");
+//                urlc.setRequestProperty("Connection", "close");
+//                urlc.setConnectTimeout(1500);
+//                urlc.connect();
+//                return (urlc.getResponseCode() == 200);
+//            } catch (IOException e) {
+//                Log.e(LOG_TAG, "Error checking internet connection", e);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            Log.d(LOG_TAG, "No network available!");
+//        }
+//        return false;
+//    }
+//
+//    private static boolean isNetwokAvailable(Context context) {
+//
+//     return false;
+//
+//    }
 
     private void initElementsWithIds()
     {

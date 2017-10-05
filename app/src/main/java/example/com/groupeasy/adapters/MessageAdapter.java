@@ -3,12 +3,9 @@ package example.com.groupeasy.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +18,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
 import example.com.groupeasy.pojo.chatMessage;
@@ -67,8 +65,9 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         final TextView messageUser = (TextView) v.findViewById(R.id.message_user);
         TextView messageTime = (TextView) v.findViewById(R.id.message_time);
         TextView groupIdKey = (TextView) v.findViewById(R.id.group_id_key);
-        final ImageView userImage = (ImageView) v.findViewById(R.id.imageView1);
-        final ImageView senderImage = (ImageView) v.findViewById(R.id.imageView2);
+//        final CircleImageView userImage = (CircleImageView) v.findViewById(R.id.imageView1);
+//        final CircleImageView sender_image = (CircleImageView) v.findViewById(R.id.senderImage);
+            final CircleImageView sender_image = (CircleImageView) v.findViewById(R.id.imageView2);
 
         messageText.setText(model.getContent());
 //        messageUser.setText(model.getMessageUserId());
@@ -83,35 +82,38 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
                 users_list usersList = dataSnapshot.getValue(users_list.class);
                 String name = usersList.getName();
                 String image = usersList.getImage();
+//                sender_image.setVisibility(View.VISIBLE);
 
-                messageUser.setText(name);
+
+//                messageUser.setText(name);
 
                 if(image.isEmpty()) {
 
-                        senderImage.setImageResource(R.drawable.ic_default_user_single);
+                        sender_image.setImageResource(R.drawable.ic_default_user_single);
 
                 }
 
             else    {
 
-                    if (usersList.getId().equals(uid)) {
-
-                        Picasso.with(mContext)
-                                .load(image)
-                                .resize(100, 100)
-                                .placeholder(R.drawable.ic_default_groups)
-                                .centerCrop()
-                                .into(userImage);
-                    }
-
-                    else{
+                    if (!(usersList.getId().equals(uid))) {
+//
+//                        Picasso.with(mContext)
+//                                .load(image)
+//                                .resize(100, 100)
+//                                .placeholder(R.drawable.ic_default_groups)
+//                                .centerCrop()
+//                                .into(userImage);
+//                    }
+//
+//                    else{
+                        messageUser.setText(name);
 
                         Picasso.with(mContext)
                                 .load(image)
                                 .resize(100, 100)
                                 .placeholder(R.drawable.ic_default_user_single)
                                 .centerCrop()
-                                .into(senderImage);
+                                .into(sender_image);
 
                     }
             }
@@ -141,7 +143,7 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         if (chat_message.getMsgFrom().equals(uid)) {
 
             view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
-            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);
+//            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);
 
         }
 
