@@ -27,7 +27,7 @@
         android:layout_alignParentTop="true"
         android:text="You"
         android:textStyle="bold"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="0dp" />
@@ -41,7 +41,6 @@
         android:text="Whats the craic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         style="@android:style/TextAppearance.Holo.Medium"
-        android:layout_marginStart="18dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

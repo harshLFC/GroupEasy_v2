@@ -7,6 +7,9 @@
     <color name="black">#000000</color>
     <color name="faint_black">#44424F</color>
     <color name="lemon_yellow">#fff44f</color>
+    <color name="grey">#757575</color>
+    <color name="light_grey">#e0e0e0</color>
+    <color name="red">#d32f2f</color>
 
     <!--taken from v_1-->
     <color name="colorLight">#387C3D</color>

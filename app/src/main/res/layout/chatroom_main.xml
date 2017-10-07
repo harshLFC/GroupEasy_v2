@@ -85,9 +85,9 @@
         android:dividerHeight="8dp"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-        android:layout_above="@+id/input"
         android:padding="10dp"
-        android:layout_below="@+id/active_events" />
+        android:layout_below="@+id/active_events"
+        android:layout_marginBottom="50dp"/>
 
     <include
         android:id="@+id/input"
