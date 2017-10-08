@@ -57,6 +57,8 @@ public class chatRoomActivity extends AppCompatActivity {
 
     MessageAdapter adapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,17 @@ public class chatRoomActivity extends AppCompatActivity {
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(),DashboardActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
 
 
 
@@ -124,6 +137,8 @@ public class chatRoomActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public void initElementsWithListeners() {
 
@@ -239,5 +254,11 @@ public class chatRoomActivity extends AppCompatActivity {
         return loggedInUserName;
     }
 
+    @Override
+    public void onBackPressed() {
 
+        Intent intent = new Intent(chatRoomActivity.this,DashboardActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

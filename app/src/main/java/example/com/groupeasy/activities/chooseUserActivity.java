@@ -156,8 +156,6 @@ public class chooseUserActivity extends AppCompatActivity {
             //code to push data to firebase
             final DatabaseReference msgRef = myRef.child("messages").child("");
 
-
-
 //            Toast.makeText(this, groupName,Toast.LENGTH_SHORT).show();
 
             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();

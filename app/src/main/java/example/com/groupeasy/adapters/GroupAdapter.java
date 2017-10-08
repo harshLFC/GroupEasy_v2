@@ -1,5 +1,6 @@
 package example.com.groupeasy.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -178,6 +179,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 i.putExtra("groupKey",((groupKey.getText().toString())));
 
                 context.startActivity(i);
+                ((Activity)context).finish();
 
             }
             else if (v.getId() == imageGroupView.getId()) {
