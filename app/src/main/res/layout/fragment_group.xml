@@ -72,29 +72,29 @@
         fab:menu_showShadow="true">
 
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_create_poll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/rectangle_shape"
-            fab:fab_label="Create Poll"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab_create_poll"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/rectangle_shape"-->
+            <!--fab:fab_label="Create Poll"-->
+            <!--fab:fab_size="mini" />-->
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_create_roaster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hexagon_shape"
-            fab:fab_label="Create Roster"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab_create_roaster"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/hexagon_shape"-->
+            <!--fab:fab_label="Create Roster"-->
+            <!--fab:fab_size="mini" />-->
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_create_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/circle_shape"
-            fab:fab_label="Create List"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab_create_list"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/circle_shape"-->
+            <!--fab:fab_label="Create List"-->
+            <!--fab:fab_size="mini" />-->
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_create_group"

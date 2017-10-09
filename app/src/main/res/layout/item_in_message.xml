@@ -22,37 +22,44 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
+        android:maxLength="8"
+        android:maxLines="1"
         style="@android:style/TextAppearance.Small"
         android:id="@+id/message_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
         android:layout_alignParentTop="true"
-        android:text="Harsh"
-
+        android:text="Harshavardhan"
         android:textStyle="bold"
         android:layout_toRightOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="0dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/message_text"
+        android:layout_marginRight="-21dp"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/message_text"
-        android:layout_width="236dp"
-        android:layout_height="23dp"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:maxLength="100"
+        android:maxLines="5"
+        android:ellipsize="end"
         android:layout_below="@+id/message_user"
-        android:text="Whats the craic"
+        android:text="Whats the craicWhats the craic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
         style="@android:style/TextAppearance.Holo.Medium"
         android:layout_toRightOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintLeft_toRightOf="@+id/imageView2"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.05" />
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:textSize="8dp"

@@ -30,13 +30,15 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.UserAdapter;
 import example.com.groupeasy.pojo.users_list;
 
+import static example.com.groupeasy.R.id.room_name;
+
 public class aboutChatRoom extends AppCompatActivity {
 
     /**import RecyclerView, Custom Adapter, and List */
     private RecyclerView mUserRecyclerView;
     private UserAdapter mUserAdapter;
     private List<users_list> mLstGroups;
-    private ImageView groupDP;
+    private ImageView groupDP,mainImage;
     private ImageButton editGroupDetails;
     private TextView groupName;
     private TextView adminName;
@@ -47,30 +49,18 @@ public class aboutChatRoom extends AppCompatActivity {
     final DatabaseReference myRef = database.getReference();
     final DatabaseReference groupRef = myRef.child("groups");
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_chat_room);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.users_group_toolbar);
-        setSupportActionBar(mToolbar);
-        String room_name = getIntent().getExtras().get("roomname").toString();
-
-        getSupportActionBar().setTitle(room_name);
-        getSupportActionBar().setShowHideAnimationEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        String roomKey = getIntent().getExtras().get("groupkey").toString();
+        setName(roomKey);
 
         initElementsWithIds();
 //        groupName.setText(room_name);
         createListView();
-        initElementsWithListeners();
+        initElementsWithListeners(roomKey);
 
         mLstGroups = new ArrayList<>();
 
@@ -81,25 +71,59 @@ public class aboutChatRoom extends AppCompatActivity {
         mUserRecyclerView.setAdapter(mUserAdapter);
         mUserRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
     }
 
-    private void initElementsWithListeners() {
+    private void setName(String roomKey) {
+
+        groupRef.child(roomKey).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //set toolbar with group name
+                Toolbar mToolbar = (Toolbar) findViewById(R.id.users_group_toolbar);
+                setSupportActionBar(mToolbar);
+                getSupportActionBar().setTitle(dataSnapshot.getValue().toString());
+                getSupportActionBar().setShowHideAnimationEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void initElementsWithListeners(final String roomKey) {
 
         editGroupDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(aboutChatRoom.this, "clicked",Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(aboutChatRoom.this,editGroupActivity.class);
+                groupRef.child(roomKey).child("name").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String room_name = getIntent().getExtras().get("roomname").toString();
-                intent.putExtra("room_name",room_name);
-                String roomKey = getIntent().getExtras().get("groupkey").toString();
-                intent.putExtra("room_key",roomKey);
+                        Intent intent = new Intent(aboutChatRoom.this,editGroupActivity.class);
 
+                        intent.putExtra("room_name",dataSnapshot.getValue().toString());
+                        String roomKey = getIntent().getExtras().get("groupkey").toString();
+                        intent.putExtra("room_key",roomKey);
 
-                startActivity(intent);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -107,9 +131,13 @@ public class aboutChatRoom extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                Toast.makeText(aboutChatRoom.this, "Will open up users list to add members",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(aboutChatRoom.this,chooseUserActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
-
     }
 
     private void createListView() {
@@ -173,8 +201,6 @@ public class aboutChatRoom extends AppCompatActivity {
                             public void onSuccess(){
                                 groupDP.setPadding(5,5,5,5);
                                 groupDP.setBackgroundColor(Color.BLACK);
-
-
                             }
 
                             @Override
@@ -192,7 +218,6 @@ public class aboutChatRoom extends AppCompatActivity {
                                 String name = dataSnapshot.child("name").getValue().toString();
                                 adminName.setText(name);
 
-
                             }
 
                             @Override
@@ -200,10 +225,6 @@ public class aboutChatRoom extends AppCompatActivity {
 
                             }
                         });
-
-
-
-
                     }
 
                     @Override
@@ -211,19 +232,7 @@ public class aboutChatRoom extends AppCompatActivity {
 
                     }
                 });
-
-
             }
-
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-
-//    }
 
     private void initElementsWithIds() {
 
@@ -232,6 +241,7 @@ public class aboutChatRoom extends AppCompatActivity {
         adminName = (TextView) findViewById(R.id.admin_name);
         addMembers = (FloatingActionButton) findViewById(R.id.add_members);
         editGroupDetails = (ImageButton) findViewById(R.id.edit_group);
+        mainImage = (ImageView) findViewById(R.id.group_image);
 
     }
 }

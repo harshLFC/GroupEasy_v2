@@ -23,9 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:weightSum="1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:background="@color/colorLight">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -68,12 +66,10 @@
     </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/nav_header_main2"
-
         android:id="@+id/active_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_chat"
-
+        android:visibility="invisible"
         >
     </include>
 
@@ -84,16 +80,20 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
         android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"
-        android:padding="10dp"
-        android:layout_below="@+id/active_events"
-        android:layout_marginBottom="50dp"/>
+        android:transcriptMode="normal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <include
         android:id="@+id/input"
         layout="@layout/activity_chat_room"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

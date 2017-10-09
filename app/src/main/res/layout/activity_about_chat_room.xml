@@ -78,7 +78,10 @@
                 <TextView
                     android:id="@+id/admin_name"
                     style="@android:style/TextAppearance.Medium"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="admin"
@@ -99,11 +102,6 @@
                     <!--android:text="Group Name"-->
                     <!--android:textColor="@color/black"-->
                     <!--android:textSize="30sp" />-->
-
-
-
-
-
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/group_users_reycler_view"

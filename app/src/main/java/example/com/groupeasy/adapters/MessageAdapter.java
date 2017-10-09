@@ -140,7 +140,7 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
     public View getView(int position, View view, ViewGroup viewGroup) {
         chatMessage chat_message = getItem(position);
 
-        if (chat_message.getMsgFrom().equals(uid)) {
+            if (chat_message.getMsgFrom().equals(uid)) {
 
             view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
 //            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);

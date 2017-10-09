@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +50,8 @@ public class chatRoomActivity extends AppCompatActivity {
     private EditText messageContent;
     private ConstraintLayout myEventsFrame;
     private CircleImageView groupImageView;
+    private FloatingActionMenu floatingActionMenu;
+    private FloatingActionButton floatingActionButton;
 
     private DatabaseReference mUserDatabase,mGroupDatabase;
     private FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -68,20 +72,22 @@ public class chatRoomActivity extends AppCompatActivity {
         initElementWithIds();
         initElementsWithListeners();
 
+        // TODO write code to display activeEvents tab if there are any active events
+        myEventsFrame.setVisibility(View.GONE);
+
         //snippet to stop keyboard from appearing onCreate
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         // get room name from last intent and override the chatroom title
-        room_name = getIntent().getExtras().get("room_name").toString();
+//        room_name = getIntent().getExtras().get("room_name").toString();
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
 
         showAllOldMessages(groupKey);
-        loadImage(groupKey);
 
         setSupportActionBar(mToolBar);
-        getSupportActionBar().setTitle(room_name);
-        roomName.setText(room_name);
+        loadImage(groupKey);
+//        getSupportActionBar().setTitle(room_name);
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -134,6 +140,21 @@ public class chatRoomActivity extends AppCompatActivity {
             }
         });
 
+        mGroupDatabase.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                roomName.setText(dataSnapshot.getValue().toString());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
     }
@@ -142,6 +163,13 @@ public class chatRoomActivity extends AppCompatActivity {
 
     public void initElementsWithListeners() {
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(chatRoomActivity.this, "Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         chatRoomButton.setOnClickListener(new View.OnClickListener() {
@@ -149,10 +177,10 @@ public class chatRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(chatRoomActivity.this,aboutChatRoom.class);
-                String roomname = getIntent().getExtras().get("room_name").toString();
+//                String roomname = getIntent().getExtras().get("room_name").toString();
                 String groupkey = getIntent().getExtras().get("groupKey").toString();
 
-                i.putExtra("roomname",roomname);
+//                i.putExtra("roomname",roomname);
                 i.putExtra("groupkey",groupkey);
                 startActivity(i);
             }
@@ -176,8 +204,6 @@ public class chatRoomActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.child("name").getValue().toString();
 
-
-                            String key = room_name;
                             Map<String,Object> value = new HashMap<>();
                             value.put("content",messageContent.getText().toString());
                             value.put("name",name);
@@ -246,8 +272,10 @@ public class chatRoomActivity extends AppCompatActivity {
         messageContent = (EditText) findViewById(R.id.message_content);
         groupImageView = (CircleImageView) findViewById(R.id.group_image_view);
         chatRoomButton = (Button) findViewById(R.id.chat_room_button);
-
         myEventsFrame = (ConstraintLayout) findViewById(R.id.active_events);
+        floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_create_list);
+
     }
 
     public String getLoggedInUserName() {

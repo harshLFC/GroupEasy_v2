@@ -175,7 +175,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 Context context = v.getContext();
 
                 Intent i = new Intent(context,chatRoomActivity.class);
-                i.putExtra("room_name",((textView.getText().toString())));
+//                i.putExtra("room_name",((textView.getText().toString())));
                 i.putExtra("groupKey",((groupKey.getText().toString())));
 
                 context.startActivity(i);

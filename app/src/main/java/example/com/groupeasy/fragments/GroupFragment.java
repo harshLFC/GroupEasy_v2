@@ -107,9 +107,9 @@ public class GroupFragment extends Fragment {
 
         floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floating_action_button);
         backgroundView = view.findViewById(R.id.group_background);
-        fabCreatePoll = (FloatingActionButton) view.findViewById(R.id.fab_create_poll);
-        fabCreateRoaster = (FloatingActionButton) view.findViewById(R.id.fab_create_roaster);
-        fabCreateList = (FloatingActionButton) view.findViewById(R.id.fab_create_list);
+//        fabCreatePoll = (FloatingActionButton) view.findViewById(R.id.fab_create_poll);
+//        fabCreateRoaster = (FloatingActionButton) view.findViewById(R.id.fab_create_roaster);
+//        fabCreateList = (FloatingActionButton) view.findViewById(R.id.fab_create_list);
         fabCreateGroup = (FloatingActionButton) view.findViewById(R.id.fab_create_group);
         emptyView = (TextView) view.findViewById(R.id.empty_view);
 
@@ -118,6 +118,7 @@ public class GroupFragment extends Fragment {
     /** handle your all on click events */
     private void initElementsWithListeners()
     {
+
 
         floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
@@ -133,6 +134,7 @@ public class GroupFragment extends Fragment {
             }
         });
 
+       /*
         fabCreateList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +161,7 @@ public class GroupFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        */
 
         fabCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -140,6 +140,8 @@ public class editGroupActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         editImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
