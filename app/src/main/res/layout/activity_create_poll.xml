@@ -10,6 +10,7 @@
     tools:context="example.com.groupeasy.activities.CreatePollActivity">
 
     <LinearLayout
+        android:elevation = "20dp"
         android:gravity="center|left"
         android:background="@color/white"
         android:id="@+id/toolbar_layout"

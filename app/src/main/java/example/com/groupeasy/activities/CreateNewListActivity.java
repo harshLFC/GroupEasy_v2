@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +52,8 @@ public class CreateNewListActivity extends AppCompatActivity {
     private TextView saveBtn;
     private TextView whatThisMeans;
     private ImageView ivClose;
+    private String groupKey;
+    private GoogleApiClient mGoogleApiClient;
 
     private CheckBox oneDayEvent, globalEvent;
 
@@ -72,6 +77,13 @@ public class CreateNewListActivity extends AppCompatActivity {
         initElementsWithListeners();
         updateDisplay();
 
+//        mGoogleApiClient = new GoogleApiClient
+//                .Builder(this)
+//                .addApi(Places.GEO_DATA_API)
+//                .addApi(Places.PLACE_DETECTION_API)
+//                .enableAutoManage(this, this)
+//                .build();
+
     }
 
     private void initElementsWithListeners() {
@@ -83,38 +95,40 @@ public class CreateNewListActivity extends AppCompatActivity {
                 //intitlize data
                 String EventName, Location = "", minLimit = "", maxLimit = "", fromDATE = "", fromTIME="", toDATE="", toTIME="";
 
-                Intent intent = new Intent(context,chooseGroup.class);
+//                Intent intent = new Intent(context,chooseGroup.class);
 
 
                 // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
-                intent.putExtra("event_name",EventName);
+//                intent.putExtra("event_name",EventName);
 
                 if(!location.toString().isEmpty()){
                     Location = location.getText().toString();
-                    intent.putExtra("location",Location);
+//                    intent.putExtra("location",Location);
                 }
 
                 minLimit = tvRangeLimit1.getText().toString();
                 maxLimit = tvRangeLimit2.getText().toString();
-                intent.putExtra("min_limit",minLimit);
-                intent.putExtra("max_limit",maxLimit);
+//                intent.putExtra("min_limit",minLimit);
+//                intent.putExtra("max_limit",maxLimit);
 
                 //is enabled returns true if pressed
                 oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
                 globalEvent = (CheckBox) findViewById(R.id.global_event);
-                intent.putExtra("one_day_event",oneDayEvent.isChecked());
-                intent.putExtra("global_event",globalEvent.isChecked());
+                boolean one_day_event = oneDayEvent.isChecked();
+                boolean global_event= globalEvent.isChecked();
+//                intent.putExtra("one_day_event",oneDayEvent.isChecked());
+//                intent.putExtra("global_event",globalEvent.isChecked());
 
 
                 fromDATE = TvFrom.getText().toString();
                 fromTIME = timeFrom.getText().toString();
                 toDATE = TvTo.getText().toString();
                 toTIME = timeTo.getText().toString();
-                intent.putExtra("from_date",fromDATE);
-                intent.putExtra("from_time",fromTIME);
-                intent.putExtra("to_date",toDATE);
-                intent.putExtra("to_time",toTIME);
+//                intent.putExtra("from_date",fromDATE);
+//                intent.putExtra("from_time",fromTIME);
+//                intent.putExtra("to_date",toDATE);
+//                intent.putExtra("to_time",toTIME);
 
 
                 //Code for form Validation
@@ -124,7 +138,24 @@ public class CreateNewListActivity extends AppCompatActivity {
                 //push to firebase
                 else {
 
-                    startActivity(intent);
+                    groupKey = getIntent().getExtras().get("groupKey").toString();
+                    final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+                    String push_id = groupRef.push().getKey();
+
+                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = current_user.getUid();
+
+                    list_primary listMain = new list_primary(EventName,uid,Location,push_id);
+
+                    groupRef.child(push_id).setValue(listMain);
+
+                    list_details newList = new list_details(EventName,minLimit,maxLimit,one_day_event,fromDATE,fromTIME,toDATE,toTIME,global_event);
+                    groupRef.child(push_id).child("extra").setValue(newList);
+
+                    Toast.makeText(CreateNewListActivity.this, "Event Created! ",Toast.LENGTH_SHORT).show();
+//            return true;
+                    finish();
+
 
                 }
             }
@@ -134,8 +165,6 @@ public class CreateNewListActivity extends AppCompatActivity {
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,DashboardActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -166,6 +195,13 @@ public class CreateNewListActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void initElementsWithIds() {
@@ -187,9 +223,8 @@ public class CreateNewListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(context,DashboardActivity.class);
-        startActivity(intent);
         finish();
+
     }
 
 //Initial update the TextFields from calender instance
@@ -286,4 +321,38 @@ public class CreateNewListActivity extends AppCompatActivity {
             timeTo.setText(hourOfDay+":"+minute + "");
         }
     };
+
+//    public void findPlace(View view) {
+//        try {
+//            Intent intent =
+//                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+//                            .setFilter(typeFilter)
+//                            .build(this);
+//            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+//        } catch (GooglePlayServicesRepairableException e) {
+//            // TODO: Handle the error.
+//        } catch (GooglePlayServicesNotAvailableException e) {
+//            // TODO: Handle the error.
+//        }
+//    }
+//
+//    // A place has been received; use requestCode to track the request.
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+//            if (resultCode == RESULT_OK) {
+//                Place place = PlaceAutocomplete.getPlace(this, data);
+//                Log.i(TAG, "Place: " + place.getName());
+//            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+//                Status status = PlaceAutocomplete.getStatus(this, data);
+//                // TODO: Handle the error.
+//                Log.i(TAG, status.getStatusMessage());
+//
+//            } else if (resultCode == RESULT_CANCELED) {
+//                // The user canceled the operation.
+//            }
+//        }
+//    }
+
+
 }

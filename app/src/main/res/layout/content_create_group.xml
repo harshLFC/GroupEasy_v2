@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_create_group">
 
     <LinearLayout
+        android:elevation="20dp"
         android:gravity="center|left"
         android:background="@color/white"
         android:id="@+id/toolbar_layout"

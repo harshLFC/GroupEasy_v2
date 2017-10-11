@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="end"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:background="@drawable/rounded_corner1"
-    android:paddingLeft="10dp"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     android:layout_margin="10dp"
     >
 
@@ -19,47 +21,42 @@
         <!--android:layout_marginRight="0dp"-->
         <!--app:layout_constraintRight_toRightOf="parent" />-->
 
-    <TextView
-        style="@android:style/TextAppearance.Small"
-        android:id="@+id/message_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="You"
-        android:textStyle="bold"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp" />
 
     <TextView
+        android:layout_gravity="end"
         android:id="@+id/message_text"
         android:layout_width="290dp"
         android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_height="wrap_content"
         android:gravity="end"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:text="Whats the craic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         style="@android:style/TextAppearance.Holo.Medium"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="4dp" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/message_time"
+        android:layout_toEndOf="@+id/message_time" />
 
     <TextView
         android:maxLength="7"
         android:textSize="8dp"
+        android:layout_gravity="end"
         android:id="@+id/message_time"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/message_text"
         android:text="10:56pm"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_alignBaseline="@+id/message_text"
+        android:layout_alignBottom="@+id/message_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="69dp"
+        android:layout_marginStart="69dp" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -10,9 +10,12 @@
     android:layout_height="wrap_content">
 
     <include layout="@layout/app_bar_layout"
-        android:id="@+id/mToolBar">
+        android:id="@+id/mToolBar"
+        android:elevation = "50dp"
+        >
 
     </include>
+</android.support.design.widget.AppBarLayout>
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         app:tabSelectedTextColor="@color/white"
@@ -22,7 +25,10 @@
         app:tabMode="fixed"
         app:tabTextColor="#c6c6c6"
         android:background="@color/colorPrimary"
-        app:tabGravity="fill"/>
+        app:tabGravity="fill"
+        android:elevation = "10dp"
+        />
+
 
     <android.support.v4.view.ViewPager
         android:layout_below="@id/tab_layout"
@@ -31,7 +37,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         />
-</android.support.design.widget.AppBarLayout>
+
 
 
 

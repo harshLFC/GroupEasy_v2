@@ -9,7 +9,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:clipToPadding="false">
 
     <!--<include layout="@layout/toolbar"-->
         <!--android:layout_height="wrap_content"-->
@@ -18,28 +19,56 @@
 
     <!--</include>-->
 
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:transcriptMode="normal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/active_events" />
+
+    <include layout="@layout/nav_header_main2"
+        android:id="@+id/active_events"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="visible"
+        android:layout_below="@+id/toolbar_chat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:elevation="30dp"
+        >
+    </include>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_chat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:weightSum="1"
-        android:background="@color/colorLight">
+        android:background="@color/cyan"
+        android:elevation="30dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="sample"
-            android:id="@+id/room_name"
-            android:visibility="invisible"
-            android:textSize="20dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="sample"
+                android:id="@+id/room_name"
+                android:visibility="invisible"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,29 +93,6 @@
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <include layout="@layout/nav_header_main2"
-        android:id="@+id/active_events"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        >
-    </include>
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="8dp"
-        android:stackFromBottom="true"
-        android:transcriptMode="normal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <include
         android:id="@+id/input"

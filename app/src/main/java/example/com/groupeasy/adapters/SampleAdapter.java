@@ -47,7 +47,7 @@ public class SampleAdapter extends BaseAdapter {
         if (convertView == null)
         {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.row_view_for_groups,null);
+            convertView = inflater.inflate(R.layout.group_view,null);
         }
         else
         {

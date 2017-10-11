@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,10 +56,11 @@ public class chatRoomActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
 
     private DatabaseReference mUserDatabase,mGroupDatabase;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference();
     private FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+
     String current_uid = mCurrentUser.getUid();
-
-
 
     MessageAdapter adapter;
 
@@ -69,8 +72,11 @@ public class chatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.chatroom_main);
         Context context = chatRoomActivity.this;
 
+
         initElementWithIds();
         initElementsWithListeners();
+        fab();
+
 
         // TODO write code to display activeEvents tab if there are any active events
         myEventsFrame.setVisibility(View.GONE);
@@ -87,6 +93,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolBar);
         loadImage(groupKey);
+        checkEvent();
 //        getSupportActionBar().setTitle(room_name);
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
@@ -112,6 +119,49 @@ public class chatRoomActivity extends AppCompatActivity {
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
 
        }
+
+    private void fab() {
+
+//        floatingActionMenu.showMenu(true);
+        floatingActionMenu.close(true);
+
+    }
+
+    private void checkEvent() {
+
+        final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+
+        groupRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.getValue()!= null){
+                    myEventsFrame.setVisibility(View.VISIBLE);
+
+                    /**code to alter margin
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT,
+                            RelativeLayout.LayoutParams.MATCH_PARENT
+                    );
+                    params.setMargins(0, 60, 0, 60);
+                    listView.setLayoutParams(params);
+                    **/
+
+                }
+                else{
+                    myEventsFrame.setVisibility(View.GONE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     private void loadImage(String groupKey) {
         mGroupDatabase = FirebaseDatabase.getInstance().getReference().child("groups").child(groupKey);
@@ -166,7 +216,10 @@ public class chatRoomActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(chatRoomActivity.this, "Clicked",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(chatRoomActivity.this,CreateNewListActivity.class);
+                groupKey = getIntent().getExtras().get("groupKey").toString();
+                intent.putExtra("groupKey",groupKey);
+                startActivity(intent);
             }
         });
 
@@ -183,6 +236,14 @@ public class chatRoomActivity extends AppCompatActivity {
 //                i.putExtra("roomname",roomname);
                 i.putExtra("groupkey",groupkey);
                 startActivity(i);
+            }
+        });
+
+        floatingActionMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
             }
         });
 
@@ -288,5 +349,12 @@ public class chatRoomActivity extends AppCompatActivity {
         Intent intent = new Intent(chatRoomActivity.this,DashboardActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        floatingActionMenu.close(true);
+
     }
 }
