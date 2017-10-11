@@ -131,11 +131,8 @@ public class aboutChatRoom extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                Toast.makeText(aboutChatRoom.this, "Will open up users list to add members",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(aboutChatRoom.this,chooseUserActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

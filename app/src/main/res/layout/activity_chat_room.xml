@@ -7,7 +7,9 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="example.com.groupeasy.activities.chatRoomActivity"
-    android:gravity="bottom">
+    android:gravity="bottom"
+    android:elevation = "50dp"
+    >
 
 
 

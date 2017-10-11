@@ -43,6 +43,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;
     private Button chatRoomButton;
+    private View chatBackground;
     private String room_name;
     private String groupKey;
     private TextView roomName;
@@ -239,11 +240,18 @@ public class chatRoomActivity extends AppCompatActivity {
             }
         });
 
-        floatingActionMenu.setOnClickListener(new View.OnClickListener() {
+
+        floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
-            public void onClick(View v) {
-
-
+            public void onMenuToggle(boolean opened) {
+                if(opened)
+                {
+                    chatBackground.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    chatBackground.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -336,6 +344,7 @@ public class chatRoomActivity extends AppCompatActivity {
         myEventsFrame = (ConstraintLayout) findViewById(R.id.active_events);
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_create_list);
+        chatBackground = (View) findViewById(R.id.chat_background);
 
     }
 
@@ -355,6 +364,8 @@ public class chatRoomActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         floatingActionMenu.close(true);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
 }

@@ -10,7 +10,9 @@
     android:paddingBottom="5dp"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:elevation="30dp"
+    >
 
         <TextView
         android:layout_width="55dp"
@@ -23,7 +25,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/textView4"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="4dp" />
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -39,14 +41,14 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/user2"
-        android:layout_marginLeft="71dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:id="@+id/circleImageView3"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.625"
+        app:layout_constraintLeft_toRightOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="10dp"

@@ -13,8 +13,9 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
+
+
         <android.support.design.widget.CollapsingToolbarLayout
-            android:elevation="30dp"
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,6 +24,8 @@
             app:expandedTitleMarginEnd="64dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+
+
     <include layout="@layout/app_bar_layout"
         android:id="@+id/users_group_toolbar"
         android:layout_width="match_parent"
@@ -30,18 +33,9 @@
         app:layout_scrollFlags="scroll|enterAlways"
         >
 
-    </include>
 
-            <ImageButton
-                android:id="@+id/edit_group"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_stat_create"
-                android:background="@color/colorLight"
-                android:layout_gravity="end"
-                android:paddingTop="5dp"
-                android:paddingRight="5dp"
-                />
+
+    </include>
 
             <ImageView
                 android:id="@+id/group_image"
@@ -91,6 +85,19 @@
 
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/edit_group"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:paddingRight="5dp"
+                android:elevation="30dp"
+                android:background="@color/colorPrimary"
+                android:paddingTop="5dp"
+                android:src="@drawable/ic_stat_create" />
+
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>
 
@@ -104,6 +111,7 @@
                     <!--android:text="Group Name"-->
                     <!--android:textColor="@color/black"-->
                     <!--android:textSize="30sp" />-->
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/group_users_reycler_view"

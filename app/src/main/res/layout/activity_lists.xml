@@ -9,7 +9,6 @@
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/lists_app_bar">
-
     </include>
 
 <android.support.v7.widget.RecyclerView

@@ -12,6 +12,7 @@
     android:weightSum="1"
     android:clipToPadding="false">
 
+
     <!--<include layout="@layout/toolbar"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_width="match_parent"-->
@@ -22,6 +23,8 @@
 
     <ListView
         android:id="@+id/list"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
@@ -34,7 +37,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/active_events" />
 
-    <include layout="@layout/nav_header_main2"
+    <include layout="@layout/active_events_tab"
         android:id="@+id/active_events"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -42,7 +45,6 @@
         android:layout_below="@+id/toolbar_chat"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:elevation="30dp"
         >
     </include>
 
@@ -94,12 +96,24 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
+    <View
+        android:id="@+id/chat_background"
+        android:visibility="gone"
+        android:background="#4D000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="40dp"/>
+
     <include
         android:id="@+id/input"
+        android:elevation = "50dp"
         layout="@layout/activity_chat_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
+
 </RelativeLayout>
