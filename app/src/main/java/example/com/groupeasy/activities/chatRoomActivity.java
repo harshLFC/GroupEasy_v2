@@ -303,6 +303,11 @@ public class chatRoomActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                FirebaseDatabase.getInstance()
+                        .getReference()
+                        .child("groups").child(groupKey).child("last_msg").setValue(messageContent.getText().toString());
+
             }
         });
 

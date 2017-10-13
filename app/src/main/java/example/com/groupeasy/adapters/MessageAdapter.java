@@ -18,6 +18,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
@@ -39,6 +41,8 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
      */
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private List<chatMessage> mLstChat;
+
 
     Context mContext;
 
@@ -72,6 +76,9 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         messageText.setText(model.getContent());
 //        messageUser.setText(model.getMessageUserId());
         String user = model.getMsgFrom();
+
+        //tried to do reg adapter shiz but crashed
+//        messageUser.setText(mLstChat.get(position).getMessageUserId());
 
 
         mDatabase.child("members").child(user).addValueEventListener(new ValueEventListener() {

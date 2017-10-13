@@ -33,7 +33,7 @@
             android:textSize="@dimen/very_large_text_size"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="New List"
+            android:text="New Event"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>
 

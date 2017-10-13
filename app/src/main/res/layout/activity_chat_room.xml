@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/circle_shape"
-                fab:fab_label="Create List"
+                fab:fab_label="Create Event"
                 fab:fab_size="mini"
                 android:layout_marginBottom="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/floatingActionMenu"

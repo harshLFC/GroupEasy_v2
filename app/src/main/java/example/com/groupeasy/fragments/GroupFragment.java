@@ -207,7 +207,7 @@ public class GroupFragment extends Fragment {
 
 //                            for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                                 new_groups newGroups = dataSnapshot.getValue(new_groups.class);
-                                mLstGroups.add(newGroups);
+                                mLstGroups.add(0,newGroups);
 //                            }
 //                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
 //                    mLstGroups.add(newGroups);

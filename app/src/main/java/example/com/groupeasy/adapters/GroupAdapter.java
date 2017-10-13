@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,29 +92,65 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolder.textView.setText(mLstGroups.get(position).getName());
         String image = (mLstGroups.get(position).getThumb_image());
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
-        viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
         viewHolder.groupKey.setText(mLstGroups.get(position).getGroup_id());
-        String groupID = mLstGroups.get(position).getGroup_id();
+        viewHolder.Admin.setText(mLstGroups.get(position).getAdmin());
+        final String groupID = mLstGroups.get(position).getGroup_id();
+        viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //Code to display last seen message by referencing the message database and looping through its children
 
-        Query query = mDatabase.child("messages").child(groupID).child("groupMsgs").orderByKey().limitToLast(1);
-        query.addValueEventListener(new ValueEventListener() {
+//        mDatabase.child("messages").child(groupID).child("groupMsgs").child("").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                if (dataSnapshot.child("").exists()){
+//
+//                    Query query = mDatabase.child("messages").child(groupID).child("groupMsgs").orderByKey().limitToLast(1);
+//                    query.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                String msg = dataSnapshot.child("content").getValue().toString();
+////                Log.w(msg,"msg");
+//
+//
+//                            for(DataSnapshot child : dataSnapshot.getChildren()){
+//
+//                                Log.d("Testing", child.child("content").getValue().toString());
+//                                viewHolder.textLastMessage.setText(child.child("content").getValue().toString());
+//                                viewHolder.textLastMessage.setTextColor(Color.BLACK);
+//
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//                }
+//                else
+//                    viewHolder.textLastMessage.setText("No messages in group");
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        mDatabase.child("members").child(mLstGroups.get(position).getAdmin()).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-//                String msg = dataSnapshot.child("content").getValue().toString();
-//                Log.w(msg,"msg");
+//                viewHolder.Admin.setText(dataSnapshot.getValue().toString());
+//                Log.w(dataSnapshot.getValue().toString(),"user_name");
 
-                for(DataSnapshot child : dataSnapshot.getChildren()){
 
-                    Log.d("Testing", child.child("content").getValue().toString());
-                    viewHolder.textLastMessage.setText(child.child("content").getValue().toString());
-                    viewHolder.textLastMessage.setTextColor(Color.BLACK);
-
-                }
             }
 
             @Override
@@ -121,6 +158,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             }
         });
+
 
         // getting context from view object
 
@@ -142,7 +180,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mLstGroups.size();
     }
 
-    public static class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         //declare views of your custom class here
         //ex. TextView txtGroupName
         private TextView textView;
@@ -150,7 +188,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private ImageView imageGroupView;
         private TextView textLastMessage;
         private TextView groupKey;
-        private Button theButton;
+        private LinearLayout groupLinear;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -162,15 +200,16 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Admin = (TextView) itemView.findViewById(R.id.textViewAdmin);
             textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
             groupKey = (TextView) itemView.findViewById(R.id.group_key);
-            theButton = (Button) itemView.findViewById(R.id.the_button);
+            groupLinear = (LinearLayout) itemView.findViewById(R.id.group_linear);
 
             imageGroupView.setOnClickListener(this);
-            theButton.setOnClickListener(this);
+            groupLinear.setOnClickListener(this);
+            groupLinear.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == theButton.getId()) {
+            if (v.getId() == groupLinear.getId()) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
@@ -186,8 +225,23 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
+                    }
+
+//handle long clicks
+        @Override
+        public boolean onLongClick(View v) {
+
+            if (v.getId() == groupLinear.getId()) {
+//            clickListener.onItemClick(getAdapterPosition(),v);
+                Context context = v.getContext();
+
+                Toast.makeText(context, "Long Clicked",Toast.LENGTH_SHORT).show();
 
 
+
+            }
+
+            return true;
         }
 
         public void setOnItemClickListener(ClickListener clickListener) {
@@ -197,8 +251,14 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public interface ClickListener {
             void onItemClick(int position, View v);
             void onItemLongClick(int position, View v);
+
+
         }
+
+
     }
+
+
 
     @Override
     public int getItemViewType(int position) {
