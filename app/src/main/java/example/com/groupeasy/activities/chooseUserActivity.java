@@ -42,7 +42,6 @@ public class chooseUserActivity extends AppCompatActivity {
     String imageThumb = "";
     String group_id = "";
 
-
     //adapter
     private UsersSelectAdapter mUserAdapter;
     //list
@@ -123,18 +122,20 @@ public class chooseUserActivity extends AppCompatActivity {
         imageThumb = getIntent().getStringExtra("imageThumb");
         group_id = getIntent().getStringExtra("group_id");
 
+
+        //code for on 'done' button click
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
-            String data = "";
+//            String data = "";
             List<users_list> uList = mUserAdapter
                     .getUserId();
 
             final HashMap<String, Boolean> myMap = new HashMap<>();
 
-            //Loop to put groups in the members list
+            //Loop to put groupsIn the members list and set value to true
             for (int i = 0; i < uList.size(); i++) {
                 users_list singleUser = uList.get(i);
                 if (singleUser.isSelected()) {
@@ -142,25 +143,23 @@ public class chooseUserActivity extends AppCompatActivity {
 //                    data = data + "\n" + singleUser.getId();
                     myMap.put(singleUser.getId(), true);
 
+                    //Update Users DB with groupsIn TRUE value
                     userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
-      /*
-       * Toast.makeText( CardViewActivity.this, " " +
-       * singleStudent.getName() + " " +
-       * singleStudent.getEmailId() + " " +
-       * singleStudent.isSelected(),
-       * Toast.LENGTH_SHORT).show();
-       */
+
                 }
             }
 
-            //code to push data to firebase
-            final DatabaseReference msgRef = myRef.child("messages").child("");
+//            Update Members DB with groups TRUE value
+//            this code is not working here, but is working inside the group because groups is not created before
+            groupRef.child(group_id).child("members").child("").setValue(myMap);
 
-//            Toast.makeText(this, groupName,Toast.LENGTH_SHORT).show();
+            //initiate a msgRef for pushing sample data
+            final DatabaseReference msgRef = myRef.child("messages").child("");
 
             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
             final String uid = current_user.getUid();
 
+            //code to push create group data to firebase
             myRef.child("members").child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -170,11 +169,11 @@ public class chooseUserActivity extends AppCompatActivity {
                     final String icon = "";
                     final String last_msg = "You have no messages in the group";
 
+                    //if the user does not get an intent with an image in it then it will go as an empty string
                     if (imagePic == null) imagePic = "";
                     if (imageThumb == null) imageThumb = "";
 
                     new_groups newGroups = new new_groups(admin, imagePic, last_msg, groupName, group_id, imageThumb);
-//                    new_groups newGroups = new new_groups(admin, imagePic, last_msg, groupName, group_id, imageThumb);
 
                     //Update Group DB with details
                     groupRef.child(group_id).setValue(newGroups);
@@ -189,8 +188,7 @@ public class chooseUserActivity extends AppCompatActivity {
 
                     Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                     startActivity(i);
-//                    finish();
-
+                    finish();
                 }
 
                 @Override
@@ -198,6 +196,8 @@ public class chooseUserActivity extends AppCompatActivity {
 
                 }
             });
+
+
             //end code push
 
         }
@@ -213,6 +213,8 @@ public class chooseUserActivity extends AppCompatActivity {
     private void createListView() {
 
 //        userRef.keepSynced(true);
+        //THis code loops through all members in the app and shows them in list
+        //what i want to do is 1. check if user is in group, if he is keep his checkbox ticked
 
         userRef.child("").addValueEventListener(new ValueEventListener() {
             @Override
@@ -221,12 +223,18 @@ public class chooseUserActivity extends AppCompatActivity {
                 mLstGroups.removeAll(mLstGroups);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    //if condition for the user is already in group ( if decided to implement the fab for add memebers in group
+
                     users_list usersList = snapshot.getValue(users_list.class);
                     mLstGroups.add(usersList);
+
                 }
 
+                //this is how the adapter gets its db reference
                 mUserAdapter.notifyDataSetChanged();
 
+                //code for showing something if there are no users for the app, which is highly unlikely
 //                if(mLstGroups.isEmpty()){
 //                    emptyView.setVisibility(View.VISIBLE);
 //                    mUserRecyclerView.setVisibility(View.GONE);

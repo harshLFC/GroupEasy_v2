@@ -28,7 +28,7 @@
             android:textSize="@dimen/group_header_text_size" />
 
         <TextView
-            android:id="@+id/group_key"
+            android:id="@+id/group_key_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sample"

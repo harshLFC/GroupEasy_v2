@@ -139,7 +139,9 @@ public class CreateNewListActivity extends AppCompatActivity {
                 else {
 
                     groupKey = getIntent().getExtras().get("groupKey").toString();
-                    final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+
+                    final DatabaseReference groupRef = myRef.child("Events").child("lists").child(groupKey).child("");
+
                     String push_id = groupRef.push().getKey();
 
                     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();

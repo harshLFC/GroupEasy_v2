@@ -119,7 +119,6 @@ public class GroupFragment extends Fragment {
     private void initElementsWithListeners()
     {
 
-
         floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
@@ -205,12 +204,8 @@ public class GroupFragment extends Fragment {
 
 //                            mLstGroups.removeAll(mLstGroups);
 
-//                            for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                                 new_groups newGroups = dataSnapshot.getValue(new_groups.class);
                                 mLstGroups.add(0,newGroups);
-//                            }
-//                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
-//                    mLstGroups.add(newGroups);
 
                             mGroupAdapter.notifyDataSetChanged();
 
@@ -233,84 +228,6 @@ public class GroupFragment extends Fragment {
                         }
                     });
                 }
-
-//                        for(int i=0; i<myArray.size();i++) {
-//                            Log.w((String) myArray.get(i), "xyzzyspoon");
-//                        }
-
-                /**After here i wish to iterate through the previous array list and check if the keys of groups match,
-                 if they do, then print out the group details**/
-//                        groupRef.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                                mLstGroups.removeAll(mLstGroups);
-//
-//                                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                                    String temp = snapshot.getKey();
-//                                    myGroupArray.add(temp);
-//                                }
-////                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
-////                    mLstGroups.add(newGroups);
-//
-//                                mGroupAdapter.notifyDataSetChanged();
-//
-//                                //COde for displaying something when RecyclerView data is empty
-//
-//                                if(mLstGroups.isEmpty()){
-//                                    emptyView.setVisibility(View.VISIBLE);
-//                                    mGroupRecyclerView.setVisibility(View.GONE);
-//                                }
-//                                else{
-//
-//                                    emptyView.setVisibility(View.GONE);
-//                                    mGroupRecyclerView.setVisibility(View.VISIBLE);
-//
-//                                }
-//
-//
-//
-//
-////                                for (int i=0; i < myArray.size(); i++){
-////
-////                                    String temp = myArray.toString();
-//////                                    Log.w(temp,"xyzzyspoonTEMP");
-////
-////                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-////
-////                                        if(snapshot.toString().equals(myArray.toString())){
-////
-////                                            new_groups newGroups = snapshot.getValue(new_groups.class);
-////                                            mLstGroups.add(newGroups);
-////                                        }
-////
-////                                        mGroupAdapter.notifyDataSetChanged();
-////
-////                                        if(mLstGroups.isEmpty()){
-////                                            emptyView.setVisibility(View.VISIBLE);
-////                                            mGroupRecyclerView.setVisibility(View.GONE);
-////                                        }
-////                                        else{
-////                                            emptyView.setVisibility(View.GONE);
-////                                            mGroupRecyclerView.setVisibility(View.VISIBLE);
-////                                        }
-////                                    }
-////                                }
-//                            }
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//
-//                            }
-//                        });
-                {
-//                            new_groups newGroups = snapshot.getValue(new_groups.class);
-//                            mLstGroups.add(newGroups);
-                }
-//                    }
-
-//                    new_groups newGroups  = dataSnapshot.getValue(new_groups.class);
-//                    mLstGroups.add(newGroups);
-                //COde for displaying something when RecyclerView data is empty
             }
 
             @Override
@@ -318,39 +235,6 @@ public class GroupFragment extends Fragment {
 
             }
         });
-
-// code i was writing wrong
-//            groupRef.addChildEventListener(new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                    Map<String, String> map =  (Map<String,String>) dataSnapshot.getValue();
-//
-//                    mLstGroups.add(new new_groups(map.get("name")));
-////                    mLstGroup.add(new Group(map.get("icon")));
-//                    mGroupAdapter.notifyItemInserted(mLstGroups.size()-1);
-//                }
-//                @Override
-//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                }
-//                @Override
-//                public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                }
-//                @Override
-//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//                }
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                }});
-
-//        /** fetch your list from the json and add this to adapter*/
-//        mLstGroups = new ArrayList<>();
-//        mLstGroups.add(null);
-//        mLstGroups.add(null);
-//        mLstGroups.add(null);
-//        mLstGroups.add(null);
-//        adapterForAllGroups = new AdapterForAllGroups(getActivity(), mLstGroups);
-// mGroupRecyclerView.setAdapter(adapterForAllGroups);
-
     }
     @Override
     public void onStart() {

@@ -2,8 +2,10 @@ package example.com.groupeasy.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,12 +27,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.security.acl.Group;
 import java.util.List;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.activities.DashboardActivity;
 import example.com.groupeasy.activities.chatRoomActivity;
 import example.com.groupeasy.pojo.new_groups;
 
+import static android.R.attr.data;
 import static example.com.groupeasy.R.id.image_view;
 import static example.com.groupeasy.R.id.view;
 
@@ -38,6 +45,11 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<new_groups> mLstGroups;
     private static GroupViewHolder.ClickListener clickListener;
     Context mContext;
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    static FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+
+
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
@@ -97,9 +109,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final String groupID = mLstGroups.get(position).getGroup_id();
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
 
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //Code to display last seen message by referencing the message database and looping through its children
+        //Code to display last seen message by Referencing the message database and looping through its children
 
 //        mDatabase.child("messages").child(groupID).child("groupMsgs").child("").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -147,9 +158,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-//                viewHolder.Admin.setText(dataSnapshot.getValue().toString());
-//                Log.w(dataSnapshot.getValue().toString(),"user_name");
-
+                viewHolder.Admin.setText(dataSnapshot.getValue().toString());
 
             }
 
@@ -233,11 +242,70 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             if (v.getId() == groupLinear.getId()) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
-                Context context = v.getContext();
+                final Context context = v.getContext();
 
-                Toast.makeText(context, "Long Clicked",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Long Clicked",Toast.LENGTH_SHORT).show();
+
+                //create dialoug and promt to leave gorup
 
 
+                //attempt to create a dialoug with options like 'delete' and 'other' then when delete is selected do the following
+//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                builder.setTitle("Choose an option")
+//                        .setItems(R.array.groups_detail_array, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // The 'which' argument contains the index position
+//                                // of the selected item
+//                                if(which == leave_group)
+//
+//
+//                            }
+//                        });
+//                builder.create().show();
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure you wish to Exit this group?")
+                        .setTitle("Exit group")
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+//              TODO
+                /**delete 1(.members>groupIn)
+                 *  delete 2(groups>group>members>member removeValue();
+                 3.(Check if no users, then 1(.groups>delete group) 2(.messages>group>delete)
+                 by setting .removeValue();
+                **/
+                String uid = current_user.getUid();
+
+                mDatabase.child("members").child(uid).child("groupsIn").child((groupKey.getText().toString())).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().removeValue();
+
+                        Toast.makeText(context, "Group Left !",Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(context,DashboardActivity.class);
+
+                        context.startActivity(i);
+                        ((Activity)context).finish();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create().show();
 
             }
 
@@ -252,13 +320,9 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             void onItemClick(int position, View v);
             void onItemLongClick(int position, View v);
 
-
         }
 
-
     }
-
-
 
     @Override
     public int getItemViewType(int position) {

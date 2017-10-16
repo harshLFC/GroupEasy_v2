@@ -30,14 +30,16 @@ public class lists_activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<list_primary> mLstGroups;
     private TextView emptyView;
+    private String groupKey;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-    final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+    final DatabaseReference groupRef = myRef.child("Events").child("lists");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
+
 
 //        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
 
@@ -88,8 +90,9 @@ public class lists_activity extends AppCompatActivity {
     private void createListView() {
 
         groupRef.keepSynced(true);
+        groupKey = getIntent().getExtras().get("groupKey").toString();
 
-        groupRef.addValueEventListener(new ValueEventListener() {
+        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

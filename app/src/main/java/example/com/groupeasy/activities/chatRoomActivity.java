@@ -94,7 +94,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolBar);
         loadImage(groupKey);
-        checkEvent();
+        checkEvent(groupKey);
 //        getSupportActionBar().setTitle(room_name);
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
@@ -128,9 +128,9 @@ public class chatRoomActivity extends AppCompatActivity {
 
     }
 
-    private void checkEvent() {
+    private void checkEvent(String groupKey) {
 
-        final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+        final DatabaseReference groupRef = myRef.child("Events").child("lists").child(groupKey).child("");
 
         groupRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -317,6 +317,8 @@ public class chatRoomActivity extends AppCompatActivity {
 
 //                Toast.makeText(chatRoomActivity.this, "Your Active Events will be displayed here",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(),lists_activity.class);
+                groupKey = getIntent().getExtras().get("groupKey").toString();
+                intent.putExtra("groupKey",groupKey);
                 startActivity(intent);
             }
         });
