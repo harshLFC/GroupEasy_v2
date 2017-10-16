@@ -155,7 +155,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //
 //            }
 //        });
-        //code for showing rectangle and setting value
+        //code for showing rectangle and setting value according to the number of events present
         mDatabase.child("Events").child("lists").child(groupID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -166,9 +166,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         viewHolder.myRectangle.setVisibility(View.VISIBLE);
 
                         viewHolder.myRectangle.setText(String.valueOf((int) (dataSnapshot.getChildrenCount())));
-
                     }
-
+                    //note : remove the above for loop for showing 0 events across all rows
                 }
             }
 
