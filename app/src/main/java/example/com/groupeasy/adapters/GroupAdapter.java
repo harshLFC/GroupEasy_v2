@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.constraint.solver.widgets.Rectangle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,8 +50,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     static FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-
-
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
@@ -95,7 +95,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     **/
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         final GroupViewHolder viewHolder = (GroupViewHolder) holder;
 
@@ -111,6 +111,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
         //Code to display last seen message by Referencing the message database and looping through its children
+
+
 
 //        mDatabase.child("messages").child(groupID).child("groupMsgs").child("").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -153,6 +155,31 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //
 //            }
 //        });
+        //code for showing rectangle and setting value
+        mDatabase.child("Events").child("lists").child(groupID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot!= null) {
+                    //trying to introduce i variable to loop hw many events are there and display that number
+                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                        viewHolder.myRectangle.setVisibility(View.VISIBLE);
+
+                        viewHolder.myRectangle.setText(String.valueOf((int) (dataSnapshot.getChildrenCount())));
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         mDatabase.child("members").child(mLstGroups.get(position).getAdmin()).child("name").addValueEventListener(new ValueEventListener() {
             @Override
@@ -167,7 +194,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             }
         });
-
 
         // getting context from view object
 
@@ -198,6 +224,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView textLastMessage;
         private TextView groupKey;
         private LinearLayout groupLinear;
+        private TextView myRectangle, Hex, Circle;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -210,6 +237,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             textLastMessage = (TextView) itemView.findViewById(R.id.text_last_message);
             groupKey = (TextView) itemView.findViewById(R.id.group_key);
             groupLinear = (LinearLayout) itemView.findViewById(R.id.group_linear);
+
+            myRectangle = (TextView) itemView.findViewById(R.id.rectangle);
 
             imageGroupView.setOnClickListener(this);
             groupLinear.setOnClickListener(this);
