@@ -2,8 +2,6 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -71,8 +67,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
         final EventViewHolder viewHolder = (EventViewHolder) holder;
-        //setValues
-//        String adminName = "harsh";
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
@@ -109,8 +103,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Log.i("uid", uid);
 
         eventRef.addListenerForSingleValueEvent(eventListener);
-
-
 
         viewHolder.userImageRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -169,7 +161,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             locationText = (TextView) itemView.findViewById(R.id.location_text);
             locationImage = (ImageView) itemView.findViewById(R.id.location_image);
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
-            addMe = (TextView) itemView.findViewById(R.id.add_me);
+            addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
 
             eventName.setOnClickListener(this);

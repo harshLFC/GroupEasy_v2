@@ -1,8 +1,6 @@
 package example.com.groupeasy.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.activities.chatRoomActivity;
 import example.com.groupeasy.pojo.new_groups;
 
 import static example.com.groupeasy.R.id.image_view;

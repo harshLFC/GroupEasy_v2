@@ -5,13 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -23,14 +22,11 @@ import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import example.com.groupeasy.R;
@@ -44,7 +40,7 @@ public class CreateNewListActivity extends AppCompatActivity {
     public static final String TAG = CreateNewListActivity.class.getSimpleName();
     private Context context;
 
-    private EditText eventName;
+    private TextInputEditText eventName;
     private EditText location;
     private TextView tvRangeLimit1,tvRangeLimit2;
     private TextView TvFrom, TvTo;
@@ -213,7 +209,7 @@ public class CreateNewListActivity extends AppCompatActivity {
         tvRangeLimit1 = (TextView) findViewById(R.id.textMin1);
         tvRangeLimit2 = (TextView) findViewById(R.id.textMax1);
         location = (EditText) findViewById(R.id.location);
-        eventName = (EditText) findViewById(R.id.eventName);
+        eventName = (TextInputEditText) findViewById(R.id.eventName);
         TvFrom = (TextView) findViewById(R.id.tv_from_date);
         TvTo = (TextView) findViewById(R.id.tv_to_date);
         saveBtn = (TextView) findViewById(R.id.saveDetails);

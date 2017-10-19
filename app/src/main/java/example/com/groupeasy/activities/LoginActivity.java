@@ -8,10 +8,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,10 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import example.com.groupeasy.R;
 
@@ -37,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
     private Button btnLogin,btnLoginEmail, register;
-    private TextView googleSignIn;
     private TextInputLayout userEmail, userPassword;
 
     private ProgressDialog mRegProgress;
@@ -83,13 +76,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        googleSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,LoginGoogle.class);
-                startActivity(intent);
-            }
-        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
     {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
-        googleSignIn = (TextView) findViewById(R.id.sign_in_with_google);
         register = (Button) findViewById(R.id.Register);
 
         userEmail = (TextInputLayout) findViewById(R.id.user_email);

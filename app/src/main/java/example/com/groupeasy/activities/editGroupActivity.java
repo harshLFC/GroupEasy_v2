@@ -3,7 +3,6 @@ package example.com.groupeasy.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +10,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,9 +52,7 @@ public class editGroupActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private Bitmap thumb_bitmp = null;
 
-
     private ProgressDialog mProgressD;
-
 
     private static final int GALLERY_PICK = 1;
 
@@ -214,10 +209,6 @@ public class editGroupActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()){
                                             Toast.makeText(editGroupActivity.this, "Success Uploading image in databse",Toast.LENGTH_LONG).show();
-
-
-
-
                                         }
                                         else{
                                             Toast.makeText(editGroupActivity.this, "There was some error",Toast.LENGTH_LONG).show();

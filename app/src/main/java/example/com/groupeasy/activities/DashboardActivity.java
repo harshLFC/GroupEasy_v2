@@ -16,7 +16,6 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
 import example.com.groupeasy.fragments.GroupFragment;
 import example.com.groupeasy.fragments.ProfileFragment;
-import example.com.groupeasy.fragments.UsersFragment;
 import example.com.groupeasy.utility.AppConstants;
 
 public class DashboardActivity extends AppCompatActivity {

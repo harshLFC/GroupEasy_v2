@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +46,7 @@ public class lists_activity extends AppCompatActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
         setSupportActionBar(mToolbar);
+        mToolbar.setTitle("Active Events");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

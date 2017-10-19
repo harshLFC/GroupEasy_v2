@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.ButterKnife;
+
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.UsersSelectAdapter;
 import example.com.groupeasy.pojo.new_groups;
@@ -36,7 +36,6 @@ public class chooseUserActivity extends AppCompatActivity {
 
     RecyclerView mUserRecyclerView;
     Toolbar mToolbar;
-    private Context context;
     private TextView emptyView;
     String imagePic = "";
     String imageThumb = "";

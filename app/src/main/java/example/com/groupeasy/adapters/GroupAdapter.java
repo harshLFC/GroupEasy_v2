@@ -4,15 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.constraint.solver.widgets.Rectangle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,16 +16,13 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.security.acl.Group;
 import java.util.List;
 
 import example.com.groupeasy.R;
@@ -37,10 +30,7 @@ import example.com.groupeasy.activities.DashboardActivity;
 import example.com.groupeasy.activities.chatRoomActivity;
 import example.com.groupeasy.pojo.new_groups;
 
-import static android.R.attr.data;
 import static example.com.groupeasy.R.id.image_view;
-import static example.com.groupeasy.R.id.view;
-
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -179,13 +169,16 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
 
-
+//code to set name as admin, but for some reason its crashing when logge don as com?
+        //solved error by having a if condition
         mDatabase.child("members").child(mLstGroups.get(position).getAdmin()).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                viewHolder.Admin.setText(dataSnapshot.getValue().toString());
+                if(dataSnapshot.getValue()!=null) {
 
+                    viewHolder.Admin.setText(dataSnapshot.getValue().toString());
+                }
             }
 
             @Override

@@ -5,247 +5,288 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="4dp"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:layout_marginTop="10dp"
+    android:paddingTop="10dp">
 
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/location_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_location"
-                app:layout_constraintLeft_toRightOf="@+id/event_logo"
-                app:layout_constraintTop_toBottomOf="@+id/event_type"
-                android:visibility="gone"
-                 />
+        <ImageView
+            android:id="@+id/location_image"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_location"
+            android:visibility="visible"
+            app:layout_constraintRight_toLeftOf="@+id/location_text"
+            app:layout_constraintTop_toBottomOf="@+id/event_type" />
 
-            <TextView
-                android:id="@+id/location_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                app:layout_constraintLeft_toRightOf="@+id/location_image"
-                app:layout_constraintTop_toTopOf="@+id/location_image"
-                android:visibility="gone"/>
+        <TextView
+            android:id="@+id/location_text"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text="Location Location"
+            android:visibility="visible"
+            app:layout_constraintHorizontal_bias="0.292"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/event_type" />
 
         <ImageView
             android:id="@+id/event_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/rectangle_shape"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="13dp"
             android:background="@drawable/editborder"
-            android:layout_marginStart="8dp" />
-            <TextView
-                android:id="@+id/event_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="List:"
-                app:layout_constraintLeft_toRightOf="@+id/event_logo"
-                android:layout_marginLeft="15dp"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="15dp" />
-            <TextView
-                android:gravity="left"
-                android:id="@+id/event_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLength="35"
-                android:text="eventeventeventeventevent"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                app:layout_constraintLeft_toRightOf="@+id/event_type"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintHorizontal_bias="0.054" />
+            android:src="@drawable/rectangle_shape"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/event_key"
-                android:text="SAMPLE"
-                android:visibility="gone"
-                tools:layout_editor_absoluteY="86dp"
-                tools:layout_editor_absoluteX="5dp" />
+        <TextView
+            android:id="@+id/event_type"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Event:"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@+id/event_logo"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Auhor:"
-                android:id="@+id/textView"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                app:layout_constraintLeft_toRightOf="@+id/event_logo"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/event_name" />
+        <TextView
+            android:id="@+id/event_name"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text="Eventeventeventeventevent"
+            android:textColor="@color/black"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/event_type"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/author_of_event"
-                android:layout_width="87dp"
-                android:layout_height="17dp"
-                android:text="harsh"
-                app:layout_constraintLeft_toRightOf="@+id/textView"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="7dp"
-                app:layout_constraintTop_toBottomOf="@+id/event_name"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+        <TextView
+            android:id="@+id/event_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAMPLE"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="258dp" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/lemon_yellow"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.076"
-                tools:mockup_opacity="10">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:text="Auhor:"
+            app:layout_constraintHorizontal_bias="0.616"
+            app:layout_constraintLeft_toRightOf="@+id/event_logo"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />
 
-            </ImageView>
+        <TextView
+            android:id="@+id/author_of_event"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="0dp"
+            android:layout_height="17dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLength="12"
+            android:maxLines="1"
+            android:text="harshavardhan"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toRightOf="@+id/textView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="137dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="false"
+            android:background="@color/lemon_yellow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:mockup_opacity="10">
 
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/user2"
-                android:background="@drawable/editborder"
-                android:padding="2dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="13dp"
-                android:id="@+id/user_dp"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                android:layout_marginRight="13dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="0.0" />
+        </ImageView>
 
-                <TextView
-                android:text="Harsh"
-                    android:layout_height="18dp"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/add_me"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginTop="32dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView1"
-                    app:layout_constraintLeft_toRightOf="@+id/profileImage1"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintRight_toRightOf="@+id/imageView"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintHorizontal_bias="0.0" />
+        <de.hdodenhof.circleimageview.CircleImageView
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintLeft_toLeftOf="@+id/view2"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/add_me" />
+            android:id="@+id/user_dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editborder"
+            android:padding="2dp"
+            android:src="@drawable/user2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImage1"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/user2"
-                android:background="@drawable/editborder"
-                android:padding="2dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="0.0"
-                android:layout_marginTop="18dp"
-                app:layout_constraintTop_toBottomOf="@+id/user_dp" />
+        <TextView
+            android:id="@+id/User_2"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Harsh"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/profileImage1"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/profileImage1" />
 
-            <TextView
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/view2"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/User_2" />
 
-                android:text="+ Add me"
-                android:layout_height="19dp"
-                android:layout_width="wrap_content"
-                android:id="@+id/textView1"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
-                android:layout_marginTop="16dp"
-                app:layout_constraintLeft_toRightOf="@+id/user_dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="30dp"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                android:layout_marginStart="8dp"
-                app:layout_constraintHorizontal_bias="0.0" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/editborder"
+            android:padding="2dp"
+            android:src="@drawable/user2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/user_dp" />
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/textView1" />
+        <TextView
 
-            <ImageButton
-                android:id="@+id/full_event"
-                android:layout_width="22dp"
-                android:layout_height="21dp"
-                android:src="@drawable/ic_down_arrow"
-                android:background="#80000000"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/view"
-                app:layout_constraintRight_toRightOf="@+id/imageView"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintVertical_bias="1.0"
-                android:padding="-10dp"
-                android:layout_margin="-10dp"
-                android:layout_marginStart="8dp" />
+            android:id="@+id/add_Me"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="+ Add me"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/user_dp"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/user_dp" />
 
-        </android.support.constraint.ConstraintLayout>
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+            app:layout_constraintRight_toRightOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/add_Me" />
+
+        <ImageButton
+            android:id="@+id/full_event"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_down_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.969"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="10dp"
+            android:text="Share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:text="Explore"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
 

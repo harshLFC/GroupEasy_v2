@@ -18,15 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.adapters.UserAdapter;
-import example.com.groupeasy.pojo.new_groups;
 import example.com.groupeasy.pojo.users_list;
 
 

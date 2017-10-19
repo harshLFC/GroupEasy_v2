@@ -2,23 +2,16 @@ package example.com.groupeasy.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -30,18 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.CreateGroupActivity;
-import example.com.groupeasy.activities.CreateNewListActivity;
-import example.com.groupeasy.activities.CreatePollActivity;
-import example.com.groupeasy.activities.CreateRosterActivity;
-import example.com.groupeasy.adapters.SampleAdapter;
 import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.pojo.new_groups;
 
@@ -54,13 +40,9 @@ public class GroupFragment extends Fragment {
     private GroupAdapter mGroupAdapter;
     private List<new_groups> mLstGroups;
     private TextView emptyView;
-    private SampleAdapter sampleAdapter;
 
     private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
-    private FloatingActionButton fabCreatePoll;
-    private FloatingActionButton fabCreateRoaster;
-    private FloatingActionButton fabCreateList;
     private FloatingActionButton fabCreateGroup;
 
     /** Firebase db init*/
@@ -107,9 +89,6 @@ public class GroupFragment extends Fragment {
 
         floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floating_action_button);
         backgroundView = view.findViewById(R.id.group_background);
-//        fabCreatePoll = (FloatingActionButton) view.findViewById(R.id.fab_create_poll);
-//        fabCreateRoaster = (FloatingActionButton) view.findViewById(R.id.fab_create_roaster);
-//        fabCreateList = (FloatingActionButton) view.findViewById(R.id.fab_create_list);
         fabCreateGroup = (FloatingActionButton) view.findViewById(R.id.fab_create_group);
         emptyView = (TextView) view.findViewById(R.id.empty_view);
 

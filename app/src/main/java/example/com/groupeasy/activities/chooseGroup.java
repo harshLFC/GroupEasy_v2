@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.adapters.GroupSelectAdapter;
 import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.list_primary;
