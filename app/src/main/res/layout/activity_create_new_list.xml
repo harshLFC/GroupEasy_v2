@@ -161,7 +161,7 @@
                     app:counterEnabled="true"
                     app:counterMaxLength="150">
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/Time"
+                        android:id="@+id/event_details"
                         android:maxLines="4"
                         android:maxLength="150"
                         style="@style/TextAppearance.AppCompat.Small"
@@ -226,26 +226,28 @@
                                 android:background="@drawable/rounded_corners_shape"
                                 android:onClick="dateFrom"
                                 android:orientation="horizontal"
-                                android:padding="4dp">
+                                android:padding="4dp"
+                                android:gravity="center"
+                                >
 
                                 <TextView
                                     android:textColor="@color/black"
                                     android:id="@+id/tv_from_date"
                                     style="@style/TextAppearance.AppCompat.Small"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="62dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="4dp"
                                     android:maxLines="1"
-                                    android:text="19/19/2017" />
+                                    android:text="Start date" />
 
                                 <ImageView
                                     android:src="@drawable/ic_calender_today_black"
-                                    android:layout_width="24dp"
+                                    android:layout_width="0dp"
                                     android:layout_height="24dp"
+                                    android:layout_marginLeft="15dp"
                                     android:layout_gravity="center"
-                                    android:layout_marginLeft="14dp"
-                                    android:layout_marginRight="8dp"
+                                    android:layout_weight="1"
                                     />
                             </LinearLayout>
                         </LinearLayout>
@@ -277,7 +279,7 @@
                                 <TextView
                                     android:id="@+id/tv_to_date"
                                     style="@style/TextAppearance.AppCompat.Small"
-                                    android:layout_width="0dp"
+                                    android:layout_width="62dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="8dp"
                                     android:layout_weight="0.60"
@@ -328,9 +330,9 @@
                                     style="@style/TextAppearance.AppCompat.Small"
                                     android:id="@+id/tv_from_time"
                                     android:layout_marginLeft="8dp"
-                                    android:text="10:00 AM"
+                                    android:text="Start time"
                                     android:maxLines="1"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="62dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"/>
 
@@ -369,7 +371,7 @@
                                     style="@style/TextAppearance.AppCompat.Small"
                                     android:text="End Time"
                                     android:maxLines="1"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="62dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"/>
 

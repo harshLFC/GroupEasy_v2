@@ -5,8 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.renderscript.Sampler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +31,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
+import java.security.Key;
+import java.util.HashMap;
+import java.util.Locale;
+
 import example.com.groupeasy.R;
 import example.com.groupeasy.pojo.list_primary;
 import example.com.groupeasy.pojo.list_details;
@@ -40,8 +46,8 @@ public class CreateNewListActivity extends AppCompatActivity {
     public static final String TAG = CreateNewListActivity.class.getSimpleName();
     private Context context;
 
-    private TextInputEditText eventName;
-    private EditText location;
+    private TextInputEditText eventName, eventDetails;
+    private TextInputEditText location;
     private TextView tvRangeLimit1,tvRangeLimit2;
     private TextView TvFrom, TvTo;
     private TextView timeFrom, timeTo;
@@ -89,24 +95,26 @@ public class CreateNewListActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //intitlize data
-                String EventName, Location = "", minLimit = "", maxLimit = "", fromDATE = "", fromTIME="", toDATE="", toTIME="";
+                String EventName, EventDetails=null, Location = null, minLimit =null, maxLimit =null, fromDATE = null, fromTIME=  null, toDATE = null, toTIME = null;
 
 //                Intent intent = new Intent(context,chooseGroup.class);
 
-
                 // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
+                EventDetails = eventDetails.getText().toString();
 //                intent.putExtra("event_name",EventName);
 
-                if(!location.toString().isEmpty()){
+                if(location.getText().toString().trim().length() > 0){
+
                     Location = location.getText().toString();
-//                    intent.putExtra("location",Location);
+
                 }
 
-                minLimit = tvRangeLimit1.getText().toString();
-                maxLimit = tvRangeLimit2.getText().toString();
-//                intent.putExtra("min_limit",minLimit);
-//                intent.putExtra("max_limit",maxLimit);
+                if (tvRangeLimit1.getText().toString().trim().length() != 0){
+                minLimit = tvRangeLimit1.getText().toString();}
+
+                if (tvRangeLimit2.getText().toString().trim().length() != 100){
+                maxLimit = tvRangeLimit2.getText().toString();}
 
                 //is enabled returns true if pressed
                 oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
@@ -116,7 +124,6 @@ public class CreateNewListActivity extends AppCompatActivity {
 //                intent.putExtra("one_day_event",oneDayEvent.isChecked());
 //                intent.putExtra("global_event",globalEvent.isChecked());
 
-
                 fromDATE = TvFrom.getText().toString();
                 fromTIME = timeFrom.getText().toString();
                 toDATE = TvTo.getText().toString();
@@ -125,7 +132,6 @@ public class CreateNewListActivity extends AppCompatActivity {
 //                intent.putExtra("from_time",fromTIME);
 //                intent.putExtra("to_date",toDATE);
 //                intent.putExtra("to_time",toTIME);
-
 
                 //Code for form Validation
                 if(EventName.isEmpty()){
@@ -147,7 +153,13 @@ public class CreateNewListActivity extends AppCompatActivity {
 
                     groupRef.child(push_id).setValue(listMain);
 
-                    list_details newList = new list_details(EventName,minLimit,maxLimit,one_day_event,fromDATE,fromTIME,toDATE,toTIME,global_event);
+                    list_details newList = new list_details(EventDetails,minLimit,maxLimit,one_day_event,fromDATE,fromTIME,toDATE,toTIME,global_event);
+
+                    HashMap myMap = new HashMap();
+
+                    myMap.put("details",EventDetails);
+                    myMap.put("details",EventDetails);
+
                     groupRef.child(push_id).child("extra").setValue(newList);
 
                     Toast.makeText(CreateNewListActivity.this, "Event Created! ",Toast.LENGTH_SHORT).show();
@@ -208,8 +220,9 @@ public class CreateNewListActivity extends AppCompatActivity {
 
         tvRangeLimit1 = (TextView) findViewById(R.id.textMin1);
         tvRangeLimit2 = (TextView) findViewById(R.id.textMax1);
-        location = (EditText) findViewById(R.id.location);
+        location = (TextInputEditText) findViewById(R.id.location);
         eventName = (TextInputEditText) findViewById(R.id.eventName);
+        eventDetails = (TextInputEditText) findViewById(R.id.event_details);
         TvFrom = (TextView) findViewById(R.id.tv_from_date);
         TvTo = (TextView) findViewById(R.id.tv_to_date);
         saveBtn = (TextView) findViewById(R.id.saveDetails);
@@ -232,8 +245,8 @@ public class CreateNewListActivity extends AppCompatActivity {
         int month = c.get(Calendar.MONTH)+1;
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        TvFrom.setText(day+"/"+month+"/"+year);
-        TvTo.setText(day+"/"+month+"/"+year);
+//        TvFrom.setText(day+"/"+month+"/"+year);
+//        TvTo.setText(day+"/"+month+"/"+year);
     }
 
     // code for opening calender
@@ -251,11 +264,17 @@ public class CreateNewListActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                c.set(Calendar.YEAR, year);
-                c.set((Calendar.MONTH)+1, month);
-                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-             TvFrom.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+            SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
+            //gets the month in text
+            String month_name = month_date.format(c.getTime());
+
+            c.set(Calendar.YEAR, year);
+            c.set((Calendar.MONTH)+1, month);
+            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            TvFrom.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+//            TvFrom.setText(dayOfMonth+" "+month_name+" "+year);
         }
     };
 

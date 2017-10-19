@@ -6,7 +6,7 @@ package example.com.groupeasy.pojo;
 
 public class list_details {
 
-    private String name;
+    private String details;
     private String fromDate;
     private String fromTime;
     private String toDate;
@@ -19,10 +19,10 @@ public class list_details {
 
     }
 
-    public list_details(String name, String min, String  max, boolean oneDay, String fromDate,
+    public list_details(String details, String min, String  max, boolean oneDay, String fromDate,
                         String fromTime, String toDate, String toTime, boolean global)
     {
-        this.name = name;
+        this.details = details;
         this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.toTime = toTime;
@@ -35,12 +35,12 @@ public class list_details {
 
     private String toTime;
 
-    public String getName() {
-        return name;
+    public String getDetails() {
+        return details;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDetails(String name) {
+        this.details = name;
     }
 
     public String getFromDate() {

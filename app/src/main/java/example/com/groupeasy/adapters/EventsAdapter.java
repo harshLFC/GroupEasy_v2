@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.list_primary;
 
 /**
@@ -33,6 +34,7 @@ import example.com.groupeasy.pojo.list_primary;
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mListl;
+    static List<list_details> mList2;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
@@ -70,7 +72,20 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
-        viewHolder.locationText.setText(mListl.get(position).getLocation());
+
+        //if no location has been provided dont show
+    try{
+        if((mListl.get(position).getLocation())!= null) {
+            viewHolder.locationText.setVisibility(View.VISIBLE);
+            viewHolder.locationText.setText(mListl.get(position).getLocation());
+            viewHolder.locationImage.setVisibility(View.VISIBLE);
+               }
+
+            }
+    catch (NullPointerException e){
+        e.printStackTrace();
+        }
+
         viewHolder.eventID.setText(mListl.get(position).getId());
 
         DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
@@ -122,12 +137,11 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
 
-        String location = mListl.get(position).getLocation();
 
 //        if(!location.isEmpty()){
-        viewHolder.locationText.setVisibility(View.VISIBLE);
-        viewHolder.locationText.setText(mListl.get(position).getLocation());
-            viewHolder.locationImage.setVisibility(View.VISIBLE);
+//        viewHolder.locationText.setVisibility(View.VISIBLE);
+//        viewHolder.locationText.setText(mList2.get(position).getLocation());
+//            viewHolder.locationImage.setVisibility(View.VISIBLE);
 //        }
     }
 

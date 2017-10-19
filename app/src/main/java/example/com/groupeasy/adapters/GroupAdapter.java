@@ -146,7 +146,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //            }
 //        });
         //code for showing rectangle and setting value according to the number of events present
-        mDatabase.child("Events").child("lists").child(groupID).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("Events").child("lists").child(groupID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

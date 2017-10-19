@@ -16,12 +16,12 @@
 
         <ImageView
             android:id="@+id/location_image"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="14dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_location"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintRight_toLeftOf="@+id/location_text"
             app:layout_constraintTop_toBottomOf="@+id/event_type" />
 
@@ -36,7 +36,7 @@
             android:maxLength="20"
             android:maxLines="1"
             android:text="Location Location"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintHorizontal_bias="0.292"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/textView"
