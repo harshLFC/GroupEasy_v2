@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/grey"
+        android:background="@color/colorPrimary"
         >
 
     <android.support.design.widget.CollapsingToolbarLayout
@@ -21,10 +21,12 @@
         android:layout_height="match_parent"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
         android:fitsSystemWindows="true"
-        app:contentScrim="?attr/colorPrimary"
+        app:contentScrim="@color/grey"
+        app:expandedTitleTextAppearance="@color/black"
         app:expandedTitleMarginStart="48dp"
         app:expandedTitleMarginEnd="64dp"
-        app:title="collapsing_toolbar">
+        app:title="collapsing_toolbar"
+        app:collapsedTitleTextAppearance="@color/black">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,6 +45,8 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="62dp"
             android:layout_marginTop="10dp"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
             android:padding="6dp"
             android:src="@drawable/ic_profile"
             android:layout_alignParentTop="true"
@@ -67,60 +71,52 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_corners_shape"
+            android:padding="10dp"
                 >
 
-                <TextView
-                    style="@android:style/TextAppearance.Medium"
-                    android:gravity="start"
-                    android:text="@string/welcome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"/>
-                <TextView
-                    android:id="@+id/user_name"
-                    style="@android:style/TextAppearance.Large"
-                    android:gravity="start"
-                    android:text="UserUserUserUserUserUserUser"
-                    android:maxLines="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:maxLength="15"/>
 
-                <TextView
+                <!--<TextView-->
+                    <!--style="@android:style/TextAppearance.Medium"-->
+                    <!--android:gravity="start"-->
+                    <!--android:text="@string/welcome"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/user_name"-->
+                    <!--style="@android:style/TextAppearance.Large"-->
+                    <!--android:gravity="start"-->
+                    <!--android:text="UserUserUserUserUserUserUser"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:maxLength="15"/>-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                />
+
+            <TextView
                     style="@android:style/TextAppearance.Small"
                     android:id="@+id/user_status"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="StatusStatStatusStatusStatusStatusStatusStatus"
-                    android:padding="10dp"
                     android:maxLength="30"
                     android:maxLines="1"
                     android:ellipsize="end"
 
                     />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right"
-                android:layout_weight="1">
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/polls"
@@ -254,8 +250,6 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:backgroundTint="@color/colorPrimary"
-        android:elevation="6dp"
         app:fab_size="normal"
         android:tint="@color/white"
         android:layout_height="wrap_content"

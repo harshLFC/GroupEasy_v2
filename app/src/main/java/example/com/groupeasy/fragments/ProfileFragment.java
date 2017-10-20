@@ -3,6 +3,8 @@ package example.com.groupeasy.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,7 +35,9 @@ public class ProfileFragment extends Fragment {
     private TextView user_name, user_status;
     TextView log_in_out;
     private CircleImageView profile_pic;
-    LinearLayout logOut, polls, lists, rosters, favourites,userProfile;
+    private CollapsingToolbarLayout myCollapsingTool;
+    LinearLayout logOut, polls, lists, rosters, favourites;
+    FloatingActionButton userProfile;
 
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
@@ -66,7 +70,8 @@ public class ProfileFragment extends Fragment {
                     String status = dataSnapshot.child("status").getValue().toString();
                     String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
 
-                    user_name.setText(name);
+//                    user_name.setText(name);
+                myCollapsingTool.setTitle(name);
                     user_status.setText(status);
                 Picasso.with(getContext())
                         .load(image)
@@ -93,7 +98,7 @@ public class ProfileFragment extends Fragment {
 
     private void loggedOut() {
         log_in_out.setText("Log in");
-        user_name.setText("You are not logged in");
+        myCollapsingTool.setTitle("You are not logged in");
     }
 
     private void loggedIn() {
@@ -182,7 +187,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 //                Intent intent = new Intent(v.getContext(),edit);
 
-                String user_value_name = user_name.getText().toString();
+                String user_value_name = myCollapsingTool.getTitle().toString();
                 String user_value_status = user_status.getText().toString();
 
                 Intent intent = new Intent(v.getContext(), editProfileActivity.class);
@@ -196,7 +201,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initElementWIthIds(View view) {
-        user_name = (TextView) view.findViewById(R.id.user_name);
+//        user_name = (TextView) view.findViewById(R.id.user_name);
         user_status = (TextView) view.findViewById(R.id.user_status);
         log_in_out = (TextView) view.findViewById(R.id.log_in_out);
         profile_pic = (CircleImageView) view.findViewById(R.id.displayPic);
@@ -205,6 +210,8 @@ public class ProfileFragment extends Fragment {
         lists = (LinearLayout) view.findViewById(R.id.lists);
         rosters = (LinearLayout) view.findViewById(R.id.rosters);
         favourites = (LinearLayout) view.findViewById(R.id.fav_events);
-        userProfile = (LinearLayout) view.findViewById(R.id.user_profile);
+        userProfile = (FloatingActionButton) view.findViewById(R.id.user_profile);
+
+        myCollapsingTool = (CollapsingToolbarLayout) view.findViewById(R.id.collapsingToolbar);
     }
 }

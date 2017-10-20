@@ -21,7 +21,7 @@ import example.com.groupeasy.utility.AppConstants;
 public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
-    private Toolbar toolBar;
+//    private Toolbar toolBar;
     private Context context;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -31,8 +31,9 @@ public class DashboardActivity extends AppCompatActivity {
     /** set icons to your tabs*/
     private int[] tabIcons = {
 //            R.drawable.eye_white_48,
-            R.drawable.ic_user_group,
-            R.drawable.user_profile
+
+//            R.drawable.ic_user_group,
+//            R.drawable.user_profile
     };
 
     @Override
@@ -61,15 +62,15 @@ public class DashboardActivity extends AppCompatActivity {
     /* initialization of your toolbar with title ,color etc */
     private void initToolbar()
     {
-        myTool.setTitle(AppConstants.DASHBOARD_ACTIVITY_TITLE);
-        myTool.setTitleTextColor(ContextCompat.getColor(context,R.color.white));
-        setSupportActionBar(myTool);
+//        myTool.setTitle(AppConstants.DASHBOARD_ACTIVITY_TITLE);
+//        myTool.setTitleTextColor(ContextCompat.getColor(context,R.color.white));
+//        setSupportActionBar(myTool);
 
     }
 
     /** this method is used to initialize the widgets and fields and toolbar*/
     private void initElementsWithIds() {
-        myTool = (Toolbar) findViewById(R.id.mToolBar);
+//        myTool = (Toolbar) findViewById(R.id.mToolBar);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
     }
@@ -91,10 +92,10 @@ public class DashboardActivity extends AppCompatActivity {
     private void setupTabIcons() {
 
 //        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-
-        viewPager.setCurrentItem(0);
+//        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+//        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+//
+//        viewPager.setCurrentItem(0);
     }
 
     @Override
