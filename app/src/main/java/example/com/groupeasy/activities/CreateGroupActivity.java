@@ -1,9 +1,11 @@
 package example.com.groupeasy.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +43,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private TextView next;
     private EditText input;
     private Bitmap thumb_bitmp = null;
+    private ProgressDialog mRegProcess;
 
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -59,6 +62,17 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mThumbRef = FirebaseStorage.getInstance().getReference();
+
+        mRegProcess = new ProgressDialog(CreateGroupActivity.this);
+        mRegProcess.setTitle("Generating users list");
+        mRegProcess.setMessage("Please Wait");
+        mRegProcess.setCancelable(true);
+        mRegProcess.setCanceledOnTouchOutside(false);
+
+//        this.mRegProcess = ProgressDialog.show(this, "Fancy App",
+//                "Loading...Please wait...", true, false);
+//        // Start a new thread that will download all the data
+//        new IAmABackgroundTask().execute();
 
         initElementsWithIds();
         initElementsWithListeners();
@@ -103,6 +117,8 @@ public class CreateGroupActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRegProcess.show();
+
 
                 final String groupName = input.getText().toString().trim();
 
@@ -150,7 +166,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                                     intent.putExtra("groupName",groupName);
                                     intent.putExtra("imageThumb",Thumburi.toString());
                                     intent.putExtra("group_id",group_id);
+                                    mRegProcess.dismiss();
+
                                     startActivity(intent);
+
+
                                 }
                             });
                         }
@@ -176,6 +196,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                                     intent.putExtra("imagePic",imagePic);
                                     intent.putExtra("imageThumb",imagePic);
                                     intent.putExtra("group_id",group_id);
+                                    mRegProcess.dismiss();
+
                                     startActivity(intent);
                                 }
                             });
@@ -302,4 +324,44 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         }
     }
+
+
+  /*  class IAmABackgroundTask extends
+            AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            // showDialog(AUTHORIZING_DIALOG);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            // Pass the result data back to the main activity
+//            CreateGroupActivity.this.data = result;
+
+            if (CreateGroupActivity.this.mRegProcess != null) {
+                CreateGroupActivity.this.mRegProcess.dismiss();
+            }
+
+            if (mRegProcess.isShowing()) {
+                mRegProcess.dismiss();
+            }
+
+//            setContentView(R.layout.main);
+
+
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            //Do all your slow tasks here but dont set anything on UI
+            //ALL ui activities on the main thread
+
+            return null;
+
+        }
+
+    }*/
 }
