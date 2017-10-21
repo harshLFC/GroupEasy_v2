@@ -13,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -236,11 +237,6 @@ public class CreateNewListActivity extends AppCompatActivity {
 
     // code for opening calender
     public void dateFrom(View v) {
-
-        //old code
-//        DialogFragment newFragment = new DatePickerFragment();
-//        newFragment.show(getFragmentManager(), "Date Picker");
-
         new DatePickerDialog(this, d, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
@@ -256,6 +252,20 @@ public class CreateNewListActivity extends AppCompatActivity {
             c.set(Calendar.YEAR, year);
             c.set((Calendar.MONTH) + 1, month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            // Code to get current date and check if its before or after, but this only checks days of current month
+            //also another BUG is if present day is selected it still posts the below toast
+            Calendar currentDate;
+            currentDate = Calendar.getInstance();
+
+            long currentTime = Calendar.getInstance().getTimeInMillis();
+
+            Log.w(String.valueOf(currentTime),"currentTIme");
+
+            if(currentDate.after(c)) {
+                if (currentDate.equals(c))
+                Toast.makeText(CreateNewListActivity.this, "Hello there Time traveller", Toast.LENGTH_SHORT).show();
+            }
 
             TvFrom.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             TvFrom.setTextColor(Color.WHITE);
