@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
-import android.renderscript.Sampler;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,9 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
-import java.security.Key;
 import java.util.HashMap;
-import java.util.Locale;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.pojo.list_primary;
@@ -55,10 +51,10 @@ public class CreateNewListActivity extends AppCompatActivity {
     private TextView timeFrom, timeTo;
     private TextView saveBtn;
     private TextView whatThisMeans;
-    private ImageView ivClose, ImagetimeTo;
+    private ImageView ivClose, ImagetimeTo,ImagetimeFrom, ImageDateFrom, ImageDateTo;
     private String groupKey;
     private GoogleApiClient mGoogleApiClient;
-    private LinearLayout LayouttimeTo;
+    private LinearLayout LayouttimeTo,LayouttimeFrom, LayoutDateFrom, LayoutDateTo;
 
     private CheckBox oneDayEvent, globalEvent;
 
@@ -208,9 +204,16 @@ public class CreateNewListActivity extends AppCompatActivity {
         whatThisMeans = (TextView) findViewById(R.id.see_what_this_means);
         timeFrom = (TextView) findViewById(R.id.tv_from_time);
         timeTo = (TextView) findViewById(R.id.tv_to_time);
+
         ImagetimeTo = (ImageView) findViewById(R.id.image_to_time);
+        ImagetimeFrom = (ImageView) findViewById(R.id.image_time_from);
+        ImageDateFrom = (ImageView) findViewById(R.id.image_date_from);
+        ImageDateTo = (ImageView) findViewById(R.id.image_date_to);
 
         LayouttimeTo = (LinearLayout) findViewById(R.id.layout_to_time);
+        LayouttimeFrom = (LinearLayout) findViewById(R.id.layout_from_time);
+        LayoutDateFrom = (LinearLayout) findViewById(R.id.layout_from_date);
+        LayoutDateTo = (LinearLayout) findViewById(R.id.layout_to_date);
 
 
     }
@@ -255,6 +258,10 @@ public class CreateNewListActivity extends AppCompatActivity {
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             TvFrom.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            TvFrom.setTextColor(Color.WHITE);
+            ImageDateFrom.setColorFilter(Color.WHITE);
+            LayoutDateFrom.setBackgroundResource(R.drawable.rounded_corner_primary_color);
+
 //            TvFrom.setText(dayOfMonth+" "+month_name+" "+year);
         }
     };
@@ -275,13 +282,16 @@ public class CreateNewListActivity extends AppCompatActivity {
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             TvTo.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            TvTo.setTextColor(Color.WHITE);
+            ImageDateTo.setColorFilter(Color.WHITE);
+            LayoutDateTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
 
         }
     };
 
     // code for opening clock
     public void timeFrom(View view) {
-        new TimePickerDialog(this, t, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
+        new TimePickerDialog(this, t, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
     }
 
     TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
@@ -291,8 +301,10 @@ public class CreateNewListActivity extends AppCompatActivity {
             c.set(Calendar.HOUR_OF_DAY, hourOfDay);
             c.set(Calendar.MINUTE, minute);
 
-            timeFrom.setText(hourOfDay + ":" + minute + "");
-
+            timeFrom.setText(convertTo12H(hourOfDay) + ":" + zeroBeforeMin(minute) + " " + isAM(hourOfDay));
+            timeFrom.setTextColor(Color.WHITE);
+            ImagetimeFrom.setColorFilter(Color.WHITE);
+            LayouttimeFrom.setBackgroundResource(R.drawable.rounded_corner_primary_color);
         }
     };
 
@@ -309,13 +321,13 @@ public class CreateNewListActivity extends AppCompatActivity {
             c.set(Calendar.HOUR_OF_DAY, hourOfDay);
             c.set(Calendar.MINUTE, minute);
 
-            timeTo.setText(convertTo12H(hourOfDay) + ":" + zeroBeforeMin(minute) + " " + isAM(hourOfDay) + "");
+            //calling the respective methods and displaying user readable time data
+            timeTo.setText(convertTo12H(hourOfDay) + ":" + zeroBeforeMin(minute) + " " + isAM(hourOfDay));
+
+            //change ui
             timeTo.setTextColor(Color.WHITE);
-
             ImagetimeTo.setColorFilter(Color.argb(255, 255, 255, 255));
-            LayouttimeTo.setBackgroundColor(R.color.colorAccent);
-            LayouttimeTo.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
-
+            LayouttimeTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
         }
     };
 

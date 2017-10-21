@@ -234,7 +234,7 @@
                                     android:textColor="@color/black"
                                     android:id="@+id/tv_from_date"
                                     style="@style/TextAppearance.AppCompat.Small"
-                                    android:layout_width="62dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="4dp"
@@ -242,10 +242,11 @@
                                     android:text="Start date" />
 
                                 <ImageView
+                                    android:id="@+id/image_date_from"
                                     android:src="@drawable/ic_calender_today_black"
-                                    android:layout_width="0dp"
+                                    android:layout_width="24dp"
                                     android:layout_height="24dp"
-                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginLeft="17dp"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
                                     />
@@ -279,7 +280,7 @@
                                 <TextView
                                     android:id="@+id/tv_to_date"
                                     style="@style/TextAppearance.AppCompat.Small"
-                                    android:layout_width="62dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="8dp"
                                     android:layout_weight="0.60"
@@ -290,12 +291,13 @@
                                     />
 
                                 <ImageView
-                                    android:layout_marginRight="8dp"
-                                    android:layout_marginLeft="8dp"
+                                    android:id="@+id/image_date_to"
+                                    android:layout_marginEnd="6dp"
                                     android:layout_gravity="center"
                                     android:src="@drawable/ic_calendar_grey600_48dp"
                                     android:layout_width="24dp"
-                                    android:layout_height="24dp"/>
+                                    android:layout_height="24dp"
+                                    android:layout_marginRight="6dp" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -337,6 +339,7 @@
                                     android:layout_weight="1"/>
 
                                 <ImageView
+                                    android:id="@+id/image_time_from"
                                     android:layout_marginLeft="8dp"
                                     android:layout_marginRight="4dp"
                                     android:layout_gravity="center"
