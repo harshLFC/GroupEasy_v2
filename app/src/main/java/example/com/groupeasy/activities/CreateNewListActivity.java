@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import example.com.groupeasy.R;
@@ -78,7 +79,6 @@ public class CreateNewListActivity extends AppCompatActivity {
         initElementsWithIds();
         initElementsWithListeners();
         updateDisplay();
-
     }
 
     private void initElementsWithListeners() {
@@ -123,7 +123,6 @@ public class CreateNewListActivity extends AppCompatActivity {
                 }
                 //push to firebase
                 else {
-
                     groupKey = getIntent().getExtras().get("groupKey").toString();
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child(groupKey).child("");
                     String push_id = groupRef.push().getKey();
@@ -215,8 +214,6 @@ public class CreateNewListActivity extends AppCompatActivity {
         LayouttimeFrom = (LinearLayout) findViewById(R.id.layout_from_time);
         LayoutDateFrom = (LinearLayout) findViewById(R.id.layout_from_date);
         LayoutDateTo = (LinearLayout) findViewById(R.id.layout_to_date);
-
-
     }
 
     @Override
@@ -262,10 +259,14 @@ public class CreateNewListActivity extends AppCompatActivity {
 
             Log.w(String.valueOf(currentTime),"currentTIme");
 
-            if(currentDate.after(c)) {
-                if (currentDate.equals(c))
-                Toast.makeText(CreateNewListActivity.this, "Hello there Time traveller", Toast.LENGTH_SHORT).show();
-            }
+//            currentDate.setTime(Date(currentTime));
+            currentDate.setTime(new Date(currentTime));
+            String test = currentDate.getTime().toString();
+
+            //bug in this code
+//            if(currentDate.after(c) | (currentDate.equals(c))) {
+//                Toast.makeText(CreateNewListActivity.this, "WARNING:You have selected date in the past", Toast.LENGTH_SHORT).show();
+//            }
 
             TvFrom.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             TvFrom.setTextColor(Color.WHITE);

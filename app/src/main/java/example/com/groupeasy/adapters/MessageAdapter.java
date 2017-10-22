@@ -139,8 +139,6 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         });
 
         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
-
-
     }
 
     @Override
@@ -148,17 +146,12 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         chatMessage chat_message = getItem(position);
 
             if (chat_message.getMsgFrom().equals(uid)) {
-
             view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
 //            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);
-
         }
 
         else {
-
             view = activity.getLayoutInflater().inflate(R.layout.item_in_message, viewGroup, false);
-
-
         }
 
         //generating view

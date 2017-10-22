@@ -29,12 +29,11 @@
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
-        android:transcriptMode="normal"
+        android:transcriptMode="alwaysScroll"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:stackFromBottom="true"
         android:layout_marginBottom="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/active_events" />
 
     <include layout="@layout/active_events_tab"
@@ -53,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:weightSum="1"
-        android:background="@color/cyan"
+        android:background="@color/colorPrimary"
         android:elevation="30dp">
 
         <RelativeLayout
@@ -113,7 +112,4 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-
-
 </RelativeLayout>

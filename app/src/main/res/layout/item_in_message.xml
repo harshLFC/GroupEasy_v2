@@ -2,27 +2,24 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:background="@drawable/rounded_corner"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:paddingRight="0dp"
     android:layout_margin="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:src="@drawable/user2"
-        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginTop="-6dp"
+        app:layout_constraintTop_toBottomOf="@+id/message_user"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginLeft="-2dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginBottom="8dp" />
 
     <TextView
-        android:maxLength="7"
+        android:maxLength="25"
         android:maxLines="1"
         style="@android:style/TextAppearance.Small"
         android:id="@+id/message_user"
@@ -30,42 +27,44 @@
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
         android:text="Harshavardhan"
-        android:textStyle="bold"
         android:layout_toRightOf="@+id/imageView2"
+        android:paddingRight="10dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="0dp"
-        android:paddingRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/message_text"
-        android:layout_marginRight="0dp"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/message_text"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.0" />
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView2" />
 
     <TextView
+        android:background="@drawable/rounded_corner_grey_color"
+        android:paddingBottom="5dp"
+        android:paddingEnd="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
         android:id="@+id/message_text"
-        android:layout_width="204dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLength="100"
+        android:minWidth="50dp"
+        android:maxHeight="300dp"
+        android:maxWidth="280dp"
         android:maxLines="5"
         android:ellipsize="end"
         android:layout_below="@+id/message_user"
-        android:text="Whats the craicWhats the craic"
+        android:text="Whats the craic "
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         style="@android:style/TextAppearance.Holo.Medium"
         android:layout_toRightOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        android:layout_marginTop="0dp"
         app:layout_constraintLeft_toRightOf="@+id/imageView2"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
 
     <TextView
+        android:visibility="gone"
         android:textSize="8dp"
         android:id="@+id/message_time"
         android:layout_width="wrap_content"
@@ -73,11 +72,7 @@
         android:layout_below="@id/message_text"
         android:text="10:56pm"
         android:layout_toRightOf="@+id/imageView2"
-        android:layout_marginTop="-1dp"
-        app:layout_constraintTop_toBottomOf="@+id/message_text"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp" />
+        tools:layout_editor_absoluteY="53dp"
+        tools:layout_editor_absoluteX="43dp" />
 
 </android.support.constraint.ConstraintLayout>

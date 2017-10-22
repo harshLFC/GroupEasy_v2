@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#387C3D</color>
+    <color name="colorPrimaryLight">#66bb6a</color>
     <color name="colorPrimaryDark">#2c7c32</color>
     <color name="colorAccent">#670309</color>
     <color name="colorAccentLite">#ef5350</color>
@@ -14,6 +15,8 @@
     <color name="red">#d32f2f</color>
     <color name="cyan">#26c6da</color>
     <color name="cyan_dark">#1ea0b0</color>
+    <color name="light_blue">#b9cfe4</color>
+
 
     <!--taken from v_1-->
     <color name="colorLight">#387C3D</color>
