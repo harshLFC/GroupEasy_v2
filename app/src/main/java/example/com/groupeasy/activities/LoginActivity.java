@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
     private Button btnLogin,btnLoginEmail, register;
-    private TextView googleSignIn;
     private TextInputLayout userEmail, userPassword;
 
     private ProgressDialog mRegProgress;
@@ -66,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -77,13 +76,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        googleSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,LoginGoogle.class);
-                startActivity(intent);
-            }
-        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,11 +101,38 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // code for checking if device is connected to internet??
+
+//    public static boolean hasActiveInternetConnection(Context context) {
+//        if (isNetwokAvailable(context)) {
+//            try {
+//                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
+//                urlc.setRequestProperty("User-Agent", "Test");
+//                urlc.setRequestProperty("Connection", "close");
+//                urlc.setConnectTimeout(1500);
+//                urlc.connect();
+//                return (urlc.getResponseCode() == 200);
+//            } catch (IOException e) {
+//                Log.e(LOG_TAG, "Error checking internet connection", e);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            Log.d(LOG_TAG, "No network available!");
+//        }
+//        return false;
+//    }
+//
+//    private static boolean isNetwokAvailable(Context context) {
+//
+//     return false;
+//
+//    }
+
     private void initElementsWithIds()
     {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
-        googleSignIn = (TextView) findViewById(R.id.sign_in_with_google);
         register = (Button) findViewById(R.id.Register);
 
         userEmail = (TextInputLayout) findViewById(R.id.user_email);

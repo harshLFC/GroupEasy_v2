@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_create_group">
 
     <LinearLayout
+        android:elevation="20dp"
         android:gravity="center|left"
         android:background="@color/white"
         android:id="@+id/toolbar_layout"
@@ -75,7 +76,8 @@
             android:hint="Enter Group Name"
             android:id="@+id/input"
             android:maxLines="1"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:maxLength="22"/>
     </android.support.design.widget.TextInputLayout>
 
 

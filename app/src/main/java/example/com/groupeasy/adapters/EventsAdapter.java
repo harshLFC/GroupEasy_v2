@@ -2,8 +2,6 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.list_primary;
 
 /**
@@ -37,6 +34,7 @@ import example.com.groupeasy.pojo.list_primary;
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mListl;
+    static List<list_details> mList2;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
@@ -71,12 +69,23 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
         final EventViewHolder viewHolder = (EventViewHolder) holder;
-        //setValues
-//        String adminName = "harsh";
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
-        viewHolder.locationText.setText(mListl.get(position).getLocation());
+
+        //if no location has been provided dont show
+    try{
+        if((mListl.get(position).getLocation())!= null) {
+            viewHolder.locationText.setVisibility(View.VISIBLE);
+            viewHolder.locationText.setText(mListl.get(position).getLocation());
+            viewHolder.locationImage.setVisibility(View.VISIBLE);
+               }
+
+            }
+    catch (NullPointerException e){
+        e.printStackTrace();
+        }
+
         viewHolder.eventID.setText(mListl.get(position).getId());
 
         DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
@@ -110,8 +119,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         eventRef.addListenerForSingleValueEvent(eventListener);
 
-
-
         viewHolder.userImageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -130,12 +137,11 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
 
-        String location = mListl.get(position).getLocation();
 
 //        if(!location.isEmpty()){
-        viewHolder.locationText.setVisibility(View.VISIBLE);
-        viewHolder.locationText.setText(mListl.get(position).getLocation());
-            viewHolder.locationImage.setVisibility(View.VISIBLE);
+//        viewHolder.locationText.setVisibility(View.VISIBLE);
+//        viewHolder.locationText.setText(mList2.get(position).getLocation());
+//            viewHolder.locationImage.setVisibility(View.VISIBLE);
 //        }
     }
 
@@ -169,7 +175,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             locationText = (TextView) itemView.findViewById(R.id.location_text);
             locationImage = (ImageView) itemView.findViewById(R.id.location_image);
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
-            addMe = (TextView) itemView.findViewById(R.id.add_me);
+            addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
 
             eventName.setOnClickListener(this);

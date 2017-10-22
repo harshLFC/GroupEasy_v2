@@ -16,13 +16,33 @@
         android:id="@+id/lv_for_groups"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>-->
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/groupRecyclerView">
+        android:layout_height="wrap_content"
+        android:id="@+id/groupRecyclerView"
+
+        >
 
     </android.support.v7.widget.RecyclerView>
+
+   <!--a blank view so that fab dosent obstruct any text-->
+    <View
+        android:id="@+id/my_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+      >
+
+    </View>
+    </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/empty_view"
@@ -72,29 +92,29 @@
         fab:menu_showShadow="true">
 
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_create_poll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/rectangle_shape"
-            fab:fab_label="Create Poll"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab_create_poll"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/rectangle_shape"-->
+            <!--fab:fab_label="Create Poll"-->
+            <!--fab:fab_size="mini" />-->
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_create_roaster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hexagon_shape"
-            fab:fab_label="Create Roster"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab_create_roaster"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/hexagon_shape"-->
+            <!--fab:fab_label="Create Roster"-->
+            <!--fab:fab_size="mini" />-->
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_create_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/circle_shape"
-            fab:fab_label="Create List"
-            fab:fab_size="mini" />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/fab_create_list"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/circle_shape"-->
+            <!--fab:fab_label="Create List"-->
+            <!--fab:fab_size="mini" />-->
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_create_group"

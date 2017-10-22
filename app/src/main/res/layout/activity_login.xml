@@ -57,14 +57,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="21dp" />
 
-    <TextView
-        android:id="@+id/sign_in_with_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="or Sign in with Google"
-        android:layout_below="@+id/Register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp" />
+    <!--<TextView-->
+        <!--android:id="@+id/sign_in_with_google"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="or Sign in with Google"-->
+        <!--android:layout_below="@+id/Register"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="29dp" />-->
 
     <Button
         android:id="@+id/btn_login_email"

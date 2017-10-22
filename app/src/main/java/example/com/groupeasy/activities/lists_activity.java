@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,22 +29,24 @@ public class lists_activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<list_primary> mLstGroups;
     private TextView emptyView;
-    private Toolbar mToolbar;
+    private String groupKey;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-    final DatabaseReference groupRef = myRef.child("Events").child("lists").child("");
+    final DatabaseReference groupRef = myRef.child("Events").child("lists");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
+
 //        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
         setSupportActionBar(mToolbar);
+        mToolbar.setTitle("Active Events");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -89,8 +90,9 @@ public class lists_activity extends AppCompatActivity {
     private void createListView() {
 
         groupRef.keepSynced(true);
+        groupKey = getIntent().getExtras().get("groupKey").toString();
 
-        groupRef.addValueEventListener(new ValueEventListener() {
+        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

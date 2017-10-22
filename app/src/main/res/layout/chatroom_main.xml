@@ -9,7 +9,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:clipToPadding="false">
+
 
     <!--<include layout="@layout/toolbar"-->
         <!--android:layout_height="wrap_content"-->
@@ -18,30 +20,57 @@
 
     <!--</include>-->
 
+
+    <ListView
+        android:id="@+id/list"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:transcriptMode="normal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/active_events" />
+
+    <include layout="@layout/active_events_tab"
+        android:id="@+id/active_events"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="visible"
+        android:layout_below="@+id/toolbar_chat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
+    </include>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_chat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:weightSum="1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:background="@color/cyan"
+        android:elevation="30dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="sample"
-            android:id="@+id/room_name"
-            android:visibility="invisible"
-            android:textSize="20dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="sample"
+                android:id="@+id/room_name"
+                android:visibility="invisible"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,33 +96,24 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/nav_header_main2"
-
-        android:id="@+id/active_events"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_chat"
-
-        >
-    </include>
-
-    <ListView
-        android:id="@+id/list"
+    <View
+        android:id="@+id/chat_background"
+        android:visibility="gone"
+        android:background="#4D000000"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="16dp"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"
-        android:layout_above="@+id/input"
-        android:padding="10dp"
-        android:layout_below="@+id/active_events" />
+        android:elevation="40dp"/>
 
     <include
         android:id="@+id/input"
+        android:elevation = "50dp"
         layout="@layout/activity_chat_room"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
 </RelativeLayout>

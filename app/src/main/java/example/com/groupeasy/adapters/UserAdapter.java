@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,6 +97,8 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView userName;
         private TextView userStatus;
         private TextView userLastSeen;
+        private CheckBox myCheck;
+
 
         private ImageView userDP;
 
@@ -107,6 +110,9 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             userLastSeen = (TextView) itemView.findViewById(R.id.last_seen);
 
             userDP = (ImageView) itemView.findViewById(R.id.user_dp);
+            myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
+            myCheck.setVisibility(View.GONE);
+
 
             userName.setOnClickListener(this);
             userStatus.setOnClickListener(this);

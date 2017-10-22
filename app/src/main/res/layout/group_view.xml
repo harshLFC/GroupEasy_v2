@@ -4,7 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="3dp"
-    android:layout_marginTop="3dp">
+    android:layout_marginTop="3dp"
+    android:id="@+id/group_linear"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    >
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -14,16 +18,15 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/the_button"
-            android:layout_width="match_parent"
-            android:layout_height= "80dp"
-            android:layout_toEndOf="@+id/image_view"
-            android:layout_alignLeft="@+id/message_text"
-            android:layout_alignStart="@+id/message_text"
-            android:layout_toRightOf="@+id/image_view"
-            android:background="@android:color/transparent"
-            />
+        <!--<Button-->
+        <!--THis was a test invisible button-->
+            <!--android:id="@+id/the_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:layout_alignTop="@+id/image_view"-->
+            <!--android:layout_toEndOf="@+id/group_key"-->
+            <!--android:layout_toRightOf="@+id/group_key"-->
+            <!--android:background="@android:color/transparent" />-->
 
         <TextView
             android:id="@+id/message_text"
@@ -62,44 +65,48 @@
 
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/text_last_message"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/text_last_message"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
             <!---rectangle-->
-            <TextView
-                android:id="@+id/rectangle"
-                android:layout_width="20sp"
-                android:layout_height="28sp"
-                android:background="@drawable/rectangle_shape"
-                android:gravity="center"
-                android:text="4"
-                android:textSize="12sp" />
+        <TextView
+        android:id="@+id/rectangle"
+        android:layout_width="20sp"
+        android:layout_height="28sp"
+        android:background="@drawable/rectangle_shape"
+        android:gravity="center"
+        android:text="4"
+        android:textSize="12sp"
+            android:visibility="gone"/>
 
-            <!---circle-->
-            <TextView
-                android:id="@+id/circle"
-                android:layout_width="20sp"
-                android:layout_height="20sp"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/circle_shape"
-                android:gravity="center"
-                android:text="4"
-                android:textSize="12sp" />
+        <!---circle-->
+        <TextView
+        android:id="@+id/circle"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/circle_shape"
+        android:gravity="center"
+        android:text="4"
+        android:textSize="12sp"
+            android:visibility="gone"/>
 
-            <!---hex-->
-            <TextView
-                android:id="@+id/hex"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/hexagon_shape"
-                android:gravity="center"
-                android:text="2"
-                android:textSize="12sp" />
+        <!---hex-->
+        <TextView
+        android:id="@+id/hex"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/hexagon_shape"
+        android:gravity="center"
+        android:text="2"
+        android:textSize="12sp"
+            android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -127,39 +134,38 @@
 
 
         <View
+            android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/linearLayout"
-            android:layout_marginTop="3dp"
-            android:background="@android:color/darker_gray"
-            android:id="@+id/view4" />
+            android:layout_marginTop="75dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/textViewAdmin"
-            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
             android:ellipsize="end"
             android:gravity="end"
             android:maxLength="16"
-            android:text="Harsh Phoujdar"
             android:maxLines="1"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2" />
+            android:text="Harsh Phoujdar"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textView2"
-            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/text_last_message"
+            android:layout_alignStart="@+id/text_last_message"
+            android:layout_below="@+id/linearLayout2"
             android:gravity="end"
             android:text="Admin:"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_alignLeft="@+id/text_last_message"
-            android:layout_alignStart="@+id/text_last_message" />
+            android:textSize="12sp" />
     </RelativeLayout>
 
 

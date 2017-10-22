@@ -1,44 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="example.com.groupeasy.activities.chatRoomActivity">
+    tools:context="example.com.groupeasy.activities.chatRoomActivity"
+    android:gravity="bottom"
+    android:elevation = "50dp"
+    >
 
-        <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            android:layout_weight="0"
-            android:layout_alignParentBottom="true"
-            >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_add_sign"
-                    android:layout_weight="1"/>
+
+<com.github.clans.fab.FloatingActionMenu
+    android:layout_width="wrap_content"
+    android:layout_height="111dp"
+    fab:menu_animationDelayPerItem="55"
+    fab:menu_backgroundColor="@android:color/transparent"
+    fab:menu_colorNormal="#858585"
+    fab:menu_colorPressed="@color/colorPrimary"
+    fab:menu_colorRipple="@color/colorPrimary"
+    fab:menu_fab_size="mini"
+    fab:menu_icon="@drawable/fab_add"
+    fab:menu_labels_colorNormal="#333"
+    fab:menu_labels_colorPressed="#444"
+    fab:menu_labels_colorRipple="#66efecec"
+    fab:menu_labels_cornerRadius="3dp"
+    fab:menu_labels_ellipsize="none"
+    fab:menu_fab_show_animation="@anim/fab_scale_up"
+    fab:menu_fab_hide_animation="@anim/fab_scale_down"
+    fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+    fab:menu_labels_maxLines="-1"
+    fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+    fab:menu_labels_showShadow="true"
+    fab:menu_labels_singleLine="false"
+    fab:menu_labels_textColor="#f2f1f1"
+    fab:menu_labels_textSize="@dimen/primary_text_size"
+    app:menu_openDirection="up"
+    fab:menu_labels_position="left"
+    fab:menu_shadowColor="#66aff198"
+    fab:menu_showShadow="true"
+    android:id="@+id/floatingActionMenu"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginLeft="8dp"
+    app:layout_constraintRight_toLeftOf="@+id/send_button"
+    android:layout_marginRight="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:layout_constraintHorizontal_bias="1.0"
+    android:layout_marginBottom="0dp">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_create_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/circle_shape"
+                fab:fab_label="Create Event"
+                fab:fab_size="mini"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/floatingActionMenu"
+                android:layout_marginLeft="5dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+</com.github.clans.fab.FloatingActionMenu>
+
+    <ScrollView
+        android:layout_width="255dp"
+        android:layout_height="45dp"
+        android:layout_weight="8"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp">
 
                 <EditText
                     android:id="@+id/message_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_width="255dp"
+                    android:layout_height="45dp"
                     android:textColorHint="#CFD8DC"
                     android:textColor="#CFD8DC"
-                    android:hint="Write a message" />
+                    android:hint="Write a message"
+                   />
+    </ScrollView>
 
                 <ImageView
                     android:id="@+id/send_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:src="@drawable/ic_menu_send"
-                    android:layout_weight="1"
-                    />
-        </android.support.v7.widget.LinearLayoutCompat>
-</LinearLayout>
+                    android:layout_weight="0"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="-7dp"
+        android:layout_marginLeft="-62dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/white"
+        android:visibility="gone"/>
+
+</android.support.constraint.ConstraintLayout>

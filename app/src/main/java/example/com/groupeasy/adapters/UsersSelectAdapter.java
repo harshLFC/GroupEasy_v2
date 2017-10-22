@@ -1,28 +1,27 @@
 package example.com.groupeasy.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.activities.chooseUserActivity;
-import example.com.groupeasy.pojo.new_groups;
 import example.com.groupeasy.pojo.users_list;
-
-import static example.com.groupeasy.R.id.image_view;
-import static example.com.groupeasy.R.id.view;
 
 
 public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -76,9 +75,9 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     **/
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-       UserViewHolder viewHolder = (UserViewHolder) holder;
+       final UserViewHolder viewHolder = (UserViewHolder) holder;
         final int pos = position;
 
         //set values to your views from mlstGroups here
@@ -87,8 +86,39 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         String image = (mLstGroups.get(position).getImage());
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
 
+        String groupId = (mLstGroups.get(position).getId());
+
         viewHolder.myCheck.setChecked(mLstGroups.get(position).isSelected());
         viewHolder.myCheck.setTag(mLstGroups.get(position));
+
+// tring to implement the logic for having users already checked if in the group,
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+        myRef.child("groups").child("-KvCqeoV8oR408WTPks9").child("members").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //this code is giving me the children who are set to true, but i dont know how to
+                // 1. check the right group
+                // 2. keep the checkbox selected
+
+//                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    if (mLstGroups.get(position).getId().equals(dataSnapshot.getValue().toString())) {
+
+                        Log.w("userSelectedTest", dataSnapshot.getValue().toString());
+                    }
+
+//                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         viewHolder.myCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +146,6 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         viewHolder.itemView.setSelected(selectedPos == position);
-
-
     }
 
     @Override
@@ -163,8 +191,6 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             selectedPos = getLayoutPosition();
             notifyItemChanged(selectedPos);
 //            Toast.makeText(v.getContext(), selectedPos,Toast.LENGTH_SHORT).show();
-
-
 //
 //            if (v.getId() == userName.getId()) {
 //
@@ -174,11 +200,7 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //
 //                Toast.makeText(v.getContext(), "ClickedIMAGE", Toast.LENGTH_SHORT).show();
 //            }
-
-
         }
-
-
     }
 
     @Override

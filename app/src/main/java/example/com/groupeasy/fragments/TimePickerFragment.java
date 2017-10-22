@@ -9,10 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.text.format.DateFormat;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import example.com.groupeasy.activities.CreateNewListActivity;
 

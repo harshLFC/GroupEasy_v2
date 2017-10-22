@@ -6,24 +6,26 @@ import java.io.Serializable;
  * Created by Harsh on 06-09-2017.
  */
 
-public class    new_groups implements Serializable{
+public class new_groups implements Serializable{
 
     private String admin;
     private String image;
     private String last_msg;
     private String name;
     private String group_id;
+    private String thumb_image;
 
     public new_groups(){
 
     }
 
-    public new_groups(String admin, String image, String last_msg, String name, String group_id) {
+    public new_groups(String admin, String image, String last_msg, String name, String group_id, String thumb_image) {
         this.admin = admin;
         this.image = image;
         this.last_msg = last_msg;
         this.name = name;
         this.group_id = group_id;
+        this.thumb_image = thumb_image;
     }
 
     public String getGroup_id() {
@@ -63,5 +65,13 @@ public class    new_groups implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getThumb_image() {
+        return thumb_image;
+    }
+
+    public void setThumb_image(String thumb_image) {
+        this.thumb_image = thumb_image;
     }
 }
