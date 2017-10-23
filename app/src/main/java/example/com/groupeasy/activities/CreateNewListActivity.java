@@ -130,7 +130,7 @@ public class CreateNewListActivity extends AppCompatActivity {
                     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = current_user.getUid();
 
-                    list_primary listMain = new list_primary(EventName, uid, Location, push_id);
+                    list_primary listMain = new list_primary(EventName, uid, Location, push_id,null);
                     groupRef.child(push_id).setValue(listMain);
                     list_details newList = new list_details(EventDetails, minLimit, maxLimit, one_day_event, fromDATE, fromTIME, toDATE, toTIME, global_event);
 

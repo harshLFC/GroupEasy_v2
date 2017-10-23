@@ -10,38 +10,46 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="57dp"
-        android:layout_marginStart="57dp"
         android:text="GroupEasy"
         android:textSize="40dp"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
-        android:id="@+id/textView7" />
+        android:id="@+id/btn_login"
+        android:layout_marginTop="137dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in for existing users:"
         android:layout_marginTop="28dp"
-        android:layout_below="@+id/textView7"
+        android:layout_below="@+id/btn_login"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView" />
 
-    <Button
-        android:textSize="@dimen/header_text_size"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:background="@drawable/all_btn_rect_shape"
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Go to app without signing in (beta)"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <!--<Button-->
+        <!--android:textSize="@dimen/header_text_size"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:background="@drawable/all_btn_rect_shape"-->
+        <!--android:id="@+id/btn_login"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Go to app without signing in (beta)"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
     <Button
         android:id="@+id/Register"
@@ -86,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView7"
+        android:layout_below="@+id/btn_login"
         android:layout_marginTop="58dp"
         >
 

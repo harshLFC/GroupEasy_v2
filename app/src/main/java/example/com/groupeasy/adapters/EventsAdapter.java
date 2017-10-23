@@ -2,6 +2,7 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.renderscript.Sampler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,7 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.security.Key;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.pojo.list_details;
@@ -34,7 +38,7 @@ import example.com.groupeasy.pojo.list_primary;
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mListl;
-    static List<list_details> mList2;
+//    static List<Participants> mList2;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
@@ -72,6 +76,18 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
+
+        Map<String,String> myMap = new HashMap<>();
+        myMap.put(mListl.get(position).getParticipants().getName(), mListl.get(position).getParticipants().getValue().toString());
+
+       for (Map.Entry<String,String> entry: myMap.entrySet()){
+
+            Log.w(entry.getKey(),"keyis");
+            Log.w(entry.getValue(),"valueis");
+
+        }
+
+
 
         //if no location has been provided dont show
     try{
@@ -159,6 +175,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView locationText;
         private ImageView locationImage;
         private ImageView userImage;
+        private RecyclerView RecyclerView;
 
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
@@ -177,6 +194,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
             addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
+            RecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
 
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);

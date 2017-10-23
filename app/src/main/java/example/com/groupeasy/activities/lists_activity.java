@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -92,13 +93,15 @@ public class lists_activity extends AppCompatActivity {
         groupRef.keepSynced(true);
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
-        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
+//        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
+        groupRef.child("-Kx8REumOYknDMHjHEsq").child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 mLstGroups.removeAll(mLstGroups);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
                     list_primary newList = snapshot.getValue(list_primary.class);
                     mLstGroups.add(newList);
 

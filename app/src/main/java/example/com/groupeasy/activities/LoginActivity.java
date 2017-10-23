@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,8 +31,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
-    private Button btnLogin,btnLoginEmail, register;
+    private Button btnLoginEmail, register;
     private TextInputLayout userEmail, userPassword;
+    private TextView BtnLogin;
 
     private ProgressDialog mRegProgress;
 
@@ -59,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initElementsWithListeners() {
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,DashboardActivity.class);
@@ -131,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initElementsWithIds()
     {
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        BtnLogin = (TextView) findViewById(R.id.btn_login);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
         register = (Button) findViewById(R.id.Register);
 
