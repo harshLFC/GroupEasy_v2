@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -156,6 +157,8 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         viewHolder.myRectangle.setVisibility(View.VISIBLE);
 
                         viewHolder.myRectangle.setText(String.valueOf((int) (dataSnapshot.getChildrenCount())));
+                        viewHolder.myRectangle.setTextColor(Color.WHITE);
+
                     }
                     //note : remove the above for loop for showing 0 events across all rows
                 }
@@ -190,7 +193,9 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         // getting context from view object
 
         if(image.isEmpty()){
-                viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+            viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+            viewHolder.imageGroupView.setAlpha(0f);
+
         }
         else    {
             Picasso.with(mContext)
@@ -239,7 +244,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == groupLinear.getId()) {
+            if (v.getId() == groupLinear.getId() |v.getId() == imageGroupView.getId() ) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
@@ -251,10 +256,10 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((Activity)context).finish();
 
             }
-            else if (v.getId() == imageGroupView.getId()) {
-                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
-//            clickListener.onItemClick(getAdapterPosition(),v);
-            }
+//            else if (v.getId() == imageGroupView.getId()) {
+//                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
+////            clickListener.onItemClick(getAdapterPosition(),v);
+//            }
                     }
 
 //handle long clicks

@@ -107,6 +107,7 @@ public class lists_activity extends AppCompatActivity {
 
                 }
 
+
                 mAdapter.notifyDataSetChanged();
 
                 if(mLstGroups.isEmpty()){

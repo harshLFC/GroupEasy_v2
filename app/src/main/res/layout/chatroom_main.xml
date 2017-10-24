@@ -66,6 +66,7 @@
                 android:text="sample"
                 android:id="@+id/room_name"
                 android:visibility="invisible"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -81,10 +82,12 @@
                 android:id="@+id/group_image_view"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:civ_border_color="@color/white"
                 android:src="@drawable/ic_default_groups"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"/>
+                android:layout_marginTop="3dp"
+                app:civ_border_width="0.5dp"/>
 
             <Button
                 android:id="@+id/chat_room_button"

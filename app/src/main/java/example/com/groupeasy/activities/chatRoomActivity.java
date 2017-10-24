@@ -2,6 +2,7 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,12 +90,16 @@ public class chatRoomActivity extends AppCompatActivity {
 
         showAllOldMessages(groupKey);
 
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_back_arrow_left);
+//        upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+
         setSupportActionBar(mToolBar);
         loadImage(groupKey);
         checkEvent(groupKey);
 //        getSupportActionBar().setTitle(room_name);
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {

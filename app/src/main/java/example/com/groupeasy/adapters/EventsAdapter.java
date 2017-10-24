@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.pojo.Participants;
 import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.list_primary;
 
@@ -40,6 +41,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     static List<list_primary> mListl;
 //    static List<Participants> mList2;
     Context mContext;
+//    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//    final DatabaseReference groupRef = database.getReference().child("Events").child("lists");
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
@@ -78,15 +81,17 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewHolder.admin.setText(mListl.get(position).getAdmin());
 
         Map<String,String> myMap = new HashMap<>();
-        myMap.put(mListl.get(position).getParticipants().getName(), mListl.get(position).getParticipants().getValue().toString());
+//        myMap.put(mListl.get(position).getParticipants().getName(), mListl.get(position).getParticipants().getValue());
 
-       for (Map.Entry<String,String> entry: myMap.entrySet()){
+//        String test = mListl.get(position).getParticipants().getParticipants();
 
-            Log.w(entry.getKey(),"keyis");
-            Log.w(entry.getValue(),"valueis");
 
-        }
-
+//       for (Map.Entry<String,String> entry: myMap.entrySet()){
+//
+//            Log.w(entry.getKey(),"keyis");
+//            Log.w(entry.getValue(),"valueis");
+//
+//        }
 
 
         //if no location has been provided dont show
@@ -133,7 +138,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         String uid = eventRef.getKey();
         Log.i("uid", uid);
 
-        eventRef.addListenerForSingleValueEvent(eventListener);
+        //what does this do?
+//        eventRef.addListenerForSingleValueEvent(eventListener);
 
         viewHolder.userImageRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -159,6 +165,34 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //        viewHolder.locationText.setText(mList2.get(position).getLocation());
 //            viewHolder.locationImage.setVisibility(View.VISIBLE);
 //        }
+
+        //try to get participants
+        eventRef.child("-Kx8REumOYknDMHjHEsq").child("-Kx8T3J3ddUyfOivXc-x").child("participants").child("").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String test = dataSnapshot.getValue().toString();
+                                    Log.w(test,"sfsfasd");
+
+
+//                for(DataSnapshot snapshot : dataSnapshot.getValue()){
+//
+//                    Participants participants = snapshot.getValue(Participants.class);
+//
+//                    Log.w(participants.toString(),"Participantz");
+//                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     @Override
@@ -175,7 +209,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView locationText;
         private ImageView locationImage;
         private ImageView userImage;
-        private RecyclerView RecyclerView;
+        private RecyclerView recyclerView;
 
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
@@ -194,7 +228,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
             addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
-            RecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
 
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
@@ -222,38 +256,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Log.w("type_this_test",key);
 
                 final DatabaseReference groupRef = eventRef.child("").child(key);
-//                groupRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                        userImageRef.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                final String uName = dataSnapshot.child("member").getValue().toString();
-//                                addMe.setText(uName);
-//
-//                                groupRef.child("members").setValue(uName).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        Toast.makeText(v.getContext(), "Success Adding you in Event",Toast.LENGTH_LONG).show();
-//
-//                                    }
-//                                });
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//
-//                            }
-//                        });
-//                      }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Toast.makeText(v.getContext(), "some error",Toast.LENGTH_LONG).show();
-//
-//                    }
-//                });
+
                 userImageRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

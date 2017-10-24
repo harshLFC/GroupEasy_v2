@@ -2,6 +2,7 @@ package example.com.groupeasy.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -80,10 +81,13 @@ public class aboutChatRoom extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //set toolbar with group name
+                final Drawable upArrow = getResources().getDrawable(R.drawable.ic_back_arrow_left);
+
                 Toolbar mToolbar = (Toolbar) findViewById(R.id.users_group_toolbar);
                 setSupportActionBar(mToolbar);
                 getSupportActionBar().setTitle(dataSnapshot.getValue().toString());
                 getSupportActionBar().setShowHideAnimationEnabled(true);
+                getSupportActionBar().setHomeAsUpIndicator(upArrow);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                     @Override

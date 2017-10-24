@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="3dp"
@@ -77,36 +77,40 @@
         <TextView
         android:id="@+id/rectangle"
         android:layout_width="20sp"
-        android:layout_height="28sp"
-        android:background="@drawable/rectangle_shape"
+        android:layout_height="20sp"
+        android:background="@drawable/my_rectangle"
         android:gravity="center"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="visible"
+            android:textColor="@color/white"/>
 
         <!---circle-->
         <TextView
         android:id="@+id/circle"
-        android:layout_width="20sp"
-        android:layout_height="20sp"
+        android:layout_width="22sp"
+        android:layout_height="22sp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/circle_shape"
+        android:background="@drawable/my_circle"
         android:gravity="center"
+            android:textColor="@color/white"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <!---hex-->
         <TextView
         android:id="@+id/hex"
-        android:layout_width="25sp"
-        android:layout_height="25sp"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/hexagon_shape"
+        android:background="@drawable/my_hexagon"
         android:gravity="center"
         android:text="2"
+            android:textColor="@color/white"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="visible"
+            />
 
         </LinearLayout>
 
@@ -130,7 +134,7 @@
             android:padding="1dp"
             android:src="@drawable/ic_default_groups"
             app:civ_border_color="#FF000000"
-            app:civ_border_width="1.5dp" />
+            app:civ_border_width="0.5dp" />
 
 
         <View
