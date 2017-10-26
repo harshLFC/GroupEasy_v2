@@ -29,6 +29,7 @@ import java.util.Map;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.lists_activity;
 import example.com.groupeasy.pojo.list_primary;
+import example.com.groupeasy.pojo.members_In;
 
 /**
  * Created by Harsh on 11-09-2017.
@@ -37,8 +38,8 @@ import example.com.groupeasy.pojo.list_primary;
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mListl;
-    HashMap mList2;
-//    static List<Participants> mList2;
+//    HashMap mList2;
+    static List<members_In> mList2;
     Context mContext;
     LayoutInflater mInflater;
     View view;
@@ -48,15 +49,17 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
 
-   public EventsAdapter(List<list_primary> mLstGroups, lists_activity context, HashMap<String, String> myMap){
+   public EventsAdapter(){
 
    }
 
-    public EventsAdapter(List<list_primary> mLstGroups,Context context,HashMap<String, String> myMap)
+    public EventsAdapter(List<list_primary> mLstGroups, Context context, List<members_In> mLstGroups2)
+//    public EventsAdapter(List<list_primary> mLstGroups,Context context,HashMap<String, String> myMap)
     {
         this.mListl = mLstGroups;
-        this.mList2 = myMap;
         this.mContext = context;
+        this.mList2 = mLstGroups2;
+//        this.mList2 = myMap;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -99,20 +102,12 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewHolder.admin.setText(mListl.get(position).getAdmin());
         String event_id = mListl.get(position).getId();
 
-//        String whoAllAreIn = mListl.get(position).getIn().getIn();
-//        Log.w(whoAllAreIn,"Whothefukaein");
-        DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("members");
-//        userImageRef.child(whoAllAreIn).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+//        String test = mList2.get(position).getName();
+        String test2 = mListl.get(position).getId();
+
+//        Log.d(test,"lala");
+        Log.d(test2,"yaya");
+
 
 
         //if no location has been provided dont show
@@ -184,6 +179,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return mListl.size();
+//        +mList2.size();
 
     }
 
@@ -296,7 +292,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (mListl.isEmpty()) {
+        if (mListl.isEmpty() || mList2.isEmpty()) {
             return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
         } else {
             return VIEW_TYPE_OBJECT_VIEW;
