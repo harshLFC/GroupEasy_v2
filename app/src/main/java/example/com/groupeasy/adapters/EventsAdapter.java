@@ -2,7 +2,6 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.renderscript.Sampler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +22,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.security.Key;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.pojo.Participants;
-import example.com.groupeasy.pojo.list_details;
+import example.com.groupeasy.activities.lists_activity;
 import example.com.groupeasy.pojo.list_primary;
 
 /**
@@ -39,21 +37,32 @@ import example.com.groupeasy.pojo.list_primary;
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mListl;
+    HashMap mList2;
 //    static List<Participants> mList2;
     Context mContext;
+    LayoutInflater mInflater;
+    View view;
 //    FirebaseDatabase database = FirebaseDatabase.getInstance();
 //    final DatabaseReference groupRef = database.getReference().child("Events").child("lists");
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
 
-   public EventsAdapter(){
+   public EventsAdapter(List<list_primary> mLstGroups, lists_activity context, HashMap<String, String> myMap){
 
    }
 
-    public EventsAdapter(List<list_primary> mLstGroups)
+    public EventsAdapter(List<list_primary> mLstGroups,Context context,HashMap<String, String> myMap)
     {
         this.mListl = mLstGroups;
+        this.mList2 = myMap;
+        this.mContext = context;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+
+    return view;
     }
 
     @Override
@@ -69,7 +78,16 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 return new EventViewHolder(rootView);
         }
+
+//        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_view_for_members_events, parent, false);
+
+//        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        LayoutInflater.from(parent.getContext()).inflate(R.layout.row_view_for_members_events,parent,false);
+//        view = mInflater.inflate(R.layout.row_view_for_members_events, parent, false);
+
+//                view = mInflater.inflate(R.layout.row_view_for_members_events, null);
         return new EventViewHolder(rootView);
+
     }
 
     @Override
@@ -79,19 +97,22 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
+        String event_id = mListl.get(position).getId();
 
-        Map<String,String> myMap = new HashMap<>();
-//        myMap.put(mListl.get(position).getParticipants().getName(), mListl.get(position).getParticipants().getValue());
-
-//        String test = mListl.get(position).getParticipants().getParticipants();
-
-
-//       for (Map.Entry<String,String> entry: myMap.entrySet()){
+//        String whoAllAreIn = mListl.get(position).getIn().getIn();
+//        Log.w(whoAllAreIn,"Whothefukaein");
+        DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("members");
+//        userImageRef.child(whoAllAreIn).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
 //
-//            Log.w(entry.getKey(),"keyis");
-//            Log.w(entry.getValue(),"valueis");
+//            }
 //
-//        }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
         //if no location has been provided dont show
@@ -112,29 +133,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
         final String key = eventRef.getKey();
 
-
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    String key1 = ds.getKey();
-
-//                    viewHolder.eventName.setText(key1);
-
-//                    list_primary list = ds.getValue(list_primary.class);
-//                    list.setMessageid(ds.getKey());
-
-//                        Log.d("This_key",list.toString());
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
         String uid = eventRef.getKey();
         Log.i("uid", uid);
 
@@ -166,31 +164,19 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //            viewHolder.locationImage.setVisibility(View.VISIBLE);
 //        }
 
-        //try to get participants
-        eventRef.child("-Kx8REumOYknDMHjHEsq").child("-Kx8T3J3ddUyfOivXc-x").child("participants").child("").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String test = dataSnapshot.getValue().toString();
-                                    Log.w(test,"sfsfasd");
+//////
 
 
-//                for(DataSnapshot snapshot : dataSnapshot.getValue()){
-//
-//                    Participants participants = snapshot.getValue(Participants.class);
-//
-//                    Log.w(participants.toString(),"Participantz");
-//                }
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
+        view = mInflater.inflate(R.layout.row_view_for_members_events, null, false);
 
+        //for loop int =0; i<list2.size; i++
+//            textview tv = new textview
+        // add data by setText
+//        liearlayout.add(child)
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        view = mInflater.inflate(R.layout.row_view_for_members_events, null);
 
 
     }
@@ -198,19 +184,19 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return mListl.size();
+
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView eventName;
-        private TextView eventID;
+        public TextView eventID;
         private TextView admin;
         private TextView addMe;
         private TextView locationText;
         private ImageView locationImage;
         private ImageView userImage;
-        private RecyclerView recyclerView;
-
+        private LinearLayout linearView;
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
@@ -228,11 +214,13 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
             addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
-            recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
+            linearView = (LinearLayout) itemView.findViewById(R.id.list_view_event);
 
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
             addMe.setOnClickListener(this);
+
+
 
         }
 

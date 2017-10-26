@@ -33,7 +33,6 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
-import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.adapters.MessageAdapter;
 import example.com.groupeasy.pojo.chatMessage;
 
@@ -63,19 +62,15 @@ public class chatRoomActivity extends AppCompatActivity {
 
     MessageAdapter adapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatroom_main);
         Context context = chatRoomActivity.this;
 
-
         initElementWithIds();
         initElementsWithListeners();
         fab();
-
 
         // TODO write code to display activeEvents tab if there are any active events
         myEventsFrame.setVisibility(View.GONE);
@@ -86,7 +81,6 @@ public class chatRoomActivity extends AppCompatActivity {
         // get room name from last intent and override the chatroom title
 //        room_name = getIntent().getExtras().get("room_name").toString();
         groupKey = getIntent().getExtras().get("groupKey").toString();
-
 
         showAllOldMessages(groupKey);
 
@@ -112,13 +106,7 @@ public class chatRoomActivity extends AppCompatActivity {
 
             }
         });
-
-
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child(groupKey).child("groupMsgs").child("");
-
-
-
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
 
        }
@@ -149,13 +137,10 @@ public class chatRoomActivity extends AppCompatActivity {
                     params.setMargins(0, 60, 0, 60);
                     listView.setLayoutParams(params);
                     **/
-
                 }
                 else{
                     myEventsFrame.setVisibility(View.GONE);
-
                 }
-
             }
 
             @Override
@@ -163,7 +148,6 @@ public class chatRoomActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void loadImage(String groupKey) {
@@ -196,25 +180,17 @@ public class chatRoomActivity extends AppCompatActivity {
         mGroupDatabase.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 roomName.setText(dataSnapshot.getValue().toString());
-
-
-            }
+                }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
-
     }
 
-
-
-    public void initElementsWithListeners() {
+        public void initElementsWithListeners() {
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,8 +201,6 @@ public class chatRoomActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
         chatRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,9 +230,6 @@ public class chatRoomActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,7 +304,7 @@ public class chatRoomActivity extends AppCompatActivity {
         loggedInUserName = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("Main", "user id: " + loggedInUserName);
 
-
+//send params to adapter
          adapter = new MessageAdapter(this, chatMessage.class, R.layout.item_in_message,
                 FirebaseDatabase.getInstance().getReference().child("messages").child(group_key).child("groupMsgs").child(""));
         listView.setAdapter(adapter);

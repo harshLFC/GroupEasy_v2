@@ -4,16 +4,16 @@ package example.com.groupeasy.pojo;
  * Created by Harsh on 23-10-2017.
  */
 
-public class Participants {
+public class members_In {
 
     String name;
     String value;
 
-    public Participants(){
+    public members_In(){
 
     }
 
-    public Participants(String name, String value) {
+    public members_In(String name, String value) {
         this.name = name;
         this.value = value;
     }

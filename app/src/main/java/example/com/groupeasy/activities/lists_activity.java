@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import example.com.groupeasy.R;
@@ -27,8 +28,11 @@ public class lists_activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
+//    private EventsAdapter mDataAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<list_primary> mLstGroups;
+    private List<list_primary> mLstGroups2;
+    HashMap<String,String> myMap = new HashMap<>();
     private TextView emptyView;
     private String groupKey;
 
@@ -62,7 +66,11 @@ public class lists_activity extends AppCompatActivity {
         initElementsByListeners();
 
         mLstGroups = new ArrayList<>();
-        mAdapter = new EventsAdapter(mLstGroups);
+        mLstGroups2 = new ArrayList<>();
+        groupKey = getIntent().getExtras().get("groupKey").toString();
+
+        mAdapter = new EventsAdapter(mLstGroups,this,myMap);
+//        mDataAdapter = new EventsAdapter(groupKey);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);
 //        mRecyclerView.setHasFixedSize(true);
@@ -103,8 +111,19 @@ public class lists_activity extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     list_primary newList = snapshot.getValue(list_primary.class);
-                    mLstGroups.add(newList);
 
+//                    String in = newList.getIn("in");
+//                    HashMap<String,Object> mymap = (HashMap<String, Object>) newList.getIn();
+                    String allIn = snapshot.child("participants").getValue().toString();
+                    String status = snapshot.child("participants").getKey();
+//
+//                  myMap.put(key,value);
+                    Log.w(allIn,"Thesshouldgivemeallin");
+                    Log.w(status,"Thesshouldgivemeall");
+
+
+                    //add participants
+                    mLstGroups.add(newList);
                 }
 
 
