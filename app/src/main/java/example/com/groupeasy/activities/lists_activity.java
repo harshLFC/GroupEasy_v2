@@ -118,14 +118,12 @@ public class lists_activity extends AppCompatActivity {
                             String wdff = snapshot.getValue().toString();
                             Log.w(wdff,"wdff");
 //                            members_In members = dataSnapshot.getValue(members_In.class);
-//                            members_In members = snapshot.getValue(members_In.class);
+                            members_In members = snapshot.getValue(members_In.class);
                             String name = snapshot.getKey();
-                            String value = snapshot.getValue().toString();
-
-
-                            Log.w(name,"thisIsWorkingToo?");
+                            String value = snapshot.child("").getValue().toString();
+                            Log.w(name,"thisIsWorking");
                             Log.w(value,"thisIsWorkingToo?");
-//                            mLstGroups2.add(members);
+                            mLstGroups2.add(members);
                         }
                         mAdapter.notifyDataSetChanged();
                     }
@@ -156,9 +154,8 @@ public class lists_activity extends AppCompatActivity {
 //                    String in = newList.getIn("in");
 //                    HashMap<String,Object> mymap = (HashMap<String, Object>) newList.getIn();
                     String allIn = snapshot.child("participants").child("").getValue().toString();
-                    members_In members = (snapshot.child("participants").child("")).getValue(members_In.class);
+//                    members_In members = (snapshot.child("participants").child("")).getValue(members_In.class);
 
-//
                     Log.w(allIn,"Thesshouldgivemeallin");
                     myMap.put(snapshot.child("participants").child("").getKey(),snapshot.child("participants").child("").getValue().toString());
 

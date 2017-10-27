@@ -48,6 +48,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+    private static final String VIEW_TYPE_OBJECT_VIEW_TRY = "THis list is empty";
 
    public EventsAdapter(){
 
@@ -90,7 +91,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 //                view = mInflater.inflate(R.layout.row_view_for_members_events, null);
         return new EventViewHolder(rootView);
-
     }
 
     @Override
@@ -102,13 +102,11 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewHolder.admin.setText(mListl.get(position).getAdmin());
         String event_id = mListl.get(position).getId();
 
-//        String test = mList2.get(position).getName();
+        String test = mList2.get(position).getName();
         String test2 = mListl.get(position).getId();
 
-//        Log.d(test,"lala");
+        Log.d(test,"lala");
         Log.d(test2,"yaya");
-
-
 
         //if no location has been provided dont show
     try{
@@ -168,11 +166,23 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         //for loop int =0; i<list2.size; i++
 //            textview tv = new textview
+
+        for(int i=0;i<mList2.size();i++){
+
+            TextView textView = new TextView(mContext);
+            TextView textView2 = new TextView(mContext);
+            textView.setText(mList2.get(i).getName());
+            textView2.setText(mList2.get(i).getValue());
+
+            viewHolder.linearView.addView(textView);
+            viewHolder.linearView.addView(textView2);
+
+        }
+
         // add data by setText
 //        liearlayout.add(child)
 
         view = mInflater.inflate(R.layout.row_view_for_members_events, null);
-
 
     }
 
@@ -215,8 +225,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
             addMe.setOnClickListener(this);
-
-
 
         }
 
@@ -292,9 +300,15 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (mListl.isEmpty() || mList2.isEmpty()) {
+        if (mListl.isEmpty()) {
             return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
-        } else {
+
+        }
+//        else if (mList2.isEmpty()){
+//            ???
+//        }
+
+        else {
             return VIEW_TYPE_OBJECT_VIEW;
         }
     }
