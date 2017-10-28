@@ -1,13 +1,19 @@
 package example.com.groupeasy.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -83,13 +89,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new EventViewHolder(rootView);
         }
 
-//        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_view_for_members_events, parent, false);
-
-//        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        LayoutInflater.from(parent.getContext()).inflate(R.layout.row_view_for_members_events,parent,false);
-//        view = mInflater.inflate(R.layout.row_view_for_members_events, parent, false);
-
-//                view = mInflater.inflate(R.layout.row_view_for_members_events, null);
         return new EventViewHolder(rootView);
     }
 
@@ -100,34 +99,38 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         viewHolder.eventName.setText(mListl.get(position).getName());
         viewHolder.admin.setText(mListl.get(position).getAdmin());
-        String event_id = mListl.get(position).getId();
 
-        String test = mList2.get(position).getName();
+//not used
+//        String event_id = mListl.get(position).getId();
+
+       //tests
+        /* String test = mList2.get(position).getName();
         String test2 = mListl.get(position).getId();
 
         Log.d(test,"lala");
-        Log.d(test2,"yaya");
+        Log.d(test2,"yaya");*/
 
         //if no location has been provided dont show
     try{
-        if((mListl.get(position).getLocation())!= null) {
-            viewHolder.locationText.setVisibility(View.VISIBLE);
-            viewHolder.locationText.setText(mListl.get(position).getLocation());
-            viewHolder.locationImage.setVisibility(View.VISIBLE);
+        if((mListl.get(position).getLocation()).isEmpty()) {
+            viewHolder.locationText.setVisibility(View.GONE);
+            viewHolder.locationImage.setVisibility(View.GONE);
                }
+               else
+            viewHolder.locationText.setText(mListl.get(position).getLocation());
 
-            }
+    }
     catch (NullPointerException e){
         e.printStackTrace();
         }
 
         viewHolder.eventID.setText(mListl.get(position).getId());
 
-        DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
+       /* DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
         final String key = eventRef.getKey();
 
         String uid = eventRef.getKey();
-        Log.i("uid", uid);
+        Log.i("uid", uid);*/
 
         //what does this do?
 //        eventRef.addListenerForSingleValueEvent(eventListener);
@@ -169,13 +172,30 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         for(int i=0;i<mList2.size();i++){
 
-            TextView textView = new TextView(mContext);
+            /*TextView textView = new TextView(mContext);
             TextView textView2 = new TextView(mContext);
             textView.setText(mList2.get(i).getName());
             textView2.setText(mList2.get(i).getValue());
 
             viewHolder.linearView.addView(textView);
-            viewHolder.linearView.addView(textView2);
+            viewHolder.linearView.addView(textView2);*/
+
+//            View view = new View(mContext);
+            View view1 = (View) mInflater.inflate(R.layout.row_view_for_members_events, null);
+
+            TextView viewText = (TextView) view1.findViewById(R.id.user_name);
+            TextView viewResponse = (TextView) view1.findViewById(R.id.user_response);
+
+            viewText.setText(mList2.get(i).getName());
+            viewResponse.setText(mList2.get(i).getValue());
+
+            viewHolder.linearView.addView(view1);
+
+//            LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
+
+
+
+
 
         }
 
@@ -202,7 +222,10 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView locationText;
         private ImageView locationImage;
         private ImageView userImage;
+        private ImageView fullEvent;
         private LinearLayout linearView;
+        private CardView myCard;
+        private ConstraintLayout myCOnstrained;
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
@@ -221,10 +244,14 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
             linearView = (LinearLayout) itemView.findViewById(R.id.list_view_event);
+//            fullEvent = (ImageView) itemView.findViewById(R.id.full_event);
+            myCard = (CardView) itemView.findViewById(R.id.my_card);
+            myCOnstrained = (ConstraintLayout) itemView.findViewById(R.id.my_constrained);
 
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
             addMe.setOnClickListener(this);
+//            fullEvent.setOnClickListener(this);
 
         }
 
@@ -249,44 +276,85 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 final DatabaseReference groupRef = eventRef.child("").child(key);
 
-                userImageRef.addValueEventListener(new ValueEventListener() {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Response");
+                        builder.setIcon(R.drawable.ic_add_members_group);
+
+                String temp = mListl.get(getAdapterPosition()).getName();
+
+                builder.setMessage("Event: "+temp);
+                builder.setPositiveButton("I'm In",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+
+                builder.setNeutralButton("Maybe",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+//                                        v.getContext().startActivity(new Intent(context, Setup.class));
+                                //dialog.cancel();
+                            }
+                        });
+
+                builder.setNegativeButton("I'm Out",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+                builder.create().show();
+
+
+                Snackbar snackbar = Snackbar
+                        .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
+                        .setAction("- Remove me", new View.OnClickListener() {
+                            @Override
+                            public void onClick(final View view) {
+
+                                Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
+                                View snackbarView = snackbar1.getView();
+                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                textView.setTextColor(Color.YELLOW);
+                                textView.setTextSize(14);
+                                snackbar1.show();
+                            }
+                        });
+
+                snackbar.setActionTextColor(Color.WHITE);
+                TextView snackbarActionTextView = (TextView) snackbar.getView().findViewById( android.support.design.R.id.snackbar_action );
+                snackbarActionTextView.setTextSize(10);
+
+                View snackbarView = snackbar.getView();
+                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.YELLOW);
+                textView.setTextSize(14);
+
+                snackbar.show();
+
+              /** code should add user with status (in/out/maybe) to 1.db 2.ui*/
+                  userImageRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        final String uName = dataSnapshot.child("name").getValue().toString();
-                        addMe.setText(uName);
+//                        final String uName = dataSnapshot.child("name").getValue().toString();
+//                        addMe.setText(uName);
 
 //                        locationText.setText(mListl.get(position).getLocation());
                         int position = 0;
 
                         String event_id = eventID.getText().toString();
 
-                        eventRef.child(event_id).child("members").child(uid).setValue(true);
+//                        eventRef.child(event_id).child("members").child(uid).setValue(true);
 
-                        Snackbar snackbar = Snackbar
-                                .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
-                                .setAction("- Remove me", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(final View view) {
 
-                                        Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
-                                        View snackbarView = snackbar1.getView();
-                                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                        textView.setTextColor(Color.YELLOW);
-                                        textView.setTextSize(14);
-                                        snackbar1.show();
-                                    }
-                                });
-
-                        snackbar.setActionTextColor(Color.WHITE);
-                        TextView snackbarActionTextView = (TextView) snackbar.getView().findViewById( android.support.design.R.id.snackbar_action );
-                        snackbarActionTextView.setTextSize(10);
-
-                        View snackbarView = snackbar.getView();
-                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.YELLOW);
-                        textView.setTextSize(14);
-
-                        snackbar.show();
                     }
 
                     @Override
@@ -295,6 +363,20 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     }
                 });
             }
+
+            /** Code to change layout when arrow is clicked - expand view*/
+     /*       else if(v.getId() == fullEvent.getId()){
+
+                Toast.makeText(v.getContext(), "Clicked expand",Toast.LENGTH_SHORT).show();
+                ViewGroup.LayoutParams params = linearView.getLayoutParams();
+                params.height = WindowManager.LayoutParams.MATCH_PARENT;
+                linearView.setLayoutParams(params);
+
+//                params1.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//                myCOnstrained.setLayoutParams(params);
+//                ViewGroup.LayoutParams params1 = myCOnstrained.getLayoutParams();
+
+            }*/
         }
     }
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,7 +48,6 @@ public class lists_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
-
 //        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);
@@ -65,29 +65,44 @@ public class lists_activity extends AppCompatActivity {
         });
 
 //        initElementsByIds(rootView);
-        createListView();
+        groupKey = getIntent().getExtras().get("groupKey").toString();
+
+        /** Attach Listener to get num of children in participants*/
+        groupRef.child(groupKey).child("").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long num = dataSnapshot.getChildrenCount();
+//                Log.w(String.valueOf(num),"amIGettingNUm");
+//                getData(num);
+
+                createListView(num);
+            }
+
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+//        long num = 0;
+//        createListView(num);
         initElementsByListeners();
 
         mLstGroups = new ArrayList<>();
         mLstGroups2 = new ArrayList<>();
-        groupKey = getIntent().getExtras().get("groupKey").toString();
 
-//        mAdapter = new EventsAdapter(mLstGroups,this,myMap);
         mAdapter = new EventsAdapter(mLstGroups,this,mLstGroups2);
-//        mDataAdapter = new EventsAdapter(groupKey);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);
 //        mRecyclerView.setHasFixedSize(true);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(lists_activity.this));
 
-//        mLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        return rootView;
 
     }
 
@@ -100,76 +115,91 @@ public class lists_activity extends AppCompatActivity {
 
     }
 
-    private void createListView() {
+    private void createListView(long num) {
 
+//        final DatabaseReference groupRef = myRef.child("Events").child("lists");
         groupRef.keepSynced(true);
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
-        groupRef.child("-Kx8REumOYknDMHjHEsq").child("-Kx8T3J3ddUyfOivXc-x").child("participants").child("").addValueEventListener(new ValueEventListener() {
-//        groupRef.child("-Kx8REumOYknDMHjHEsq").child("").child("participants").child("")
-//                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+       /* for(int j=0;j<1;j)
 
-                        mLstGroups2.removeAll(mLstGroups2);
+            for(int i=0; i<j ;i++){
 
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+            }*/
 
-                            String wdff = snapshot.getValue().toString();
-                            Log.w(wdff,"wdff");
-//                            members_In members = dataSnapshot.getValue(members_In.class);
-                            members_In members = snapshot.getValue(members_In.class);
-                            String name = snapshot.getKey();
-                            String value = snapshot.child("").getValue().toString();
-                            Log.w(name,"thisIsWorking");
-                            Log.w(value,"thisIsWorkingToo?");
-                            mLstGroups2.add(members);
-                        }
-                        mAdapter.notifyDataSetChanged();
+        /** for loop for looping through the num of children param got through variable num*/
+        for(int i=0; i<num ;i++) {
+            /**Getting Participants */
+                String temp = String.valueOf((i-1));
+
+           /* groupRef.child(groupKey).child(temp).child("participants").child("").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    mLstGroups2.removeAll(mLstGroups2);
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        members_In members = snapshot.getValue(members_In.class);
+                        mLstGroups2.add(members);
                     }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                    mAdapter.notifyDataSetChanged();
 
-//        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
-        groupRef.child("-Kx8REumOYknDMHjHEsq").child("").addValueEventListener(new ValueEventListener() {
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });*/
+
+
+                  groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    mLstGroups2.removeAll(mLstGroups2);
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        members_In members = snapshot.getValue(members_In.class);
+                        mLstGroups2.add(members);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+
+        /** Getting Events */
+        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 mLstGroups.removeAll(mLstGroups);
-//                mLstGroups2.removeAll(mLstGroups2);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     list_primary newList = snapshot.getValue(list_primary.class);
-                    Log.w(newList.getName(),"thisIsWorking");
+                    String push = (String) snapshot.child("id").getValue();
 
-//                    for(int i=0;i<(snapshot.child("participants").getChildrenCount())-1;i++){
-                        long count = snapshot.child("participants").getChildrenCount();
-
-//                   member_In members = snapshot.child("participants").child("").getValue(members_In.class);
-//                    Log.w(members.getName(),"thisIsWorkingToo?");
-//                    Log.w(members.getValue(),"thisIsWorkingToo?");
-//        }
-//                    String in = newList.getIn("in");
-//                    HashMap<String,Object> mymap = (HashMap<String, Object>) newList.getIn();
-                    String allIn = snapshot.child("participants").child("").getValue().toString();
-//                    members_In members = (snapshot.child("participants").child("")).getValue(members_In.class);
-
-                    Log.w(allIn,"Thesshouldgivemeallin");
-                    myMap.put(snapshot.child("participants").child("").getKey(),snapshot.child("participants").child("").getValue().toString());
-
-                    //add participants
                     mLstGroups.add(newList);
-//                    mLstGroups2.add(members);
-                }
-
-                //code to iterate through map
-                for(Map.Entry<String,String> entry : myMap.entrySet()){
-                    String key = entry.getKey();
-                    String value = entry.getValue();
-                    Log.w(key,"keyIz");
-//                    Log.w(value,"valueIz");
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -192,10 +222,40 @@ public class lists_activity extends AppCompatActivity {
         });
     }
 
+   /* private void getData(long num) {
+
+        Log.w(String.valueOf(num),"iAmGettingDataHEre");
+        Integer numOfChildren = Integer.parseInt(String.valueOf(num));
+//        Integer temp =
+
+
+//        for(int i=0; i<numOfChildren ;i++) {
+            *//**Getting Participants *//*
+            groupRef.child(groupKey).child("-Kx8T3J3ddUyfOivXc-x").child("participants").child("").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    mLstGroups2.removeAll(mLstGroups2);
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        members_In members = snapshot.getValue(members_In.class);
+                        mLstGroups2.add(members);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+//        }
+
+    }*/
+
     @Override
     public void onStart() {
         super.onStart();
     }
-
 
 }

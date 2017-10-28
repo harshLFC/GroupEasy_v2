@@ -28,8 +28,11 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Date;
@@ -88,7 +91,7 @@ public class CreateNewListActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //intitlize data
-                String EventName, EventDetails = null, Location = null, minLimit = null, maxLimit = null, fromDATE = null, fromTIME = null, toDATE = null, toTIME = null;
+                 String EventName, EventDetails = null, Location = null, minLimit = null, maxLimit = null, fromDATE = null, fromTIME = null, toDATE = null, toTIME = null;
 
                 // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
@@ -125,23 +128,59 @@ public class CreateNewListActivity extends AppCompatActivity {
                 else {
                     groupKey = getIntent().getExtras().get("groupKey").toString();
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child(groupKey).child("");
-                    String push_id = groupRef.push().getKey();
 
-                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-                    String uid = current_user.getUid();
+                    final String finalEventDetails = EventDetails;
+                    final String finalMinLimit = minLimit;
+                    final String finalMaxLimit = maxLimit;
+                    final String finalEventName = EventName;
+                    final String finalLocation = Location;
+                    final String finalFromDate = fromDATE;
+                    final String finalFromTime = fromTIME;
+                    final String finalToTime = toTIME;
+                    final String finalToDate = toDATE;
+                    final boolean finalOneDayEvent = one_day_event;
+                    final boolean finalGlobalEvent = global_event;
 
-                    list_primary listMain = new list_primary(EventName, uid, Location, push_id);
-                    groupRef.child(push_id).setValue(listMain);
-                    list_details newList = new list_details(EventDetails, minLimit, maxLimit, one_day_event, fromDATE, fromTIME, toDATE, toTIME, global_event);
 
-                    HashMap myMap = new HashMap();
-                    myMap.put("details", EventDetails);
-                    myMap.put("details", EventDetails);
+                    groupRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long i = dataSnapshot.getChildrenCount();
 
-                    groupRef.child(push_id).child("extra").setValue(newList);
+                            Log.w(String.valueOf(i),"numOfCHildren");
 
-                    Toast.makeText(CreateNewListActivity.this, "Event Created! ", Toast.LENGTH_SHORT).show();
-                    finish();
+                            String push_id = String.valueOf(i+1);
+//                            String push_id = groupRef.push().getKey();
+
+                            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                            String uid = current_user.getUid();
+
+                            list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id);
+                            //send primary details
+                            groupRef.child(push_id).setValue(listMain);
+                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
+
+                            HashMap myMap = new HashMap();
+                            myMap.put("details", finalEventDetails);
+                            myMap.put("details", finalEventDetails);
+
+                            //send extra details
+                            groupRef.child(push_id).child("extra").setValue(newList);
+
+                            //send participant details ?
+//                            groupRef.child(push_id).child("participants").setValue(newList);
+
+                            Toast.makeText(CreateNewListActivity.this, "Event Created! ", Toast.LENGTH_SHORT).show();
+                            finish();
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }
         });
