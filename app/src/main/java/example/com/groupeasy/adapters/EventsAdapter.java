@@ -235,6 +235,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private CardView myCard;
         private ConstraintLayout myCOnstrained;
 
+        private ImageView myHeart;
         private TextView DetailsText;
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
@@ -259,6 +260,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             myCOnstrained = (ConstraintLayout) itemView.findViewById(R.id.my_constrained);
 
             DetailsText = (TextView) itemView.findViewById(R.id.details_txt);
+            myHeart = (ImageView) itemView.findViewById(R.id.heart);
 
 
             eventName.setOnClickListener(this);
@@ -266,6 +268,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             addMe.setOnClickListener(this);
 
             DetailsText.setOnClickListener(this);
+            myHeart.setOnClickListener(this);
 //            fullEvent.setOnClickListener(this);
 
         }
@@ -283,12 +286,29 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
 
+            else if (v.getId() == myHeart.getId()) {
+
+
+                Toast.makeText(v.getContext(), "Event Favourited !", Toast.LENGTH_SHORT).show();
+                myHeart.setColorFilter(Color.RED);
+
+//            clickListener.onItemClick(getAdapterPosition(),v);
+            }
+
             else if (v.getId() == DetailsText.getId()){
                 Toast.makeText(v.getContext(), "Clicked details", Toast.LENGTH_SHORT).show();
 
                 Intent intent= new Intent(v.getContext(), EventDetailsActivity.class);
-                String test = eventName.getText().toString();
-                intent.putExtra("my_extra",test);
+                String name = eventName.getText().toString();
+                intent.putExtra("name",name);
+
+                String location = locationText.getText().toString();
+                intent.putExtra("location",location);
+
+                String ad_min = admin.getText().toString();
+                intent.putExtra("admin",ad_min);
+
+
                 v.getContext().startActivity(intent);
 
 
