@@ -35,10 +35,10 @@ public class lists_activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<list_primary> mLstGroups;
     private List<members_In> mLstGroups2;
-    HashMap<String,String> myMap = new HashMap<>();
-    HashMap<String,String> myMapNext = new HashMap<>();
     private TextView emptyView;
     private String groupKey;
+//    HashMap<String,String> myMap = new HashMap<>();
+//    HashMap<String,String> myMapNext = new HashMap<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
@@ -64,7 +64,6 @@ public class lists_activity extends AppCompatActivity {
             }
         });
 
-//        initElementsByIds(rootView);
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
         /** Attach Listener to get num of children in participants*/
@@ -75,10 +74,9 @@ public class lists_activity extends AppCompatActivity {
 //                Log.w(String.valueOf(num),"amIGettingNUm");
 //                getData(num);
 
+                /**Create Ui passing num of children in participants as parameter to loop through and display members */
                 createListView(num);
             }
-
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -89,11 +87,13 @@ public class lists_activity extends AppCompatActivity {
 //        long num = 0;
 //        createListView(num);
         initElementsByListeners();
+        initElementsByIds();
 
         mLstGroups = new ArrayList<>();
-        mLstGroups2 = new ArrayList<>();
+//        mLstGroups2 = new ArrayList<>();
 
-        mAdapter = new EventsAdapter(mLstGroups,this,mLstGroups2);
+        mAdapter = new EventsAdapter(mLstGroups,this);
+//        mAdapter = new EventsAdapter(mLstGroups,this,mLstGroups2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);
 //        mRecyclerView.setHasFixedSize(true);
@@ -103,29 +103,23 @@ public class lists_activity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
     }
 
-    private void initElementsByIds(View view) {
+    private void initElementsByIds() {
 
-        emptyView = (TextView) view.findViewById(R.id.empty_view_list);
+        emptyView = (TextView) findViewById(R.id.empty_view_list);
     }
 
     private void initElementsByListeners() {
 
     }
 
-    private void createListView(long num) {
+    private void createListView(final long num) {
 
 //        final DatabaseReference groupRef = myRef.child("Events").child("lists");
         groupRef.keepSynced(true);
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
-       /* for(int j=0;j<1;j)
-
-            for(int i=0; i<j ;i++){
-
-            }*/
 
         /** for loop for looping through the num of children param got through variable num*/
         for(int i=0; i<num ;i++) {
@@ -168,7 +162,7 @@ public class lists_activity extends AppCompatActivity {
             });*/
 
 
-                  groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
+                 /* groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -185,24 +179,41 @@ public class lists_activity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
-            });
+            });*/
         }
 
         /** Getting Events */
-        groupRef.child(groupKey).child("").addValueEventListener(new ValueEventListener() {
+        groupRef.child(groupKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 mLstGroups.removeAll(mLstGroups);
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for(DataSnapshot snapshot : dataSnapshot.child("").getChildren()) {
                     list_primary newList = snapshot.getValue(list_primary.class);
-                    String push = (String) snapshot.child("id").getValue();
-
                     mLstGroups.add(newList);
+
+                    /*for (DataSnapshot ds : snapshot.child("participants").child("").getChildren()) {
+
+                        members_In members = ds.getValue(members_In.class);
+                        mLstGroups2.add(members);
+
+                    }*/
                 }
+//                mAdapter.notifyDataSetChanged();
+
+//
+//                for(DataSnapshot snapshot : dataSnapshot.child("").child("participants").child("").getChildren()){
+//                    members_In members = snapshot.getValue(members_In.class);
+//                    mLstGroups2.add(members);
+//
+//                    mLstGroups2.add(members);
+//
+//                }
 
                 mAdapter.notifyDataSetChanged();
+
+
 
                 if(mLstGroups.isEmpty()){
                     emptyView.setVisibility(View.VISIBLE);

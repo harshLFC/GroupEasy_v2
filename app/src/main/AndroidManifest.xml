@@ -17,12 +17,12 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC2kYUapjXYvj-3VlyB_WCxJpI_P9uAjgA"/>
+            android:value="AIzaSyC2kYUapjXYvj-3VlyB_WCxJpI_P9uAjgA" />
 
+        <!--<activity-->
+            <!--android:name=".MainActivity"-->
+            <!--android:screenOrientation="portrait" />-->
 
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
@@ -33,67 +33,90 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.DashboardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.CreatePollActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible" />
+
         <activity
             android:name=".activities.CreateRosterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.CreateNewListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activities.GroupDetailsActivity" />
+
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.CreateGroupActivity"
             android:label="@string/title_activity_create_group"
             android:parentActivityName=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.chatRoomActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.createAccount"
             android:parentActivityName=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.editProfileActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
         <activity
             android:name=".activities.lists_activity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.chooseGroup"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--<activity-->
+            <!--android:name=".activities.chooseGroup"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+
         <activity
             android:name=".activities.chooseUserActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.aboutChatRoom"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.editGroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.allUsersActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activities.DashboardActivity">
+
+        <activity
+            android:name=".activities.allUsersActivity"
+            android:parentActivityName=".activities.DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity android:name=".activities.EventDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
     </application>

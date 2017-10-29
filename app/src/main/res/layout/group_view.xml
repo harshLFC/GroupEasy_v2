@@ -137,6 +137,7 @@
             app:civ_border_width="0.5dp" />
 
 
+       <!--code for drawing one line in xml-->
         <View
             android:id="@+id/view4"
             android:layout_width="match_parent"

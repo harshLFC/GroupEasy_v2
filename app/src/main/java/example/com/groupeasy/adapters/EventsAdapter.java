@@ -2,6 +2,7 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.activities.EventDetailsActivity;
 import example.com.groupeasy.activities.lists_activity;
 import example.com.groupeasy.pojo.list_primary;
 import example.com.groupeasy.pojo.members_In;
@@ -43,7 +45,7 @@ import example.com.groupeasy.pojo.members_In;
 
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    static List<list_primary> mListl;
+    static List<list_primary> mList1;
 //    HashMap mList2;
     static List<members_In> mList2;
     Context mContext;
@@ -60,12 +62,12 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
    }
 
-    public EventsAdapter(List<list_primary> mLstGroups, Context context, List<members_In> mLstGroups2)
+    public EventsAdapter(List<list_primary> mLstGroups, Context context)
 //    public EventsAdapter(List<list_primary> mLstGroups,Context context,HashMap<String, String> myMap)
     {
-        this.mListl = mLstGroups;
+        this.mList1 = mLstGroups;
         this.mContext = context;
-        this.mList2 = mLstGroups2;
+//        this.mList2 = mLstGroups2;
 //        this.mList2 = myMap;
     }
 
@@ -97,34 +99,35 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         final EventViewHolder viewHolder = (EventViewHolder) holder;
 
-        viewHolder.eventName.setText(mListl.get(position).getName());
-        viewHolder.admin.setText(mListl.get(position).getAdmin());
+        /**Set event details to card**/
+        viewHolder.eventName.setText(mList1.get(position).getName());
+        viewHolder.admin.setText(mList1.get(position).getAdmin());
 
 //not used
-//        String event_id = mListl.get(position).getId();
+//        String event_id = mList1.get(position).getId();
 
        //tests
         /* String test = mList2.get(position).getName();
-        String test2 = mListl.get(position).getId();
+        String test2 = mList1.get(position).getId();
 
         Log.d(test,"lala");
         Log.d(test2,"yaya");*/
 
         //if no location has been provided dont show
     try{
-        if((mListl.get(position).getLocation()).isEmpty()) {
+        if((mList1.get(position).getLocation()).isEmpty()) {
             viewHolder.locationText.setVisibility(View.GONE);
             viewHolder.locationImage.setVisibility(View.GONE);
                }
                else
-            viewHolder.locationText.setText(mListl.get(position).getLocation());
+            viewHolder.locationText.setText(mList1.get(position).getLocation());
 
     }
     catch (NullPointerException e){
         e.printStackTrace();
         }
 
-        viewHolder.eventID.setText(mListl.get(position).getId());
+        viewHolder.eventID.setText(mList1.get(position).getId());
 
        /* DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
         final String key = eventRef.getKey();
@@ -135,6 +138,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         //what does this do?
 //        eventRef.addListenerForSingleValueEvent(eventListener);
 
+        //set user image
         viewHolder.userImageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -164,51 +168,55 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
-        view = mInflater.inflate(R.layout.row_view_for_members_events, null, false);
+//        LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
+//        view = mInflater.inflate(R.layout.row_view_for_members_events, null, false);
 
         //for loop int =0; i<list2.size; i++
 //            textview tv = new textview
 
-        for(int i=0;i<mList2.size();i++){
+      /** Tried a lot to display list of members and almost got it working
+       * but android + firebase is proving incapabale of display nested dynamic view
+       * spent 2 weeks trying to get this to work in the end am putting it on hold
+       * as a result of having constant bugs for displaying data which is repeating
+       * and not abiding to the respective event **/
+       /* for(int i=0;i<mList2.size();i++){
 
-            /*TextView textView = new TextView(mContext);
+            int j = mList2.size();
+            //code to add simple textView dynamically
+            *//*TextView textView = new TextView(mContext);
             TextView textView2 = new TextView(mContext);
             textView.setText(mList2.get(i).getName());
             textView2.setText(mList2.get(i).getValue());
 
             viewHolder.linearView.addView(textView);
-            viewHolder.linearView.addView(textView2);*/
+            viewHolder.linearView.addView(textView2);*//*
 
 //            View view = new View(mContext);
-            View view1 = (View) mInflater.inflate(R.layout.row_view_for_members_events, null);
+            View view = mInflater.inflate(R.layout.row_view_for_members_events, null);
 
-            TextView viewText = (TextView) view1.findViewById(R.id.user_name);
-            TextView viewResponse = (TextView) view1.findViewById(R.id.user_response);
+            TextView viewText = (TextView) view.findViewById(R.id.user_name);
+            TextView viewResponse = (TextView) view.findViewById(R.id.user_response);
 
-            viewText.setText(mList2.get(i).getName());
-            viewResponse.setText(mList2.get(i).getValue());
+            viewText.setText(mList2.get(position).getName());
+            viewResponse.setText(mList2.get(position).getValue());
 
-            viewHolder.linearView.addView(view1);
+            viewHolder.linearView.addView(view);
 
 //            LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
 
 
-
-
-
-        }
+        }*/
 
         // add data by setText
 //        liearlayout.add(child)
 
-        view = mInflater.inflate(R.layout.row_view_for_members_events, null);
+//        view = mInflater.inflate(R.layout.row_view_for_members_events, null);
 
     }
 
     @Override
     public int getItemCount() {
-        return mListl.size();
+        return mList1.size();
 //        +mList2.size();
 
     }
@@ -226,6 +234,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private LinearLayout linearView;
         private CardView myCard;
         private ConstraintLayout myCOnstrained;
+
+        private TextView DetailsText;
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
@@ -248,9 +258,14 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             myCard = (CardView) itemView.findViewById(R.id.my_card);
             myCOnstrained = (ConstraintLayout) itemView.findViewById(R.id.my_constrained);
 
+            DetailsText = (TextView) itemView.findViewById(R.id.details_txt);
+
+
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
             addMe.setOnClickListener(this);
+
+            DetailsText.setOnClickListener(this);
 //            fullEvent.setOnClickListener(this);
 
         }
@@ -262,10 +277,23 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Toast.makeText(v.getContext(), "Something to do with name", Toast.LENGTH_SHORT).show();
             }
+
             else if (v.getId() == admin.getId()) {
                 Toast.makeText(v.getContext(), "Admin", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
+
+            else if (v.getId() == DetailsText.getId()){
+                Toast.makeText(v.getContext(), "Clicked details", Toast.LENGTH_SHORT).show();
+
+                Intent intent= new Intent(v.getContext(), EventDetailsActivity.class);
+                String test = eventName.getText().toString();
+                intent.putExtra("my_extra",test);
+                v.getContext().startActivity(intent);
+
+
+            }
+
             else if (v.getId() == addMe.getId()){
 
                 final String key = eventRef.getKey();
@@ -276,20 +304,54 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 final DatabaseReference groupRef = eventRef.child("").child(key);
 
-
+                /**Code on respond to event**/
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Response");
                         builder.setIcon(R.drawable.ic_add_members_group);
 
-                String temp = mListl.get(getAdapterPosition()).getName();
-
+                String temp = mList1.get(getAdapterPosition()).getName();
                 builder.setMessage("Event: "+temp);
+
+                /**On I'm in click**/
                 builder.setPositiveButton("I'm In",
                         new DialogInterface.OnClickListener()
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
-                                dialog.cancel();
+//                                dialog.cancel();
+                                addMe.setText("✓ You are In for this event");
+
+                                Snackbar snackbar = Snackbar
+                                    .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
+                                    .setAction("- Remove me", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(final View view) {
+
+                                            addMe.setText("+ Respond to this event");
+
+
+                                            Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
+                                            View snackbarView = snackbar1.getView();
+                                            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                            textView.setTextColor(Color.YELLOW);
+                                            textView.setTextSize(14);
+                                            snackbar1.show();
+                                            /**write code to remove from event*/
+
+                                            /***/
+                                        }
+                                    });
+
+                                snackbar.setActionTextColor(Color.WHITE);
+                                TextView snackbarActionTextView = (TextView)snackbar.getView().findViewById( android.support.design.R.id.snackbar_action );
+                                snackbarActionTextView.setTextSize(10);
+
+                                View snackbarView = snackbar.getView();
+                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                textView.setTextColor(Color.YELLOW);
+                                textView.setTextSize(14);
+
+                                snackbar.show();
                             }
                         });
 
@@ -300,6 +362,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             {
 //                                        v.getContext().startActivity(new Intent(context, Setup.class));
                                 //dialog.cancel();
+                                addMe.setText("? You are unsure for this event");
+
                             }
                         });
 
@@ -308,37 +372,14 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
+                                addMe.setText("? You are out for this event");
                                 dialog.cancel();
                             }
                         });
                 builder.create().show();
 
 
-                Snackbar snackbar = Snackbar
-                        .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
-                        .setAction("- Remove me", new View.OnClickListener() {
-                            @Override
-                            public void onClick(final View view) {
 
-                                Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
-                                View snackbarView = snackbar1.getView();
-                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                textView.setTextColor(Color.YELLOW);
-                                textView.setTextSize(14);
-                                snackbar1.show();
-                            }
-                        });
-
-                snackbar.setActionTextColor(Color.WHITE);
-                TextView snackbarActionTextView = (TextView) snackbar.getView().findViewById( android.support.design.R.id.snackbar_action );
-                snackbarActionTextView.setTextSize(10);
-
-                View snackbarView = snackbar.getView();
-                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.YELLOW);
-                textView.setTextSize(14);
-
-                snackbar.show();
 
               /** code should add user with status (in/out/maybe) to 1.db 2.ui*/
                   userImageRef.addValueEventListener(new ValueEventListener() {
@@ -347,7 +388,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                        final String uName = dataSnapshot.child("name").getValue().toString();
 //                        addMe.setText(uName);
 
-//                        locationText.setText(mListl.get(position).getLocation());
+//                        locationText.setText(mList1.get(position).getLocation());
                         int position = 0;
 
                         String event_id = eventID.getText().toString();
@@ -382,7 +423,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (mListl.isEmpty()) {
+        if (mList1.isEmpty()) {
             return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
 
         }
