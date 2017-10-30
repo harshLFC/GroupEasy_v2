@@ -92,7 +92,8 @@ public class lists_activity extends AppCompatActivity {
         mLstGroups = new ArrayList<>();
 //        mLstGroups2 = new ArrayList<>();
 
-        mAdapter = new EventsAdapter(mLstGroups,this);
+        mAdapter = new EventsAdapter(mLstGroups,this,groupKey);
+
 //        mAdapter = new EventsAdapter(mLstGroups,this,mLstGroups2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);

@@ -43,7 +43,7 @@ import example.com.groupeasy.pojo.members_In;
  * Created by Harsh on 11-09-2017.
  */
 
-public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mList1;
 //    HashMap mList2;
@@ -51,6 +51,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Context mContext;
     LayoutInflater mInflater;
     View view;
+    String GroupKey;
 //    FirebaseDatabase database = FirebaseDatabase.getInstance();
 //    final DatabaseReference groupRef = database.getReference().child("Events").child("lists");
 
@@ -62,11 +63,13 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
    }
 
-    public EventsAdapter(List<list_primary> mLstGroups, Context context)
+    public EventsAdapter(List<list_primary> mLstGroups, Context context, String Key)
 //    public EventsAdapter(List<list_primary> mLstGroups,Context context,HashMap<String, String> myMap)
     {
         this.mList1 = mLstGroups;
         this.mContext = context;
+        this.GroupKey = Key;
+
 //        this.mList2 = mLstGroups2;
 //        this.mList2 = myMap;
     }
@@ -104,7 +107,12 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewHolder.admin.setText(mList1.get(position).getAdmin());
 
 //not used
-//        String event_id = mList1.get(position).getId();
+        String event_id = mList1.get(position).getId();
+
+        //the following 2 hidden views for eventDetails screen
+        viewHolder.eventID.setText(GroupKey);
+        viewHolder.EventNum.setText(mList1.get(position).getId());
+
 
        //tests
         /* String test = mList2.get(position).getName();
@@ -127,7 +135,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         e.printStackTrace();
         }
 
-        viewHolder.eventID.setText(mList1.get(position).getId());
+//        viewHolder.eventID.setText(mList1.get(position).getId());
 
        /* DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
         final String key = eventRef.getKey();
@@ -237,6 +245,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private ImageView myHeart;
         private TextView DetailsText;
+        private TextView EventNum;
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
@@ -261,6 +270,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             DetailsText = (TextView) itemView.findViewById(R.id.details_txt);
             myHeart = (ImageView) itemView.findViewById(R.id.heart);
+            EventNum = (TextView) itemView.findViewById(R.id.eventNum);
 
 
             eventName.setOnClickListener(this);
@@ -307,6 +317,12 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 String ad_min = admin.getText().toString();
                 intent.putExtra("admin",ad_min);
+
+                String Groupkey = eventID.getText().toString();
+                intent.putExtra("Groupkey",Groupkey);
+
+                String eventNum = EventNum.getText().toString();
+                intent.putExtra("eventNum",eventNum);
 
 
                 v.getContext().startActivity(intent);
