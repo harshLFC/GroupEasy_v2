@@ -241,19 +241,23 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
          * 1. set text to ✓ if value is 'In'
          * 2. set Text to ✘ if value is 'Out'
          * 3. set Text to ? if value is 'Maybe'**/
-        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-               if(dataSnapshot.getValue().equals("In")){
-                   viewHolder.addMe.setText("✓ You are In for this event");
-               }
-               if(dataSnapshot.getValue().equals("Out")){
-                   viewHolder.addMe.setText("✘ You are Out for this event");
-               }
-               if(dataSnapshot.getValue().equals("Maybe")){
-                   viewHolder.addMe.setText("? You are unsure for this event");
-               }
+                //first check if child exists
+                if (dataSnapshot.hasChild("value")) {
+
+                    if (dataSnapshot.child("value").getValue().equals("In")) {
+                        viewHolder.addMe.setText("✓ You are In for this event");
+                    }
+                    if (dataSnapshot.child("value").getValue().equals("Out")) {
+                        viewHolder.addMe.setText("✘ You are Out for this event");
+                    }
+                    if (dataSnapshot.child("value").getValue().equals("Maybe")) {
+                        viewHolder.addMe.setText("? You are unsure for this event");
+                    }
+                }
 
             }
 

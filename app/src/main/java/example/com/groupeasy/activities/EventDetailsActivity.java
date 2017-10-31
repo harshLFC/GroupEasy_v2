@@ -41,6 +41,10 @@ public class EventDetailsActivity extends AppCompatActivity {
     private TextView ParticipantsInThisEvent;
     private ImageButton ThumbUp;
     private ImageButton ThumbUpGreen;
+    private ImageButton ThumbDown;
+    private ImageButton ThumbDownRed;
+    private ImageButton QuestionMark;
+    private ImageButton QuestionMarkYellow;
 
 
     //dynamic data elements
@@ -119,6 +123,14 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     private void updateDisplay() {
 
+        /** Initialize default icon colors ***/
+        ThumbUp.setVisibility(View.VISIBLE);
+        ThumbUpGreen.setVisibility(View.INVISIBLE);
+        ThumbDown.setVisibility(View.VISIBLE);
+        ThumbDownRed.setVisibility(View.INVISIBLE);
+        QuestionMark.setVisibility(View.VISIBLE);
+        QuestionMarkYellow.setVisibility(View.INVISIBLE);
+
         String name = getIntent().getStringExtra("name");
         EventName.setText(name);
 
@@ -138,7 +150,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 //        Log.w(GroupKey,"ThisIsGroupKey");
 
 
-
+/**Code to add participants into adapter**/
 //        groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
         groupRef.child(GroupKey).child(EventNum).child("participants").child("").addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,8 +161,41 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                     members_In members = snapshot.getValue(members_In.class);
                     mLstGroups2.add(members);
+
                 }
                 mAdapter.notifyDataSetChanged();
+
+                /**check user 'value' under participants and display appropriate icon**/
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                final String uid = current_user.getUid();
+
+                if(dataSnapshot.hasChild(uid)){
+                    Toast.makeText(EventDetailsActivity.this, "User has child here",Toast.LENGTH_SHORT).show();
+                    String test = dataSnapshot.child(uid).child("value").getValue().toString();
+
+                    if(test.equals("In")){
+                        ThumbUp.setVisibility(View.INVISIBLE);
+                        ThumbUpGreen.setVisibility(View.VISIBLE);
+                    }
+
+                    else if(test.equals("Out")){
+                        ThumbDown.setVisibility(View.INVISIBLE);
+                        ThumbDownRed.setVisibility(View.VISIBLE);
+                    }
+
+                    else if(test.equals("Maybe")){
+                        QuestionMark.setVisibility(View.INVISIBLE);
+                        QuestionMarkYellow.setVisibility(View.VISIBLE);
+                    }
+
+
+                }
+                else{
+                    Toast.makeText(EventDetailsActivity.this, "User DOES NOT has child here",Toast.LENGTH_SHORT).show();
+
+
+                }
+
 
                 //if condition to check if there are no members responded to this event yet
                 //if list is empty say no participants
@@ -158,16 +203,18 @@ public class EventDetailsActivity extends AppCompatActivity {
                     ParticipantsInThisEvent.setText("No Participants in this event");
                     else
                     ParticipantsInThisEvent.setText("Participants in this event");
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
-
         });
+
+
+
+
+
+
 
     }
 
@@ -182,6 +229,10 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         ThumbUp = (ImageButton) findViewById(R.id.thumb_up);
         ThumbUpGreen = (ImageButton) findViewById(R.id.thumb_up_green_green);
+        ThumbDown= (ImageButton) findViewById(R.id.thumb_down);
+        ThumbDownRed= (ImageButton) findViewById(R.id.thumb_down_red);
+        QuestionMark= (ImageButton) findViewById(R.id.question_mark);
+        QuestionMarkYellow= (ImageButton) findViewById(R.id.question_mark_yellow);
 
 
     }

@@ -43,11 +43,11 @@
         android:gravity="center"
         android:text="I'm Out"
         android:layout_marginStart="55dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/thumb_down"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/imageView5"
+        app:layout_constraintRight_toRightOf="@+id/thumb_down"
         android:layout_marginLeft="55dp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView5"
+        app:layout_constraintLeft_toLeftOf="@+id/thumb_down"
         app:layout_constraintHorizontal_bias="0.8"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="2dp" />
@@ -157,17 +157,17 @@
         android:visibility="visible"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/question_mark"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/imageView6"
+        app:layout_constraintRight_toRightOf="@+id/question_mark"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView6"
+        app:layout_constraintLeft_toLeftOf="@+id/question_mark"
         app:layout_constraintHorizontal_bias="0.538"
         android:layout_marginTop="2dp" />
 
     <ImageButton
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:id="@+id/imageView5"
+        android:id="@+id/thumb_down"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:src="@drawable/ic_thumb_down"
@@ -178,15 +178,45 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-    <ImageView
-        android:id="@+id/imageView6"
+    <ImageButton
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:id="@+id/thumb_down_red"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_thumb_down_red"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+    <ImageButton
+        android:id="@+id/question_mark"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:src="@drawable/ic_question_mark_help"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:visibility="visible"
-        app:layout_constraintLeft_toRightOf="@+id/imageView5"
+        app:layout_constraintLeft_toRightOf="@+id/thumb_down"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/thumb_up"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+    <ImageButton
+        android:id="@+id/question_mark_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_question_mark_help_yellow"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@+id/thumb_down"
         android:layout_marginLeft="8dp"
         app:layout_constraintRight_toLeftOf="@+id/thumb_up"
         android:layout_marginRight="8dp"
@@ -247,7 +277,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14">
-
             </android.support.v7.widget.RecyclerView>
 
             <ImageView
