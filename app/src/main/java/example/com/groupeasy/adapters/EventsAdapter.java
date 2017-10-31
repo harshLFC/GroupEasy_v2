@@ -482,6 +482,30 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
+
+                                /**Code to respond to the event **/
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                final DatabaseReference myRef = database.getReference();
+
+                                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                                final String uid = current_user.getUid();
+                                final String Groupkey = eventID.getText().toString();
+                                final String eventNum = EventNum.getText().toString();
+                                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
+                                        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").setValue("Maybe");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                /**Code to respond end**/
+
+
 //                                        v.getContext().startActivity(new Intent(context, Setup.class));
                                 //dialog.cancel();
                                 addMe.setText("? You are unsure for this event");
@@ -494,6 +518,29 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
+                                /**Code to respond to the event **/
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                final DatabaseReference myRef = database.getReference();
+
+                                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                                final String uid = current_user.getUid();
+                                final String Groupkey = eventID.getText().toString();
+                                final String eventNum = EventNum.getText().toString();
+                                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
+                                        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").setValue("Out");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                /**Code to respond end**/
+
+
                                 addMe.setText("✘ You are out for this event");
                                 dialog.cancel();
                             }
