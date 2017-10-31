@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/lemon_yellow"
     android:padding="10dp">
 
 
@@ -11,6 +13,7 @@
         android:id="@+id/user_dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        app:civ_border_width="0.5dp"
         android:src="@drawable/ic_default_user_single"
         android:layout_weight="0"/>
 
@@ -21,6 +24,7 @@
         android:maxLines="1"
         android:text="default name"
         android:layout_weight="2"
+        android:layout_marginLeft="10dp"
         />
 
     <TextView

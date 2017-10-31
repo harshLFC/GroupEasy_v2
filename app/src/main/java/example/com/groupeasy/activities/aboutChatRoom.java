@@ -59,9 +59,8 @@ public class aboutChatRoom extends AppCompatActivity {
         setName(roomKey);
 
         initElementsWithIds();
-//        groupName.setText(room_name);
-        createListView();
-        initElementsWithListeners(roomKey);
+//      groupName.setText(room_name);
+        createListView();        initElementsWithListeners(roomKey);
 
         mLstGroups = new ArrayList<>();
 
@@ -171,6 +170,9 @@ public class aboutChatRoom extends AppCompatActivity {
 
                             mUserAdapter.notifyDataSetChanged();
                             Log.w("leyz",ds.toString());
+
+
+
                         }
 
                         @Override
@@ -179,6 +181,10 @@ public class aboutChatRoom extends AppCompatActivity {
                     });
                 }
                 mUserAdapter.notifyDataSetChanged();
+
+
+
+
             }
 
             @Override

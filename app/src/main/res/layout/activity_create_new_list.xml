@@ -96,7 +96,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     style="@style/TextAppearance.AppCompat.Large"
                     android:hint="Event Name"
-                    android:maxLength="20"
+                    android:maxLength="38"
                     android:maxLines="1"
                     android:id="@+id/eventName"/>
             </android.support.design.widget.TextInputLayout>

@@ -106,6 +106,11 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         viewHolder.eventName.setText(mList1.get(position).getName());
         viewHolder.admin.setText(mList1.get(position).getAdmin());
 
+        String admin = mList1.get(position).getAdmin();
+        Log.w(admin, "checkThis");
+
+
+
 //not used
         String event_id = mList1.get(position).getId();
 
@@ -220,6 +225,48 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 //        view = mInflater.inflate(R.layout.row_view_for_members_events, null);
 
+
+
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference();
+
+        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = current_user.getUid();
+        final String Groupkey = viewHolder.eventID.getText().toString();
+        final String eventNum = viewHolder.EventNum.getText().toString();
+
+        /**Check events -> participants get value of 'value'
+         * 1. set text to ✓ if value is 'In'
+         * 2. set Text to ✘ if value is 'Out'
+         * 3. set Text to ? if value is 'Maybe'**/
+        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+               if(dataSnapshot.getValue().equals("In")){
+                   viewHolder.addMe.setText("✓ You are In for this event");
+               }
+               if(dataSnapshot.getValue().equals("Out")){
+                   viewHolder.addMe.setText("✘ You are Out for this event");
+               }
+               if(dataSnapshot.getValue().equals("Maybe")){
+                   viewHolder.addMe.setText("? You are unsure for this event");
+               }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
     }
 
     @Override
@@ -281,17 +328,13 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             myHeart.setOnClickListener(this);
 //            fullEvent.setOnClickListener(this);
 
+
         }
 
         @Override
         public void onClick(final View v) {
 
-            if (v.getId() == eventName.getId() ) {
-//            clickListener.onItemClick(getAdapterPosition(),v);
-                Toast.makeText(v.getContext(), "Something to do with name", Toast.LENGTH_SHORT).show();
-            }
-
-            else if (v.getId() == admin.getId()) {
+           if (v.getId() == admin.getId()) {
                 Toast.makeText(v.getContext(), "Admin", Toast.LENGTH_SHORT).show();
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
@@ -305,8 +348,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //            clickListener.onItemClick(getAdapterPosition(),v);
             }
 
-            else if (v.getId() == DetailsText.getId()){
-                Toast.makeText(v.getContext(), "Clicked details", Toast.LENGTH_SHORT).show();
+            else if (v.getId() == DetailsText.getId() || v.getId() == eventName.getId()){
 
                 Intent intent= new Intent(v.getContext(), EventDetailsActivity.class);
                 String name = eventName.getText().toString();
@@ -355,17 +397,61 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             public void onClick(DialogInterface dialog, int id)
                             {
 //                                dialog.cancel();
-                                addMe.setText("✓ You are In for this event");
 
+                                /**Code to respond to the event **/
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                final DatabaseReference myRef = database.getReference();
+
+                                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                                final String uid = current_user.getUid();
+                                final String Groupkey = eventID.getText().toString();
+                                final String eventNum = EventNum.getText().toString();
+                                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
+                                        myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").setValue("In");
+                                        }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                /**Code to respond end**/
+
+                                addMe.setText("✓ You are In for this event");
                                 Snackbar snackbar = Snackbar
                                     .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
                                     .setAction("- Remove me", new View.OnClickListener() {
                                         @Override
                                         public void onClick(final View view) {
 
+                                            /**Code to respond to the event **/
+                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                            final DatabaseReference myRef = database.getReference();
+
+                                            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                                            final String uid = current_user.getUid();
+                                            final String Groupkey = eventID.getText().toString();
+                                            final String eventNum = EventNum.getText().toString();
+                                            myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("name").setValue(null);
+                                                    myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").setValue(null);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                            /**Code to respond end**/
+
+
+
                                             addMe.setText("+ Respond to this event");
-
-
                                             Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
                                             View snackbarView = snackbar1.getView();
                                             TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
@@ -408,7 +494,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
-                                addMe.setText("? You are out for this event");
+                                addMe.setText("✘ You are out for this event");
                                 dialog.cancel();
                             }
                         });

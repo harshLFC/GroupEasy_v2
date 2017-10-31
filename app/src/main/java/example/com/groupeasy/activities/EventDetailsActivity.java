@@ -2,6 +2,7 @@ package example.com.groupeasy.activities;
 
 import android.app.usage.UsageEvents;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,8 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +38,14 @@ public class EventDetailsActivity extends AppCompatActivity {
     private TextView EventName;
     private TextView EventLocation;
     private TextView EventAdmin;
+    private TextView ParticipantsInThisEvent;
+    private ImageButton ThumbUp;
+    private ImageButton ThumbUpGreen;
+
 
     //dynamic data elements
     private EventDetailsAdapter mAdapter;
-    private List <list_details> mLstGroups;
+//    private List <list_details> mLstGroups;
     private List <members_In> mLstGroups2;
     private RecyclerView mRecyclerView;
 
@@ -54,6 +63,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         setToolbar();
         initElementsById();
+        initElementsByListeners();
         updateDisplay();
 
         mLstGroups2 = new ArrayList<>();
@@ -62,6 +72,47 @@ public class EventDetailsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+    }
+
+    private void initElementsByListeners() {
+
+        /**WHen the user presses thumbs up button
+         * 1. His user id will be taken
+         * 2. node will be created under that specific events participant child with the userid
+         * his name with "IN" will be pushed**/
+        ThumbUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                ThumbUp.setVisibility(View.INVISIBLE);
+                ThumbUpGreen.setVisibility(View.VISIBLE);
+
+                final String GroupKey = getIntent().getStringExtra("Groupkey");
+                final String EventNum = getIntent().getStringExtra("eventNum");
+
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                final String uid = current_user.getUid();
+
+                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
+                        groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("value").setValue("In");
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
 
     }
@@ -100,6 +151,14 @@ public class EventDetailsActivity extends AppCompatActivity {
                     mLstGroups2.add(members);
                 }
                 mAdapter.notifyDataSetChanged();
+
+                //if condition to check if there are no members responded to this event yet
+                //if list is empty say no participants
+                if(mLstGroups2.isEmpty())
+                    ParticipantsInThisEvent.setText("No Participants in this event");
+                    else
+                    ParticipantsInThisEvent.setText("Participants in this event");
+
             }
 
             @Override
@@ -119,6 +178,11 @@ public class EventDetailsActivity extends AppCompatActivity {
         EventAdmin  = (TextView) findViewById(R.id.text_admin);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.event_details_recycler);
+        ParticipantsInThisEvent = (TextView) findViewById(R.id.participants_in_this_event);
+
+        ThumbUp = (ImageButton) findViewById(R.id.thumb_up);
+        ThumbUpGreen = (ImageButton) findViewById(R.id.thumb_up_green_green);
+
 
     }
 

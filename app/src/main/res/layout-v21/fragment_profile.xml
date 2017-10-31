@@ -153,7 +153,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/my_rectangle"
+                android:src="@drawable/my_circle"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
 
@@ -202,7 +202,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/my_circle"
+                    android:src="@drawable/my_rectangle"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
             </RelativeLayout>

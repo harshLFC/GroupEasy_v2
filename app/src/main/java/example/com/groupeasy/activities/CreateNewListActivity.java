@@ -120,6 +120,12 @@ public class CreateNewListActivity extends AppCompatActivity {
                 toDATE = TvTo.getText().toString();
                 toTIME = timeTo.getText().toString();
 
+
+
+
+
+
+
                 //Code for form Validation
                 if (EventName.isEmpty()) {
                     Toast.makeText(context, "Please enter a Name for the event", Toast.LENGTH_LONG).show();
@@ -154,6 +160,25 @@ public class CreateNewListActivity extends AppCompatActivity {
 
                             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = current_user.getUid();
+
+//                            code here
+                            myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    String userName = dataSnapshot.getValue().toString();
+                                    Log.w(userName, "thisIstheName");
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
 
                             list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id);
                             //send primary details
