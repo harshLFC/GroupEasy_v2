@@ -45,6 +45,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     private ImageButton ThumbDownRed;
     private ImageButton QuestionMark;
     private ImageButton QuestionMarkYellow;
+    private TextView textMonth;
+    private TextView textDay;
 
 
     //dynamic data elements
@@ -179,10 +181,32 @@ public class EventDetailsActivity extends AppCompatActivity {
         QuestionMark.setVisibility(View.VISIBLE);
         QuestionMarkYellow.setVisibility(View.INVISIBLE);
 
+        //Set event name
         String name = getIntent().getStringExtra("name");
         EventName.setText(name);
 
+        //set event date
+        String date = getIntent().getStringExtra("eventDate");
 
+        //\\s+ is regex for blank space
+        String[] splited = date.split("\\s+");
+
+        String a = splited[0] ;
+        String b = splited[1] ;
+
+        Log.w(a,"Split1");
+        Log.w(b,"Split2");
+
+        if(a.equals("No")){
+            textDay.setText(b);
+            textMonth.setText(a);
+        }
+        else {
+            textDay.setText(a);
+            textMonth.setText(b);
+        }
+
+        //set event location
         String location = getIntent().getStringExtra("location");
         if(!location.isEmpty())
             EventLocation.setText(location);
@@ -282,6 +306,9 @@ public class EventDetailsActivity extends AppCompatActivity {
         EventName  = (TextView) findViewById(R.id.event_name);
         EventLocation  = (TextView) findViewById(R.id.event_location);
         EventAdmin  = (TextView) findViewById(R.id.text_admin);
+
+        textDay  = (TextView) findViewById(R.id.text_day);
+        textMonth  = (TextView) findViewById(R.id.text_month);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.event_details_recycler);
         ParticipantsInThisEvent = (TextView) findViewById(R.id.participants_in_this_event);

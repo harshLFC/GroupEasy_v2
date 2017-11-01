@@ -140,7 +140,44 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         viewHolder.eventID.setText(GroupKey);
         viewHolder.EventNum.setText(mList1.get(position).getId());
 
+        String myDate = mList1.get(position).getFromDate();
 
+        if(myDate!= null) {
+//            viewHolder.EventDate.setText(myDate);
+
+            /**Get string date back from server
+             * 1. Split string into day and month
+             * 2. Check month with array and display accordingly**/
+            String[] parts = myDate.split("/");
+            String part1 = parts[0]; // 004
+            String part2 = parts[1]; // 034556
+
+            int i = Integer.parseInt(part2);
+
+            String[] str = {"Jan",
+                    "Feb",
+                    "Mar",
+                    "April",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sept",
+                    "Oct",
+                    "Nov",
+                    "Dec","Dec"};
+
+            String monthString;
+
+            if( i <str.length){
+                monthString =  str[i-1];
+                viewHolder.EventDate.setText(part1+" "+monthString);
+            }
+            else {
+                monthString = "invalid Month";
+            viewHolder.EventDate.setText(part1+monthString);
+            }
+        }
 
        //tests
         /* String test = mList2.get(position).getName();
@@ -394,6 +431,9 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 String eventNum = EventNum.getText().toString();
                 intent.putExtra("eventNum",eventNum);
+
+               String eventDate = EventDate.getText().toString();
+                intent.putExtra("eventDate",eventDate);
 
 
                 v.getContext().startActivity(intent);
