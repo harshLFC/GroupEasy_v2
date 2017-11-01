@@ -242,7 +242,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 final String uid = current_user.getUid();
 
                 if(dataSnapshot.hasChild(uid)) {
-                    Toast.makeText(EventDetailsActivity.this, "User has child here", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(EventDetailsActivity.this, "User has child here", Toast.LENGTH_SHORT).show();
                     String test;
 
 //                    test = dataSnapshot.child(uid).child("value").getValue().toString();

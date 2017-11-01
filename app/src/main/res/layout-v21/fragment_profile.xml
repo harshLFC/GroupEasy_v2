@@ -328,6 +328,7 @@
             android:elevation="5dp"
             android:id="@+id/help">
             <TextView
+                android:gravity="center_vertical"
                 android:id="@+id/log_in_out"
                 android:layout_margin="16dp"
                 android:text="Logout "
