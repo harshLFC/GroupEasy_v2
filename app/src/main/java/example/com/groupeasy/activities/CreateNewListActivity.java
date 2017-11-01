@@ -95,7 +95,10 @@ public class CreateNewListActivity extends AppCompatActivity {
 
                 // Aquire and convert data to string to prepare it for the push
                 EventName = eventName.getText().toString();
-                EventDetails = eventDetails.getText().toString();
+
+                if (eventDetails.getText().toString().trim().length() > 0) {
+                    EventDetails = eventDetails.getText().toString();
+                }
 
                 if (location.getText().toString().trim().length() > 0) {
                     Location = location.getText().toString();
@@ -115,10 +118,25 @@ public class CreateNewListActivity extends AppCompatActivity {
                 boolean one_day_event = oneDayEvent.isChecked();
                 boolean global_event = globalEvent.isChecked();
 
-                fromDATE = TvFrom.getText().toString();
-                fromTIME = timeFrom.getText().toString();
-                toDATE = TvTo.getText().toString();
-                toTIME = timeTo.getText().toString();
+                if (!TvFrom.getText().toString().equals("Start date"))  {
+                    fromDATE = TvFrom.getText().toString();
+                }
+
+                if (!timeFrom.getText().toString().equals("Start time"))  {
+                    fromTIME = timeFrom.getText().toString();
+                }
+
+                if (!TvTo.getText().toString().equals("End date"))  {
+                    toDATE = TvTo.getText().toString();
+                }
+                if (!timeTo.getText().toString().equals("End time"))  {
+                    toTIME = timeTo.getText().toString();
+                }
+
+//                fromDATE = TvFrom.getText().toString();
+//                fromTIME = timeFrom.getText().toString();
+//                toDATE = TvTo.getText().toString();
+//                toTIME = timeTo.getText().toString();
 
 
 

@@ -5,39 +5,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.activities.EventDetailsActivity;
-import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.members_In;
-import example.com.groupeasy.pojo.users_list;
 
 /**
  * Created by Harsh on 17-09-2017.
  */
 
-public class EventDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ParticipantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<members_In> mLstGroups;
-    private static EventDetailsAdapter.EventViewHolder.ClickListener clickListener;
+    private static ParticipantsAdapter.EventViewHolder.ClickListener clickListener;
     Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
 
-    public EventDetailsAdapter(List<members_In> mLstGroups, Context context) {
+    public ParticipantsAdapter(List<members_In> mLstGroups, Context context) {
         this.mLstGroups = mLstGroups;
     }
 
-    public EventDetailsAdapter() {
+    public ParticipantsAdapter() {
 
     }
 
@@ -69,7 +63,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        EventDetailsAdapter.EventViewHolder viewHolder = (EventDetailsAdapter.EventViewHolder) holder;
+        ParticipantsAdapter.EventViewHolder viewHolder = (ParticipantsAdapter.EventViewHolder) holder;
 
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
@@ -129,7 +123,7 @@ public class EventDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         public void setOnItemClickListener(ClickListener clickListener) {
-            EventDetailsAdapter.clickListener = clickListener;
+            ParticipantsAdapter.clickListener = clickListener;
         }
 
         public interface ClickListener {

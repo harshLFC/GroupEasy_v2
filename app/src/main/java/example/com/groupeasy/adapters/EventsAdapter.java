@@ -149,6 +149,9 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
              * 1. Split string into day and month
              * 2. Check month with array and display accordingly**/
             String[] parts = myDate.split("/");
+//            String part1 = "1"; // 004
+//            String part2 = "10";
+
             String part1 = parts[0]; // 004
             String part2 = parts[1]; // 034556
 

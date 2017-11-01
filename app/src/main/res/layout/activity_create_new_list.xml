@@ -372,7 +372,7 @@
                                     android:id="@+id/tv_to_time"
                                     android:layout_marginLeft="8dp"
                                     style="@style/TextAppearance.AppCompat.Small"
-                                    android:text="End Time"
+                                    android:text="End time"
                                     android:maxLines="1"
                                     android:layout_width="62dp"
                                     android:layout_weight="1"

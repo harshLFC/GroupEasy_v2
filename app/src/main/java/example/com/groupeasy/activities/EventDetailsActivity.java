@@ -1,8 +1,6 @@
 package example.com.groupeasy.activities;
 
-import android.app.usage.UsageEvents;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -27,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.adapters.EventDetailsAdapter;
-import example.com.groupeasy.adapters.EventsAdapter;
+import example.com.groupeasy.adapters.ParticipantsAdapter;
 import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.members_In;
 
@@ -47,12 +44,22 @@ public class EventDetailsActivity extends AppCompatActivity {
     private ImageButton QuestionMarkYellow;
     private TextView textMonth;
     private TextView textDay;
+    private TextView textDescription;
+
+    private TextView minPart;
+    private TextView maxPart;
+//    private TextView textTime;
+    private TextView textDateFrom;
+    private TextView textTimeFrom;
+    private TextView textDateTo;
+    private TextView textTimeTo;
 
 
     //dynamic data elements
-    private EventDetailsAdapter mAdapter;
+    private ParticipantsAdapter mAdapter;
 //    private List <list_details> mLstGroups;
     private List <members_In> mLstGroups2;
+    private List <list_details> mLstGroups;
     private RecyclerView mRecyclerView;
 
     //firebase db elements
@@ -73,7 +80,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         updateDisplay();
 
         mLstGroups2 = new ArrayList<>();
-        mAdapter = new EventDetailsAdapter(mLstGroups2,this);
+        mLstGroups = new ArrayList<>();
+        mAdapter = new ParticipantsAdapter(mLstGroups2,this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mRecyclerView.setAdapter(mAdapter);
@@ -191,19 +199,19 @@ public class EventDetailsActivity extends AppCompatActivity {
         //\\s+ is regex for blank space
         String[] splited = date.split("\\s+");
 
-        String a = splited[0] ;
-        String b = splited[1] ;
+        final String startDay = splited[0] ;
+        final String startMonth = splited[1] ;
 
-        Log.w(a,"Split1");
-        Log.w(b,"Split2");
+        Log.w(startDay,"Split1");
+        Log.w(startMonth,"Split2");
 
-        if(a.equals("No")){
-            textDay.setText(b);
-            textMonth.setText(a);
+        if(startDay.equals("No")){
+            textDay.setText(startMonth);
+            textMonth.setText(startDay);
         }
         else {
-            textDay.setText(a);
-            textMonth.setText(b);
+            textDay.setText(startDay);
+            textMonth.setText(startMonth);
         }
 
         //set event location
@@ -216,8 +224,8 @@ public class EventDetailsActivity extends AppCompatActivity {
         if(!location.isEmpty())
             EventAdmin.setText(admin);
 
-        String GroupKey = getIntent().getStringExtra("Groupkey");
-        String EventNum = getIntent().getStringExtra("eventNum");
+        final String GroupKey = getIntent().getStringExtra("Groupkey");
+        final String EventNum = getIntent().getStringExtra("eventNum");
 
 //        Log.w(GroupKey,"ThisIsGroupKey");
 
@@ -228,14 +236,74 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mLstGroups2.removeAll(mLstGroups2);
+                mLstGroups.removeAll(mLstGroups);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     members_In members = snapshot.getValue(members_In.class);
                     mLstGroups2.add(members);
 
+
+
                 }
                 mAdapter.notifyDataSetChanged();
+
+
+                /**Add listener to 'extra' child and display elements in ui**/
+                groupRef.child(GroupKey).child(EventNum).child("extra").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        list_details listDetails = dataSnapshot.getValue(list_details.class);
+                        mLstGroups.add(listDetails);
+
+                        //setDetails
+                        String EventDetails = mLstGroups.get(0).getDetails();
+                        if(EventDetails!=null)
+                        textDescription.setText("***"+EventDetails+"***");
+
+                        //set Min and Max variables
+                        String MinPart = mLstGroups.get(0).getMin();
+                        if(MinPart!=null)
+                        minPart.setText(MinPart);
+                        String MaxPart = mLstGroups.get(0).getMax();
+                        if(MaxPart!=null)
+                        maxPart.setText(MaxPart);
+
+                        //setTime
+
+                        String FromTime = mLstGroups.get(0).getFromTime();
+                        String ToTime = mLstGroups.get(0).getToTime();
+                        String ToDate = mLstGroups.get(0).getToDate();
+//                        textTime.setText("From"+startDay+startMonth+"At"+FromTime+"Till"+ToDate+ToTime);
+
+                        if(FromTime!=null){
+                            textTimeFrom.setText(FromTime);
+                            textTimeFrom.setVisibility(View.VISIBLE);
+                        }
+                        if(ToTime!=null) {
+                            textTimeTo.setText(ToTime);
+                            textTimeTo.setVisibility(View.VISIBLE);
+
+                        }
+                        if(startDay!=null) {
+                            textDateFrom.setText(startDay + startMonth);
+                            textDateFrom.setVisibility(View.VISIBLE);
+
+                        }
+                        if(ToDate!=null) {
+                            textDateTo.setText(ToDate);
+                            textDateTo.setVisibility(View.VISIBLE);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
 
                 /**check user 'value' under participants and display appropriate icon**/
                 FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
@@ -299,6 +367,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void initElementsById() {
@@ -309,6 +378,15 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         textDay  = (TextView) findViewById(R.id.text_day);
         textMonth  = (TextView) findViewById(R.id.text_month);
+        textDescription  = (TextView) findViewById(R.id.text_description);
+        minPart  = (TextView) findViewById(R.id.min_parrticipant);
+        maxPart  = (TextView) findViewById(R.id.max_participant);
+//        textTime  = (TextView) findViewById(R.id.text_time);
+
+        textTimeFrom  = (TextView) findViewById(R.id.from_time);
+        textTimeTo  = (TextView) findViewById(R.id.to_time);
+        textDateFrom  = (TextView) findViewById(R.id.from_date);
+        textDateTo = (TextView) findViewById(R.id.to_date);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.event_details_recycler);
         ParticipantsInThisEvent = (TextView) findViewById(R.id.participants_in_this_event);
