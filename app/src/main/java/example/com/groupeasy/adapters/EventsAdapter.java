@@ -29,9 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Array;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Timer;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.EventDetailsActivity;
@@ -104,10 +105,31 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         /**Set event details to card**/
         viewHolder.eventName.setText(mList1.get(position).getName());
-        viewHolder.admin.setText(mList1.get(position).getAdmin());
-
         String admin = mList1.get(position).getAdmin();
-        Log.w(admin, "checkThis");
+
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String uid = user.getUid();
+        DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("members").child(admin);
+
+        userImageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.hasChild("name"))
+                viewHolder.admin.setText(dataSnapshot.child("name").getValue().toString());
+//                else
+//                    viewHolder.admin.setText(mList1.get(position).getAdmin());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
 
@@ -117,6 +139,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //the following 2 hidden views for eventDetails screen
         viewHolder.eventID.setText(GroupKey);
         viewHolder.EventNum.setText(mList1.get(position).getId());
+
 
 
        //tests
@@ -161,7 +184,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .load(image)
                         .placeholder(R.drawable.ic_default_groups)
                         .resize(50,50)
-                        .into(((EventsAdapter.EventViewHolder) holder).userImage);
+                        .into(((EventViewHolder) holder).userImage);
             }
 
             @Override
@@ -297,6 +320,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private ImageView myHeart;
         private TextView DetailsText;
         private TextView EventNum;
+        private TextView EventDate;
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
@@ -322,6 +346,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             DetailsText = (TextView) itemView.findViewById(R.id.details_txt);
             myHeart = (ImageView) itemView.findViewById(R.id.heart);
             EventNum = (TextView) itemView.findViewById(R.id.eventNum);
+            EventDate = (TextView) itemView.findViewById(R.id.event_date);
 
 
             eventName.setOnClickListener(this);

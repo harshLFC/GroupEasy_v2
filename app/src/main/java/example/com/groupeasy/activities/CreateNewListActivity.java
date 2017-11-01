@@ -180,10 +180,11 @@ public class CreateNewListActivity extends AppCompatActivity {
 
 
 
-                            list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id);
+                            list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id, finalFromDate);
                             //send primary details
                             groupRef.child(push_id).setValue(listMain);
-                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
+                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
+//                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
 
                             HashMap myMap = new HashMap();
                             myMap.put("details", finalEventDetails);

@@ -90,9 +90,8 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                ThumbUp.setVisibility(View.INVISIBLE);
-                ThumbUpGreen.setVisibility(View.VISIBLE);
+//                ThumbUp.setVisibility(View.INVISIBLE);
+//                ThumbUpGreen.setVisibility(View.VISIBLE);
 
                 final String GroupKey = getIntent().getStringExtra("Groupkey");
                 final String EventNum = getIntent().getStringExtra("eventNum");
@@ -113,6 +112,55 @@ public class EventDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
+                    }
+                });
+            }
+        });
+
+
+
+        QuestionMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                QuestionMark.setVisibility(View.INVISIBLE);
+//                QuestionMarkYellow.setVisibility(View.VISIBLE);
+
+                final String GroupKey = getIntent().getStringExtra("Groupkey");
+                final String EventNum = getIntent().getStringExtra("eventNum");
+
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                final String uid = current_user.getUid();
+
+                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
+                        groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("value").setValue("Maybe");
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
+        });
+
+        ThumbDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String GroupKey = getIntent().getStringExtra("Groupkey");
+                final String EventNum = getIntent().getStringExtra("eventNum");
+
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                final String uid = current_user.getUid();
+
+                myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
+                        groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("value").setValue("Out");
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
             }
@@ -169,33 +217,50 @@ public class EventDetailsActivity extends AppCompatActivity {
                 FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                 final String uid = current_user.getUid();
 
-                if(dataSnapshot.hasChild(uid)){
-                    Toast.makeText(EventDetailsActivity.this, "User has child here",Toast.LENGTH_SHORT).show();
-                    String test = dataSnapshot.child(uid).child("value").getValue().toString();
+                if(dataSnapshot.hasChild(uid)) {
+                    Toast.makeText(EventDetailsActivity.this, "User has child here", Toast.LENGTH_SHORT).show();
+                    String test;
 
-                    if(test.equals("In")){
-                        ThumbUp.setVisibility(View.INVISIBLE);
-                        ThumbUpGreen.setVisibility(View.VISIBLE);
+//                    test = dataSnapshot.child(uid).child("value").getValue().toString();
+
+                    if (dataSnapshot.child(uid).child("value").getValue() != null) {
+
+                        test = dataSnapshot.child(uid).child("value").getValue().toString();
+
+
+                        if (test.equals("In")) {
+                            QuestionMarkYellow.setVisibility(View.INVISIBLE);
+                            ThumbDownRed.setVisibility(View.INVISIBLE);
+                            QuestionMark.setVisibility(View.VISIBLE);
+                            ThumbDown.setVisibility(View.VISIBLE);
+
+                            ThumbUp.setVisibility(View.INVISIBLE);
+                            ThumbUpGreen.setVisibility(View.VISIBLE);
+                        } else if (test.equals("Out")) {
+                            QuestionMarkYellow.setVisibility(View.INVISIBLE);
+                            ThumbUpGreen.setVisibility(View.INVISIBLE);
+                            QuestionMark.setVisibility(View.VISIBLE);
+                            ThumbUp.setVisibility(View.VISIBLE);
+
+                            ThumbDown.setVisibility(View.INVISIBLE);
+                            ThumbDownRed.setVisibility(View.VISIBLE);
+                        } else if (test.equals("Maybe")) {
+                            ThumbDownRed.setVisibility(View.INVISIBLE);
+                            ThumbDown.setVisibility(View.VISIBLE);
+                            ThumbUpGreen.setVisibility(View.INVISIBLE);
+                            ThumbUp.setVisibility(View.VISIBLE);
+
+                            QuestionMark.setVisibility(View.INVISIBLE);
+                            QuestionMarkYellow.setVisibility(View.VISIBLE);
+                        }
+
+
+                    } else {
+                        Toast.makeText(EventDetailsActivity.this, "User DOES NOT has child here", Toast.LENGTH_SHORT).show();
+
+
                     }
-
-                    else if(test.equals("Out")){
-                        ThumbDown.setVisibility(View.INVISIBLE);
-                        ThumbDownRed.setVisibility(View.VISIBLE);
-                    }
-
-                    else if(test.equals("Maybe")){
-                        QuestionMark.setVisibility(View.INVISIBLE);
-                        QuestionMarkYellow.setVisibility(View.VISIBLE);
-                    }
-
-
                 }
-                else{
-                    Toast.makeText(EventDetailsActivity.this, "User DOES NOT has child here",Toast.LENGTH_SHORT).show();
-
-
-                }
-
 
                 //if condition to check if there are no members responded to this event yet
                 //if list is empty say no participants
@@ -209,12 +274,6 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
 
     }
 

@@ -11,12 +11,14 @@ import java.util.Map;
 
 public class list_primary {
 
-    public list_primary(String name, String admin, String location, String id) {
+
+    public list_primary(String name, String admin, String location, String id, String fromDate) {
 //    public list_primary(String name, String admin, String location, String id, members_In in, Out out, Maybe maybe) {
         this.name = name;
         this.admin = admin;
         this.location = location;
         this.id = id;
+        this.fromDate = fromDate;
 //        this.out = out;
 //        this.maybe = maybe;
     }
@@ -25,6 +27,7 @@ public class list_primary {
     String admin;
     String location;
     String id;
+    String fromDate;
 
 //    public members_In getIn() {
 //        return in;
@@ -101,6 +104,13 @@ public class list_primary {
         this.location = location;
     }
 
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
 //    public static class members_In{
 //        String in;
 //

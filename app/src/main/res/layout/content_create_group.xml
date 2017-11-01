@@ -65,19 +65,21 @@
        <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
+           android:layout_below="@+id/GroupDPImageView"
            android:layout_alignParentLeft="true"
            android:layout_alignParentStart="true"
-           android:layout_marginBottom="106dp">
+           android:layout_marginTop="110dp"
+           android:padding="10dp">
 
         <EditText
+            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Group Name"
             android:id="@+id/input"
             android:maxLines="1"
             android:inputType="text"
-            android:maxLength="22"/>
+            android:maxLength="40"/>
     </android.support.design.widget.TextInputLayout>
 
 

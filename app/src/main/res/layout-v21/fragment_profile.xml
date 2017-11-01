@@ -317,27 +317,31 @@
         <!--fav end-->
 
         <LinearLayout
-            android:visibility="gone"
-            android:elevation="5dp"
-            android:id="@+id/help"
             android:gravity="center|left"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/rounded_corners_shape"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:visibility="visible"
+            android:elevation="5dp"
+            android:id="@+id/help">
             <TextView
                 android:id="@+id/log_in_out"
                 android:layout_margin="16dp"
-                style="@android:style/TextAppearance.Medium"
                 android:text="Logout "
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:layout_marginLeft="10dp"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_weight="4"
+                android:layout_height="30dp"
+                android:layout_width="1dp"
+                android:textColor="@color/white"
+                />
             <TextView
                 android:textColor="@color/white"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/ic_arrow_break"
-                android:text="4"
                 android:padding="16dp"
                 android:gravity="center"
                 android:textSize="@dimen/group_header_text_size"
