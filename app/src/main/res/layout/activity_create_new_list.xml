@@ -8,7 +8,7 @@
     android:background="#f6f6f6"
     android:focusable="false"
     android:focusableInTouchMode="true"
-    tools:context="example.com.groupeasy.activities.CreateNewListActivity">
+    tools:context="example.com.groupeasy.activities.CreateEventActivity">
 
     <LinearLayout
         android:elevation = "20dp"

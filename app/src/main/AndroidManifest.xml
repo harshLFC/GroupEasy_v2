@@ -37,7 +37,8 @@
         <activity
             android:name=".activities.DashboardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+            />
 
         <activity
             android:name=".activities.CreatePollActivity"
@@ -51,7 +52,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".activities.CreateNewListActivity"
+            android:name=".activities.CreateEventActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 

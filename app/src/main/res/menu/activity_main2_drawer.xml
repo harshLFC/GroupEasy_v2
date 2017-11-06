@@ -3,9 +3,9 @@
 
     <group>
         <item
-            android:id="@+id/settings"
+            android:id="@+id/log_out"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="Logout" />
         <item
             android:id="@+id/help"
             android:icon="@drawable/ic_menu_slideshow"

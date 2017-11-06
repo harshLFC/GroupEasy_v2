@@ -331,6 +331,28 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         });
 
 
+        //attempt to set favourites
+
+        myRef.child("members").child(uid).child("favs").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                //first check if child exists
+                if (dataSnapshot.hasChild(eventNum)) {
+                    viewHolder.myHeart.setColorFilter(Color.RED);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
 
@@ -410,11 +432,39 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             else if (v.getId() == myHeart.getId()) {
 
+               FirebaseDatabase database = FirebaseDatabase.getInstance();
+               final DatabaseReference myRef = database.getReference();
 
-                Toast.makeText(v.getContext(), "Event Favourited !", Toast.LENGTH_SHORT).show();
-                myHeart.setColorFilter(Color.RED);
+               FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+               final String uid = current_user.getUid();
+               final String Groupkey = eventID.getText().toString();
+               final String eventNum = EventNum.getText().toString();
 
-//            clickListener.onItemClick(getAdapterPosition(),v);
+               //code to set fav event
+               myRef.child("members").child(uid).child("favs").addListenerForSingleValueEvent(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(DataSnapshot dataSnapshot) {
+
+                       //first check if child exists
+                       if (dataSnapshot.hasChild(eventNum)) {
+
+                           myRef.child("members").child(uid).child("favs").child(eventNum).setValue(null);
+                           myHeart.setColorFilter(Color.LTGRAY);
+                           Toast.makeText(v.getContext(), "Event Removed !", Toast.LENGTH_SHORT).show();
+
+                       }
+                       else {
+                           myRef.child("members").child(uid).child("favs").child(eventNum).setValue(true);
+                           myHeart.setColorFilter(Color.RED);
+                           Toast.makeText(v.getContext(), "Event Favourited !", Toast.LENGTH_SHORT).show();
+                       }
+                   }
+
+                   @Override
+                   public void onCancelled(DatabaseError databaseError) {
+
+                   }
+               });
             }
 
             else if (v.getId() == DetailsText.getId() || v.getId() == eventName.getId()){

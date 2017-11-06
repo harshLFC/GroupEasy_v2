@@ -44,9 +44,9 @@ import example.com.groupeasy.pojo.list_details;
 
 /** Activity which creates new list */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class CreateNewListActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity {
 
-    public static final String TAG = CreateNewListActivity.class.getSimpleName();
+    public static final String TAG = CreateEventActivity.class.getSimpleName();
     private Context context;
 
     private TextInputEditText eventName, eventDetails;
@@ -77,7 +77,7 @@ public class CreateNewListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_list);
-        context = CreateNewListActivity.this;
+        context = CreateEventActivity.this;
 
         initElementsWithIds();
         initElementsWithListeners();
@@ -165,57 +165,19 @@ public class CreateNewListActivity extends AppCompatActivity {
                     final boolean finalOneDayEvent = one_day_event;
                     final boolean finalGlobalEvent = global_event;
 
+                    String push_id = groupRef.push().getKey();
 
-                    groupRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            long i = dataSnapshot.getChildrenCount();
-
-                            Log.w(String.valueOf(i),"numOfCHildren");
-
-                            String push_id = String.valueOf(i+1);
-//                            String push_id = groupRef.push().getKey();
-
-                            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-                            String uid = current_user.getUid();
+                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = current_user.getUid();
 
 //                            code here
-                            myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
+                    myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                    String userName = dataSnapshot.getValue().toString();
-                                    Log.w(userName, "thisIstheName");
+                            String userName = dataSnapshot.getValue().toString();
+                            Log.w(userName, "thisIstheName");
 
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-
-
-
-                            list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id, finalFromDate);
-                            //send primary details
-                            groupRef.child(push_id).setValue(listMain);
-                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
-//                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
-
-                            HashMap myMap = new HashMap();
-                            myMap.put("details", finalEventDetails);
-                            myMap.put("details", finalEventDetails);
-
-                            //send extra details
-                            groupRef.child(push_id).child("extra").setValue(newList);
-
-                            //send participant details ?
-//                            groupRef.child(push_id).child("participants").setValue(newList);
-
-                            Toast.makeText(CreateNewListActivity.this, "Event Created! ", Toast.LENGTH_SHORT).show();
-                            finish();
 
                         }
 
@@ -224,6 +186,46 @@ public class CreateNewListActivity extends AppCompatActivity {
 
                         }
                     });
+
+
+
+                    list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id, finalFromDate);
+                    //send primary details
+                    groupRef.child(push_id).setValue(listMain);
+                    list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
+//                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
+
+                    HashMap myMap = new HashMap();
+                    myMap.put("details", finalEventDetails);
+                    myMap.put("details", finalEventDetails);
+
+                    //send extra details
+                    groupRef.child(push_id).child("extra").setValue(newList);
+
+                    //send participant details ?
+//                            groupRef.child(push_id).child("participants").setValue(newList);
+
+                    Toast.makeText(CreateEventActivity.this, "Event Created! ", Toast.LENGTH_SHORT).show();
+                    finish();
+
+
+           /*         groupRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long i = dataSnapshot.getChildrenCount();
+
+                            Log.w(String.valueOf(i),"numOfCHildren");
+
+//                            String push_id = String.valueOf(i+1);
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });*/
 
                 }
             }
@@ -250,7 +252,7 @@ public class CreateNewListActivity extends AppCompatActivity {
         popUpPublicEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewListActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                 builder
                         .setMessage(R.string.Lorem_Ipsum_large)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -268,7 +270,7 @@ public class CreateNewListActivity extends AppCompatActivity {
         popUpOneDayEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewListActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                 builder
                         .setMessage(R.string.Lorem_Ipsum_large)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -370,7 +372,7 @@ public class CreateNewListActivity extends AppCompatActivity {
 
             //bug in this code
 //            if(currentDate.after(c) | (currentDate.equals(c))) {
-//                Toast.makeText(CreateNewListActivity.this, "WARNING:You have selected date in the past", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CreateEventActivity.this, "WARNING:You have selected date in the past", Toast.LENGTH_SHORT).show();
 //            }
 
             TvFrom.setText(dayOfMonth + "/" + (month + 1) + "/" + year);

@@ -10,9 +10,14 @@
     <include layout="@layout/app_bar_layout"
         android:id="@+id/edit_group_tool"
         android:layout_height="56dp"
-        android:layout_width="385dp"
-        tools:layout_editor_absoluteX="-10dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintHorizontal_bias="0.0">
     </include>
 
     <de.hdodenhof.circleimageview.CircleImageView

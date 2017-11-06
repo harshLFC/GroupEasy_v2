@@ -1,5 +1,6 @@
 package example.com.groupeasy.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +41,8 @@ public class ProfileFragment extends Fragment {
     LinearLayout logOut, polls, lists, rosters, favourites;
     FloatingActionButton userProfile;
 
+    TextView Favs;
+
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
     private FirebaseAuth mAuth;
@@ -52,8 +56,15 @@ public class ProfileFragment extends Fragment {
 
         initElementWIthIds(view);
         initElementWIthListeners();
+        renderDisplay();
 
-//code for pulling data from server and displaying details on screen
+        return  view;
+    }
+
+    private void renderDisplay() {
+
+
+        //code for pulling data from server and displaying details on screen
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
 
@@ -65,16 +76,21 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
-                    String name = dataSnapshot.child("name").getValue().toString();
-                    String image = dataSnapshot.child("image").getValue().toString();
-                    String status = dataSnapshot.child("status").getValue().toString();
-                    String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
+                String name = dataSnapshot.child("name").getValue().toString();
+                String image = dataSnapshot.child("image").getValue().toString();
+                String status = dataSnapshot.child("status").getValue().toString();
+                String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
+
+                Long FavCount = dataSnapshot.child("favs").getChildrenCount();
+
+                Favs.setText(FavCount.toString());
 
 //                    user_name.setText(name);
                 myCollapsingTool.setTitle(name);
-                    user_status.setText(status);
+                user_status.setText(status);
                 Picasso.with(getContext())
                         .load(image)
+                        .placeholder(R.drawable.ic_default_user_single)
                         .resize(300,300)
                         .centerCrop()
                         .into(profile_pic);
@@ -85,43 +101,9 @@ public class ProfileFragment extends Fragment {
                 //handle errors here
             }
         });
-
-//check if user is Logged in and do the needful
-        if (mCurrentUser == null){
-            loggedOut();
-        }
-        else{
-            loggedIn();
-        }
-        return  view;
     }
 
-    private void loggedOut() {
-        log_in_out.setText("Log in");
-        myCollapsingTool.setTitle("You are not logged in");
-    }
 
-    private void loggedIn() {
-//        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-//        final String uid = mCurrentUser.getUid();
-//        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
-//
-//
-//        mUserDatabase.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Toast.makeText(getContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//                //handle errors here
-//
-//            }
-//        });
-    }
 
     private void initElementWIthListeners() {
 
@@ -137,17 +119,22 @@ public class ProfileFragment extends Fragment {
 //                }
 //                else    {
 //
-                    mAuth.signOut();
+//                    mAuth.signOut();
 
 
 //                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
 
                     Intent intent = new Intent(v.getContext(),LoginActivity.class);
+
+                /**delete finish if there is trouble logging out**/
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    getActivity().finish();
 
                     Toast toast = Toast.makeText(v.getContext(),"You have been logged out", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+
 
 //                    Toast.makeText(v.getContext(), "You have been logged out",Toast.LENGTH_LONG).show();
 //                }
@@ -198,6 +185,24 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(),edit);
+
+                String user_value_name = myCollapsingTool.getTitle().toString();
+                String user_value_status = user_status.getText().toString();
+
+                Intent intent = new Intent(v.getContext(), editProfileActivity.class);
+
+                intent.putExtra("user_value_name",user_value_name);
+                intent.putExtra("user_value_status",user_value_status);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initElementWIthIds(View view) {
@@ -213,5 +218,7 @@ public class ProfileFragment extends Fragment {
         userProfile = (FloatingActionButton) view.findViewById(R.id.user_profile);
 
         myCollapsingTool = (CollapsingToolbarLayout) view.findViewById(R.id.collapsingToolbar);
+
+        Favs = (TextView) view.findViewById(R.id.favs_count);
     }
 }

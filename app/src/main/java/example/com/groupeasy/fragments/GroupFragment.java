@@ -101,14 +101,14 @@ public class GroupFragment extends Fragment {
         floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
-                if(opened)
+               /* if(opened)
                 {
                     backgroundView.setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     backgroundView.setVisibility(View.GONE);
-                }
+                }*/
             }
         });
 
@@ -116,7 +116,7 @@ public class GroupFragment extends Fragment {
         fabCreateList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CreateNewListActivity.class);
+                Intent intent = new Intent(getActivity(), CreateEventActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -158,6 +158,7 @@ public class GroupFragment extends Fragment {
         groupRef.keepSynced(true);
 
         final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+
         final String uid = current_user.getUid();
 
 

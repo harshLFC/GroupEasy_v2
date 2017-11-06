@@ -92,6 +92,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 Picasso.with(editProfileActivity.this)
                         .load(image)
+                        .placeholder(R.drawable.ic_default_user_single)
 //                        .resize(100,100)
                         .into(profileImage);
             }
@@ -187,7 +188,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 //trying for button effect
                 //// TODO: 04-09-2017 delete if not required
-                buttonEffect(editImage);
+//                buttonEffect(editImage);
 
                 /*
                 Intent gallery_intent = new Intent();
@@ -198,6 +199,18 @@ public class editProfileActivity extends AppCompatActivity {
                 */
             }
         });
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1,1)
+                        .start(editProfileActivity.this);
+                }
+        });
+
     }
 
     private void initElementsWithIds() {
@@ -210,7 +223,7 @@ public class editProfileActivity extends AppCompatActivity {
             profileImage = (CircleImageView) findViewById(R.id.circleImageView);
     }
 
-    public static void buttonEffect(View button){
+/*    public static void buttonEffect(View button){
         button.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -229,7 +242,7 @@ public class editProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
+    }*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {

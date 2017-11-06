@@ -8,8 +8,10 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 import example.com.groupeasy.R;
 
@@ -33,12 +36,15 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     private Button btnLoginEmail, register;
     private TextInputLayout userEmail, userPassword;
-    private TextView BtnLogin;
+    private ImageView BtnLogin;
 
     private ProgressDialog mRegProgress;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +70,17 @@ public class LoginActivity extends AppCompatActivity {
         BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(current_user != null){
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
                 finish();
+                }
+
+                else
+                    Toast.makeText(LoginActivity.this, "Make sure you are logged in",Toast.LENGTH_SHORT).show();;
+
+
             }
         });
 
@@ -133,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initElementsWithIds()
     {
-        BtnLogin = (TextView) findViewById(R.id.btn_login);
+        BtnLogin = (ImageView) findViewById(R.id.login_logo);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
         register = (Button) findViewById(R.id.Register);
 

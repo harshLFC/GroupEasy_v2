@@ -195,7 +195,7 @@ public class chatRoomActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(chatRoomActivity.this,CreateNewListActivity.class);
+                Intent intent = new Intent(chatRoomActivity.this,CreateEventActivity.class);
                 groupKey = getIntent().getExtras().get("groupKey").toString();
                 intent.putExtra("groupKey",groupKey);
                 startActivity(intent);

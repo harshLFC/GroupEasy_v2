@@ -117,8 +117,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRegProcess.show();
-
 
                 final String groupName = input.getText().toString().trim();
 
@@ -134,6 +132,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 // else the entered string will be pushed to the firebase database reference
                 else {
+                    mRegProcess.show();
 
                     final StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
                     final StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");

@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
@@ -132,18 +134,41 @@ public class createAccount extends AppCompatActivity {
 
     private void register_user(final String mUserEmail, final String mUserName, String mUserPass) {
 
+        mAuth.createUserWithEmailAndPassword(mUserEmail,mUserPass)
+
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
 
+                        Log.w("userIssue","Some NEW ERROR"+e.getMessage());
 
 
-        mAuth.createUserWithEmailAndPassword(mUserEmail,mUserPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    }
+                })
+
+
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
+                Log.w("userIssue","In in onComplete");
+
                 if(task.isSuccessful()){
 
-                    if(current_user != null)
+                    Log.w("userIssue","In in isSuccessful");
+
+
+                    if(current_user == null){
+
+                        Log.w("userIssue","In in current user IS null");
+
+                    }
+
+//                    if(current_user != null)
+                    else
                     {
+                        Log.w("userIssue","In in current user != null");
 
                         final String uid = current_user.getUid();
 
@@ -159,10 +184,6 @@ public class createAccount extends AppCompatActivity {
                                 userMap.put("name",mUserName);
                                 userMap.put("status","Hi! Im on GroupEasy");
                                 userMap.put("image",uri.toString());
-                                userMap.put("favs","0");
-                                userMap.put("polls","0");
-                                userMap.put("rosters","0");
-                                userMap.put("lists","0");
                                 userMap.put("thumb_image","Default");
                                 userMap.put("last_seen","Default");
                                 userMap.put("id",uid);
@@ -229,6 +250,11 @@ public class createAccount extends AppCompatActivity {
                             }
                         });
                     }
+/*
+                    Toast.makeText(createAccount.this,
+                            "????", Toast.LENGTH_LONG)
+                            .show();*/
+                    Log.w("userIssue","?????");
 //                    else
 //                        {
 //                        mRegProcess.hide();
@@ -237,8 +263,18 @@ public class createAccount extends AppCompatActivity {
 //                                "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
 //                                .show();
 //                    }
+
+
+
                 }
-                else
+                else if (!task.isSuccessful()){
+                    FirebaseAuthException e = (FirebaseAuthException )task.getException();
+                    Toast.makeText(createAccount.this, "Failed Registration: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    mRegProcess.hide();
+                }
+
+                //the below code is not required as the above else if handles all errors
+            /*    else
                 {
                     mRegProcess.hide();
                     String error;
@@ -261,9 +297,12 @@ public class createAccount extends AppCompatActivity {
                     Toast.makeText(createAccount.this,
                             "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
                             .show();
-                }
+                }*/
             }
         });
+
+
+
     }
 
 
