@@ -1,5 +1,6 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -76,7 +78,7 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_list);
+        setContentView(R.layout.activity_create_new_event);
         context = CreateEventActivity.this;
 
         initElementsWithIds();
@@ -285,14 +287,50 @@ public class CreateEventActivity extends AppCompatActivity {
         });
 
 
-
-
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
+
             }
         });
+
+        /**The following codes hides keyboard when touched outside**/
+        eventDetails.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        eventName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+
+
+    }
+
+    private void hideKeyboard(View v) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     public void initElementsWithIds() {
@@ -321,6 +359,10 @@ public class CreateEventActivity extends AppCompatActivity {
         LayouttimeFrom = (LinearLayout) findViewById(R.id.layout_from_time);
         LayoutDateFrom = (LinearLayout) findViewById(R.id.layout_from_date);
         LayoutDateTo = (LinearLayout) findViewById(R.id.layout_to_date);
+
+
+
+
     }
 
     @Override
