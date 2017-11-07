@@ -74,7 +74,7 @@
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Status"
+            android:hint="Bio"
             android:maxLength="45"
             android:inputType="text"
             />

@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User Status:"
+                android:text="Bio:"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 />
@@ -356,7 +356,7 @@
         <!--listend-->
     </android.support.v4.widget.NestedScrollView>
 
-    <com.github.clans.fab.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:layout_height="40dp"
         android:layout_width="40dp"
         android:padding="-10dp"
