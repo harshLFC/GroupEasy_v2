@@ -348,7 +348,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
 
                     } else {
-                        Toast.makeText(EventDetailsActivity.this, "User DOES NOT has child here", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(EventDetailsActivity.this, "User DOES NOT has child here", Toast.LENGTH_SHORT).show();
 
 
                     }

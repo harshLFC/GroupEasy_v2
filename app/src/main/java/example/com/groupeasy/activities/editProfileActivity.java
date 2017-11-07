@@ -253,7 +253,6 @@ public class editProfileActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
-//                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
                 String uid = mCurrentUser.getUid();
                 Uri file = Uri.fromFile(new File(image_uri));
@@ -266,19 +265,22 @@ public class editProfileActivity extends AppCompatActivity {
                                 // Get a URL to the uploaded content
 
                                 @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
-                                Toast.makeText(editProfileActivity.this, "Success",Toast.LENGTH_LONG).show();
 
-                                mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(editProfileActivity.this, "Success Uploading image in databse",Toast.LENGTH_LONG).show();
-                                        }
-                                        else{
-                                            Toast.makeText(editProfileActivity.this, "There was some error",Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
+                                mUserDatabase.child("image").setValue(download_url)
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(editProfileActivity.this, "There was some error, Please try again",Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(editProfileActivity.this, "Image updated",Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

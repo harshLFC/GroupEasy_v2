@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -39,7 +40,7 @@ public class GroupFragment extends Fragment {
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
     private List<new_groups> mLstGroups;
-    private TextView emptyView;
+    private ImageView emptyView;
 
     private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
@@ -90,7 +91,7 @@ public class GroupFragment extends Fragment {
         floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floating_action_button);
         backgroundView = view.findViewById(R.id.group_background);
         fabCreateGroup = (FloatingActionButton) view.findViewById(R.id.fab_create_group);
-        emptyView = (TextView) view.findViewById(R.id.empty_view);
+        emptyView = (ImageView) view.findViewById(R.id.empty_view);
 
     }
 

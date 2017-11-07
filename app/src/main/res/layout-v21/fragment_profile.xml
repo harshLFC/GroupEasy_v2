@@ -356,13 +356,14 @@
         <!--listend-->
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.github.clans.fab.FloatingActionButton
         android:layout_height="40dp"
         android:layout_width="40dp"
         android:padding="-10dp"
         android:id="@+id/user_profile"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:src="@drawable/ic_edit_create_white"
+        android:src="@drawable/ic_edit_user"
+        app:fab_size="mini"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"
         android:elevation="10dp"

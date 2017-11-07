@@ -93,10 +93,10 @@
         android:layout_marginLeft="8dp"
         android:background="@drawable/my_circle"
         android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <!---hex-->
         <TextView

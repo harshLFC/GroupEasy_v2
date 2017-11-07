@@ -7,8 +7,22 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_gravity="end"
+    android:id="@+id/my_constrained_message_out"
     android:layout_marginTop="10dp"
     android:elevation="6dp">
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/message_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-KyLKH37AM3hzxzMA2SM"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/message_text"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/message_text"
+        app:layout_constraintBottom_toBottomOf="@+id/message_text"
+        android:layout_marginBottom="8dp" />
 
     <!--<de.hdodenhof.circleimageview.CircleImageView-->
     <!--android:id="@+id/imageView1"-->

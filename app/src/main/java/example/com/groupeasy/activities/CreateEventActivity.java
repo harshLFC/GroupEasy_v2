@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -291,7 +292,9 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+//                Intent intent = new Intent(context,LocationActivity.class);
+//                startActivity(intent);
+//                finish();
 
             }
         });
@@ -323,9 +326,6 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     private void hideKeyboard(View v) {

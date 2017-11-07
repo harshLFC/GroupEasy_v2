@@ -119,7 +119,7 @@
             app:layout_constraintHorizontal_bias="0.086" />
 
         <LinearLayout
-            android:background="@color/lemon_yellow"
+            android:background="@color/golden"
             android:id="@+id/linearLayout3"
             android:layout_width="0dp"
             android:layout_height="40dp"

@@ -130,53 +130,37 @@ public class lists_activity extends AppCompatActivity {
            /* groupRef.child(groupKey).child(temp).child("participants").child("").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                     mLstGroups2.removeAll(mLstGroups2);
-
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         members_In members = snapshot.getValue(members_In.class);
                         mLstGroups2.add(members);
                     }
                     mAdapter.notifyDataSetChanged();
-
                 }
-
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
                 }
-
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-
                 }
-
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });*/
-
 
                  /* groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
                     mLstGroups2.removeAll(mLstGroups2);
-
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
                         members_In members = snapshot.getValue(members_In.class);
                         mLstGroups2.add(members);
                     }
                     mAdapter.notifyDataSetChanged();
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }

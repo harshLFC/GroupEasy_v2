@@ -10,6 +10,7 @@
     <color name="faint_black">#44424F</color>
     <color name="lemon_yellow">#fff44f</color>
     <color name="golden">#ffdf00</color>
+    <color name="golden_opacity">#80ffdf00</color>
     <color name="grey">#c0c0c0</color>
     <color name="light_grey">#f5f5f5</color>
     <color name="red">#d32f2f</color>

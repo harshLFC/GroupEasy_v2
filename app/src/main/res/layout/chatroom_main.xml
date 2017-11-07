@@ -55,18 +55,24 @@
         android:background="@color/colorPrimary"
         android:elevation="30dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/chat_room_button"
             >
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="sample"
+                android:text="samplesamplesamplesamplesamplesamplesample"
+                android:layout_weight="4"
                 android:id="@+id/room_name"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:textColor="@color/white"
+                android:maxLines="1"
+                android:maxLength="26"
+                android:ellipsize="end"
+                android:layout_gravity="center_vertical"
                 android:textSize="20dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -76,10 +82,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/group_id_key"
                 android:text="sample"
+                android:layout_weight="0"
                 android:visibility="gone"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/group_image_view"
+                android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:civ_border_color="@color/white"
@@ -89,13 +97,13 @@
                 android:layout_marginTop="3dp"
                 app:civ_border_width="0.5dp"/>
 
-            <Button
+            <!--<Button
                 android:id="@+id/chat_room_button"
                 android:background="@android:color/transparent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" />-->
 
-        </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
     <View
@@ -105,6 +113,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="40dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/no_messages"
+        android:layout_height="match_parent"
+        android:src="@drawable/no_message"
+        android:visibility="gone"/>
 
     <include
         android:id="@+id/input"

@@ -169,7 +169,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                                     startActivity(intent);
 
-
                                 }
                             });
                         }
