@@ -1,17 +1,21 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +32,7 @@ import example.com.groupeasy.R;
 
 /**
  *  Entry point of the app .
- *  Login using gmail or sign up for free
+ *  Login using email & password
  * */
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,9 +43,13 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView BtnLogin;
 
     private ProgressDialog mRegProgress;
+    private RelativeLayout myRelativeLayout;
+    private TextInputEditText EmailText;
+    private TextInputEditText PassText;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -115,6 +123,32 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        EmailText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        PassText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+
+    }
+
+    private void hideKeyboard(View v) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
     }
 
     // code for checking if device is connected to internet??
@@ -153,6 +187,11 @@ public class LoginActivity extends AppCompatActivity {
 
         userEmail = (TextInputLayout) findViewById(R.id.user_email);
         userPassword = (TextInputLayout) findViewById(R.id.user_password);
+        myRelativeLayout = (RelativeLayout) findViewById(R.id.my_login_relative_layout);
+
+        EmailText = (TextInputEditText) findViewById(R.id.user_email_text);
+        PassText = (TextInputEditText) findViewById(R.id.user_pass_text);
+
     }
 
     private void loginUser(String email, String password) {

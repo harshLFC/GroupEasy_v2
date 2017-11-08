@@ -3,6 +3,7 @@ package example.com.groupeasy.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -67,6 +68,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private CheckBox oneDayEvent, globalEvent;
 
     private CrystalRangeSeekbar participantRangeBar;
+    private ProgressDialog mRegProcess;
 
     final Calendar c = Calendar.getInstance();
 
@@ -92,6 +94,8 @@ public class CreateEventActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 //intitlize data
                  String EventName, EventDetails = null, Location = null, minLimit = null, maxLimit = null, fromDATE = null, fromTIME = null, toDATE = null, toTIME = null;
@@ -153,6 +157,12 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
                 //push to firebase
                 else {
+//
+//                    if(TvFrom.getText().toString().equals("Start date")){
+//                        Toast.makeText(CreateEventActivity.this, "You are creating an event without a start date",Toast.LENGTH_SHORT).show();
+//
+//                    }
+
                     groupKey = getIntent().getExtras().get("groupKey").toString();
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child(groupKey).child("");
 
@@ -232,6 +242,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 }
             }
+
         });
 
         //Close Button
@@ -383,7 +394,11 @@ public class CreateEventActivity extends AppCompatActivity {
 
     // code for opening calender
     public void dateFrom(View v) {
-        new DatePickerDialog(this, d, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, d, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+
+        //so that user cannot pick previous date
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
     }
 
     //Code to update Time From field by selected data
@@ -394,6 +409,7 @@ public class CreateEventActivity extends AppCompatActivity {
             SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
             //gets the month in text, this is not returning selected month
             String month_name = month_date.format(c.getTime());
+
 
             c.set(Calendar.YEAR, year);
             c.set((Calendar.MONTH) + 1, month);
@@ -429,7 +445,10 @@ public class CreateEventActivity extends AppCompatActivity {
     // code for opening calender
     public void dateTo(View view) {
 
-        new DatePickerDialog(this, e, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, e, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        //so that user cannot pick previous date
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
     }
 
     //Code to update TimeTO field by selected data

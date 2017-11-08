@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context="example.com.groupeasy.activities.LoginActivity">
+    tools:context="example.com.groupeasy.activities.LoginActivity"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/my_login_relative_layout">
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +100,8 @@
         android:layout_marginTop="58dp"
         >
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/user_email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -114,7 +118,8 @@
         android:layout_alignParentStart="true"
         >
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/user_pass_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"

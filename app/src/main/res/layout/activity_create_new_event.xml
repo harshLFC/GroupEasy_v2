@@ -8,7 +8,8 @@
     android:background="#f6f6f6"
     android:focusable="false"
     android:focusableInTouchMode="true"
-    tools:context="example.com.groupeasy.activities.CreateEventActivity">
+    tools:context="example.com.groupeasy.activities.CreateEventActivity"
+    >
 
     <LinearLayout
         android:elevation = "20dp"
@@ -95,7 +96,7 @@
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     style="@style/TextAppearance.AppCompat.Large"
-                    android:hint="Event Name"
+                    android:hint="Event Name*"
                     android:maxLength="38"
                     android:maxLines="1"
                     android:id="@+id/eventName"/>
@@ -598,6 +599,16 @@
                                 android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="end"
+                android:paddingRight="20dp"
+                android:text="* Compulsory fields"/>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
