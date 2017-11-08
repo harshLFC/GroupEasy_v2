@@ -123,7 +123,7 @@
 
     <include
         android:id="@+id/input"
-        android:elevation = "50dp"
+        android:elevation = "7dp"
         layout="@layout/activity_chat_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -148,12 +148,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        lists.setOnClickListener(new View.OnClickListener() {
+     /*   lists.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Will open up lists", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         rosters.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +212,7 @@ public class ProfileFragment extends Fragment {
         profile_pic = (CircleImageView) view.findViewById(R.id.displayPic);
         logOut = (LinearLayout) view.findViewById(R.id.help);
         polls = (LinearLayout) view.findViewById(R.id.polls);
-        lists = (LinearLayout) view.findViewById(R.id.lists);
+//        lists = (LinearLayout) view.findViewById(R.id.lists);
         rosters = (LinearLayout) view.findViewById(R.id.rosters);
         favourites = (LinearLayout) view.findViewById(R.id.fav_events);
         userProfile = (FloatingActionButton) view.findViewById(R.id.user_profile);

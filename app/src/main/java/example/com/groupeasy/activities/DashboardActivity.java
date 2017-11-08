@@ -43,8 +43,8 @@ public class DashboardActivity extends AppCompatActivity {
     private int[] tabIcons = {
 //            R.drawable.eye_white_48,
 
-            R.drawable.ic_user_group,
-            R.drawable.user_profile
+            R.drawable.ic_user_group_green,
+            R.drawable.user_profile_green
     };
 
     @Override
@@ -108,7 +108,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void setupTabIcons() {
 
        //set custom color to icons
-        int tabIconColor = ContextCompat.getColor(context, R.color.grey);
+        int tabIconColor = ContextCompat.getColor(context, R.color.colorPrimary);
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(0)
                 .getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);

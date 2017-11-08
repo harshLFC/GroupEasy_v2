@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userDP"
         >
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:singleLine="true"
             android:maxLines="1"
             android:maxLength="22"
