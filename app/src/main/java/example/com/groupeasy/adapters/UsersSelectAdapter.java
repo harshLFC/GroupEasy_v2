@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,17 +82,24 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
        final UserViewHolder viewHolder = (UserViewHolder) holder;
         final int pos = position;
-
-        //set values to your views from mlstGroups here
-        //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
         String image = (mLstGroups.get(position).getImage());
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
+        viewHolder.userMagicId.setText(mLstGroups.get(position).getId());
 
         String groupId = (mLstGroups.get(position).getId());
 
+        /**Get current user id**/
+        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = current_user.getUid();
+
         viewHolder.myCheck.setChecked(mLstGroups.get(position).isSelected());
         viewHolder.myCheck.setTag(mLstGroups.get(position));
+
+        /*if(viewHolder.userMagicId.getText().toString().equals(uid)){
+            viewHolder.myCheck.setChecked(true);
+
+        }*/
 
 // tring to implement the logic for having users already checked if in the group,
 
@@ -119,14 +129,11 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
 
-
-        viewHolder.myCheck.setOnClickListener(new View.OnClickListener() {
+       viewHolder.myCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CheckBox cb = (CheckBox) v;
                 users_list contact = (users_list) cb.getTag();
-
                 contact.setSelected(cb.isChecked());
                 mLstGroups.get(pos).setSelected(cb.isChecked());
 
@@ -163,8 +170,9 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView userStatus;
         private TextView userLastSeen;
         private CheckBox myCheck;
-
         private ImageView userDP;
+
+        private TextView userMagicId;
 
                 public UserViewHolder(View itemView) {
             super(itemView);
@@ -176,8 +184,9 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userStatus = (TextView) itemView.findViewById(R.id.user_status);
             userLastSeen = (TextView) itemView.findViewById(R.id.last_seen);
             myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
+            userMagicId = (TextView) itemView.findViewById(R.id.magic_user_id);
 
-            userDP = (ImageView) itemView.findViewById(R.id.user_dp);
+                    userDP = (ImageView) itemView.findViewById(R.id.user_dp);
 
                     userName.setOnClickListener(this);
                     userDP.setOnClickListener(this);

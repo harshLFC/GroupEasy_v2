@@ -474,11 +474,10 @@ public class CreateEventActivity extends AppCompatActivity {
 
 
         void compareDate() {
+            /**THis method for comparing dates and alerting user if To date is more than From**/
 
             Log.w(TvFrom.getText().toString(),"DateIssue");
             Log.w(TvTo.getText().toString(),"DateIssue");
-
-            //give user msg
 
             String Date1 = TvFrom.getText().toString();
             String Date2 = TvTo.getText().toString();
@@ -489,22 +488,11 @@ public class CreateEventActivity extends AppCompatActivity {
             int month1 = Integer.parseInt(myDate1[1]);
             int year1 = Integer.parseInt(myDate1[2]);
 
-/*
-            Log.w(String.valueOf(day1),"DateAre");
-            Log.w(String.valueOf(month1),"DateAre");
-            Log.w(String.valueOf(year1),"DateAre");
-*/
-
-
             String[] myDate2 = Date2.split("/");
 
             int day2 = Integer.parseInt(myDate2[0]); // 004
             int month2 = Integer.parseInt(myDate2[1]);
             int year2 = Integer.parseInt(myDate2[2]);
-
-          /*  Log.w(String.valueOf(day2),"DateAre");
-            Log.w(String.valueOf(month2),"DateAre");
-            Log.w(String.valueOf(year2  ),"DateAre");*/
 
             if(year2 < year1) {
                 Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();

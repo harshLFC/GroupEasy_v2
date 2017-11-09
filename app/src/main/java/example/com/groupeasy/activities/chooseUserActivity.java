@@ -128,6 +128,9 @@ public class chooseUserActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
+            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = current_user.getUid();
+
 //            String data = "";
             List<users_list> uList = mUserAdapter
                     .getUserId();
@@ -145,6 +148,10 @@ public class chooseUserActivity extends AppCompatActivity {
                     //Update Users DB with groupsIn TRUE value
                     userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
 
+                    /**Trying to add user to group, might crash***/
+                    userRef.child(uid).child("groupsIn").child(group_id).setValue(true);
+
+
                 }
             }
 
@@ -152,11 +159,13 @@ public class chooseUserActivity extends AppCompatActivity {
 //            this code is not working here, but is working inside the group because groups is not created before
             groupRef.child(group_id).child("members").child("").setValue(myMap);
 
+            /**Trying to add user to group, might crash***/
+            groupRef.child(group_id).child("members").child("").child(uid).setValue(true);
+
             //initiate a msgRef for pushing sample data
             final DatabaseReference msgRef = myRef.child("messages").child("");
 
-            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-            final String uid = current_user.getUid();
+
 
             //code to push create group data to firebase
             myRef.child("members").child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
