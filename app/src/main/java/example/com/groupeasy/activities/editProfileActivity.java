@@ -130,50 +130,15 @@ public class editProfileActivity extends AppCompatActivity {
 
                 else {
                     mUserDatabase.child("status").setValue(Status.trim());
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//
-//                            if (task.isSuccessful()) {
-//
-//                                mDialog.dismiss();
-//                                Toast.makeText(getApplicationContext(), "Status Updated",Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                            else{
-//                                mDialog.hide();
-//                                Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-
-                        mUserDatabase.child("name").setValue(Name.trim());
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//
-//                                if (task.isSuccessful()) {
-//                                    mDialog.dismiss();
-//                                    Toast.makeText(getApplicationContext(), "UserName Updated",Toast.LENGTH_SHORT).show();
-//
-//                                }
-//                                else{
-//                                    mDialog.hide();
-//                                    Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-
+                    mUserDatabase.child("name").setValue(Name.trim());
                     mDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Updated !",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "Updated !",Toast.LENGTH_SHORT).show();
                 }
 
 
-
-//                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

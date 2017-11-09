@@ -245,7 +245,8 @@ public class chatRoomActivity extends AppCompatActivity {
                 }
 // else the entered string will be pushed to the firebase database reference
                 else {
-                    mUserDatabase.addValueEventListener(new ValueEventListener() {
+
+                    mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.child("name").getValue().toString();
@@ -370,10 +371,7 @@ public class chatRoomActivity extends AppCompatActivity {
            }
        });
 
-
-
-
-        Log.w(String.valueOf(adapter.getCount()),"adapterCOunt");
+                Log.w(String.valueOf(adapter.getCount()),"adapterCOunt");
 
     }
 
