@@ -303,7 +303,8 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         /**Check events -> participants get value of 'value'
          * 1. set text to ✓ if value is 'In'
          * 2. set Text to ✘ if value is 'Out'
-         * 3. set Text to ? if value is 'Maybe'**/
+         * 3. set Text to ? if value is 'Maybe'
+         * 4. Change color accordingly**/
         myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -312,14 +313,29 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (dataSnapshot.hasChild("value")) {
 
                     if (dataSnapshot.child("value").getValue().equals("In")) {
-                        viewHolder.addMe.setText("✓ You are In for this event");
+                        viewHolder.addMe.setText("✓ You are IN for this event");
+                        viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#66bb6a"));
+
+
                     }
                     if (dataSnapshot.child("value").getValue().equals("Out")) {
-                        viewHolder.addMe.setText("✘ You are Out for this event");
+                        viewHolder.addMe.setText("✘ You are OUT for this event");
+                        viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#ef5350"));
+//                        viewHolder.addMe.setTextColor(Color.WHITE);
+
                     }
                     if (dataSnapshot.child("value").getValue().equals("Maybe")) {
-                        viewHolder.addMe.setText("? You are unsure for this event");
+                        viewHolder.addMe.setText("? You are UNSURE for this event");
+                        viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#ffdf00"));
+
                     }
+                }
+
+                //user hasnt responded
+                else {
+
+                    viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#c0c0c0"));
+
                 }
 
             }
@@ -384,6 +400,8 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView EventNum;
         private TextView EventDate;
 
+        private LinearLayout myLinearLayout;
+
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
         DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
@@ -410,6 +428,8 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             EventNum = (TextView) itemView.findViewById(R.id.eventNum);
             EventDate = (TextView) itemView.findViewById(R.id.event_date);
 
+            myLinearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout3);
+
 
             eventName.setOnClickListener(this);
             admin.setOnClickListener(this);
@@ -417,6 +437,8 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             DetailsText.setOnClickListener(this);
             myHeart.setOnClickListener(this);
+            myLinearLayout.setOnClickListener(this);
+            userImage.setOnClickListener(this);
 //            fullEvent.setOnClickListener(this);
 
 
@@ -494,7 +516,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             }
 
-            else if (v.getId() == addMe.getId()){
+            else if (v.getId() == myLinearLayout.getId() || v.getId() == addMe.getId()|| v.getId() == userImage.getId() ){
 
                 final String key = eventRef.getKey();
                 Log.w("type_this",key);
@@ -542,7 +564,8 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 });
                                 /**Code to respond end**/
 
-                                addMe.setText("✓ You are In for this event");
+                                addMe.setText("✓ You are IN for this event");
+                                myLinearLayout.setBackgroundColor(Color.parseColor("#66bb6a"));
                                 Snackbar snackbar = Snackbar
                                     .make(v, "You have been added to the event!", Snackbar.LENGTH_LONG)
                                     .setAction("- Remove me", new View.OnClickListener() {
@@ -575,6 +598,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                                             addMe.setText("+ Respond to this event");
                                             Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
+                                            myLinearLayout.setBackgroundColor(Color.parseColor("#c0c0c0"));
                                             View snackbarView = snackbar1.getView();
                                             TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
                                             textView.setTextColor(Color.YELLOW);
@@ -630,7 +654,9 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 //                                        v.getContext().startActivity(new Intent(context, Setup.class));
                                 //dialog.cancel();
-                                addMe.setText("? You are unsure for this event");
+                                addMe.setText("? You are UNSURE for this event");
+                                myLinearLayout.setBackgroundColor(Color.parseColor("#ffdf00"));
+
 
                             }
                         });
@@ -663,7 +689,9 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 /**Code to respond end**/
 
 
-                                addMe.setText("✘ You are out for this event");
+                                addMe.setText("✘ You are OUT for this event");
+                                myLinearLayout.setBackgroundColor(Color.parseColor("#ef5350"));
+
                                 dialog.cancel();
                             }
                         });

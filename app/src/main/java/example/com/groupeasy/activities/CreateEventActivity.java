@@ -72,6 +72,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
     final Calendar c = Calendar.getInstance();
 
+    DatePickerDialog datePickerDialog;
+
     //database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
@@ -394,7 +396,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     // code for opening calender
     public void dateFrom(View v) {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, d, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog = new DatePickerDialog(this, d, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
         //so that user cannot pick previous date
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -445,10 +447,13 @@ public class CreateEventActivity extends AppCompatActivity {
     // code for opening calender
     public void dateTo(View view) {
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, e, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        DatePickerDialog datePickerTo = new DatePickerDialog(this, e, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         //so that user cannot pick previous date
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        datePickerDialog.show();
+
+//        datePickerTo.getDatePicker().setMinDate(datePickerDialog.getDatePicker().getDayOfMonth());
+        datePickerTo.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerTo.show();
+
     }
 
     //Code to update TimeTO field by selected data
@@ -464,8 +469,60 @@ public class CreateEventActivity extends AppCompatActivity {
             TvTo.setTextColor(Color.WHITE);
             ImageDateTo.setColorFilter(Color.WHITE);
             LayoutDateTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
-
+            compareDate();
         }
+
+
+        void compareDate() {
+
+            Log.w(TvFrom.getText().toString(),"DateIssue");
+            Log.w(TvTo.getText().toString(),"DateIssue");
+
+            //give user msg
+
+            String Date1 = TvFrom.getText().toString();
+            String Date2 = TvTo.getText().toString();
+
+            String[] myDate1 = Date1.split("/");
+
+            int day1 = Integer.parseInt(myDate1[0]); // 004
+            int month1 = Integer.parseInt(myDate1[1]);
+            int year1 = Integer.parseInt(myDate1[2]);
+
+/*
+            Log.w(String.valueOf(day1),"DateAre");
+            Log.w(String.valueOf(month1),"DateAre");
+            Log.w(String.valueOf(year1),"DateAre");
+*/
+
+
+            String[] myDate2 = Date2.split("/");
+
+            int day2 = Integer.parseInt(myDate2[0]); // 004
+            int month2 = Integer.parseInt(myDate2[1]);
+            int year2 = Integer.parseInt(myDate2[2]);
+
+          /*  Log.w(String.valueOf(day2),"DateAre");
+            Log.w(String.valueOf(month2),"DateAre");
+            Log.w(String.valueOf(year2  ),"DateAre");*/
+
+            if(year2 < year1) {
+                Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+            }
+               else if(year2 == year1){
+
+                if(month2<month1){
+                    Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                }
+
+                if(month2 == month1){
+                    if(day2 < day1){
+                        Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+
     };
 
     // code for opening clock
