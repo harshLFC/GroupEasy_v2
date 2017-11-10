@@ -96,10 +96,10 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         viewHolder.myCheck.setChecked(mLstGroups.get(position).isSelected());
         viewHolder.myCheck.setTag(mLstGroups.get(position));
 
-        /*if(viewHolder.userMagicId.getText().toString().equals(uid)){
+        if(viewHolder.userMagicId.getText().toString().equals(uid)){
             viewHolder.myCheck.setChecked(true);
 
-        }*/
+        }
 
 // tring to implement the logic for having users already checked if in the group,
 

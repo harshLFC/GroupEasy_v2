@@ -42,6 +42,7 @@ public class ProfileFragment extends Fragment {
     FloatingActionButton userProfile;
 
     TextView Favs;
+    TextView EventCount;
 
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
@@ -82,8 +83,10 @@ public class ProfileFragment extends Fragment {
                 String thumbImage = dataSnapshot.child("thumb_image").getValue().toString();
 
                 Long FavCount = dataSnapshot.child("favs").getChildrenCount();
+                Long eventCount = dataSnapshot.child("events_created").getChildrenCount();
 
                 Favs.setText(FavCount.toString());
+                EventCount.setText(eventCount.toString());
 
 //                    user_name.setText(name);
                 myCollapsingTool.setTitle(name);
@@ -144,7 +147,7 @@ public class ProfileFragment extends Fragment {
         polls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Will open up polls", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "The number of Events created", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -165,7 +168,7 @@ public class ProfileFragment extends Fragment {
         favourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Will open up Favourites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "The number of events Favourited", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -220,5 +223,6 @@ public class ProfileFragment extends Fragment {
         myCollapsingTool = (CollapsingToolbarLayout) view.findViewById(R.id.collapsingToolbar);
 
         Favs = (TextView) view.findViewById(R.id.favs_count);
+        EventCount = (TextView) view.findViewById(R.id.event_count);
     }
 }

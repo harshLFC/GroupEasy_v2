@@ -147,20 +147,18 @@ public class chooseUserActivity extends AppCompatActivity {
 
                     //Update Users DB with groupsIn TRUE value
                     userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
-
-                    /**Trying to add user to group, might crash***/
-                    userRef.child(uid).child("groupsIn").child(group_id).setValue(true);
-
-
                 }
             }
 
 //            Update Members DB with groups TRUE value
 //            this code is not working here, but is working inside the group because groups is not created before
+            /**THe user crating group is added by default**/
+            myMap.put(uid,true);
+
+            //set Value of members in group to all in myMap
             groupRef.child(group_id).child("members").child("").setValue(myMap);
 
-            /**Trying to add user to group, might crash***/
-            groupRef.child(group_id).child("members").child("").child(uid).setValue(true);
+            userRef.child(uid).child("groupsIn").child(group_id).setValue(true);
 
             //initiate a msgRef for pushing sample data
             final DatabaseReference msgRef = myRef.child("messages").child("");

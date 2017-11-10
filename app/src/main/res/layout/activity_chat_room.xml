@@ -20,7 +20,7 @@
     fab:menu_colorPressed="@color/colorPrimary"
     fab:menu_colorRipple="@color/colorPrimary"
     fab:menu_fab_size="mini"
-    fab:menu_icon="@drawable/ic_football"
+    fab:menu_icon="@drawable/ic_ccalender_star"
     fab:menu_labels_colorNormal="#333"
     fab:menu_labels_colorPressed="#444"
     fab:menu_labels_colorRipple="#66efecec"

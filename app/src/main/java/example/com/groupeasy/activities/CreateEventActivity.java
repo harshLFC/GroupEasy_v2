@@ -127,6 +127,10 @@ public class CreateEventActivity extends AppCompatActivity {
                 boolean one_day_event = oneDayEvent.isChecked();
                 boolean global_event = globalEvent.isChecked();
 
+                //the trick used is if textFields do not have default value
+                // then the values are added to variable and pushed to server
+                // Otherwise the data is null by default and not pushed
+
                 if (!TvFrom.getText().toString().equals("Start date"))  {
                     fromDATE = TvFrom.getText().toString();
                 }
@@ -142,24 +146,12 @@ public class CreateEventActivity extends AppCompatActivity {
                     toTIME = timeTo.getText().toString();
                 }
 
-//                fromDATE = TvFrom.getText().toString();
-//                fromTIME = timeFrom.getText().toString();
-//                toDATE = TvTo.getText().toString();
-//                toTIME = timeTo.getText().toString();
-
-
-
-
-
-
-
                 //Code for form Validation
                 if (EventName.isEmpty()) {
                     Toast.makeText(context, "Please enter a Name for the event", Toast.LENGTH_LONG).show();
                 }
                 //push to firebase
                 else {
-//
 //                    if(TvFrom.getText().toString().equals("Start date")){
 //                        Toast.makeText(CreateEventActivity.this, "You are creating an event without a start date",Toast.LENGTH_SHORT).show();
 //
@@ -186,12 +178,12 @@ public class CreateEventActivity extends AppCompatActivity {
                     String uid = current_user.getUid();
 
 //                            code here
-                    myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            /*        myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             String userName = dataSnapshot.getValue().toString();
-                            Log.w(userName, "thisIstheName");
+//                            Log.w(userName, "thisIstheName");
 
 
                         }
@@ -200,7 +192,10 @@ public class CreateEventActivity extends AppCompatActivity {
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
-                    });
+                    });*/
+
+                    //push event created value for counter
+                    myRef.child("members").child(uid).child("events_created").child(push_id).setValue(true);
 
 
 
@@ -476,36 +471,42 @@ public class CreateEventActivity extends AppCompatActivity {
         void compareDate() {
             /**THis method for comparing dates and alerting user if To date is more than From**/
 
-            Log.w(TvFrom.getText().toString(),"DateIssue");
-            Log.w(TvTo.getText().toString(),"DateIssue");
+            Log.w(TvFrom.getText().toString(), "DateIssue");
+            Log.w(TvTo.getText().toString(), "DateIssue");
 
             String Date1 = TvFrom.getText().toString();
             String Date2 = TvTo.getText().toString();
 
-            String[] myDate1 = Date1.split("/");
+            if (TvFrom.getText().toString().equals("Start date")) {
 
-            int day1 = Integer.parseInt(myDate1[0]); // 004
-            int month1 = Integer.parseInt(myDate1[1]);
-            int year1 = Integer.parseInt(myDate1[2]);
+                Toast.makeText(CreateEventActivity.this, "Make sure you select a start date", Toast.LENGTH_SHORT).show();
 
-            String[] myDate2 = Date2.split("/");
+            } else {
 
-            int day2 = Integer.parseInt(myDate2[0]); // 004
-            int month2 = Integer.parseInt(myDate2[1]);
-            int year2 = Integer.parseInt(myDate2[2]);
+                String[] myDate1 = Date1.split("/");
 
-            if(year2 < year1) {
-                Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
-            }
-               else if(year2 == year1){
+                int day1 = Integer.parseInt(myDate1[0]); // 004
+                int month1 = Integer.parseInt(myDate1[1]);
+                int year1 = Integer.parseInt(myDate1[2]);
 
-                if(month2<month1){
+                String[] myDate2 = Date2.split("/");
+
+                int day2 = Integer.parseInt(myDate2[0]); // 004
+                int month2 = Integer.parseInt(myDate2[1]);
+                int year2 = Integer.parseInt(myDate2[2]);
+
+                if (year2 < year1) {
                     Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
-                }
+                } else if (year2 == year1) {
 
-                if(month2 == month1){
-                    if(day2 < day1){
+                    if (month2 < month1) {
                         Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (month2 == month1) {
+                        if (day2 < day1) {
+                            Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }

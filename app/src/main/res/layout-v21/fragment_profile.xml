@@ -161,9 +161,10 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/event_count"
                 android:layout_weight="0"
                 android:layout_marginRight="2dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#670309"
                 android:text="0"
                 android:gravity="center"
@@ -283,7 +284,7 @@
             <TextView
                 android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:text="Events Loved"
+                android:text="Events Favourited"
                 android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:layout_width="1dp"
@@ -305,10 +306,11 @@
                     android:layout_centerHorizontal="true" />
             </RelativeLayout>
             <TextView
+
                 android:id="@+id/favs_count"
                 android:layout_weight="0"
                 android:layout_marginRight="2dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHint="#670309"
                 android:text="0"
                 android:gravity="center"
