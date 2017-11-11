@@ -100,6 +100,12 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final String groupID = mLstGroups.get(position).getGroup_id();
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
 
+        String lastMsg =  mLstGroups.get(position).getLast_msg();
+        if (lastMsg.equals("You have no messages in the group")){
+            viewHolder.textLastMessage.setTextColor(Color.GRAY);
+
+        }
+
 
         //Code to display last seen message by Referencing the message database and looping through its children
 

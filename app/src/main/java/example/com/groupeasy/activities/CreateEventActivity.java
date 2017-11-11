@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -32,11 +31,8 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Date;
@@ -407,7 +403,6 @@ public class CreateEventActivity extends AppCompatActivity {
             //gets the month in text, this is not returning selected month
             String month_name = month_date.format(c.getTime());
 
-
             c.set(Calendar.YEAR, year);
             c.set((Calendar.MONTH) + 1, month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -436,8 +431,63 @@ public class CreateEventActivity extends AppCompatActivity {
             LayoutDateFrom.setBackgroundResource(R.drawable.rounded_corner_primary_color);
 
 //            TvFrom.setText(dayOfMonth+" "+month_name+" "+year);
+            compareDate();
+
         }
+
     };
+    private void compareDate() {
+
+        /**THis method for comparing dates and alerting user if To date is more than From**/
+
+        String Date1 = TvFrom.getText().toString();
+        String Date2 = TvTo.getText().toString();
+
+        if (!TvTo.getText().toString().equals("End date")) {
+
+            String[] myDate1 = Date1.split("/");
+
+            int day1 = Integer.parseInt(myDate1[0]); // 004
+            int month1 = Integer.parseInt(myDate1[1]);
+            int year1 = Integer.parseInt(myDate1[2]);
+
+            String[] myDate2 = Date2.split("/");
+
+            int day2 = Integer.parseInt(myDate2[0]); // 004
+            int month2 = Integer.parseInt(myDate2[1]);
+            int year2 = Integer.parseInt(myDate2[2]);
+
+            if (year1 > year2) {
+                Toast.makeText(CreateEventActivity.this, "Hey there time traveller, please select a valid date", Toast.LENGTH_SHORT).show();
+                revertTV();
+
+            } else if (year2 == year1) {
+                if (month1 > month2) {
+                    Toast.makeText(CreateEventActivity.this, "Hey there time traveller, please select a valid date", Toast.LENGTH_SHORT).show();
+                    revertTV();
+                }
+                if (month2 == month1) {
+                    if (day1 > day2) {
+                        Toast.makeText(CreateEventActivity.this, "Hey there time traveller, please select a valid date", Toast.LENGTH_SHORT).show();
+                        revertTV();
+
+                    }
+                }
+            }
+        }
+                /*else{
+                    revertTV();
+                }*/
+
+    }
+
+    private void revertTV() {
+        TvFrom.setText("Start date");
+        TvFrom.setTextColor(Color.GRAY);
+        ImageDateFrom.setColorFilter(Color.GRAY);
+        LayoutDateFrom.setBackgroundResource(R.drawable.rounded_corners_shape);
+    }
+
 
     // code for opening calender
     public void dateTo(View view) {
@@ -464,11 +514,13 @@ public class CreateEventActivity extends AppCompatActivity {
             TvTo.setTextColor(Color.WHITE);
             ImageDateTo.setColorFilter(Color.WHITE);
             LayoutDateTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
-            compareDate();
+
+
+            compareToDate(year,month,dayOfMonth);
         }
 
 
-        void compareDate() {
+        void compareToDate(int year, int month, int dayOfMonth) {
             /**THis method for comparing dates and alerting user if To date is more than From**/
 
             Log.w(TvFrom.getText().toString(), "DateIssue");
@@ -480,6 +532,7 @@ public class CreateEventActivity extends AppCompatActivity {
             if (TvFrom.getText().toString().equals("Start date")) {
 
                 Toast.makeText(CreateEventActivity.this, "Make sure you select a start date", Toast.LENGTH_SHORT).show();
+                revertTV();
 
             } else {
 
@@ -497,19 +550,36 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 if (year2 < year1) {
                     Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                    revertTV();
+
+
                 } else if (year2 == year1) {
 
                     if (month2 < month1) {
                         Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                        revertTV();
+
                     }
 
                     if (month2 == month1) {
                         if (day2 < day1) {
                             Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
+                            revertTV();
+
                         }
                     }
                 }
+                else{
+                    revertTV();
+                }
             }
+        }
+
+        private void revertTV() {
+            TvTo.setText("End date");
+            TvTo.setTextColor(Color.GRAY);
+            ImageDateTo.setColorFilter(Color.GRAY);
+            LayoutDateTo.setBackgroundResource(R.drawable.rounded_corners_shape);
         }
 
     };

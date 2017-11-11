@@ -49,6 +49,7 @@
             android:visibility="gone" />
 
         <TextView
+            android:textColor="@color/colorPrimary"
             android:id="@+id/text_last_message"
             style="@android:style/TextAppearance.Small"
             android:layout_width="wrap_content"
