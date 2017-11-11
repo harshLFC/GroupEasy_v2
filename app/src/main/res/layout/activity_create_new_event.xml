@@ -338,6 +338,28 @@
                                     android:layout_width="62dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"/>
+                                <TextView
+                                    android:textColor="@color/black"
+                                    style="@style/TextAppearance.AppCompat.Small"
+                                    android:id="@+id/start_hrs"
+                                    android:layout_marginLeft="8dp"
+                                    android:text="StartHrs"
+                                    android:visibility="gone"
+                                    android:maxLines="1"
+                                    android:layout_width="62dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
+                                <TextView
+                                    android:textColor="@color/black"
+                                    style="@style/TextAppearance.AppCompat.Small"
+                                    android:id="@+id/start_mins"
+                                    android:layout_marginLeft="8dp"
+                                    android:text="StartMin"
+                                    android:visibility="gone"
+                                    android:maxLines="1"
+                                    android:layout_width="62dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"/>
 
                                 <ImageView
                                     android:id="@+id/image_time_from"
@@ -375,6 +397,26 @@
                                     style="@style/TextAppearance.AppCompat.Small"
                                     android:text="End time"
                                     android:maxLines="1"
+                                    android:layout_width="62dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:id="@+id/end_hrs"
+                                    android:layout_marginLeft="8dp"
+                                    style="@style/TextAppearance.AppCompat.Small"
+                                    android:text="EndHrs"
+                                    android:maxLines="1"
+                                    android:visibility="gone"
+                                    android:layout_width="62dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:id="@+id/end_mins"
+                                    android:layout_marginLeft="8dp"
+                                    style="@style/TextAppearance.AppCompat.Small"
+                                    android:text="EndMins"
+                                    android:maxLines="1"
+                                    android:visibility="gone"
                                     android:layout_width="62dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"/>

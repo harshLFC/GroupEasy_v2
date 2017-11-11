@@ -62,6 +62,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private LinearLayout LayouttimeTo,LayouttimeFrom, LayoutDateFrom, LayoutDateTo;
 
     private CheckBox oneDayEvent, globalEvent;
+    private TextView startHrs, startMins, endHrs, endMins;
 
     private CrystalRangeSeekbar participantRangeBar;
     private ProgressDialog mRegProcess;
@@ -364,6 +365,10 @@ public class CreateEventActivity extends AppCompatActivity {
         LayoutDateFrom = (LinearLayout) findViewById(R.id.layout_from_date);
         LayoutDateTo = (LinearLayout) findViewById(R.id.layout_to_date);
 
+        startHrs = (TextView) findViewById(R.id.start_hrs);
+        startMins = (TextView) findViewById(R.id.start_mins);
+        endHrs = (TextView) findViewById(R.id.end_hrs);
+        endMins = (TextView) findViewById(R.id.end_mins);
 
 
 
@@ -483,9 +488,14 @@ public class CreateEventActivity extends AppCompatActivity {
 
     private void revertTV() {
         TvFrom.setText("Start date");
-        TvFrom.setTextColor(Color.GRAY);
-        ImageDateFrom.setColorFilter(Color.GRAY);
+        TvFrom.setTextColor(Color.BLACK);
+        ImageDateFrom.setColorFilter(Color.BLACK);
         LayoutDateFrom.setBackgroundResource(R.drawable.rounded_corners_shape);
+
+        TvTo.setText("End date");
+        TvTo.setTextColor(Color.GRAY);
+        ImageDateTo.setColorFilter(Color.GRAY);
+        LayoutDateTo.setBackgroundResource(R.drawable.rounded_corners_shape);
     }
 
 
@@ -600,8 +610,64 @@ public class CreateEventActivity extends AppCompatActivity {
             timeFrom.setTextColor(Color.WHITE);
             ImagetimeFrom.setColorFilter(Color.WHITE);
             LayouttimeFrom.setBackgroundResource(R.drawable.rounded_corner_primary_color);
+
+            //set hidden layout for validation
+            startHrs.setText(String.valueOf(hourOfDay));
+            startMins.setText(String.valueOf(minute));
+
+            timeFromValidation(hourOfDay,minute);
         }
     };
+
+    private void timeFromValidation(int hourOfDay, int minute) {
+
+        if(TvFrom.getText().toString().equals("Start date")){
+            Toast.makeText(CreateEventActivity.this, "Make sure you have selected a date", Toast.LENGTH_SHORT).show();
+            revertStartTime();
+        }
+
+        if (!timeTo.getText().toString().equals("End time")){
+
+
+
+            int hours1 = Integer.parseInt(startHrs.getText().toString());
+            int mins1 = Integer.parseInt(startMins.getText().toString());
+
+            int hours2 = Integer.parseInt(endHrs.getText().toString());
+            int mins2 = Integer.parseInt(endMins.getText().toString());
+
+            if(hours1 == 0 && (hours2 > 12) ){
+
+                Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                revertStartTime();
+            }
+            if (hours2 < hours1 && !(hours1 == 12 && (hours2 == 0))) {
+                Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                revertStartTime();
+            }
+            if (hours2 == hours1) {
+                if (mins2 < mins1) {
+                    Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                    revertStartTime();
+                }
+            }
+
+        }
+
+    }
+
+    private void revertStartTime() {
+        timeFrom.setText("Start time");
+        timeFrom.setTextColor(Color.BLACK);
+        ImagetimeFrom.setColorFilter(Color.BLACK);
+        LayouttimeFrom.setBackgroundResource(R.drawable.rounded_corners_shape);
+
+        timeTo.setText("End time");
+        timeTo.setTextColor(Color.GRAY);
+        ImagetimeTo.setColorFilter(Color.GRAY);
+        LayouttimeTo.setBackgroundResource(R.drawable.rounded_corners_shape);
+
+    }
 
     // code for opening clock
     public void timeTo(View view) {
@@ -619,16 +685,73 @@ public class CreateEventActivity extends AppCompatActivity {
             //calling the respective methods and displaying user readable time data
             timeTo.setText(convertTo12H(hourOfDay) + ":" + zeroBeforeMin(minute) + " " + isAM(hourOfDay));
 
+            //set hidden layout for validation
+            endHrs.setText(String.valueOf(hourOfDay));
+            endMins.setText(String.valueOf(minute));
+
             //change ui
             timeTo.setTextColor(Color.WHITE);
             ImagetimeTo.setColorFilter(Color.argb(255, 255, 255, 255));
             LayouttimeTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
+
+            timeToValidation(hourOfDay,minute);
         }
+
     };
+
+    private void timeToValidation(int hourOfDay, int minute) {
+
+        if(timeFrom.getText().toString().equals("Start time")){
+
+            Toast.makeText(CreateEventActivity.this, "Make sure you have selected a Start Time", Toast.LENGTH_SHORT).show();
+            revertEndTime();
+        }
+
+        else {
+
+            int hours1 = Integer.parseInt(startHrs.getText().toString());
+            int mins1 = Integer.parseInt(startMins.getText().toString());
+
+            int hours2 = Integer.parseInt(endHrs.getText().toString());
+            int mins2 = Integer.parseInt(endMins.getText().toString());
+
+            if(hours1 == 0 && (hours2 > 12) ){
+
+                Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                revertEndTime();
+
+
+            }
+
+
+            if (hours2 < hours1 && !(hours1 == 12 && (hours2 == 0))) {
+                Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                revertEndTime();
+
+
+            }
+            if (hours2 == hours1) {
+                if (mins2 < mins1) {
+                    Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                    revertEndTime();
+                }
+            }
+        }
+
+
+    }
+
+    private void revertEndTime() {
+        timeTo.setText("End time");
+        timeTo.setTextColor(Color.GRAY);
+        ImagetimeTo.setColorFilter(Color.GRAY);
+        LayouttimeTo.setBackgroundResource(R.drawable.rounded_corners_shape);
+
+    }
 
     //display am/pm according to time chosen
     private String isAM(int hourOfDay) {
-        if (hourOfDay > 12) return "PM";
+        if (hourOfDay >= 12) return "PM";
         else return "AM";
             }
 
