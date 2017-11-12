@@ -628,8 +628,6 @@ public class CreateEventActivity extends AppCompatActivity {
 
         if (!timeTo.getText().toString().equals("End time")){
 
-
-
             int hours1 = Integer.parseInt(startHrs.getText().toString());
             int mins1 = Integer.parseInt(startMins.getText().toString());
 
@@ -651,9 +649,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     revertStartTime();
                 }
             }
-
         }
-
     }
 
     private void revertStartTime() {

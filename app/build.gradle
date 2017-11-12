@@ -50,5 +50,7 @@ dependencies {
     compile 'id.zelory:compressor:2.1.0'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     testCompile 'junit:junit:4.12'
+
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
 }
 apply plugin: 'com.google.gms.google-services'

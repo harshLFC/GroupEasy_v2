@@ -24,4 +24,24 @@
     <string name="no_data_msg">You have no groups yet! Click on the Button below to get started</string>
     <string name="no_data_events">You have no Events yet! Go to main page to get started</string>
 
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome to GroupEasy </string>
+    <string name="slide_1_desc">The simple chatting and Events creating app !</string>
+
+    <string name="slide_2_title">Create Groups </string>
+    <string name="slide_2_desc">Add your friends and family and start conversing !</string>
+
+    <string name="slide_3_title">Create Events</string>
+    <string name="slide_3_desc">Click on the Calender icon INSIDE the group to create an event, respond to Active Events within the same !</string>
+
+    <string name="slide_4_title">Events at a glance !</string>
+    <string name="slide_4_desc">The number of active events will be displayed upfront for your reference! So what are you waiting for? Get started NOW!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
 </resources>
