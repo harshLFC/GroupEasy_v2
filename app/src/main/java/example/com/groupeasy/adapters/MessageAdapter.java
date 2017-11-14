@@ -111,7 +111,7 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
             }
         });
 
-        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
+//        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
     }
 
     @Override
