@@ -2,6 +2,7 @@ package example.com.groupeasy.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment {
                 user_status.setText(status);
                 Picasso.with(getContext())
                         .load(image)
-                        .placeholder(R.drawable.ic_default_user_single)
+                        .placeholder(R.drawable.single_user)
                         .resize(300,300)
                         .centerCrop()
                         .into(profile_pic);

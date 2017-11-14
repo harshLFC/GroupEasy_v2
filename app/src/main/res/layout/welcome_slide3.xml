@@ -9,16 +9,28 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
+        android:paddingTop="10dp"
         android:orientation="vertical">
 
+<!--
         <pl.droidsonroids.gif.GifTextView
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
             android:background="@drawable/gif_file"
             android:layout_marginBottom="30dp"
             />
+-->
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="@dimen/img_width_height"
+            android:layout_height="@dimen/img_width_height"
+            android:background="@drawable/calender_srat_simple"
+            android:layout_marginBottom="30dp"/>
+
 
         <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/slide_3_title"

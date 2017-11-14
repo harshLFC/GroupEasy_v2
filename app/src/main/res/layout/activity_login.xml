@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Log in for existing users:"
         android:layout_marginTop="28dp"
+        android:textColor="@color/black"
         android:layout_below="@+id/btn_login"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -59,14 +60,14 @@
         android:textSize="@dimen/header_text_size"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@drawable/all_btn_rect_shape_other"
+        android:background="@drawable/all_btn_rect_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
         android:layout_below="@+id/user_password"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp" />
+        android:layout_marginTop="8dp" />
 
     <!--<TextView-->
         <!--android:id="@+id/sign_in_with_google"-->
@@ -91,6 +92,8 @@
         android:layout_alignParentStart="true" />
 
     <android.support.design.widget.TextInputLayout
+        app:counterEnabled="true"
+        app:counterMaxLength="33"
         android:id="@+id/user_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,10 +112,11 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
         android:id="@+id/user_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
         android:layout_below="@+id/user_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

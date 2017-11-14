@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.utility.prefManager;
 
 /**
  *  Entry point of the app .
@@ -50,13 +51,20 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-
     final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private prefManager PrefManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PrefManager = new prefManager(this);
+        if (!PrefManager.isFirstTimeLaunch()) {
+            launchHomeScreen();
+            finish();
+        }
+
+
         setContentView(R.layout.activity_login);
         this.context = LoginActivity.this; // initialize the context
         initElementsWithIds();
@@ -67,6 +75,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
     }
+
+    private void launchHomeScreen() {
+        PrefManager.setFirstTimeLaunch(false);
+        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+        finish();
+    }
+
     //this snippet to disallow back key
     @Override
     public void onBackPressed() {
@@ -75,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initElementsWithListeners() {
 
+
+        /***developer shortcut**/
         BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(current_user != null){
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
+
                 finish();
                 }
 
@@ -205,6 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                      mRegProgress.dismiss();
 
                     Intent intent = new Intent(context,DashboardActivity.class);
+                    intent.putExtra("userName","value");
                     startActivity(intent);
                     finish();
                 }

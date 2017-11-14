@@ -139,11 +139,7 @@ public class createAccount extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
-
                         Log.w("userIssue","Some NEW ERROR"+e.getMessage());
-
-
                     }
                 })
 
@@ -152,24 +148,9 @@ public class createAccount extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                Log.w("userIssue","In in onComplete");
-
                 if(task.isSuccessful()){
-
-                    Log.w("userIssue","In in isSuccessful");
-
-
-                    if(current_user == null){
-
-                        Log.w("userIssue","In in current user IS null");
-
-                    }
-
-//                    if(current_user != null)
-                    else
+                    if(current_user != null)
                     {
-                        Log.w("userIssue","In in current user != null");
-
                         final String uid = current_user.getUid();
 
                         mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
@@ -194,8 +175,8 @@ public class createAccount extends AppCompatActivity {
 
                                         if(task.isSuccessful()){
                                             mRegProcess.dismiss();
-                                            Intent i = new Intent(createAccount.this,DashboardActivity.class);
-                                            startActivity(i);
+                                            Intent intent = new Intent(createAccount.this,WelcomeActivity.class);
+                                            startActivity(intent);
                                             finish();
                                         }
                                         else{
@@ -233,7 +214,7 @@ public class createAccount extends AppCompatActivity {
 
                                         if(task.isSuccessful()){
                                             mRegProcess.dismiss();
-                                            Intent i = new Intent(createAccount.this,DashboardActivity.class);
+                                            Intent i = new Intent(createAccount.this,WelcomeActivity.class);
                                             startActivity(i);
                                             finish();
                                         }

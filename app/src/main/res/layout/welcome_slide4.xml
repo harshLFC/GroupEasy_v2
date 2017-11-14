@@ -11,12 +11,20 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <pl.droidsonroids.gif.GifTextView
+        <!--<pl.droidsonroids.gif.GifTextView
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
             android:background="@drawable/gif_file"
             android:layout_marginBottom="30dp"
             />
+        -->
+        <ImageView
+            android:layout_marginTop="50dp"
+        android:layout_width="@dimen/img_width_height"
+        android:layout_height="@dimen/img_width_height"
+        android:background="@drawable/simple_events"
+        android:layout_marginBottom="30dp"/>
+
 
         <TextView
             android:layout_width="wrap_content"

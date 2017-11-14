@@ -17,12 +17,19 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
 import example.com.groupeasy.fragments.GroupFragment;
 import example.com.groupeasy.fragments.ProfileFragment;
 import example.com.groupeasy.utility.AppConstants;
+import example.com.groupeasy.utility.prefManager;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -35,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private DashboardPagerAdapter adapter;
     private Toolbar myTool;
+    private DatabaseReference mDatabase;
 
     private FirebaseAuth mAuth;
 
@@ -64,7 +72,41 @@ public class DashboardActivity extends AppCompatActivity {
         setupTabIcons();
         initElementsWithListeners();
 
+        //Just display welcome message for a new/user loging in
+        Intent intent = getIntent();
+        if(intent.hasExtra("userName")){
+            Bundle bd = getIntent().getExtras();
+            if(!bd.getString("userName").equals(null)){
+                WelcomeUser();
+            }
+        }
+
     }
+
+    private void WelcomeUser() {
+
+        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = current_user.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.child("name").getValue().toString();
+                Toast.makeText(DashboardActivity.this, "Welcome " + name,Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);

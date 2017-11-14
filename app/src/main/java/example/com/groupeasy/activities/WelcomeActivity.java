@@ -38,8 +38,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Checking for first time launch - before calling setContentView()
-        PrefManager = new prefManager(this);
-      /*  if (!PrefManager.isFirstTimeLaunch()) {
+   /*     PrefManager = new prefManager(this);
+        if (!PrefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
         }*/
@@ -55,7 +55,6 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -122,8 +121,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-//        PrefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+        startActivity(new Intent(WelcomeActivity.this, DashboardActivity.class));
         finish();
     }
 
