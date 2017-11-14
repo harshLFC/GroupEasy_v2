@@ -8,13 +8,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,14 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Array;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.EventDetailsActivity;
-import example.com.groupeasy.activities.lists_activity;
 import example.com.groupeasy.pojo.list_primary;
 import example.com.groupeasy.pojo.members_In;
 
@@ -596,7 +590,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
 
-                                            addMe.setText("+ Respond to this event");
+                                            addMe.setText(R.string.click_to_respond_to_this_event);
                                             Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
                                             myLinearLayout.setBackgroundColor(Color.parseColor("#c0c0c0"));
                                             View snackbarView = snackbar1.getView();

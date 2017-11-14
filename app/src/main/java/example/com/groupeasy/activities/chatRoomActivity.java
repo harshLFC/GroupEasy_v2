@@ -2,20 +2,22 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +75,7 @@ public class chatRoomActivity extends AppCompatActivity {
         Context context = chatRoomActivity.this;
 
         initElementWithIds();
+        keyboardInit();
         initElementsWithListeners();
         fab();
 
@@ -114,6 +117,15 @@ public class chatRoomActivity extends AppCompatActivity {
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
 
        }
+
+    private void keyboardInit() {
+        messageContent.getBackground().mutate().setColorFilter(getResources().getColor(R.color.grey), PorterDuff.Mode.SRC_ATOP);
+        messageContent.setScroller(new Scroller(chatRoomActivity.this));
+        messageContent.setMaxLines(1);
+        messageContent.setVerticalScrollBarEnabled(true);
+        messageContent.setMovementMethod(new ScrollingMovementMethod());
+
+    }
 
     private void fab() {
 
@@ -169,7 +181,7 @@ public class chatRoomActivity extends AppCompatActivity {
                 else    {
                     Picasso.with(chatRoomActivity.this)
                             .load(image)
-                            .placeholder(R.drawable.ic_default_groups)
+                            .placeholder(R.drawable.multi_user)
                             .resize(100,100)
                             .into(groupImageView);
                 }
@@ -294,7 +306,7 @@ public class chatRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 //                Toast.makeText(chatRoomActivity.this, "Your Active Events will be displayed here",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(v.getContext(),lists_activity.class);
+                Intent intent = new Intent(v.getContext(),activeEvents.class);
                 groupKey = getIntent().getExtras().get("groupKey").toString();
                 intent.putExtra("groupKey",groupKey);
                 startActivity(intent);

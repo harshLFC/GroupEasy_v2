@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +59,6 @@ public class CreateEventActivity extends AppCompatActivity {
     private TextView popUpPublicEvent, popUpOneDayEvent;
     private ImageView ivClose, ImagetimeTo,ImagetimeFrom, ImageDateFrom, ImageDateTo;
     private String groupKey;
-    private GoogleApiClient mGoogleApiClient;
     private LinearLayout LayouttimeTo,LayouttimeFrom, LayoutDateFrom, LayoutDateTo;
 
     private CheckBox oneDayEvent, globalEvent;
@@ -66,6 +66,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
     private CrystalRangeSeekbar participantRangeBar;
     private ProgressDialog mRegProcess;
+
+    GoogleApiClient mGoogleApiClient;
 
     final Calendar c = Calendar.getInstance();
 
@@ -300,6 +302,19 @@ public class CreateEventActivity extends AppCompatActivity {
 //                Intent intent = new Intent(context,LocationActivity.class);
 //                startActivity(intent);
 //                finish();
+
+
+/*
+                mGoogleApiClient = new GoogleApiClient.Builder(context)
+//                        .addConnectionCallbacks(CreateEventActivity.this)
+//                        .addOnConnectionFailedListener(this)
+                        .addApi(LocationServices.API)
+                        .build();
+
+                mGoogleApiClient.connect();
+
+                mLastLocation = LocationServices.FusedLocationApi
+                        .getLastLocation(mGoogleApiClient);*/
 
             }
         });
@@ -797,3 +812,24 @@ public class CreateEventActivity extends AppCompatActivity {
         }
     }*/
     }
+
+/*
+public class MyLocationUsingLocationAPI extends AppCompatActivity implements ConnectionCallbacks,
+        OnConnectionFailedListener,OnRequestPermissionsResultCallback,
+{
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "+ result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        // Once connected with google api, get the location
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        mGoogleApiClient.connect();
+    }
+}*/

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@color/grey"
+    android:layout_height="50dp"
+    android:background="@color/dark_grey"
     android:orientation="horizontal"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
@@ -20,7 +20,7 @@
         android:text="Active Events"
         android:textSize="20dp"
         app:layout_constraintLeft_toRightOf="@+id/imageView5"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="9dp"
         app:layout_constraintRight_toLeftOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +57,7 @@
         android:layout_height="35dp"
         android:src="@drawable/ic_ccalender_star"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="2dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/textView4"
@@ -96,16 +96,15 @@
         android:visibility="invisible"/>
 
     <ImageView
+        android:scaleY="-1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_right"
+        android:src="@drawable/ic_reverse_back_arrow_right"
         android:layout_gravity="top"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
         android:id="@+id/imageView8" />
 
 

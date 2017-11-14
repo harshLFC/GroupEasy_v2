@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".activities.groupeasy"
         android:allowBackup="true"
@@ -90,7 +93,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
 
         <activity
-            android:name=".activities.lists_activity"
+            android:name=".activities.activeEvents"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!--<activity-->

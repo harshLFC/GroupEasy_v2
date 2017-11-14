@@ -6,11 +6,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,16 +16,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.EventsAdapter;
 import example.com.groupeasy.pojo.list_primary;
 import example.com.groupeasy.pojo.members_In;
 
-public class lists_activity extends AppCompatActivity {
+public class activeEvents extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
@@ -46,15 +42,15 @@ public class lists_activity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lists);
+        setContentView(R.layout.activity_active_events);
 
-//        View rootView = inflater.inflate(R.layout.activity_lists,container,false);
+//        View rootView = inflater.inflate(R.layout.activity_active_events,container,false);
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.lists_app_bar);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("Active Events");
+        getSupportActionBar().setTitle("Active Events");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -99,7 +95,7 @@ public class lists_activity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);
 //        mRecyclerView.setHasFixedSize(true);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(lists_activity.this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(activeEvents.this));
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

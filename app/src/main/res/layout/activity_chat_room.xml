@@ -13,7 +13,7 @@
 
 <com.github.clans.fab.FloatingActionMenu
     android:layout_width="wrap_content"
-    android:layout_height="111dp"
+    android:layout_height="112dp"
     fab:menu_animationDelayPerItem="55"
     fab:menu_backgroundColor="@android:color/transparent"
     fab:menu_colorNormal="@color/colorAccent"
@@ -40,12 +40,11 @@
     fab:menu_shadowColor="#66aff198"
     fab:menu_showShadow="true"
     android:id="@+id/floatingActionMenu"
-    android:layout_marginEnd="8dp"
-    android:layout_marginLeft="8dp"
+    android:layout_marginLeft="2dp"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_marginBottom="2dp"
-    android:layout_marginRight="8dp">
+    android:layout_marginBottom="-5dp"
+    android:layout_marginStart="2dp">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_create_list"
@@ -62,31 +61,43 @@
                 />
 </com.github.clans.fab.FloatingActionMenu>
 
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_weight="8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintRight_toLeftOf="@+id/send_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        android:layout_marginLeft="50dp">
+    <!--<ScrollView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_weight="8"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--android:layout_marginBottom="0dp"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/send_button"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.84"-->
+        <!--android:layout_marginLeft="50dp">-->
 
         <EditText
+            android:textColorHighlight="@color/grey"
+            android:inputType="textMultiLine"
             android:id="@+id/message_content"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:minHeight="30dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_gravity="bottom"
             android:hint="Write a message"
             android:maxLength="300"
-            android:textColorHint="#CFD8DC" />
-    </ScrollView>
+            android:textColorHint="#CFD8DC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/floatingActionMenu"
+            app:layout_constraintRight_toLeftOf="@+id/send_button"
+            android:layout_marginRight="0dp"
+            app:layout_constraintHorizontal_bias="1.0" />
+    <!--</ScrollView>-->
 
                 <ImageView
                     android:id="@+id/send_button"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:src="@drawable/ic_menu_send"
+                    android:src="@drawable/ic_image_send"
                     android:layout_weight="0"
                     android:layout_marginRight="8dp"
                     app:layout_constraintRight_toRightOf="parent"
