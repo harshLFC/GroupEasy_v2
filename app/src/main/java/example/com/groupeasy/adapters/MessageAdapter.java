@@ -98,7 +98,7 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
                         Picasso.with(mContext)
                                 .load(image)
                                 .resize(100, 100)
-                                .placeholder(R.drawable.ic_default_user_single)
+                                .placeholder(R.drawable.single_user)
                                 .centerCrop()
                                 .into(sender_image);
                     }

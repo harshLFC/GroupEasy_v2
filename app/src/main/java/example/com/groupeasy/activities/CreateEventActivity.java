@@ -594,9 +594,9 @@ public class CreateEventActivity extends AppCompatActivity {
                         }
                     }
                 }
-                else{
+            /*    else{
                     revertTV();
-                }
+                }*/
             }
         }
 

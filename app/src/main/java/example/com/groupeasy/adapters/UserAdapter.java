@@ -81,7 +81,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             Picasso.with(viewHolder.itemView.getContext())
                     .load(image)
-                    .placeholder(R.drawable.ic_default_user_single)
+                    .placeholder(R.drawable.single_user)
                     .resize(100, 100)
                     .into(((UserViewHolder) holder).userDP);
         }

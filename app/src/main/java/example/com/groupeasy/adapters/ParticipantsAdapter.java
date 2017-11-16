@@ -68,7 +68,16 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //set values to your views from mlstGroups here
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
-        viewHolder.userResponse.setText(mLstGroups.get(position).getValue());
+
+        String userResponse = mLstGroups.get(position).getValue();
+        viewHolder.userResponse.setText(userResponse);
+
+        /**Trying to change emoticon colors to reflect status to event**/
+
+        if(userResponse.equals("In")){
+
+            viewHolder.userDP.setBackgroundResource(R.drawable.single_user_nobg_green);
+        }
 //        String image = (mLstGroups.get(position).getImage());
 //        viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
 

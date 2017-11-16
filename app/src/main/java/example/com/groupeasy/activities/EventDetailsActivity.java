@@ -259,7 +259,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                         //setDetails
                         String EventDetails = mLstGroups.get(0).getDetails();
                         if(EventDetails!=null)
-                        textDescription.setText("***"+EventDetails+"***");
+                        textDescription.setText(EventDetails);
 
                         //set Min and Max variables
                         String MinPart = mLstGroups.get(0).getMin();
@@ -286,15 +286,55 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                         }
                         if(startDay!=null) {
-                            textDateFrom.setText(startDay + startMonth);
+                            textDateFrom.setText(startDay +" "+ startMonth);
                             textDateFrom.setVisibility(View.VISIBLE);
 
                         }
                         if(ToDate!=null) {
-                            textDateTo.setText(ToDate);
-                            textDateTo.setVisibility(View.VISIBLE);
+                            trimDate(ToDate);
+
+//                            textDateTo.setText(ToDate);
+//                            textDateTo.setVisibility(View.VISIBLE);
 
                         }
+                    }
+
+                    private void trimDate(String toDate) {
+
+                        String[] parts = toDate.split("/");
+//            String part1 = "1"; // 004
+//            String part2 = "10";
+
+                        String part1 = parts[0]; // 004
+                        String part2 = parts[1]; // 034556
+
+                        int i = Integer.parseInt(part2);
+
+                        String[] str = {"Jan",
+                                "Feb",
+                                "Mar",
+                                "April",
+                                "May",
+                                "Jun",
+                                "Jul",
+                                "Aug",
+                                "Sept",
+                                "Oct",
+                                "Nov",
+                                "Dec","Dec"};
+
+                        String monthString;
+
+                        if( i <str.length){
+                            monthString =  str[i-1];
+                            textDateTo.setText(part1+" "+monthString);
+                            textDateTo.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            monthString = "invalid Month";
+                            textDateTo.setText(part1+" "+monthString);
+                        }
+
                     }
 
                     @Override
