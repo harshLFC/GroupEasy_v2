@@ -147,7 +147,7 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else {
             Picasso.with(mContext)
                     .load(image)
-                    .placeholder(R.drawable.ic_default_user_single)
+                    .placeholder(R.drawable.single_user)
                     .resize(100, 100)
                     .into(((UserViewHolder) holder).userDP);
         }

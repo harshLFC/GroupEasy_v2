@@ -98,6 +98,7 @@ public class editGroupActivity extends AppCompatActivity {
                 Picasso.with(editGroupActivity.this)
                         .load(image)
 //                        .resize(100,100)
+                        .placeholder(R.drawable.multi_user_alternate_2)
                         .into(profileImage);
             }
 

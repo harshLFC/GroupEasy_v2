@@ -216,7 +216,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 String image = dataSnapshot.child("image").getValue().toString();
                 Picasso.with(mContext)
                         .load(image)
-                        .placeholder(R.drawable.ic_default_groups)
+                        .placeholder(R.drawable.single_user)
                         .resize(50,50)
                         .into(((EventViewHolder) holder).userImage);
             }

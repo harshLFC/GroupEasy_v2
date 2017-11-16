@@ -203,7 +203,7 @@ public class aboutChatRoom extends AppCompatActivity {
 //// mContext where Context mContext;
                         .load(image)
                         .resize(500,500)
-                        .placeholder(R.drawable.ic_default_groups)
+                        .placeholder(R.drawable.multi_user_main)
                         .centerCrop()
                         .into(groupDP, new com.squareup.picasso.Callback(){
                             @Override

@@ -13,7 +13,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:civ_border_width="0.5dp"
-        android:src="@drawable/ic_default_user_single"
+        android:src="@drawable/single_user_nobg"
         android:layout_weight="0"/>
 
     <TextView

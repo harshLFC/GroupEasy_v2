@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     private CircleImageView profile_pic;
     private CollapsingToolbarLayout myCollapsingTool;
     LinearLayout logOut, polls, lists, rosters, favourites;
-    FloatingActionButton userProfile;
+    com.github.clans.fab.FloatingActionButton userProfile;
 
     TextView Favs;
     TextView EventCount;
@@ -219,7 +219,7 @@ public class ProfileFragment extends Fragment {
 //        lists = (LinearLayout) view.findViewById(R.id.lists);
         rosters = (LinearLayout) view.findViewById(R.id.rosters);
         favourites = (LinearLayout) view.findViewById(R.id.fav_events);
-        userProfile = (FloatingActionButton) view.findViewById(R.id.user_profile);
+        userProfile = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.user_profile);
 
         myCollapsingTool = (CollapsingToolbarLayout) view.findViewById(R.id.collapsingToolbar);
 

@@ -51,6 +51,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
+
         android:src="@drawable/ic_camera_black"
         android:id="@+id/GroupDPImageView"
         android:layout_marginTop="54dp"
@@ -58,7 +59,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_height="150dp"
         android:background="@drawable/oval_group_shape"
-            android:padding="5dp"
+            android:padding="25dp"
             android:layout_below="@+id/toolbar_layout"
             android:layout_centerHorizontal="true" />
 
