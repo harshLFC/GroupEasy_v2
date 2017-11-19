@@ -16,18 +16,4 @@
             android:title="All Users" />
 
     </group>
-
-    <item android:title="Search">
-        <menu>
-            <item
-                android:id="@+id/local_eve"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Local events" />
-            <item
-                android:id="@+id/global_eve"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Global events" />
-        </menu>
-    </item>
-
 </menu>

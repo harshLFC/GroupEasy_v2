@@ -199,13 +199,9 @@ public class DashboardActivity extends AppCompatActivity {
         }
         else
             if(id == R.id.help){
-            Toast.makeText(this, "Will redirect to the groupEasy website", Toast.LENGTH_LONG).show();
-        }
-        else if (id == R.id.local_eve){
-            Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
-        }
-        else if (id == R.id.global_eve){
-            Toast.makeText(this, "This part of the app is under construction", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(context,WelcomeActivity.class);
+                startActivity(i);
+                finish();
         }
         else if (id == R.id.all_users){
             Intent intent = new Intent(context,allUsersActivity.class);

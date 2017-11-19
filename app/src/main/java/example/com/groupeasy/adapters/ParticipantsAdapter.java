@@ -2,6 +2,7 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<members_In> mLstGroups;
     private static ParticipantsAdapter.EventViewHolder.ClickListener clickListener;
-    Context mContext;
+    private Context mContext;
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
@@ -69,14 +70,23 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
 
-        String userResponse = mLstGroups.get(position).getValue();
-        viewHolder.userResponse.setText(userResponse);
+        String UserResponse = mLstGroups.get(position).getValue();
+        viewHolder.userResponse.setText(UserResponse);
+//        Log.w(UserResponse,"userresponse");
 
         /**Trying to change emoticon colors to reflect status to event**/
-
-        if(userResponse.equals("In")){
+/*
+        if(UserResponse.equals("In")){
 
             viewHolder.userDP.setBackgroundResource(R.drawable.single_user_nobg_green);
+        }
+        */
+        if(viewHolder.userResponse.getText().toString().equals("In")){
+
+            viewHolder.userDP.setBackgroundResource(R.drawable.single_user_nobg_green);
+//            Toast.makeText(mContext, "Equals IN" ,Toast.LENGTH_SHORT).show();
+            Log.w("in bracket","userresponse");
+
         }
 //        String image = (mLstGroups.get(position).getImage());
 //        viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());

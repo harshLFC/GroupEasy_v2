@@ -67,6 +67,8 @@ public class CreateEventActivity extends AppCompatActivity {
     private CrystalRangeSeekbar participantRangeBar;
     private ProgressDialog mRegProcess;
 
+    private int DATE_FLAG = 0;
+
     GoogleApiClient mGoogleApiClient;
 
     final Calendar c = Calendar.getInstance();
@@ -548,9 +550,6 @@ public class CreateEventActivity extends AppCompatActivity {
         void compareToDate(int year, int month, int dayOfMonth) {
             /**THis method for comparing dates and alerting user if To date is more than From**/
 
-            Log.w(TvFrom.getText().toString(), "DateIssue");
-            Log.w(TvTo.getText().toString(), "DateIssue");
-
             String Date1 = TvFrom.getText().toString();
             String Date2 = TvTo.getText().toString();
 
@@ -572,10 +571,14 @@ public class CreateEventActivity extends AppCompatActivity {
                 int day2 = Integer.parseInt(myDate2[0]); // 004
                 int month2 = Integer.parseInt(myDate2[1]);
                 int year2 = Integer.parseInt(myDate2[2]);
+                DATE_FLAG = 0;
+
 
                 if (year2 < year1) {
                     Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
                     revertTV();
+                    DATE_FLAG = 0;
+
 
 
                 } else if (year2 == year1) {
@@ -583,6 +586,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     if (month2 < month1) {
                         Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
                         revertTV();
+                        DATE_FLAG = 0;
 
                     }
 
@@ -590,6 +594,16 @@ public class CreateEventActivity extends AppCompatActivity {
                         if (day2 < day1) {
                             Toast.makeText(CreateEventActivity.this, "You have selected a date in the past for end date", Toast.LENGTH_SHORT).show();
                             revertTV();
+                            DATE_FLAG = 0;
+
+                        }
+                        else if (day1 == day2 && !timeTo.getText().equals("End time")){
+
+                            if(!timeTo.getText().equals("End time"))
+                                Toast.makeText(CreateEventActivity.this, "End date changed, please select end time again", Toast.LENGTH_SHORT).show();
+
+                            DATE_FLAG = 1;
+                            revertEndTime();
 
                         }
                     }
@@ -719,35 +733,34 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
         else {
+            String Date2 = TvTo.getText().toString();
 
-            int hours1 = Integer.parseInt(startHrs.getText().toString());
-            int mins1 = Integer.parseInt(startMins.getText().toString());
+                int hours1 = Integer.parseInt(startHrs.getText().toString());
+                int mins1 = Integer.parseInt(startMins.getText().toString());
 
-            int hours2 = Integer.parseInt(endHrs.getText().toString());
-            int mins2 = Integer.parseInt(endMins.getText().toString());
+                int hours2 = Integer.parseInt(endHrs.getText().toString());
+                int mins2 = Integer.parseInt(endMins.getText().toString());
 
-            if(hours1 == 0 && (hours2 > 12) ){
+                if (Date2.equals("End date") || DATE_FLAG == 1) {
+                    if (hours1 == 0 && (hours2 > 12)) {
+                        Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                        revertEndTime();
+                    }
+                    if (hours2 < hours1 && !(hours1 == 12 && (hours2 == 0))) {
+                        Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                        revertEndTime();
+                    }
 
-                Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
-                revertEndTime();
-
-
-            }
-
-
-            if (hours2 < hours1 && !(hours1 == 12 && (hours2 == 0))) {
-                Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
-                revertEndTime();
-
-
-            }
-            if (hours2 == hours1) {
-                if (mins2 < mins1) {
-                    Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
-                    revertEndTime();
+                    if (hours2 == hours1) {
+                        if (mins2 < mins1) {
+                            Toast.makeText(CreateEventActivity.this, "You have selected a time in the past for end time", Toast.LENGTH_SHORT).show();
+                            revertEndTime();
+                        }
+                    }
                 }
+
+
             }
-        }
 
 
     }

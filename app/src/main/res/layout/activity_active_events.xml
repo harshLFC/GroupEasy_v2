@@ -19,7 +19,7 @@
         android:layout_gravity="top"
         android:id="@+id/just_a_view">
 
-    </View>
+        </View>
 
 <android.support.v7.widget.RecyclerView
     android:paddingTop="20dp"

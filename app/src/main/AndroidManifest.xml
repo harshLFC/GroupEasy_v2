@@ -94,7 +94,9 @@
 
         <activity
             android:name=".activities.activeEvents"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
 
         <!--<activity-->
             <!--android:name=".activities.chooseGroup"-->
@@ -110,7 +112,9 @@
 
         <activity
             android:name=".activities.editGroupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".activities.allUsersActivity"
@@ -127,6 +131,7 @@
 
         <activity android:name=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
