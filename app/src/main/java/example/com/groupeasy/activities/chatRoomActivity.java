@@ -263,18 +263,19 @@ public class chatRoomActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.child("name").getValue().toString();
 
-                            Map<String,Object> value = new HashMap<>();
-                            value.put("content",messageContent.getText().toString());
+//                            Map<String,Object> value = new HashMap<>();
+//                            String msg = messageContent.getText().toString().trim();
+                  /*          value.put("content",trimmed);
                             value.put("name",name);
                             value.put("group",room_name);
                             value.put("from",current_uid);
-
+*/
                             FirebaseDatabase.getInstance()
                                     .getReference()
                                     .child("messages")
                                     .child(groupKey)
                                     .child("groupMsgs").push()
-                                    .setValue(new chatMessage(messageContent.getText().toString(),
+                                    .setValue(new chatMessage(messageContent.getText().toString().trim(),
                                             name,
                                             current_uid,
                                             groupIdKey.getText().toString()));

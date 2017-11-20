@@ -104,7 +104,7 @@ public class CreateEventActivity extends AppCompatActivity {
                  String EventName, EventDetails = null, Location = null, minLimit = null, maxLimit = null, fromDATE = null, fromTIME = null, toDATE = null, toTIME = null;
 
                 // Aquire and convert data to string to prepare it for the push
-                EventName = eventName.getText().toString();
+                EventName = eventName.getText().toString().trim();
 
                 if (eventDetails.getText().toString().trim().length() > 0) {
                     EventDetails = eventDetails.getText().toString();
@@ -124,9 +124,9 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 //is enabled returns true if pressed
                 oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
-                globalEvent = (CheckBox) findViewById(R.id.global_event);
+//                globalEvent = (CheckBox) findViewById(R.id.global_event);
                 boolean one_day_event = oneDayEvent.isChecked();
-                boolean global_event = globalEvent.isChecked();
+//                boolean global_event = globalEvent.isChecked();
 
                 //the trick used is if textFields do not have default value
                 // then the values are added to variable and pushed to server
@@ -171,7 +171,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     final String finalToTime = toTIME;
                     final String finalToDate = toDATE;
                     final boolean finalOneDayEvent = one_day_event;
-                    final boolean finalGlobalEvent = global_event;
+//                    final boolean finalGlobalEvent = global_event;
 
                     String push_id = groupRef.push().getKey();
 
@@ -203,7 +203,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     list_primary listMain = new list_primary(finalEventName, uid, finalLocation, push_id, finalFromDate);
                     //send primary details
                     groupRef.child(push_id).setValue(listMain);
-                    list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
+                    list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromTime, finalToDate, finalToTime);
 //                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
 
                     HashMap myMap = new HashMap();
@@ -260,25 +260,7 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
-        //What this means popup TODO add real instructions
-        popUpPublicEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
-                builder
-                        .setMessage(R.string.Lorem_Ipsum_large)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
-
-        //What this means popup TODO add real instructions
+           //What this means popup TODO add real instructions
         popUpOneDayEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -367,7 +349,7 @@ public class CreateEventActivity extends AppCompatActivity {
         TvFrom = (TextView) findViewById(R.id.tv_from_date);
         TvTo = (TextView) findViewById(R.id.tv_to_date);
         saveBtn = (TextView) findViewById(R.id.saveDetails);
-        popUpPublicEvent = (TextView) findViewById(R.id.pop_up_public_event);
+//        popUpPublicEvent = (TextView) findViewById(R.id.pop_up_public_event);
         popUpOneDayEvent = (TextView) findViewById(R.id.popup_one_day_event);
         timeFrom = (TextView) findViewById(R.id.tv_from_time);
         timeTo = (TextView) findViewById(R.id.tv_to_time);
@@ -386,8 +368,6 @@ public class CreateEventActivity extends AppCompatActivity {
         startMins = (TextView) findViewById(R.id.start_mins);
         endHrs = (TextView) findViewById(R.id.end_hrs);
         endMins = (TextView) findViewById(R.id.end_mins);
-
-
 
     }
 

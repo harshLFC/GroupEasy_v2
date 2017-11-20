@@ -54,6 +54,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     private TextView textDateTo;
     private TextView textTimeTo;
 
+    private TextView numOfPart;
+
 
     //dynamic data elements
     private ParticipantsAdapter mAdapter;
@@ -66,6 +68,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
     final DatabaseReference groupRef = myRef.child("Events").child("lists");
+    private View View5;
 
 
     @Override
@@ -398,8 +401,17 @@ public class EventDetailsActivity extends AppCompatActivity {
                 //if list is empty say no participants
                 if(mLstGroups2.isEmpty())
                     ParticipantsInThisEvent.setText("No Participants in this event");
-                    else
+                    else {
                     ParticipantsInThisEvent.setText("Participants in this event");
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    //view5 is the small line below participants
+                    View5.setVisibility(View.GONE);
+                    numOfPart.setVisibility(View.VISIBLE);
+
+//                    displaying number of people who have participated
+                    int count = mLstGroups2.size();
+                    numOfPart.setText("Number of participants: "+count+" ");
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -431,12 +443,16 @@ public class EventDetailsActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.event_details_recycler);
         ParticipantsInThisEvent = (TextView) findViewById(R.id.participants_in_this_event);
 
+        numOfPart = (TextView) findViewById(R.id.num_of_part);
+
         ThumbUp = (ImageButton) findViewById(R.id.thumb_up);
         ThumbUpGreen = (ImageButton) findViewById(R.id.thumb_up_green_green);
         ThumbDown= (ImageButton) findViewById(R.id.thumb_down);
         ThumbDownRed= (ImageButton) findViewById(R.id.thumb_down_red);
         QuestionMark= (ImageButton) findViewById(R.id.question_mark);
         QuestionMarkYellow= (ImageButton) findViewById(R.id.question_mark_yellow);
+
+        View5 = (View) findViewById(R.id.view5);
 
 
     }

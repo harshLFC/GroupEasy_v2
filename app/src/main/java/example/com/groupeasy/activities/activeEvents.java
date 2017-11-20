@@ -27,14 +27,9 @@ public class activeEvents extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
-//    private EventsAdapter mDataAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private List<list_primary> mLstGroups;
-    private List<members_In> mLstGroups2;
     private TextView emptyView;
     private String groupKey;
-//    HashMap<String,String> myMap = new HashMap<>();
-//    HashMap<String,String> myMapNext = new HashMap<>();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
@@ -43,8 +38,6 @@ public class activeEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_events);
-
-//        View rootView = inflater.inflate(R.layout.activity_active_events,container,false);
 
         emptyView = (TextView) findViewById(R.id.empty_view_list);
 
@@ -67,8 +60,6 @@ public class activeEvents extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long num = dataSnapshot.getChildrenCount();
-//                Log.w(String.valueOf(num),"amIGettingNUm");
-//                getData(num);
 
                 /**Create Ui passing num of children in participants as parameter to loop through and display members */
                 createListView(num);
@@ -80,17 +71,12 @@ public class activeEvents extends AppCompatActivity {
             }
         });
 
-//        long num = 0;
-//        createListView(num);
         initElementsByListeners();
         initElementsByIds();
 
         mLstGroups = new ArrayList<>();
-//        mLstGroups2 = new ArrayList<>();
 
         mAdapter = new EventsAdapter(mLstGroups,this,groupKey);
-
-//        mAdapter = new EventsAdapter(mLstGroups,this,mLstGroups2);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_recycler_view);
 //        mRecyclerView.setHasFixedSize(true);
@@ -120,7 +106,7 @@ public class activeEvents extends AppCompatActivity {
 
         /** for loop for looping through the num of children param got through variable num*/
         for(int i=0; i<num ;i++) {
-            /**Getting Participants */
+            /**Failed ! Getting Participants */
                 String temp = String.valueOf((i-1));
 
            /* groupRef.child(groupKey).child(temp).child("participants").child("").addChildEventListener(new ChildEventListener() {
@@ -172,8 +158,9 @@ public class activeEvents extends AppCompatActivity {
 
                 for(DataSnapshot snapshot : dataSnapshot.child("").getChildren()) {
                     list_primary newList = snapshot.getValue(list_primary.class);
-                    mLstGroups.add(newList);
+                    mLstGroups.add(0,newList);
 
+                    /**Failed ! code for trying to implement dynamic participant list**/
                     /*for (DataSnapshot ds : snapshot.child("participants").child("").getChildren()) {
 
                         members_In members = ds.getValue(members_In.class);
@@ -222,7 +209,7 @@ public class activeEvents extends AppCompatActivity {
 
 
 //        for(int i=0; i<numOfChildren ;i++) {
-            *//**Getting Participants *//*
+            *//**Failed ! Getting Participants *//*
             groupRef.child(groupKey).child("-Kx8T3J3ddUyfOivXc-x").child("participants").child("").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

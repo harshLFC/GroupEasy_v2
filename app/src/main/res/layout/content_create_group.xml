@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
            app:counterEnabled="true"
-           app:counterMaxLength="25"
+           app:counterMaxLength="21"
            android:layout_marginTop="65dp"
            android:padding="10dp"
            android:layout_below="@+id/GroupDPImageView"
@@ -82,7 +82,7 @@
             android:id="@+id/input"
             android:maxLines="1"
             android:inputType="text"
-            android:maxLength="25"/>
+            android:maxLength="21"/>
     </android.support.design.widget.TextInputLayout>
 
 

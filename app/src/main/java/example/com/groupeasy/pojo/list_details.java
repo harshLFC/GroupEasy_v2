@@ -12,14 +12,14 @@ public class list_details {
     private String min;
     private String max;
     private boolean oneDay;
-    private boolean global;
+//    private boolean global;
 
     public list_details(){
 
     }
 
     public list_details(String details, String min, String  max, boolean oneDay,
-                        String fromTime, String toDate, String toTime, boolean global)
+                        String fromTime, String toDate, String toTime)
     {
         this.details = details;
         this.fromTime = fromTime;
@@ -28,7 +28,7 @@ public class list_details {
         this.min = min;
         this.max = max;
         this.oneDay = oneDay;
-        this.global = global;
+//        this.global = global;
     }
 
     private String toTime;
@@ -89,11 +89,11 @@ public class list_details {
         this.oneDay = oneDay;
     }
 
-    public boolean isGlobal() {
-        return global;
-    }
-
-    public void setGlobal(boolean global) {
-        this.global = global;
-    }
+//    public boolean isGlobal() {
+//        return global;
+//    }
+//
+//    public void setGlobal(boolean global) {
+//        this.global = global;
+//    }
 }
