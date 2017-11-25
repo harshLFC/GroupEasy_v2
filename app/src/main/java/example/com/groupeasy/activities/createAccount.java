@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -54,6 +55,7 @@ public class createAccount extends AppCompatActivity {
     private DatabaseReference mDatabase ;
 
     final DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference mUserBD = mDatabase1.child("members");
     final DatabaseReference userRef = mDatabase1.child("members").child("");
     final String user_push_id = userRef.push().getKey();
 
@@ -150,18 +152,24 @@ public class createAccount extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     if(current_user != null)
+
+                    /** Two codes for registering and sending user data 1. if image is uploaded, 2.if no image is uploaded***/
                     {
+                        final String device_token = FirebaseInstanceId.getInstance().getToken();
+
+
                         final String uid = current_user.getUid();
 
                         mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
 
                         StorageReference filePath = mStorageRef.child("profile_images").child(user_push_id+".jpg");
 
+                        /**If image is uploaded by user**/
                         filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
 
-                                HashMap<String,String> userMap = new HashMap<>();
+                                final HashMap<String,String> userMap = new HashMap<>();
                                 userMap.put("name",mUserName);
                                 userMap.put("status","Hi! Im on GroupEasy");
                                 userMap.put("image",uri.toString());
@@ -169,28 +177,41 @@ public class createAccount extends AppCompatActivity {
                                 userMap.put("last_seen","Default");
                                 userMap.put("id",uid);
 
-                                mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                        mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                        if(task.isSuccessful()){
-                                            mRegProcess.dismiss();
-                                            Intent intent = new Intent(createAccount.this,WelcomeActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                        else{
-                                            mRegProcess.hide();
-                                            Toast.makeText(createAccount.this,
-                                                    "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
-                                                    .show();
-                                        }
-                                    }
-                                });
+                                                if(task.isSuccessful()){
+
+                                                    mUserBD.child(uid).child("device_token").setValue(device_token).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+
+                                                            mRegProcess.dismiss();
+                                                            Intent intent = new Intent(createAccount.this,WelcomeActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+
+                                                        }
+                                                    });
+
+                                                }
+                                                else{
+                                                    mRegProcess.hide();
+                                                    Toast.makeText(createAccount.this,
+                                                            "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
+                                                            .show();
+                                                }
+                                            }
+                                        });
+
+
 
 
                             }
                         });
+
+                        /**If NO image is uploaded by user**/
 
                         filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -213,10 +234,20 @@ public class createAccount extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
 
                                         if(task.isSuccessful()){
-                                            mRegProcess.dismiss();
-                                            Intent i = new Intent(createAccount.this,WelcomeActivity.class);
-                                            startActivity(i);
-                                            finish();
+
+
+                                            mUserBD.child(uid).child("device_token").setValue(device_token).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+
+                                                    mRegProcess.dismiss();
+                                                    Intent i = new Intent(createAccount.this,WelcomeActivity.class);
+                                                    startActivity(i);
+                                                    finish();
+
+                                                }
+                                            });
+
                                         }
                                         else{
                                             mRegProcess.hide();

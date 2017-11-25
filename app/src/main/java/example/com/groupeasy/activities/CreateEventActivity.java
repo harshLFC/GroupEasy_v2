@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +61,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private TextView saveBtn;
     private TextView popUpPublicEvent, popUpOneDayEvent;
     private ImageView ivClose, ImagetimeTo,ImagetimeFrom, ImageDateFrom, ImageDateTo;
-    private String groupKey;
+    private String groupKey, groupName;
     private LinearLayout LayouttimeTo,LayouttimeFrom, LayoutDateFrom, LayoutDateTo;
 
     private CheckBox oneDayEvent, globalEvent;
@@ -67,7 +70,8 @@ public class CreateEventActivity extends AppCompatActivity {
     private CrystalRangeSeekbar participantRangeBar;
     private ProgressDialog mRegProcess;
 
-    private int DATE_FLAG = 0;
+    /**Setting flag for time validation, 1 = validate; 0= don't validate**/
+    private int DATE_FLAG = 1;
 
     GoogleApiClient mGoogleApiClient;
 
@@ -87,12 +91,61 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_new_event);
         context = CreateEventActivity.this;
 
+
         initElementsWithIds();
         initElementsWithListeners();
         updateDisplay();
+
+
     }
 
     private void initElementsWithListeners() {
+
+        /**Check if checkbox is ticked, else revert date fields**/
+
+        oneDayEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+
+                    if(!TvFrom.getText().toString().equals("Start date"))
+                    {
+
+//                        Toast.makeText(context, "2 + 2 is 4 minus 1 thats 3", Toast.LENGTH_LONG).show();
+
+                        //values 1st tv
+                        String Date1 = TvFrom.getText().toString();
+                        String[] myDate1 = Date1.split("/");
+
+                        int day1 = Integer.parseInt(myDate1[0]); // 004
+                        int month1 = Integer.parseInt(myDate1[1]);
+                        int year1 = Integer.parseInt(myDate1[2]);
+
+                        TvTo.setText(day1 + "/" + month1 + "/" + year1);
+                        TvTo.setTextColor(Color.WHITE);
+                        ImageDateTo.setColorFilter(Color.WHITE);
+                        LayoutDateTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
+
+                        revertStartTime();
+                        revertEndTime();
+                    }
+                    else{
+                        revertTV();
+
+                    }
+                    //setting flag 1 so that time is validated
+                    DATE_FLAG = 1;
+
+                }
+
+                //setting flag 0 as time is not needed to be validated of event is > 1 days long
+//                else if(!oneDayEvent.isChecked())
+//                    DATE_FLAG = 0;
+
+
+
+            }
+        });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,10 +176,10 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
 
                 //is enabled returns true if pressed
-                oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
 //                globalEvent = (CheckBox) findViewById(R.id.global_event);
                 boolean one_day_event = oneDayEvent.isChecked();
 //                boolean global_event = globalEvent.isChecked();
+
 
                 //the trick used is if textFields do not have default value
                 // then the values are added to variable and pushed to server
@@ -148,8 +201,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
 
                 //Code for form Validation
-                if (EventName.isEmpty()) {
-                    Toast.makeText(context, "Please enter a Name for the event", Toast.LENGTH_LONG).show();
+                if (EventName.isEmpty() || TvFrom.getText().equals("Start date")) {
+                    Toast.makeText(context, "Event name and start date are compulsory fields", Toast.LENGTH_LONG).show();
                 }
                 //push to firebase
                 else {
@@ -159,6 +212,7 @@ public class CreateEventActivity extends AppCompatActivity {
 //                    }
 
                     groupKey = getIntent().getExtras().get("groupKey").toString();
+                    groupName = getIntent().getExtras().get("room_name").toString();
                     final DatabaseReference groupRef = myRef.child("Events").child("lists").child(groupKey).child("");
 
                     final String finalEventDetails = EventDetails;
@@ -206,6 +260,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromTime, finalToDate, finalToTime);
 //                            list_details newList = new list_details(finalEventDetails, finalMinLimit, finalMaxLimit, finalOneDayEvent, finalFromDate, finalFromTime, finalToDate, finalToTime, finalGlobalEvent);
 
+
                     HashMap myMap = new HashMap();
                     myMap.put("details", finalEventDetails);
                     myMap.put("details", finalEventDetails);
@@ -238,7 +293,24 @@ public class CreateEventActivity extends AppCompatActivity {
                         }
                     });*/
 
+                    //trying for notification
+                    HashMap<String,String> notifyMap = new HashMap<>();
+                    notifyMap.put("event_name",EventName);
+                    notifyMap.put("group_name",groupName);
+
+                    myRef.child("notifications").child(uid).child(push_id).setValue(notifyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(CreateEventActivity.this, "Notification sent !", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
                 }
+
+
+
+
             }
 
         });
@@ -369,6 +441,9 @@ public class CreateEventActivity extends AppCompatActivity {
         endHrs = (TextView) findViewById(R.id.end_hrs);
         endMins = (TextView) findViewById(R.id.end_mins);
 
+        oneDayEvent = (CheckBox) findViewById(R.id.one_day_event);
+
+
     }
 
     @Override
@@ -427,12 +502,24 @@ public class CreateEventActivity extends AppCompatActivity {
 //                Toast.makeText(CreateEventActivity.this, "WARNING:You have selected date in the past", Toast.LENGTH_SHORT).show();
 //            }
 
+
             TvFrom.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             TvFrom.setTextColor(Color.WHITE);
             ImageDateFrom.setColorFilter(Color.WHITE);
             LayoutDateFrom.setBackgroundResource(R.drawable.rounded_corner_primary_color);
 
-//            TvFrom.setText(dayOfMonth+" "+month_name+" "+year);
+            if(oneDayEvent.isChecked()){
+
+                Log.w("asdjasdljs","checked");
+
+                //2nd textfied cha setting
+                TvTo.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                TvTo.setTextColor(Color.WHITE);
+                ImageDateTo.setColorFilter(Color.WHITE);
+                LayoutDateTo.setBackgroundResource(R.drawable.rounded_corner_secondary_color);
+
+            }
+
             compareDate();
 
         }
@@ -462,16 +549,22 @@ public class CreateEventActivity extends AppCompatActivity {
             if (year1 > year2) {
                 Toast.makeText(CreateEventActivity.this, "Hey there time traveller, please select a valid date", Toast.LENGTH_SHORT).show();
                 revertTV();
+                revertStartTime();
+                revertEndTime();
 
             } else if (year2 == year1) {
                 if (month1 > month2) {
                     Toast.makeText(CreateEventActivity.this, "Hey there time traveller, please select a valid date", Toast.LENGTH_SHORT).show();
                     revertTV();
+                    revertStartTime();
+                    revertEndTime();
                 }
                 if (month2 == month1) {
                     if (day1 > day2) {
                         Toast.makeText(CreateEventActivity.this, "Hey there time traveller, please select a valid date", Toast.LENGTH_SHORT).show();
                         revertTV();
+                        revertStartTime();
+                        revertEndTime();
 
                     }
                 }
@@ -499,12 +592,19 @@ public class CreateEventActivity extends AppCompatActivity {
     // code for opening calender
     public void dateTo(View view) {
 
-        DatePickerDialog datePickerTo = new DatePickerDialog(this, e, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        //so that user cannot pick previous date
+        if(oneDayEvent.isChecked()){
+
+            Toast.makeText(this, "Cannot set end date for a one day event",Toast.LENGTH_SHORT).show();
+        }
+        else {
+
+            DatePickerDialog datePickerTo = new DatePickerDialog(this, e, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            //so that user cannot pick previous date
 
 //        datePickerTo.getDatePicker().setMinDate(datePickerDialog.getDatePicker().getDayOfMonth());
-        datePickerTo.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        datePickerTo.show();
+            datePickerTo.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerTo.show();
+        }
 
     }
 
@@ -738,11 +838,7 @@ public class CreateEventActivity extends AppCompatActivity {
                         }
                     }
                 }
-
-
             }
-
-
     }
 
     private void revertEndTime() {

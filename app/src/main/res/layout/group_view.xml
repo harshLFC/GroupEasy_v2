@@ -129,11 +129,10 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
-            android:padding="1dp"
             android:src="@drawable/multi_user"
             app:civ_border_color="#FF000000"
             app:civ_border_width="0.5dp" />
@@ -152,27 +151,28 @@
             android:id="@+id/textViewAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
             android:ellipsize="end"
             android:gravity="end"
             android:maxLength="16"
             android:maxLines="1"
             android:text="Harsh Phoujdar"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/text_last_message"
-            android:layout_alignStart="@+id/text_last_message"
-            android:layout_below="@+id/linearLayout2"
             android:gravity="end"
             android:text="Admin:"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_below="@+id/text_last_message"
+            android:layout_alignLeft="@+id/text_last_message"
+            android:layout_alignStart="@+id/text_last_message" />
     </RelativeLayout>
 
 

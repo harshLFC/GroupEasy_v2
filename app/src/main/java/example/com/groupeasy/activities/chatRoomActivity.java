@@ -214,6 +214,8 @@ public class chatRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent(chatRoomActivity.this,CreateEventActivity.class);
                 groupKey = getIntent().getExtras().get("groupKey").toString();
                 intent.putExtra("groupKey",groupKey);
+                String room_name = roomName.getText().toString();
+                intent.putExtra("room_name",room_name);
                 startActivity(intent);
             }
         });
@@ -310,6 +312,8 @@ public class chatRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(),activeEvents.class);
                 groupKey = getIntent().getExtras().get("groupKey").toString();
                 intent.putExtra("groupKey",groupKey);
+
+
                 startActivity(intent);
             }
         });

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import example.com.groupeasy.R;
 import example.com.groupeasy.utility.prefManager;
@@ -53,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
     final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     private prefManager PrefManager;
+
+    private DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("members");
 
 
     @Override
@@ -222,10 +228,22 @@ public class LoginActivity extends AppCompatActivity {
 
                      mRegProgress.dismiss();
 
-                    Intent intent = new Intent(context,DashboardActivity.class);
-                    intent.putExtra("userName","value");
-                    startActivity(intent);
-                    finish();
+                    String device_token = FirebaseInstanceId.getInstance().getToken();
+                    String current_user = mAuth.getCurrentUser().getUid();
+
+                    mUserDB.child(current_user).child("device_token").setValue(device_token).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            Intent intent = new Intent(context,DashboardActivity.class);
+                            intent.putExtra("userName","value");
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    });
+
+
                 }
 
                 else{

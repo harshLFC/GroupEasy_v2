@@ -88,7 +88,7 @@ public class GroupFragment extends Fragment {
 
     private void initElementsWithIds(View view) {
 
-        floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floating_action_button);
+//        floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floating_action_button);
         backgroundView = view.findViewById(R.id.group_background);
         fabCreateGroup = (FloatingActionButton) view.findViewById(R.id.fab_create_group);
         emptyView = (ImageView) view.findViewById(R.id.empty_view);
@@ -99,19 +99,19 @@ public class GroupFragment extends Fragment {
     private void initElementsWithListeners()
     {
 
-        floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+/*        floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
-               /* if(opened)
+               *//* if(opened)
                 {
                     backgroundView.setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     backgroundView.setVisibility(View.GONE);
-                }*/
+                }*//*
             }
-        });
+        });*/
 
        /*
         fabCreateList.setOnClickListener(new View.OnClickListener() {

@@ -81,9 +81,10 @@
             android:background="@color/white">
 
             <android.support.design.widget.TextInputLayout
+                app:counterEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:counterMaxLength="20"
+                app:counterMaxLength="28"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:inputType="text"
@@ -97,7 +98,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     style="@style/TextAppearance.AppCompat.Large"
                     android:hint="Event Name*"
-                    android:maxLength="38"
+                    android:maxLength="28"
                     android:maxLines="1"
                     android:id="@+id/eventName"/>
             </android.support.design.widget.TextInputLayout>
@@ -274,7 +275,7 @@
                                 android:textColor="@color/black"
                                 android:layout_marginLeft="12dp"
                                 style="@style/TextAppearance.AppCompat.Small"
-                                android:text="From"
+                                android:text="From*"
                                 android:layout_height="wrap_content"
                                 android:layout_width="match_parent"/>
 

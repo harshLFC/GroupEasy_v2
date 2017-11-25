@@ -58,9 +58,21 @@
     android:background="@color/white"
     android:src="@drawable/empty_groups"/>
 
+<!--<android.support.design.widget.FloatingActionButton
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    fab:fab_size="normal"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginEnd="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp"
+    android:elevation="8dp"
+    android:background="@color/colorAccent"
+    android:src="@drawable/ic_plus_white_48dp"
+    />-->
 
-
-    <com.github.clans.fab.FloatingActionMenu
+    <!--<com.github.clans.fab.FloatingActionMenu
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,31 +112,32 @@
         >
 
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/fab_create_poll"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/rectangle_shape"-->
-            <!--fab:fab_label="Create Poll"-->
-            <!--fab:fab_size="mini" />-->
+        &lt;!&ndash;<com.github.clans.fab.FloatingActionButton&ndash;&gt;
+            &lt;!&ndash;android:id="@+id/fab_create_poll"&ndash;&gt;
+            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
+            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
+            &lt;!&ndash;android:src="@drawable/rectangle_shape"&ndash;&gt;
+            &lt;!&ndash;fab:fab_label="Create Poll"&ndash;&gt;
+            &lt;!&ndash;fab:fab_size="mini" />&ndash;&gt;
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/fab_create_roaster"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/hexagon_shape"-->
-            <!--fab:fab_label="Create Roster"-->
-            <!--fab:fab_size="mini" />-->
+        &lt;!&ndash;<com.github.clans.fab.FloatingActionButton&ndash;&gt;
+            &lt;!&ndash;android:id="@+id/fab_create_roaster"&ndash;&gt;
+            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
+            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
+            &lt;!&ndash;android:src="@drawable/hexagon_shape"&ndash;&gt;
+            &lt;!&ndash;fab:fab_label="Create Roster"&ndash;&gt;
+            &lt;!&ndash;fab:fab_size="mini" />&ndash;&gt;
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/fab_create_list"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/circle_shape"-->
-            <!--fab:fab_label="Create List"-->
-            <!--fab:fab_size="mini" />-->
+        &lt;!&ndash;<com.github.clans.fab.FloatingActionButton&ndash;&gt;
+            &lt;!&ndash;android:id="@+id/fab_create_list"&ndash;&gt;
+            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
+            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
+            &lt;!&ndash;android:src="@drawable/circle_shape"&ndash;&gt;
+            &lt;!&ndash;fab:fab_label="Create List"&ndash;&gt;
+            &lt;!&ndash;fab:fab_size="mini" />&ndash;&gt;
+</com.github.clans.fab.FloatingActionMenu>-->
 
-        <com.github.clans.fab.FloatingActionButton
+    <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_create_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,8 +150,14 @@
             fab:fab_progress_showBackground="true"
             fab:fab_showAnimation="@anim/fab_scale_up"
             fab:fab_label="Create Group"
-            fab:fab_size="mini" />
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_size="mini"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+        />
 
-    </com.github.clans.fab.FloatingActionMenu>
+
 
 </RelativeLayout>

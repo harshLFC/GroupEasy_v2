@@ -101,7 +101,7 @@
             android:maxLength="40"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:text="Event Name"
+            android:text="Event NameEvent NameEvent Name"
             app:layout_constraintLeft_toRightOf="@+id/imageView6"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="8dp"
