@@ -25,11 +25,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
-
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.github.clans:fab:1.6.2'
     compile 'info.hoang8f:android-segmented:1.0.6'
     compile 'com.crystal:crystalrangeseekbar:1.1.1'
@@ -48,9 +48,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'id.zelory:compressor:2.1.0'
-    testCompile 'junit:junit:4.12'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
+    testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
 
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
 }
 apply plugin: 'com.google.gms.google-services'

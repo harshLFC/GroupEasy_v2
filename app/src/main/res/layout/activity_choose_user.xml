@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="example.com.groupeasy.activities.chooseUserActivity"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:background="@drawable/selector_row"
     android:id="@+id/my_linear_layout"
     >
@@ -17,10 +18,12 @@
     </include>
 
     <android.support.v7.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:layout_marginTop="55dp"
         android:id="@+id/choose_users_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -7,9 +7,9 @@
     android:id="@+id/my_relative_layout">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_default_user_single"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/single_user"
         app:civ_border_color="@color/black"
         app:civ_border_width="1.5dp"
         android:layout_margin="5dp"
@@ -36,10 +36,11 @@
         android:id="@+id/user_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Status My Status My status status "
+        android:text="My Status My Status My status statusstatus "
         android:scrollHorizontally="true"
+        android:maxLength="35"
+        android:layout_marginBottom="6dp"
         android:maxLines="1"
-        android:maxLength="28"
         android:ellipsize="end"
         style="@android:style/TextAppearance.Small"
         android:layout_alignBottom="@+id/user_dp"
@@ -58,7 +59,14 @@
         android:text="Last seen"
         android:layout_alignTop="@+id/user_dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/magic_user_id"/>
 
     <CheckBox
         android:id="@+id/my_check"
@@ -78,7 +86,8 @@
         android:layout_alignRight="@+id/user_name"
         android:layout_alignEnd="@+id/user_name"
         android:layout_toRightOf="@+id/user_dp"
-        android:layout_toEndOf="@+id/user_dp" />
+        android:layout_toEndOf="@+id/user_dp"
+        android:visibility="gone"/>
 
 
     <View
@@ -87,7 +96,7 @@
         android:background="@android:color/darker_gray"
         android:layout_below="@id/user_status"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="7dp"
         android:id="@+id/view5"
         />
 

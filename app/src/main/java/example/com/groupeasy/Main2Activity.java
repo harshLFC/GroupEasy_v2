@@ -71,14 +71,10 @@ public class Main2Activity extends AppCompatActivity
 
          if (id == R.id.help) {
 
-        } else if (id == R.id.settings) {
-
-        } else if (id == R.id.local_eve) {
-
-        } else if (id == R.id.global_eve) {
+        }
+        else if (id == R.id.log_out) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

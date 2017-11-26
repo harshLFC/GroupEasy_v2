@@ -2,6 +2,7 @@ package example.com.groupeasy.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -58,9 +59,8 @@ public class aboutChatRoom extends AppCompatActivity {
         setName(roomKey);
 
         initElementsWithIds();
-//        groupName.setText(room_name);
-        createListView();
-        initElementsWithListeners(roomKey);
+//      groupName.setText(room_name);
+        createListView();        initElementsWithListeners(roomKey);
 
         mLstGroups = new ArrayList<>();
 
@@ -80,10 +80,13 @@ public class aboutChatRoom extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //set toolbar with group name
+                final Drawable upArrow = getResources().getDrawable(R.drawable.ic_back_arrow_left);
+
                 Toolbar mToolbar = (Toolbar) findViewById(R.id.users_group_toolbar);
                 setSupportActionBar(mToolbar);
                 getSupportActionBar().setTitle(dataSnapshot.getValue().toString());
                 getSupportActionBar().setShowHideAnimationEnabled(true);
+                getSupportActionBar().setHomeAsUpIndicator(upArrow);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                     @Override
@@ -167,6 +170,9 @@ public class aboutChatRoom extends AppCompatActivity {
 
                             mUserAdapter.notifyDataSetChanged();
                             Log.w("leyz",ds.toString());
+
+
+
                         }
 
                         @Override
@@ -175,6 +181,10 @@ public class aboutChatRoom extends AppCompatActivity {
                     });
                 }
                 mUserAdapter.notifyDataSetChanged();
+
+
+
+
             }
 
             @Override
@@ -193,7 +203,7 @@ public class aboutChatRoom extends AppCompatActivity {
 //// mContext where Context mContext;
                         .load(image)
                         .resize(500,500)
-                        .placeholder(R.drawable.ic_default_groups)
+                        .placeholder(R.drawable.multi_user_main)
                         .centerCrop()
                         .into(groupDP, new com.squareup.picasso.Callback(){
                             @Override

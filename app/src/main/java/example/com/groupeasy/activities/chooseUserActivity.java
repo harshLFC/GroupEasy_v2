@@ -2,11 +2,13 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -107,9 +109,16 @@ public class chooseUserActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.select_users_menu, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        search(searchView);
+
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -128,6 +137,9 @@ public class chooseUserActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_users_done) {
 
+            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = current_user.getUid();
+
 //            String data = "";
             List<users_list> uList = mUserAdapter
                     .getUserId();
@@ -144,19 +156,23 @@ public class chooseUserActivity extends AppCompatActivity {
 
                     //Update Users DB with groupsIn TRUE value
                     userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
-
                 }
             }
 
 //            Update Members DB with groups TRUE value
 //            this code is not working here, but is working inside the group because groups is not created before
+            /**THe user crating group is added by default**/
+            myMap.put(uid,true);
+
+            //set Value of members in group to all in myMap
             groupRef.child(group_id).child("members").child("").setValue(myMap);
+
+            userRef.child(uid).child("groupsIn").child(group_id).setValue(true);
 
             //initiate a msgRef for pushing sample data
             final DatabaseReference msgRef = myRef.child("messages").child("");
 
-            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-            final String uid = current_user.getUid();
+
 
             //code to push create group data to firebase
             myRef.child("members").child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -202,6 +218,26 @@ public class chooseUserActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**Send data as query to the search functionality in adapter**/
+
+    private void search(SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                mUserAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
 
     private void initElementsWithIds() {
 

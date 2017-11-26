@@ -2,17 +2,22 @@ package example.com.groupeasy.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +37,13 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
-import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.adapters.MessageAdapter;
 import example.com.groupeasy.pojo.chatMessage;
 
 public class chatRoomActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;
-    private Button chatRoomButton;
+    private LinearLayout chatRoomButton;
     private View chatBackground;
     private String room_name;
     private String groupKey;
@@ -53,6 +57,8 @@ public class chatRoomActivity extends AppCompatActivity {
     private FloatingActionMenu floatingActionMenu;
     private FloatingActionButton floatingActionButton;
 
+    private ImageView noMessages;
+
     private DatabaseReference mUserDatabase,mGroupDatabase;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
@@ -62,19 +68,16 @@ public class chatRoomActivity extends AppCompatActivity {
 
     MessageAdapter adapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatroom_main);
         Context context = chatRoomActivity.this;
 
-
         initElementWithIds();
+        keyboardInit();
         initElementsWithListeners();
         fab();
-
 
         // TODO write code to display activeEvents tab if there are any active events
         myEventsFrame.setVisibility(View.GONE);
@@ -86,8 +89,10 @@ public class chatRoomActivity extends AppCompatActivity {
 //        room_name = getIntent().getExtras().get("room_name").toString();
         groupKey = getIntent().getExtras().get("groupKey").toString();
 
-
         showAllOldMessages(groupKey);
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_back_arrow_left);
+//        upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
 
         setSupportActionBar(mToolBar);
         loadImage(groupKey);
@@ -95,6 +100,7 @@ public class chatRoomActivity extends AppCompatActivity {
 //        getSupportActionBar().setTitle(room_name);
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -107,16 +113,19 @@ public class chatRoomActivity extends AppCompatActivity {
 
             }
         });
-
-
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Messages").child(groupKey).child("groupMsgs").child("");
-
-
-
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
 
        }
+
+    private void keyboardInit() {
+        messageContent.getBackground().mutate().setColorFilter(getResources().getColor(R.color.grey), PorterDuff.Mode.SRC_ATOP);
+        messageContent.setScroller(new Scroller(chatRoomActivity.this));
+        messageContent.setMaxLines(1);
+        messageContent.setVerticalScrollBarEnabled(true);
+        messageContent.setMovementMethod(new ScrollingMovementMethod());
+
+    }
 
     private void fab() {
 
@@ -144,13 +153,10 @@ public class chatRoomActivity extends AppCompatActivity {
                     params.setMargins(0, 60, 0, 60);
                     listView.setLayoutParams(params);
                     **/
-
                 }
                 else{
                     myEventsFrame.setVisibility(View.GONE);
-
                 }
-
             }
 
             @Override
@@ -158,7 +164,6 @@ public class chatRoomActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void loadImage(String groupKey) {
@@ -176,7 +181,7 @@ public class chatRoomActivity extends AppCompatActivity {
                 else    {
                     Picasso.with(chatRoomActivity.this)
                             .load(image)
-                            .placeholder(R.drawable.ic_default_groups)
+                            .placeholder(R.drawable.multi_user)
                             .resize(100,100)
                             .into(groupImageView);
                 }
@@ -191,37 +196,29 @@ public class chatRoomActivity extends AppCompatActivity {
         mGroupDatabase.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 roomName.setText(dataSnapshot.getValue().toString());
-
-
-            }
+                }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
-
     }
 
-
-
-    public void initElementsWithListeners() {
+        public void initElementsWithListeners() {
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(chatRoomActivity.this,CreateNewListActivity.class);
+                Intent intent = new Intent(chatRoomActivity.this,CreateEventActivity.class);
                 groupKey = getIntent().getExtras().get("groupKey").toString();
                 intent.putExtra("groupKey",groupKey);
+                String room_name = roomName.getText().toString();
+                intent.putExtra("room_name",room_name);
                 startActivity(intent);
             }
         });
-
-
 
         chatRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,36 +249,35 @@ public class chatRoomActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-// if entered string is null a tost will prompt
-                if(messageContent.getText().toString().isEmpty()){
+// if entered string is null a toast will prompt
+                if(messageContent.getText().toString().isEmpty() || messageContent.getText().toString().trim().length() == 0){
                     Toast.makeText(chatRoomActivity.this, "You have entered nothing", Toast.LENGTH_SHORT).show();
                 }
 // else the entered string will be pushed to the firebase database reference
                 else {
-                    mUserDatabase.addValueEventListener(new ValueEventListener() {
+
+                    mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.child("name").getValue().toString();
 
-                            Map<String,Object> value = new HashMap<>();
-                            value.put("content",messageContent.getText().toString());
+//                            Map<String,Object> value = new HashMap<>();
+//                            String msg = messageContent.getText().toString().trim();
+                  /*          value.put("content",trimmed);
                             value.put("name",name);
                             value.put("group",room_name);
                             value.put("from",current_uid);
-
+*/
                             FirebaseDatabase.getInstance()
                                     .getReference()
                                     .child("messages")
                                     .child(groupKey)
                                     .child("groupMsgs").push()
-                                    .setValue(new chatMessage(messageContent.getText().toString(),
+                                    .setValue(new chatMessage(messageContent.getText().toString().trim(),
                                             name,
                                             current_uid,
                                             groupIdKey.getText().toString()));
@@ -313,9 +309,11 @@ public class chatRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 //                Toast.makeText(chatRoomActivity.this, "Your Active Events will be displayed here",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(v.getContext(),lists_activity.class);
+                Intent intent = new Intent(v.getContext(),activeEvents.class);
                 groupKey = getIntent().getExtras().get("groupKey").toString();
                 intent.putExtra("groupKey",groupKey);
+
+
                 startActivity(intent);
             }
         });
@@ -328,10 +326,69 @@ public class chatRoomActivity extends AppCompatActivity {
         loggedInUserName = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("Main", "user id: " + loggedInUserName);
 
+        final DatabaseReference messages = FirebaseDatabase.getInstance().getReference().child("messages").child(group_key);
 
+//send params to adapter
          adapter = new MessageAdapter(this, chatMessage.class, R.layout.item_in_message,
-                FirebaseDatabase.getInstance().getReference().child("messages").child(group_key).child("groupMsgs").child(""));
+                 messages.child("groupMsgs").child(""));
         listView.setAdapter(adapter);
+
+       /* if(adapter.getCount() <= 0){
+            noMessages.setVisibility(View.VISIBLE);
+        }
+        else{
+            noMessages.setVisibility(View.GONE);
+        }*/
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    /**DO somthing on click***/
+            }
+        });
+
+        listView.setLongClickable(true);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int pos, long id) {
+
+                Log.v("long clicked","pos: " + pos);
+
+               //do somthing on LongCLick
+
+                /** Give user ability to delete messages **/
+
+//                messages.child("groupMsgs").child(String.valueOf(pos)).setValue(null);
+
+                return true;
+            }
+        });
+
+
+
+
+
+        messages.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+
+               if(!dataSnapshot.hasChild("groupMsgs"))
+                   noMessages.setVisibility(View.VISIBLE);
+
+               else
+                   noMessages.setVisibility(View.GONE);
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+           }
+       });
+
+                Log.w(String.valueOf(adapter.getCount()),"adapterCOunt");
 
     }
 
@@ -344,11 +401,13 @@ public class chatRoomActivity extends AppCompatActivity {
         sendButton = (ImageView) findViewById(R.id.send_button);
         messageContent = (EditText) findViewById(R.id.message_content);
         groupImageView = (CircleImageView) findViewById(R.id.group_image_view);
-        chatRoomButton = (Button) findViewById(R.id.chat_room_button);
+        chatRoomButton = (LinearLayout) findViewById(R.id.chat_room_button);
         myEventsFrame = (ConstraintLayout) findViewById(R.id.active_events);
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_create_list);
         chatBackground = (View) findViewById(R.id.chat_background);
+
+        noMessages = (ImageView) findViewById(R.id.no_messages);
 
     }
 

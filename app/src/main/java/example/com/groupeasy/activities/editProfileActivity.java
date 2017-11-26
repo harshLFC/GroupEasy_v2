@@ -92,6 +92,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 Picasso.with(editProfileActivity.this)
                         .load(image)
+                        .placeholder(R.drawable.single_user)
 //                        .resize(100,100)
                         .into(profileImage);
             }
@@ -129,50 +130,15 @@ public class editProfileActivity extends AppCompatActivity {
 
                 else {
                     mUserDatabase.child("status").setValue(Status.trim());
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//
-//                            if (task.isSuccessful()) {
-//
-//                                mDialog.dismiss();
-//                                Toast.makeText(getApplicationContext(), "Status Updated",Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                            else{
-//                                mDialog.hide();
-//                                Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-
-                        mUserDatabase.child("name").setValue(Name.trim());
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//
-//                                if (task.isSuccessful()) {
-//                                    mDialog.dismiss();
-//                                    Toast.makeText(getApplicationContext(), "UserName Updated",Toast.LENGTH_SHORT).show();
-//
-//                                }
-//                                else{
-//                                    mDialog.hide();
-//                                    Toast.makeText(getApplicationContext(), "Some error",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-
+                    mUserDatabase.child("name").setValue(Name.trim());
                     mDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Updated !",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "Updated !",Toast.LENGTH_SHORT).show();
                 }
 
 
-
-//                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -187,7 +153,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 //trying for button effect
                 //// TODO: 04-09-2017 delete if not required
-                buttonEffect(editImage);
+//                buttonEffect(editImage);
 
                 /*
                 Intent gallery_intent = new Intent();
@@ -198,6 +164,18 @@ public class editProfileActivity extends AppCompatActivity {
                 */
             }
         });
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1,1)
+                        .start(editProfileActivity.this);
+                }
+        });
+
     }
 
     private void initElementsWithIds() {
@@ -210,7 +188,7 @@ public class editProfileActivity extends AppCompatActivity {
             profileImage = (CircleImageView) findViewById(R.id.circleImageView);
     }
 
-    public static void buttonEffect(View button){
+/*    public static void buttonEffect(View button){
         button.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -229,7 +207,7 @@ public class editProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
+    }*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -240,7 +218,6 @@ public class editProfileActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
-//                Toast.makeText(this, image_uri,Toast.LENGTH_LONG).show();
 
                 String uid = mCurrentUser.getUid();
                 Uri file = Uri.fromFile(new File(image_uri));
@@ -253,19 +230,22 @@ public class editProfileActivity extends AppCompatActivity {
                                 // Get a URL to the uploaded content
 
                                 @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
-                                Toast.makeText(editProfileActivity.this, "Success",Toast.LENGTH_LONG).show();
 
-                                mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(editProfileActivity.this, "Success Uploading image in databse",Toast.LENGTH_LONG).show();
-                                        }
-                                        else{
-                                            Toast.makeText(editProfileActivity.this, "There was some error",Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
+                                mUserDatabase.child("image").setValue(download_url)
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(editProfileActivity.this, "There was some error, Please try again",Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(editProfileActivity.this, "Image updated",Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

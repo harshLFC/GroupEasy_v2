@@ -1,5 +1,7 @@
 package example.com.groupeasy.pojo;
 
+import java.util.Map;
+
 /**
  * Created by Harsh on 17-09-2017.
  */
@@ -12,7 +14,6 @@ public class users_list {
     String rosters;
     String polls;
     String lists;
-    String favs;
     String thumb_image;
     String last_seen;
     String id;
@@ -24,14 +25,13 @@ public class users_list {
     }
 
     public users_list(String name, String status, String image, String rosters, String polls,
-                      String lists, String favs, String thumb_image, String last_seen, String id) {
+                      String lists, String thumb_image, String last_seen, String id) {
         this.name = name;
         this.status = status;
         this.image = image;
         this.rosters = rosters;
         this.polls = polls;
         this.lists = lists;
-        this.favs = favs;
         this.thumb_image = thumb_image;
         this.last_seen = last_seen;
         this.id = id;
@@ -85,13 +85,6 @@ public class users_list {
         this.lists = lists;
     }
 
-    public String getFavs() {
-        return favs;
-    }
-
-    public void setFavs(String favs) {
-        this.favs = favs;
-    }
 
     public String getThumb_image() {
         return thumb_image;

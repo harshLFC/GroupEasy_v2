@@ -13,7 +13,6 @@
         android:layout_height="300dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="@color/colorPrimary"
-
         >
 
     <android.support.design.widget.CollapsingToolbarLayout
@@ -40,6 +39,7 @@
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/displayPic"
             android:layout_width="match_parent"
@@ -49,9 +49,10 @@
             app:civ_border_color="@color/black"
             app:civ_border_width="1dp"
             android:padding="6dp"
-            android:src="@drawable/ic_profile"
+            android:src="@drawable/single_user"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
+
        </RelativeLayout>
 
     </android.support.design.widget.CollapsingToolbarLayout>
@@ -68,13 +69,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
 
         <LinearLayout
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/rounded_corners_shape"
             android:padding="10dp"
                 >
 
@@ -100,15 +102,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Status"
+                android:text="Bio:"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 />
 
             <TextView
-                    style="@android:style/TextAppearance.Small"
+                android:paddingTop="10dp"
+                    style="@android:style/TextAppearance.Medium"
                     android:id="@+id/user_status"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="StatusStatStatusStatusStatusStatusStatusStatus"
@@ -120,145 +124,251 @@
             </LinearLayout>
 
         <LinearLayout
+            android:elevation="5dp"
             android:id="@+id/polls"
             android:gravity="center|left"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/rounded_corners_shape"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp">
             <TextView
+                android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:layout_margin="16dp"
-                android:text="Total Polls Created "
-                android:layout_width="0dp"
+                android:text="Events Created "
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:layout_width="1dp"
+                android:textColor="@color/white"
+                 />
+
+            <RelativeLayout
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:layout_width="1dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/my_circle_black"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/my_circle"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
             <TextView
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/rectangle_shape"
-                android:textColor="#670309"
+                android:id="@+id/event_count"
+                android:layout_weight="0"
+                android:layout_marginRight="2dp"
+                android:textColor="@color/black"
                 android:textColorHint="#670309"
-                android:text="22"
+                android:text="0"
                 android:gravity="center"
                 style="@android:style/TextAppearance.Small"
                 android:layout_height="30dp"
                 android:layout_width="30dp"/>
         </LinearLayout>
+
+        <!--list polls created    -->
+        <!--<LinearLayout-->
+            <!--android:elevation="5dp"-->
+            <!--android:id="@+id/lists"-->
+            <!--android:gravity="center|left"-->
+            <!--android:background="@drawable/rounded_corners_shape"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_marginRight="50dp"-->
+            <!--android:layout_marginLeft="50dp">-->
+            <!--<TextView-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--style="@android:style/TextAppearance.Medium"-->
+                <!--android:text="Lists Created "-->
+                <!--android:layout_weight="4"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="1dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--/>-->
+            <!--<RelativeLayout-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="1dp">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:src="@drawable/my_circle_black"/>-->
+                <!--<ImageView-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@drawable/my_rectangle"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_centerHorizontal="true" />-->
+            <!--</RelativeLayout>-->
+            <!--<TextView-->
+                <!--android:layout_weight="0"-->
+                <!--android:layout_marginRight="2dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textColorHint="#670309"-->
+                <!--android:text="0"-->
+                <!--android:gravity="center"-->
+                <!--style="@android:style/TextAppearance.Small"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_width="30dp"/>-->
+        <!--</LinearLayout>-->
+
+
+        <!--hidden rosters layout-->
         <LinearLayout
-            android:id="@+id/lists"
-            android:gravity="center|left"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/rounded_corners_shape"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <TextView
-                android:layout_margin="16dp"
-                style="@android:style/TextAppearance.Medium"
-                android:text="Total Lists Created "
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/circle_shape"
-                android:text="8"
-                android:textColor="#670309"
-                style="@android:style/TextAppearance.Small"
-                android:gravity="center"
-                android:layout_height="30dp"
-                android:layout_width="30dp"/>
-        </LinearLayout>
-        <LinearLayout
+            android:elevation="5dp"
             android:id="@+id/rosters"
             android:gravity="center|left"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/rounded_corners_shape"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:visibility="gone">
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp">
             <TextView
-                android:layout_margin="16dp"
+                android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:text="Total Roasters Created "
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:text="Rosters Created "
+                android:layout_weight="4"
                 android:layout_height="wrap_content"
-                />
-            <TextView
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/hexagon_shape"
-                android:text="12"
-                android:gravity="center"
-                android:textColor="#670309"
-                style="@android:style/TextAppearance.Small"
-
-                android:layout_height="36dp"
-                android:layout_width="36dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/fav_events"
-            android:gravity="center|left"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/rounded_corners_shape"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <TextView
-                android:layout_margin="16dp"
-                style="@android:style/TextAppearance.Medium"
-                android:text="Favourite Events "
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
-            <TextView
+                android:layout_width="1dp"
                 android:textColor="@color/white"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@drawable/ic_heart"
-                android:text="4"
-                android:padding="16dp"
+                />
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="1dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/my_circle_black"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/my_hexagon"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <TextView
+                android:layout_weight="0"
+                android:layout_marginRight="2dp"
+                android:textColor="@color/white"
+                android:textColorHint="#670309"
+                android:text="0"
                 android:gravity="center"
-                android:textSize="@dimen/group_header_text_size"
+                style="@android:style/TextAppearance.Small"
                 android:layout_height="30dp"
                 android:layout_width="30dp"/>
         </LinearLayout>
+        <!--hidden rosters end-->
+
+        <!--favourited events-->
+        <LinearLayout
+            android:elevation="5dp"
+            android:id="@+id/fav_events"
+            android:gravity="center|left"
+            android:background="@drawable/rounded_corners_shape"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp">
+            <TextView
+                android:layout_marginLeft="10dp"
+                style="@android:style/TextAppearance.Medium"
+                android:text="Events Favourited"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:layout_width="1dp"
+                android:textColor="@color/white"
+                />
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="1dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/my_circle_black"/>
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_heart"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <TextView
+
+                android:id="@+id/favs_count"
+                android:layout_weight="0"
+                android:layout_marginRight="2dp"
+                android:textColor="@color/black"
+                android:textColorHint="#670309"
+                android:text="0"
+                android:gravity="center"
+                style="@android:style/TextAppearance.Small"
+                android:layout_height="30dp"
+                android:layout_width="30dp"/>
+        </LinearLayout>
+        <!--fav end-->
 
         <LinearLayout
-            android:id="@+id/help"
             android:gravity="center|left"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/rounded_corners_shape"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:visibility="visible"
+            android:elevation="5dp"
+            android:id="@+id/help">
             <TextView
+                android:gravity="center_vertical"
                 android:id="@+id/log_in_out"
                 android:layout_margin="16dp"
-                style="@android:style/TextAppearance.Medium"
                 android:text="Logout "
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:layout_marginLeft="10dp"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_weight="4"
+                android:layout_height="30dp"
+                android:layout_width="1dp"
+                android:textColor="@color/white"
+                />
             <TextView
                 android:textColor="@color/white"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/ic_arrow_break"
-                android:text="4"
                 android:padding="16dp"
                 android:gravity="center"
                 android:textSize="@dimen/group_header_text_size"
                 android:layout_height="30dp"
                 android:layout_width="30dp"/>
         </LinearLayout>
+        <!--logout end-->
     </LinearLayout>
+        <!--listend-->
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        app:fab_size="normal"
-        android:tint="@color/white"
+    <com.github.clans.fab.FloatingActionButton
         android:layout_height="wrap_content"
-        android:id="@+id/user_profile"
         android:layout_width="wrap_content"
+        app:fab_size="mini"
+        android:id="@+id/user_profile"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:src="@drawable/ic_edit_create_new"
+        android:src="@drawable/ic_edit_user"
+        app:pressedTranslationZ="0dp"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"
+        app:fab_colorNormal="@color/colorAccent"
+        android:elevation="7dp"
         />
 </android.support.design.widget.CoordinatorLayout>

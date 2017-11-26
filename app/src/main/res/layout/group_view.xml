@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="3dp"
@@ -49,6 +49,7 @@
             android:visibility="gone" />
 
         <TextView
+            android:textColor="@color/colorPrimary"
             android:id="@+id/text_last_message"
             style="@android:style/TextAppearance.Small"
             android:layout_width="wrap_content"
@@ -77,36 +78,40 @@
         <TextView
         android:id="@+id/rectangle"
         android:layout_width="20sp"
-        android:layout_height="28sp"
-        android:background="@drawable/rectangle_shape"
+        android:layout_height="20sp"
+        android:background="@drawable/my_rectangle"
         android:gravity="center"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:textColor="@color/white"/>
 
         <!---circle-->
         <TextView
         android:id="@+id/circle"
-        android:layout_width="20sp"
-        android:layout_height="20sp"
+        android:layout_width="22sp"
+        android:layout_height="22sp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/circle_shape"
+        android:background="@drawable/my_circle"
         android:gravity="center"
+            android:textColor="@color/black"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <!---hex-->
         <TextView
         android:id="@+id/hex"
-        android:layout_width="25sp"
-        android:layout_height="25sp"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/hexagon_shape"
+        android:background="@drawable/my_hexagon"
         android:gravity="center"
         android:text="2"
+            android:textColor="@color/white"
         android:textSize="12sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
 
         </LinearLayout>
 
@@ -121,18 +126,19 @@
 
         </LinearLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
-            android:padding="1dp"
-            android:src="@drawable/ic_default_groups"
+            android:src="@drawable/multi_user"
             app:civ_border_color="#FF000000"
-            app:civ_border_width="1.5dp" />
+            app:civ_border_width="0.5dp" />
 
 
+       <!--code for drawing one line in xml-->
         <View
             android:id="@+id/view4"
             android:layout_width="match_parent"
@@ -145,27 +151,28 @@
             android:id="@+id/textViewAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
             android:ellipsize="end"
             android:gravity="end"
             android:maxLength="16"
             android:maxLines="1"
             android:text="Harsh Phoujdar"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/text_last_message"
-            android:layout_alignStart="@+id/text_last_message"
-            android:layout_below="@+id/linearLayout2"
             android:gravity="end"
             android:text="Admin:"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_below="@+id/text_last_message"
+            android:layout_alignLeft="@+id/text_last_message"
+            android:layout_alignStart="@+id/text_last_message" />
     </RelativeLayout>
 
 

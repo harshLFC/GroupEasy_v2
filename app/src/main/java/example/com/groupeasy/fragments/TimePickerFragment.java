@@ -11,7 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-import example.com.groupeasy.activities.CreateNewListActivity;
+import example.com.groupeasy.activities.CreateEventActivity;
 
 
 public class TimePickerFragment extends DialogFragment
@@ -36,7 +36,7 @@ public class TimePickerFragment extends DialogFragment
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
-        Intent intent = new Intent(getActivity(), CreateNewListActivity.class);
+        Intent intent = new Intent(getActivity(), CreateEventActivity.class);
         int hour,min;
         final Calendar c = Calendar.getInstance();
         min = c.get(Calendar.MINUTE);

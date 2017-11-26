@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -99,6 +100,12 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final String groupID = mLstGroups.get(position).getGroup_id();
         viewHolder.textLastMessage.setText(mLstGroups.get(position).getLast_msg());
 
+        String lastMsg =  mLstGroups.get(position).getLast_msg();
+        if (lastMsg.equals("You have no messages in the group")){
+            viewHolder.textLastMessage.setTextColor(Color.GRAY);
+
+        }
+
 
         //Code to display last seen message by Referencing the message database and looping through its children
 
@@ -145,18 +152,20 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //
 //            }
 //        });
-        //code for showing rectangle and setting value according to the number of events present
+        /**code for showing rectangle and setting value according to the number of events present**/
         mDatabase.child("Events").child("lists").child(groupID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot!= null) {
                     //trying to introduce i variable to loop hw many events are there and display that number
-                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                        viewHolder.myRectangle.setVisibility(View.VISIBLE);
+//                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                        viewHolder.myCircle.setVisibility(View.VISIBLE);
 
-                        viewHolder.myRectangle.setText(String.valueOf((int) (dataSnapshot.getChildrenCount())));
-                    }
+                        viewHolder.myCircle.setText(String.valueOf((int) (dataSnapshot.getChildrenCount())));
+//                        viewHolder.myCircle.setTextColor(Color.GRAY);
+
+//                    }
                     //note : remove the above for loop for showing 0 events across all rows
                 }
             }
@@ -166,7 +175,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             }
         });
-
 
 
 //code to set name as admin, but for some reason its crashing when logge don as com?
@@ -190,12 +198,14 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         // getting context from view object
 
         if(image.isEmpty()){
-                viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+            viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+            viewHolder.imageGroupView.setAlpha(0f);
+
         }
         else    {
             Picasso.with(mContext)
                     .load(image)
-                    .placeholder(R.drawable.ic_default_groups)
+                    .placeholder(R.drawable.multi_user)
                     .resize(100,100)
                     .onlyScaleDown()
                     .into(((GroupViewHolder) holder).imageGroupView);
@@ -216,7 +226,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView textLastMessage;
         private TextView groupKey;
         private LinearLayout groupLinear;
-        private TextView myRectangle, Hex, Circle;
+        private TextView myCircle, Hex, Circle;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -230,7 +240,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             groupKey = (TextView) itemView.findViewById(R.id.group_key);
             groupLinear = (LinearLayout) itemView.findViewById(R.id.group_linear);
 
-            myRectangle = (TextView) itemView.findViewById(R.id.rectangle);
+            myCircle = (TextView) itemView.findViewById(R.id.circle);
 
             imageGroupView.setOnClickListener(this);
             groupLinear.setOnClickListener(this);
@@ -239,7 +249,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == groupLinear.getId()) {
+            if (v.getId() == groupLinear.getId() |v.getId() == imageGroupView.getId() ) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
@@ -251,10 +261,10 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((Activity)context).finish();
 
             }
-            else if (v.getId() == imageGroupView.getId()) {
-                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
-//            clickListener.onItemClick(getAdapterPosition(),v);
-            }
+//            else if (v.getId() == imageGroupView.getId()) {
+//                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
+////            clickListener.onItemClick(getAdapterPosition(),v);
+//            }
                     }
 
 //handle long clicks

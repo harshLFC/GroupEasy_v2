@@ -43,12 +43,10 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private List<chatMessage> mLstChat;
 
-
     Context mContext;
 
     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     String uid = current_user.getUid();
-
 
 //    mDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
 
@@ -85,52 +83,27 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                users_list usersList = new users_list;
-
                 users_list usersList = dataSnapshot.getValue(users_list.class);
                 String name = usersList.getName();
                 String image = usersList.getImage();
 //                sender_image.setVisibility(View.VISIBLE);
-
-
 //                messageUser.setText(name);
 
                 if(image.isEmpty()) {
-
                         sender_image.setImageResource(R.drawable.ic_default_user_single);
-
                 }
-
             else    {
-
                     if (!(usersList.getId().equals(uid))) {
-//
-//                        Picasso.with(mContext)
-//                                .load(image)
-//                                .resize(100, 100)
-//                                .placeholder(R.drawable.ic_default_groups)
-//                                .centerCrop()
-//                                .into(userImage);
-//                    }
-//
-//                    else{
                         messageUser.setText(name);
-
                         Picasso.with(mContext)
                                 .load(image)
                                 .resize(100, 100)
-                                .placeholder(R.drawable.ic_default_user_single)
+                                .placeholder(R.drawable.single_user)
                                 .centerCrop()
                                 .into(sender_image);
-
                     }
-            }
-
-
-
-//                Log.w(name,"usersList");
-
-//                Toast.makeText(v.getContext() , "Username is:"+username,Toast.LENGTH_SHORT).show();
-            }
+                }
+             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -138,9 +111,7 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
             }
         });
 
-        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
-
-
+//        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
     }
 
     @Override
@@ -148,17 +119,12 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
         chatMessage chat_message = getItem(position);
 
             if (chat_message.getMsgFrom().equals(uid)) {
-
             view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
 //            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);
-
         }
 
         else {
-
             view = activity.getLayoutInflater().inflate(R.layout.item_in_message, viewGroup, false);
-
-
         }
 
         //generating view

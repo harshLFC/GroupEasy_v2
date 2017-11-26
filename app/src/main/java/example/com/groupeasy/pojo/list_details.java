@@ -7,30 +7,28 @@ package example.com.groupeasy.pojo;
 public class list_details {
 
     private String details;
-    private String fromDate;
     private String fromTime;
     private String toDate;
     private String min;
     private String max;
     private boolean oneDay;
-    private boolean global;
+//    private boolean global;
 
     public list_details(){
 
     }
 
-    public list_details(String details, String min, String  max, boolean oneDay, String fromDate,
-                        String fromTime, String toDate, String toTime, boolean global)
+    public list_details(String details, String min, String  max, boolean oneDay,
+                        String fromTime, String toDate, String toTime)
     {
         this.details = details;
-        this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.toDate = toDate;
         this.min = min;
         this.max = max;
         this.oneDay = oneDay;
-        this.global = global;
+//        this.global = global;
     }
 
     private String toTime;
@@ -41,14 +39,6 @@ public class list_details {
 
     public void setDetails(String name) {
         this.details = name;
-    }
-
-    public String getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(String fromDate) {
-        this.fromDate = fromDate;
     }
 
     public String getFromTime() {
@@ -99,11 +89,11 @@ public class list_details {
         this.oneDay = oneDay;
     }
 
-    public boolean isGlobal() {
-        return global;
-    }
-
-    public void setGlobal(boolean global) {
-        this.global = global;
-    }
+//    public boolean isGlobal() {
+//        return global;
+//    }
+//
+//    public void setGlobal(boolean global) {
+//        this.global = global;
+//    }
 }

@@ -51,33 +51,37 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
-        android:src="@drawable/ic_camera_black"
+        android:src="@drawable/multi_user"
         android:id="@+id/GroupDPImageView"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="54dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_height="150dp"
         android:background="@drawable/oval_group_shape"
-        android:layout_below="@+id/toolbar_layout"
         android:padding="5dp"
+        android:layout_below="@+id/toolbar_layout"
         android:layout_centerHorizontal="true" />
 
        <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentStart="true"
-           android:layout_marginBottom="106dp">
+        app:counterEnabled="true"
+        app:counterMaxLength="21"
+        android:layout_marginTop="65dp"
+        android:padding="10dp"
+        android:layout_below="@+id/GroupDPImageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <EditText
+            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Group Name"
             android:id="@+id/input"
             android:maxLines="1"
             android:inputType="text"
-            android:maxLength="22"/>
+            android:maxLength="21"/>
     </android.support.design.widget.TextInputLayout>
 
 

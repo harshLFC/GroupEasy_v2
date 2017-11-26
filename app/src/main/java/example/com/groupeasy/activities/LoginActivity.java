@@ -1,46 +1,76 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import example.com.groupeasy.R;
+import example.com.groupeasy.utility.prefManager;
 
 /**
  *  Entry point of the app .
- *  Login using gmail or sign up for free
+ *  Login using email & password
  * */
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
-    private Button btnLogin,btnLoginEmail, register;
+    private Button btnLoginEmail, register;
     private TextInputLayout userEmail, userPassword;
+    private ImageView BtnLogin;
 
     private ProgressDialog mRegProgress;
+    private RelativeLayout myRelativeLayout;
+    private TextInputEditText EmailText;
+    private TextInputEditText PassText;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private prefManager PrefManager;
+
+    private DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("members");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PrefManager = new prefManager(this);
+        if (!PrefManager.isFirstTimeLaunch()) {
+            launchHomeScreen();
+            finish();
+        }
+
+
         setContentView(R.layout.activity_login);
         this.context = LoginActivity.this; // initialize the context
         initElementsWithIds();
@@ -51,6 +81,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
     }
+
+    private void launchHomeScreen() {
+        PrefManager.setFirstTimeLaunch(false);
+        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+        finish();
+    }
+
     //this snippet to disallow back key
     @Override
     public void onBackPressed() {
@@ -59,12 +96,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initElementsWithListeners() {
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+
+        /***developer shortcut**/
+        BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(current_user != null){
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
+
                 finish();
+                }
+
+                else
+                    Toast.makeText(LoginActivity.this, "Make sure you are logged in",Toast.LENGTH_SHORT).show();;
+
+
             }
         });
 
@@ -99,6 +147,32 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        EmailText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        PassText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+
+    }
+
+    private void hideKeyboard(View v) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
     }
 
     // code for checking if device is connected to internet??
@@ -131,12 +205,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initElementsWithIds()
     {
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        BtnLogin = (ImageView) findViewById(R.id.login_logo);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
         register = (Button) findViewById(R.id.Register);
 
         userEmail = (TextInputLayout) findViewById(R.id.user_email);
         userPassword = (TextInputLayout) findViewById(R.id.user_password);
+        myRelativeLayout = (RelativeLayout) findViewById(R.id.my_login_relative_layout);
+
+        EmailText = (TextInputEditText) findViewById(R.id.user_email_text);
+        PassText = (TextInputEditText) findViewById(R.id.user_pass_text);
+
     }
 
     private void loginUser(String email, String password) {
@@ -149,9 +228,22 @@ public class LoginActivity extends AppCompatActivity {
 
                      mRegProgress.dismiss();
 
-                    Intent intent = new Intent(context,DashboardActivity.class);
-                    startActivity(intent);
-                    finish();
+                    String device_token = FirebaseInstanceId.getInstance().getToken();
+                    String current_user = mAuth.getCurrentUser().getUid();
+
+                    mUserDB.child(current_user).child("device_token").setValue(device_token).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            Intent intent = new Intent(context,DashboardActivity.class);
+                            intent.putExtra("userName","value");
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    });
+
+
                 }
 
                 else{
