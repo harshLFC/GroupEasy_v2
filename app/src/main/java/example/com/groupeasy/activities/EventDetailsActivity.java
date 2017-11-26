@@ -465,7 +465,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Event");
         getSupportActionBar().setShowHideAnimationEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+//        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

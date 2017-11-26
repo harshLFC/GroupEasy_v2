@@ -60,7 +60,8 @@ public class aboutChatRoom extends AppCompatActivity {
 
         initElementsWithIds();
 //      groupName.setText(room_name);
-        createListView();        initElementsWithListeners(roomKey);
+        createListView();
+        initElementsWithListeners(roomKey);
 
         mLstGroups = new ArrayList<>();
 
@@ -86,7 +87,7 @@ public class aboutChatRoom extends AppCompatActivity {
                 setSupportActionBar(mToolbar);
                 getSupportActionBar().setTitle(dataSnapshot.getValue().toString());
                 getSupportActionBar().setShowHideAnimationEnabled(true);
-                getSupportActionBar().setHomeAsUpIndicator(upArrow);
+//                getSupportActionBar().setHomeAsUpIndicator(upArrow);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                     @Override

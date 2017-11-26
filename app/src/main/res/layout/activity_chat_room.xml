@@ -7,11 +7,16 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="example.com.groupeasy.activities.chatRoomActivity"
-    android:gravity="bottom"
-    android:elevation = "50dp"
+    android:elevation = "8dp"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     >
 
 <com.github.clans.fab.FloatingActionMenu
+    android:layout_marginTop="120dp"
+    android:scaleType="center"
+    android:maxHeight="20dp"
+    app:menu_fab_size="mini"
     android:layout_width="wrap_content"
     android:layout_height="112dp"
     fab:menu_animationDelayPerItem="55"
@@ -19,7 +24,6 @@
     fab:menu_colorNormal="@color/colorAccent"
     fab:menu_colorPressed="@color/colorPrimary"
     fab:menu_colorRipple="@color/colorPrimary"
-    fab:menu_fab_size="mini"
     fab:menu_icon="@drawable/ic_ccalender_star"
     fab:menu_labels_colorNormal="#333"
     fab:menu_labels_colorPressed="#444"
@@ -40,11 +44,11 @@
     fab:menu_shadowColor="#66aff198"
     fab:menu_showShadow="true"
     android:id="@+id/floatingActionMenu"
-    android:layout_marginLeft="2dp"
+    android:layout_marginLeft="0dp"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_marginBottom="-5dp"
-    android:layout_marginStart="2dp">
+    android:layout_marginStart="2dp"
+    android:layout_marginBottom="-34dp">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_create_list"
@@ -72,38 +76,94 @@
         <!--app:layout_constraintHorizontal_bias="0.84"-->
         <!--android:layout_marginLeft="50dp">-->
 
-        <EditText
-            android:textColorHighlight="@color/grey"
-            android:inputType="textMultiLine"
-            android:id="@+id/message_content"
-            android:minHeight="30dp"
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:visibility="invisible"
+        android:layout_marginLeft="26dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/view">
+
+    </View>
+
+    <LinearLayout
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/view"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0">
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_weight="5"
+            android:textColorHint="@color/dark_grey"
+            android:inputType="text"
+            >
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="120dp"
+                android:textColorHighlight="@color/black"
+                android:inputType="textMultiLine"
+                android:id="@+id/message_content"
+                android:minHeight="30dp"
+                android:textColor="@color/dark_grey"
+                android:layout_weight="5"
+                android:layout_gravity="bottom"
+                android:textColorLink="@color/dark_grey"
+                android:shadowColor="@color/dark_grey"
+                android:hint="Write a message"
+                android:maxLength="300"
+                android:textColorHint="@color/dark_grey"
+                app:layout_constraintLeft_toRightOf="@+id/view"
+                app:layout_constraintRight_toLeftOf="@+id/send_button"
+                android:layout_marginRight="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+ <!--       <EditText
+            android:text=""
+            android:maxHeight="120dp"
+            android:textColorHighlight="@color/black"
+            android:inputType="textMultiLine"
+            android:id="@+id/message_content"
+            android:paddingLeft="10dp"
+            android:minHeight="30dp"
+            android:textColor="@color/dark_grey"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:hint="Write a message"
             android:maxLength="300"
-            android:textColorHint="#CFD8DC"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="2dp"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintLeft_toRightOf="@+id/view"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/floatingActionMenu"
             app:layout_constraintRight_toLeftOf="@+id/send_button"
             android:layout_marginRight="0dp"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" />-->
     <!--</ScrollView>-->
 
-                <ImageView
-                    android:id="@+id/send_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:src="@drawable/ic_image_send"
-                    android:layout_weight="0"
-                    android:layout_marginRight="8dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp" />
+        <ImageView
+            android:id="@+id/send_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/ic_send_btn_alternate_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"

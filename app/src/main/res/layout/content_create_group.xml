@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="example.com.groupeasy.activities.CreateGroupActivity"
-    tools:showIn="@layout/activity_create_group">
+    tools:showIn="@layout/activity_create_group"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:elevation="20dp"

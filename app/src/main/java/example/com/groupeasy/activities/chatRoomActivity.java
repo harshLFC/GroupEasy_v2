@@ -1,10 +1,14 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,11 +16,13 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,8 +57,8 @@ public class chatRoomActivity extends AppCompatActivity {
     private TextView groupIdKey;
     private ListView listView;
     private ImageView sendButton;
-    private EditText messageContent;
-    private ConstraintLayout myEventsFrame;
+    private TextInputEditText messageContent;
+    private RelativeLayout myEventsFrame;
     private CircleImageView groupImageView;
     private FloatingActionMenu floatingActionMenu;
     private FloatingActionButton floatingActionButton;
@@ -79,7 +85,7 @@ public class chatRoomActivity extends AppCompatActivity {
         initElementsWithListeners();
         fab();
 
-        // TODO write code to display activeEvents tab if there are any active events
+
         myEventsFrame.setVisibility(View.GONE);
 
         //snippet to stop keyboard from appearing onCreate
@@ -92,6 +98,11 @@ public class chatRoomActivity extends AppCompatActivity {
         showAllOldMessages(groupKey);
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_back_arrow_left);
+
+        Bitmap bitmap = ((BitmapDrawable) upArrow).getBitmap();
+// Scale it to 50 x 50
+        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 80, 80, true));
+// Set your new, scaled drawable "d"
 //        upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
 
         setSupportActionBar(mToolBar);
@@ -100,7 +111,7 @@ public class chatRoomActivity extends AppCompatActivity {
 //        getSupportActionBar().setTitle(room_name);
         roomName.setVisibility(View.VISIBLE);
         groupIdKey.setText(groupKey);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+//        getSupportActionBar().setHomeAsUpIndicator(d);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -121,7 +132,7 @@ public class chatRoomActivity extends AppCompatActivity {
     private void keyboardInit() {
         messageContent.getBackground().mutate().setColorFilter(getResources().getColor(R.color.grey), PorterDuff.Mode.SRC_ATOP);
         messageContent.setScroller(new Scroller(chatRoomActivity.this));
-        messageContent.setMaxLines(1);
+        messageContent.setMaxLines(2);
         messageContent.setVerticalScrollBarEnabled(true);
         messageContent.setMovementMethod(new ScrollingMovementMethod());
 
@@ -208,6 +219,21 @@ public class chatRoomActivity extends AppCompatActivity {
 
         public void initElementsWithListeners() {
 
+            messageContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        hideKeyboard(v);
+                    }
+                }
+            });
+            messageContent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    floatingActionMenu.close(true);
+                }
+            });
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,6 +267,8 @@ public class chatRoomActivity extends AppCompatActivity {
                 if(opened)
                 {
                     chatBackground.setVisibility(View.VISIBLE);
+
+
                 }
                 else
                 {
@@ -249,9 +277,20 @@ public class chatRoomActivity extends AppCompatActivity {
             }
         });
 
+           chatBackground.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   floatingActionMenu.close(true);
+               }
+           });
+
+
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                floatingActionMenu.close(true);
+
 
 // if entered string is null a toast will prompt
                 if(messageContent.getText().toString().isEmpty() || messageContent.getText().toString().trim().length() == 0){
@@ -317,6 +356,11 @@ public class chatRoomActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void hideKeyboard(View v) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     private String loggedInUserName = "";
@@ -399,10 +443,10 @@ public class chatRoomActivity extends AppCompatActivity {
         groupIdKey = (TextView) findViewById(R.id.group_id_key);
         listView = (ListView) findViewById(R.id.list);
         sendButton = (ImageView) findViewById(R.id.send_button);
-        messageContent = (EditText) findViewById(R.id.message_content);
+        messageContent = (TextInputEditText) findViewById(R.id.message_content);
         groupImageView = (CircleImageView) findViewById(R.id.group_image_view);
         chatRoomButton = (LinearLayout) findViewById(R.id.chat_room_button);
-        myEventsFrame = (ConstraintLayout) findViewById(R.id.active_events);
+        myEventsFrame = (RelativeLayout) findViewById(R.id.active_events);
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_create_list);
         chatBackground = (View) findViewById(R.id.chat_background);

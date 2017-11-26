@@ -70,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-
         setContentView(R.layout.activity_login);
         this.context = LoginActivity.this; // initialize the context
         initElementsWithIds();
