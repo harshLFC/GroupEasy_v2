@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Registering user with GroupEasy-->
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/create_acc_tool"
@@ -48,9 +53,11 @@
         >
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/user_name"
             android:singleLine="true"
             android:maxLines="1"
             android:maxLength="22"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Username" />
@@ -71,9 +78,11 @@
         android:layout_marginEnd="8dp"
         android:id="@+id/text_input_email">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="33"
             android:hint="Enter Email"
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
@@ -96,8 +105,6 @@
         app:layout_constraintVertical_bias="0.703" />
 
     <android.support.design.widget.TextInputLayout
-        app:counterEnabled="true"
-        app:counterMaxLength="15"
         android:id="@+id/text_input_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -105,16 +112,20 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_email">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Password"
+            android:maxLength="15"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 

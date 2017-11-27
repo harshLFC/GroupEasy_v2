@@ -1,3 +1,4 @@
+/*
 package example.com.groupeasy.activities;
 
 import android.content.Context;
@@ -21,9 +22,11 @@ import com.google.firebase.storage.StorageReference;
 
 import example.com.groupeasy.R;
 
+*/
 /** This activity is used to create polls
  *  also you can add/delete options for the polls
- * */
+ * *//*
+
 public class CreatePollActivity extends AppCompatActivity {
 
     private final static String TAG = CreatePollActivity.class.getSimpleName();
@@ -51,13 +54,17 @@ public class CreatePollActivity extends AppCompatActivity {
     }
 
     private void initElementsWithListeners() {
-        /** add your options on add option button*/
+        */
+/** add your options on add option button*//*
+
         btnAddOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                /** inflate the options view and add it to the main view
-                 * also you can delete your option*/
+                */
+/** inflate the options view and add it to the main view
+                 * also you can delete your option*//*
+
                 LayoutInflater inflater = getLayoutInflater();
 
                 final View addView = inflater.inflate(R.layout.row_view_for_add_options,null);
@@ -66,7 +73,9 @@ public class CreatePollActivity extends AppCompatActivity {
                 EditText etOption = (EditText) addView.findViewById(R.id.et_option);
                 ImageView ivDeleteOption = (ImageView) addView.findViewById(R.id.iv_delete_option);
 
-                /** delete your particular option */
+                */
+/** delete your particular option *//*
+
                 ivDeleteOption.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -99,7 +108,9 @@ public class CreatePollActivity extends AppCompatActivity {
         });
     }
 
-    /* initialize your widgets with their ids */
+    */
+/* initialize your widgets with their ids *//*
+
     private void initElementsWithIds() {
         ivClose = (ImageView) findViewById(R.id.iv_close);
         btnAddOptions = (Button) findViewById(R.id.btn_add_options);
@@ -114,3 +125,4 @@ public class CreatePollActivity extends AppCompatActivity {
         finish();
     }
 }
+*/

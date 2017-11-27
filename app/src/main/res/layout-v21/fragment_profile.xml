@@ -109,6 +109,7 @@
 
             <TextView
                 android:paddingTop="10dp"
+                android:textAlignment="center"
                     style="@android:style/TextAppearance.Medium"
                     android:id="@+id/user_status"
                     android:layout_width="300dp"

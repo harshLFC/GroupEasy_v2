@@ -1,5 +1,11 @@
 package example.com.groupeasy.activities;
 
+/**
+ * This Class Allows existing users to login using their credentials
+ * New users can click on new user to go to create account page
+ * NEW: Developer shortcut, clicking on GroupEasy icon will log the user in
+ * **/
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,13 +16,10 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,6 +44,7 @@ import example.com.groupeasy.utility.prefManager;
  * */
 public class LoginActivity extends AppCompatActivity {
 
+    //initilize varaibles
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Context context;
     private Button btnLoginEmail, register;
@@ -48,37 +52,43 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView BtnLogin;
 
     private ProgressDialog mRegProgress;
-    private RelativeLayout myRelativeLayout;
+//    private RelativeLayout myRelativeLayout;
     private TextInputEditText EmailText;
     private TextInputEditText PassText;
 
+    /** Firebase db init*/
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
+//    private FirebaseAuth.AuthStateListener mAuthListener;
     final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     private prefManager PrefManager;
-
     private DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("members");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Tried to use Preference Manager to stop user from coming to this screen everytime he opens up
+        //This featuer is Still buggy, as the user still ends up on this screen if he removes app from the navigation drawer
         PrefManager = new prefManager(this);
         if (!PrefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
         }
 
+        /*Link to XML layout*/
         setContentView(R.layout.activity_login);
-        this.context = LoginActivity.this; // initialize the context
+
+        // initialize the context
+
+        this.context = LoginActivity.this;
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Initialising elements with Listeners*/
         initElementsWithIds();
         initElementsWithListeners();
 
         mRegProgress = new ProgressDialog(this);
-
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     private void launchHomeScreen() {
@@ -93,8 +103,8 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
+    /*Handling all onclick events(listeners)*/
     private void initElementsWithListeners() {
-
 
         /***developer shortcut**/
         BtnLogin.setOnClickListener(new View.OnClickListener() {
@@ -104,14 +114,11 @@ public class LoginActivity extends AppCompatActivity {
                 if(current_user != null){
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
-
                 finish();
                 }
 
                 else
                     Toast.makeText(LoginActivity.this, "Make sure you are logged in",Toast.LENGTH_SHORT).show();;
-
-
             }
         });
 
@@ -122,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,12 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                     loginUser(email,password);
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Please enter email and password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, R.string.email_pass_req,Toast.LENGTH_LONG).show();
                     //code for if empty
                 }
             }
         });
 
+        //Hide keyboard onTouchedOutside
         EmailText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -156,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Hide keyboard onTouchedOutside
         PassText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -164,18 +172,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void hideKeyboard(View v) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
     }
 
-    // code for checking if device is connected to internet??
-
+    // Failed code
+    // code for checking if device is connected to internet
 //    public static boolean hasActiveInternetConnection(Context context) {
 //        if (isNetwokAvailable(context)) {
 //            try {
@@ -195,28 +200,25 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //        return false;
 //    }
-//
 //    private static boolean isNetwokAvailable(Context context) {
-//
 //     return false;
-//
 //    }
 
+    /*Initialize all ui elements by linking to xml ids*/
     private void initElementsWithIds()
     {
         BtnLogin = (ImageView) findViewById(R.id.login_logo);
         btnLoginEmail = (Button) findViewById(R.id.btn_login_email);
         register = (Button) findViewById(R.id.Register);
-
         userEmail = (TextInputLayout) findViewById(R.id.user_email);
         userPassword = (TextInputLayout) findViewById(R.id.user_password);
-        myRelativeLayout = (RelativeLayout) findViewById(R.id.my_login_relative_layout);
-
+//      myRelativeLayout = (RelativeLayout) findViewById(R.id.my_login_relative_layout);
         EmailText = (TextInputEditText) findViewById(R.id.user_email_text);
         PassText = (TextInputEditText) findViewById(R.id.user_pass_text);
 
     }
 
+    //If user details are authentic, he is navigated into this method and his email& pass are passed as arguments
     private void loginUser(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -224,9 +226,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-
                      mRegProgress.dismiss();
-
                     String device_token = FirebaseInstanceId.getInstance().getToken();
                     String current_user = mAuth.getCurrentUser().getUid();
 
@@ -238,18 +238,12 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("userName","value");
                             startActivity(intent);
                             finish();
-
                         }
                     });
-
-
                 }
-
                 else{
                     mRegProgress.hide();
-
                     String error;
-
                     try {
                         throw task.getException();
                     }
@@ -263,7 +257,6 @@ public class LoginActivity extends AppCompatActivity {
                         error = "Unknown error!";
                         e.printStackTrace();
                     }
-
                    Toast.makeText(LoginActivity.this, R.string.check_details_or_resigistered, Toast.LENGTH_LONG).show();
                 }
             }

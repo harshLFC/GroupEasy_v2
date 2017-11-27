@@ -1,24 +1,23 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,11 +48,10 @@ public class editProfileActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
     private StorageReference mStorageRef;
+//  private ProgressDialog mProgressD;
 
-    private ProgressDialog mProgressD;
-
-
-    private static final int GALLERY_PICK = 1;
+    private TextInputEditText userNamePress, userBio;
+//  private static final int GALLERY_PICK = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +86,7 @@ public class editProfileActivity extends AppCompatActivity {
 
                 //code for displaying image
                     String image = dataSnapshot.child("image").getValue().toString();
-                    String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
+//                  String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
                 Picasso.with(editProfileActivity.this)
                         .load(image)
@@ -119,23 +117,17 @@ public class editProfileActivity extends AppCompatActivity {
                     String Name = userName.getEditText().getText().toString();
 
                 //code for updating username and status
-                //// TODO: 04-09-2017 use different ? loop or switch statement
-
 
                 if((TextUtils.isEmpty(Status.trim()) || (TextUtils.isEmpty(Name.trim()))) || !(Name.length()>1) || !(Status.length()>1)){
                     mDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Username or Status should not be empty !",Toast.LENGTH_SHORT).show();
                 }
-
-
                 else {
                     mUserDatabase.child("status").setValue(Status.trim());
                     mUserDatabase.child("name").setValue(Name.trim());
                     mDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Updated !",Toast.LENGTH_SHORT).show();
                 }
-
-
                 Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
                 startActivity(intent);
                 finish();
@@ -151,15 +143,12 @@ public class editProfileActivity extends AppCompatActivity {
                         .setAspectRatio(1,1)
                         .start(editProfileActivity.this);
 
-                //trying for button effect
-                //// TODO: 04-09-2017 delete if not required
-//                buttonEffect(editImage);
-
+                //Failed code for button effect
+                //buttonEffect(editImage);
                 /*
                 Intent gallery_intent = new Intent();
                 gallery_intent.setType("image/*");
                 gallery_intent.setAction(Intent.ACTION_GET_CONTENT);
-
                 startActivityForResult(Intent.createChooser(gallery_intent, "Select Image") ,GALLERY_PICK);
                 */
             }
@@ -168,7 +157,6 @@ public class editProfileActivity extends AppCompatActivity {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1,1)
@@ -176,21 +164,48 @@ public class editProfileActivity extends AppCompatActivity {
                 }
         });
 
+        //Hide keyboard onTouchedOutside
+        userNamePress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        //Hide keyboard onTouchedOutside
+        userBio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
+
+    private void hideKeyboard(View v) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     private void initElementsWithIds() {
+        /*Initialize all ui elements by linking to xml ids*/
             userName = (TextInputLayout) findViewById(R.id.user_name);
             userStatus = (TextInputLayout) findViewById(R.id.user_status);
-
             saveChanges = (Button) findViewById(R.id.save_changes);
 
             editImage = (CircleImageView) findViewById(R.id.edit_dp);
             profileImage = (CircleImageView) findViewById(R.id.circleImageView);
+
+            userNamePress = (TextInputEditText) findViewById(R.id.user_name_);
+            userBio = (TextInputEditText) findViewById(R.id.user_bio);
     }
 
-/*    public static void buttonEffect(View button){
+/*          Failed code
+        public static void buttonEffect(View button){
         button.setOnTouchListener(new View.OnTouchListener() {
-
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
@@ -208,12 +223,13 @@ public class editProfileActivity extends AppCompatActivity {
             }
         });
     }*/
+
+    //Handling ImageCropper library callback
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
             if (resultCode == RESULT_OK) {
 
                 Uri resultUri = result.getUri();
@@ -228,39 +244,35 @@ public class editProfileActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Get a URL to the uploaded content
-
                                 @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
 
                                 mUserDatabase.child("image").setValue(download_url)
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(editProfileActivity.this, "There was some error, Please try again",Toast.LENGTH_LONG).show();
+                                                Toast.makeText(editProfileActivity.this,  getString(R.string.error)+e,Toast.LENGTH_LONG).show();
                                             }
                                         })
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(editProfileActivity.this, "Image updated",Toast.LENGTH_LONG).show();
+                                                Toast.makeText(editProfileActivity.this, R.string.image_updated,Toast.LENGTH_LONG).show();
 
                                             }
                                         });
-
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle unsuccessful uploads
-                                // ...
-                                Toast.makeText(editProfileActivity.this, "Error",Toast.LENGTH_LONG).show();
+                                Toast.makeText(editProfileActivity.this, getString(R.string.error),Toast.LENGTH_LONG).show();
                             }
                         });
 
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-
+                 }
+                else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-
             }
         }
     }

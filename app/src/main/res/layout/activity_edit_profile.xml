@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for updating user profile-->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="example.com.groupeasy.activities.editProfileActivity">
-
+    tools:context="example.com.groupeasy.activities.editProfileActivity"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/myToolBar"
@@ -68,13 +72,14 @@
         app:counterMaxLength="45"
         app:layout_constraintHorizontal_bias="0.0">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Bio"
             android:maxLength="45"
             android:inputType="text"
+            android:id="@+id/user_bio"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -106,7 +111,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="23dp"
         app:counterEnabled="true"
         app:counterMaxLength="22"
         app:layout_constraintHorizontal_bias="0.0"
@@ -114,16 +119,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circleImageView">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="UserName"
             android:inputType="text"
             android:maxLength="22"
             android:maxLines="1"
-
+            android:id="@+id/user_name_"
             />
     </android.support.design.widget.TextInputLayout>
-
-
 </android.support.constraint.ConstraintLayout>

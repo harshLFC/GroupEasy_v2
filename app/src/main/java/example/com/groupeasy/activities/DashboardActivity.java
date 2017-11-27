@@ -10,12 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,29 +27,29 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.DashboardPagerAdapter;
 import example.com.groupeasy.fragments.GroupFragment;
 import example.com.groupeasy.fragments.ProfileFragment;
-import example.com.groupeasy.utility.AppConstants;
-import example.com.groupeasy.utility.prefManager;
+
+/**
+ * This is a placeholder class, it hosts two fragments
+ * 1. Group Fragment
+ * 2. Profile Fragment
+ * **/
 
 public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
     //Import ui elementss
-//    private Toolbar toolBar;
     private Context context;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private DashboardPagerAdapter adapter;
-    private Toolbar myTool;
+
     private DatabaseReference mDatabase;
-
     private FirebaseAuth mAuth;
-
 
     /** set icons to your tabs*/
     private int[] tabIcons = {
 //            R.drawable.eye_white_48,
-
             R.drawable.ic_user_group_green,
             R.drawable.user_profile_green
     };
@@ -62,14 +59,18 @@ public class DashboardActivity extends AppCompatActivity {
 
         //set layout onStart this is the psvm(s args[]); of android
         super.onCreate(savedInstanceState);
+        /*Link to XML layout*/
         setContentView(R.layout.activity_dashboard);
         this.context = DashboardActivity.this;
 
         mAuth = FirebaseAuth.getInstance();
 
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Viewpager for tabs
+        3. Tab customisation
+        4. Initialising elements with Listeners*/
         initElementsWithIds();
-        initToolbar();
-
         setupViewPager(viewPager);
         setupTabIcons();
         initElementsWithListeners();
@@ -82,14 +83,11 @@ public class DashboardActivity extends AppCompatActivity {
                 WelcomeUser();
             }
         }
-
     }
 
     private void WelcomeUser() {
-
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
 
@@ -98,25 +96,20 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue().toString();
                 Toast.makeText(DashboardActivity.this, "Welcome " + name,Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
 
     @Override
     public void onBackPressed() {
-//        moveTaskToBack(true);
         new AlertDialog.Builder(this)
                 .setMessage("Are you sure you want to exit?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        DashboardActivity.this.finish();
                         moveTaskToBack(true);
                     }
                 })
@@ -126,22 +119,12 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private void initElementsWithListeners() {
-
     }
 
     /* initialization of your toolbar with title ,color etc */
-    private void initToolbar()
-    {
-//        myTool.setTitle(AppConstants.DASHBOARD_ACTIVITY_TITLE);
-//        myTool.setTitleTextColor(ContextCompat.getColor(context,R.color.white));
-//        setSupportActionBar(myTool);
-//        getSupportActionBar().setElevation(0);
-
-    }
 
     /** this method is used to initialize the widgets and fields and toolbar*/
     private void initElementsWithIds() {
-//        myTool = (Toolbar) findViewById(R.id.mToolBar);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
     }
@@ -151,7 +134,7 @@ public class DashboardActivity extends AppCompatActivity {
         adapter = new DashboardPagerAdapter(getSupportFragmentManager());
 
         /** add more fragments if you want to**/
-//        adapter.addFragment(new UsersFragment(), "Users");
+//      adapter.addFragment(new UsersFragment(), "Users");
         adapter.addFragment(new GroupFragment(), "Groups");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
@@ -161,7 +144,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     /** set icons to your tabs*/
     private void setupTabIcons() {
-
        //set custom color to icons
         int tabIconColor = ContextCompat.getColor(context, R.color.colorPrimary);
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -172,12 +154,6 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(1)
                 .getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-
-
-
-
-//
-//        viewPager.setCurrentItem(0);
     }
 
     @Override
@@ -185,16 +161,15 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    //Creating custom menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-         super.onCreateOptionsMenu(menu);
-
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.activity_main2_drawer,menu);
-
-    return true;
+        return true;
     }
 
+    //Handling custom menu clicks
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for Login activity-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,8 +16,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GroupEasy"
-        android:textSize="40dp"
+        android:text="@string/groupeasy"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
         android:id="@+id/btn_login"
@@ -34,26 +37,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log in for existing users:"
+        android:text="@string/log_in_for_existing_users"
         android:layout_marginTop="28dp"
         android:textColor="@color/black"
         android:layout_below="@+id/btn_login"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView" />
-
-    <!--<Button-->
-        <!--android:textSize="@dimen/header_text_size"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:background="@drawable/all_btn_rect_shape"-->
-        <!--android:id="@+id/btn_login"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Go to app without signing in (beta)"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true" />-->
 
     <Button
         android:id="@+id/Register"
@@ -63,7 +53,7 @@
         android:background="@drawable/all_btn_rect_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:layout_below="@+id/user_password"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -86,7 +76,7 @@
         android:background="@drawable/all_btn_rect_shape_red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New user? Sign Up !"
+        android:text="@string/new_user_sign_up"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -107,8 +97,9 @@
             android:id="@+id/user_email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLength="33"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -121,13 +112,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         >
-
         <android.support.design.widget.TextInputEditText
             android:id="@+id/user_pass_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="15"/>
     </android.support.design.widget.TextInputLayout>
-
 </RelativeLayout>

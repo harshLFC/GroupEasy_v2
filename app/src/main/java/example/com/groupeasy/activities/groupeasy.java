@@ -5,7 +5,7 @@ import android.app.Application;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Code for implementing String Offline capabilities
+ * Code for implementing Firebase Offline capabilities
  */
 
 public class groupeasy extends Application{

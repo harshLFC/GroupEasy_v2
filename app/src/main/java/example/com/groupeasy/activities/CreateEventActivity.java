@@ -303,7 +303,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     myRef.child("notifications").child(uid).child(push_id).setValue(notifyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(CreateEventActivity.this, "Notification sent !", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(CreateEventActivity.this, "Notification sent !", Toast.LENGTH_SHORT).show();
 
                         }
                     });

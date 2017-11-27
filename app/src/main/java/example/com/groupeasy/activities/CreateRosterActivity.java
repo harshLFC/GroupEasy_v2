@@ -1,3 +1,4 @@
+/*
 package example.com.groupeasy.activities;
 
 import android.content.Context;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import example.com.groupeasy.R;
-/** Activity which creates rosters*/
+*/
+/** Activity which creates rosters*//*
+
 public class CreateRosterActivity extends AppCompatActivity {
     
     public static final String TAG = CreateRosterActivity.class.getSimpleName();
@@ -60,3 +63,4 @@ public class CreateRosterActivity extends AppCompatActivity {
         finish();
     }
 }
+*/

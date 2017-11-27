@@ -1,6 +1,5 @@
 package example.com.groupeasy.activities;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +26,10 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.ParticipantsAdapter;
 import example.com.groupeasy.pojo.list_details;
 import example.com.groupeasy.pojo.members_In;
+
+/**
+ * This Class Displays all the details of the event including participants
+ * **/
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -70,18 +72,25 @@ public class EventDetailsActivity extends AppCompatActivity {
     final DatabaseReference groupRef = myRef.child("Events").child("lists");
     private View View5;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*Link to XML layout*/
         setContentView(R.layout.activity_event_details);
 
-
+        /* Calling methods for
+        1. Init Tolbar
+        1. Initialising elements by IDs
+        2. Initialising elements with Listeners
+        3. updating screen display*/
         setToolbar();
         initElementsById();
         initElementsByListeners();
         updateDisplay();
 
+        //Initialize 2 arraylists and attach adapter to dynamic recyclerview
+        // 1. for Participants
+        // 2. for string details for event
         mLstGroups2 = new ArrayList<>();
         mLstGroups = new ArrayList<>();
         mAdapter = new ParticipantsAdapter(mLstGroups2,this);
@@ -89,10 +98,9 @@ public class EventDetailsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
     }
 
+    /*Handling all onclick events(listeners)*/
     private void initElementsByListeners() {
 
         /**WHen the user presses thumbs up button
@@ -103,9 +111,6 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                ThumbUp.setVisibility(View.INVISIBLE);
-//                ThumbUpGreen.setVisibility(View.VISIBLE);
-
                 final String GroupKey = getIntent().getStringExtra("Groupkey");
                 final String EventNum = getIntent().getStringExtra("eventNum");
 
@@ -115,29 +120,20 @@ public class EventDetailsActivity extends AppCompatActivity {
                 myRef.child("members").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
                         groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
                         groupRef.child(GroupKey).child(EventNum).child("participants").child(uid).child("value").setValue("In");
-
-
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }
         });
 
-
-
         QuestionMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                QuestionMark.setVisibility(View.INVISIBLE);
-//                QuestionMarkYellow.setVisibility(View.VISIBLE);
-
                 final String GroupKey = getIntent().getStringExtra("Groupkey");
                 final String EventNum = getIntent().getStringExtra("eventNum");
 
@@ -178,10 +174,9 @@ public class EventDetailsActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 
+    /*Send data according to user feedback (thumbs up/down/question mark) and retrive and update list*/
     private void updateDisplay() {
 
         /** Initialize default icon colors ***/
@@ -222,35 +217,28 @@ public class EventDetailsActivity extends AppCompatActivity {
         if(!location.isEmpty())
             EventLocation.setText(location);
 
-
+        //set admin name
         String admin = getIntent().getStringExtra("admin");
-        if(!location.isEmpty())
+        if(!admin.isEmpty())
             EventAdmin.setText(admin);
 
         final String GroupKey = getIntent().getStringExtra("Groupkey");
         final String EventNum = getIntent().getStringExtra("eventNum");
 
-//        Log.w(GroupKey,"ThisIsGroupKey");
-
-
-/**Code to add participants into adapter**/
-//        groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
+        /**Code to add participants into adapter**/
+//      groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
         groupRef.child(GroupKey).child(EventNum).child("participants").child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 mLstGroups2.removeAll(mLstGroups2);
                 mLstGroups.removeAll(mLstGroups);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
                     members_In members = snapshot.getValue(members_In.class);
                     mLstGroups2.add(members);
-
-
-
                 }
                 mAdapter.notifyDataSetChanged();
-
 
                 /**Add listener to 'extra' child and display elements in ui**/
                 groupRef.child(GroupKey).child(EventNum).child("extra").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -273,7 +261,6 @@ public class EventDetailsActivity extends AppCompatActivity {
                         maxPart.setText(MaxPart);
 
                         //setTime
-
                         String FromTime = mLstGroups.get(0).getFromTime();
                         String ToTime = mLstGroups.get(0).getToTime();
                         String ToDate = mLstGroups.get(0).getToDate();
@@ -286,28 +273,19 @@ public class EventDetailsActivity extends AppCompatActivity {
                         if(ToTime!=null) {
                             textTimeTo.setText(ToTime);
                             textTimeTo.setVisibility(View.VISIBLE);
-
                         }
                         if(startDay!=null) {
                             textDateFrom.setText(startDay +" "+ startMonth);
                             textDateFrom.setVisibility(View.VISIBLE);
-
                         }
                         if(ToDate!=null) {
                             trimDate(ToDate);
-
-//                            textDateTo.setText(ToDate);
-//                            textDateTo.setVisibility(View.VISIBLE);
-
                         }
                     }
 
+                    //Convert data from number to text format
                     private void trimDate(String toDate) {
-
                         String[] parts = toDate.split("/");
-//            String part1 = "1"; // 004
-//            String part2 = "10";
-
                         String part1 = parts[0]; // 004
                         String part2 = parts[1]; // 034556
 
@@ -346,24 +324,19 @@ public class EventDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-
-
                 /**check user 'value' under participants and display appropriate icon**/
                 FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                 final String uid = current_user.getUid();
 
                 if(dataSnapshot.hasChild(uid)) {
-//                    Toast.makeText(EventDetailsActivity.this, "User has child here", Toast.LENGTH_SHORT).show();
-                    String test;
-
-//                    test = dataSnapshot.child(uid).child("value").getValue().toString();
+                    String response;
 
                     if (dataSnapshot.child(uid).child("value").getValue() != null) {
 
-                        test = dataSnapshot.child(uid).child("value").getValue().toString();
+                        response = dataSnapshot.child(uid).child("value").getValue().toString();
 
-
-                        if (test.equals("In")) {
+                        if (response.equals("In"))
+                        {
                             QuestionMarkYellow.setVisibility(View.INVISIBLE);
                             ThumbDownRed.setVisibility(View.INVISIBLE);
                             QuestionMark.setVisibility(View.VISIBLE);
@@ -371,7 +344,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                             ThumbUp.setVisibility(View.INVISIBLE);
                             ThumbUpGreen.setVisibility(View.VISIBLE);
-                        } else if (test.equals("Out")) {
+                        } else if (response.equals("Out"))
+                        {
                             QuestionMarkYellow.setVisibility(View.INVISIBLE);
                             ThumbUpGreen.setVisibility(View.INVISIBLE);
                             QuestionMark.setVisibility(View.VISIBLE);
@@ -379,7 +353,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                             ThumbDown.setVisibility(View.INVISIBLE);
                             ThumbDownRed.setVisibility(View.VISIBLE);
-                        } else if (test.equals("Maybe")) {
+                        } else if (response.equals("Maybe"))
+                        {
                             ThumbDownRed.setVisibility(View.INVISIBLE);
                             ThumbDown.setVisibility(View.VISIBLE);
                             ThumbUpGreen.setVisibility(View.INVISIBLE);
@@ -388,12 +363,6 @@ public class EventDetailsActivity extends AppCompatActivity {
                             QuestionMark.setVisibility(View.INVISIBLE);
                             QuestionMarkYellow.setVisibility(View.VISIBLE);
                         }
-
-
-                    } else {
-//                        Toast.makeText(EventDetailsActivity.this, "User DOES NOT has child here", Toast.LENGTH_SHORT).show();
-
-
                     }
                 }
 
@@ -408,7 +377,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     View5.setVisibility(View.GONE);
                     numOfPart.setVisibility(View.VISIBLE);
 
-//                    displaying number of people who have participated
+//                  displaying number of people who have participated
                     int count = mLstGroups2.size();
                     numOfPart.setText("Number of participants: "+count+" ");
                 }
@@ -418,10 +387,9 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
+    /**Initialize all ui elements by linking to xml ids*/
     private void initElementsById() {
 
         EventName  = (TextView) findViewById(R.id.event_name);
@@ -433,7 +401,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         textDescription  = (TextView) findViewById(R.id.text_description);
         minPart  = (TextView) findViewById(R.id.min_parrticipant);
         maxPart  = (TextView) findViewById(R.id.max_participant);
-//        textTime  = (TextView) findViewById(R.id.text_time);
 
         textTimeFrom  = (TextView) findViewById(R.id.from_time);
         textTimeTo  = (TextView) findViewById(R.id.to_time);
@@ -452,20 +419,15 @@ public class EventDetailsActivity extends AppCompatActivity {
         QuestionMark= (ImageButton) findViewById(R.id.question_mark);
         QuestionMarkYellow= (ImageButton) findViewById(R.id.question_mark_yellow);
 
-        View5 = (View) findViewById(R.id.view5);
-
-
+        View5 = findViewById(R.id.view5);
     }
 
+    //Customise toolbar
     private void setToolbar() {
-        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_back_arrow_left);
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.my_event_details_tool);
         setSupportActionBar(mToolbar);
-
         getSupportActionBar().setTitle("Event");
         getSupportActionBar().setShowHideAnimationEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -473,6 +435,5 @@ public class EventDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

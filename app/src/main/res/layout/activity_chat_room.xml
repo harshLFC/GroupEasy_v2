@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for
+    1. Event creation fab
+    2. Chatbox
+    3. Send button-->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -65,17 +71,6 @@
                 />
 </com.github.clans.fab.FloatingActionMenu>
 
-    <!--<ScrollView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="45dp"-->
-        <!--android:layout_weight="8"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--android:layout_marginBottom="0dp"-->
-        <!--app:layout_constraintRight_toLeftOf="@+id/send_button"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.84"-->
-        <!--android:layout_marginLeft="50dp">-->
-
     <View
         android:layout_width="10dp"
         android:layout_height="10dp"
@@ -96,7 +91,8 @@
         app:layout_constraintLeft_toRightOf="@+id/view"
         android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0">
+        app:layout_constraintHorizontal_bias="1.0"
+        >
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
@@ -104,13 +100,17 @@
             android:layout_weight="5"
             android:textColorHint="@color/dark_grey"
             android:inputType="text"
+            app:hintEnabled="false"
+            app:counterEnabled="false"
+
             >
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="120dp"
+                android:maxHeight="50dp"
                 android:textColorHighlight="@color/black"
                 android:inputType="textMultiLine"
+                android:maxLines="1"
                 android:id="@+id/message_content"
                 android:minHeight="30dp"
                 android:textColor="@color/dark_grey"
@@ -127,30 +127,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
         </android.support.design.widget.TextInputLayout>
-
- <!--       <EditText
-            android:text=""
-            android:maxHeight="120dp"
-            android:textColorHighlight="@color/black"
-            android:inputType="textMultiLine"
-            android:id="@+id/message_content"
-            android:paddingLeft="10dp"
-            android:minHeight="30dp"
-            android:textColor="@color/dark_grey"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:hint="Write a message"
-            android:maxLength="300"
-            android:textColorHint="@color/dark_grey"
-            app:layout_constraintLeft_toRightOf="@+id/view"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintRight_toLeftOf="@+id/send_button"
-            android:layout_marginRight="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1.0" />-->
-    <!--</ScrollView>-->
 
         <ImageView
             android:id="@+id/send_button"

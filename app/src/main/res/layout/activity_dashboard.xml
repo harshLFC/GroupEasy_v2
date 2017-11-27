@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the Viewholder which hosts 2 Fragments-->
+
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,25 +12,8 @@
     android:background="@color/colorPrimary"
     style="@style/AppTheme"
    >
-
-
- <!--   <android.support.design.widget.AppBarLayout
-        android:id="@+id/my_app_bar_lyt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            android:id="@+id/mToolBar"
-            layout="@layout/app_bar_layout"
-            android:elevation="50dp"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-        </include>
-    </android.support.design.widget.AppBarLayout>-->
-
     <RelativeLayout
         android:background="@drawable/layout_rounded_padding"
-
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,5 +44,4 @@
         android:layout_height="match_parent"
         />
     </RelativeLayout>
-
 </android.support.design.widget.CoordinatorLayout>

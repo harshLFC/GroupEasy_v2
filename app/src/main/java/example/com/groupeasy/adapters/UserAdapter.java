@@ -20,6 +20,9 @@ import example.com.groupeasy.pojo.users_list;
 /**
  * Created by Harsh on 17-09-2017.
  */
+/**
+ * This adapter class just to display a list of members of the app
+ * **/
 
 public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -42,7 +45,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_single_layout, parent, false);
 
         switch (viewType) {
@@ -57,7 +59,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // TODO: 30-08-2017 remove comments
         //replace R.layout.group_view with your custom layout
         //this file indicates how your custom view should look like (just remember to set parent tags height to wrap content)
-
 
         return new UserViewHolder(rootView);
     }
@@ -96,10 +97,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private TextView userName;
         private TextView userStatus;
-        private TextView userLastSeen;
         private CheckBox myCheck;
-
-
         private ImageView userDP;
 
         public UserViewHolder(View itemView) {
@@ -107,37 +105,35 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             userName = (TextView) itemView.findViewById(R.id.user_name);
             userStatus = (TextView) itemView.findViewById(R.id.user_status);
-            userLastSeen = (TextView) itemView.findViewById(R.id.last_seen);
 
             userDP = (ImageView) itemView.findViewById(R.id.user_dp);
             myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
             myCheck.setVisibility(View.GONE);
 
-
-            userName.setOnClickListener(this);
-            userStatus.setOnClickListener(this);
+           /* userName.setOnClickListener(this);
+            userStatus.setOnClickListener(this);*/
 
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == userName.getId()) {
+       /*     if (v.getId() == userName.getId()) {
 
                 Toast.makeText(v.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
 
             } else if (v.getId() == userDP.getId()) {
 
                 Toast.makeText(v.getContext(), "ClickedIMAGE", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
 
         public void setOnItemClickListener(ClickListener clickListener) {
-            UserAdapter.clickListener = clickListener;
+//            UserAdapter.clickListener = clickListener;
         }
 
         public interface ClickListener {
-            void onItemClick(int position, View v);
-            void onItemLongClick(int position, View v);
+//            void onItemClick(int position, View v);
+//            void onItemLongClick(int position, View v);
         }
     }
 
