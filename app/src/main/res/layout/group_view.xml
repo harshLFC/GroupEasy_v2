@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This xml being inflated by Groups adapter for Groups Fragment
+    -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +11,7 @@
     android:id="@+id/group_linear"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    >
+    android:baselineAligned="false">
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -17,16 +20,6 @@
         android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:orientation="vertical">
-
-        <!--<Button-->
-        <!--THis was a test invisible button-->
-            <!--android:id="@+id/the_button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="80dp"-->
-            <!--android:layout_alignTop="@+id/image_view"-->
-            <!--android:layout_toEndOf="@+id/group_key"-->
-            <!--android:layout_toRightOf="@+id/group_key"-->
-            <!--android:background="@android:color/transparent" />-->
 
         <TextView
             android:id="@+id/message_text"
@@ -38,14 +31,14 @@
             android:ellipsize="end"
             android:maxLength="25"
             android:maxLines="1"
-            android:text="random group random group"
+            android:text="@string/group_name"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/group_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sample"
+            android:text="@string/sample"
             android:visibility="gone" />
 
         <TextView
@@ -62,8 +55,7 @@
             android:ellipsize="end"
             android:maxLength="45"
             android:maxLines="1"
-            android:text="last few messages be like, last few messages be like" />
-
+            android:text="@string/sample" />
 
         <LinearLayout
         android:id="@+id/linearLayout"
@@ -75,7 +67,7 @@
         android:layout_alignParentEnd="true">
 
             <!---rectangle-->
-        <TextView
+<!--        <TextView
         android:id="@+id/rectangle"
         android:layout_width="20sp"
         android:layout_height="20sp"
@@ -83,24 +75,24 @@
         android:gravity="center"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="gone"
-            android:textColor="@color/white"/>
-
+        android:visibility="gone"
+        android:textColor="@color/white"/>-->
         <!---circle-->
         <TextView
         android:id="@+id/circle"
         android:layout_width="22sp"
         android:layout_height="22sp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/my_circle"
+        android:background="@drawable/my_circle_maroon"
         android:gravity="center"
-            android:textColor="@color/black"
+        android:textColor="@color/black"
         android:text="4"
         android:textSize="12sp"
-            android:visibility="visible"/>
+        android:visibility="gone"/>
 
         <!---hex-->
-        <TextView
+
+        <!--<TextView
         android:id="@+id/hex"
         android:layout_width="20sp"
         android:layout_height="20sp"
@@ -108,13 +100,11 @@
         android:background="@drawable/my_hexagon"
         android:gravity="center"
         android:text="2"
-            android:textColor="@color/white"
+        android:textColor="@color/white"
         android:textSize="12sp"
-            android:visibility="gone"
-            />
-
+        android:visibility="gone"
+            />-->
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
@@ -134,9 +124,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:src="@drawable/multi_user"
-            app:civ_border_color="#FF000000"
+            app:civ_border_color="@color/dark_grey"
             app:civ_border_width="0.5dp" />
-
 
        <!--code for drawing one line in xml-->
         <View
@@ -153,9 +142,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="end"
-            android:maxLength="16"
+            android:maxLength="22"
             android:maxLines="1"
-            android:text="Harsh Phoujdar"
+            android:text="@string/harsh_p"
             android:textSize="12sp"
             android:layout_marginLeft="5dp"
             android:layout_alignBaseline="@+id/textView2"
@@ -168,12 +157,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="Admin:"
+            android:text="@string/admin"
             android:textSize="12sp"
             android:layout_below="@+id/text_last_message"
             android:layout_alignLeft="@+id/text_last_message"
             android:layout_alignStart="@+id/text_last_message" />
     </RelativeLayout>
-
-
 </LinearLayout>

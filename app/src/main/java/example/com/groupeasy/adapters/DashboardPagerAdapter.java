@@ -3,9 +3,11 @@ package example.com.groupeasy.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * This Adapter adds navigation strings for main dashboard for groups and profile **/
 
 public class DashboardPagerAdapter extends FragmentPagerAdapter {
 

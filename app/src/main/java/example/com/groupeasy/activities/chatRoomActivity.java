@@ -55,6 +55,7 @@ public class chatRoomActivity extends AppCompatActivity {
     private FloatingActionMenu floatingActionMenu;
     private FloatingActionButton floatingActionButton;
     private ImageView noMessages;
+    private TextView myCircle;
 
     //Initialize Firebase elements
     private DatabaseReference mUserDatabase,mGroupDatabase;
@@ -81,6 +82,7 @@ public class chatRoomActivity extends AppCompatActivity {
         initElementWithIds();
         initElementsWithListeners();
         floatingActionMenu.close(true);
+//        myCircle.setText(4);
 
         //by default events frame is invisible, it will only be visible if event is created
         myEventsFrame.setVisibility(View.GONE);
@@ -118,7 +120,15 @@ public class chatRoomActivity extends AppCompatActivity {
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(current_uid);
         listView.setOnItemClickListener(null);
+        String eventNum = getIntent().getExtras().get("eventNum").toString();
+        ActiveEvents(eventNum);
        }
+
+    private void ActiveEvents(String eventNum) {
+        View myEvent = findViewById(R.id.active_events);
+        myCircle = (TextView) myEvent.findViewById(R.id.my_circle);
+        myCircle.setText(eventNum);
+    }
 
 
     // show active events tab if snapshot is not null
@@ -378,12 +388,15 @@ public class chatRoomActivity extends AppCompatActivity {
         messageContent = (TextInputEditText) findViewById(R.id.message_content);
         groupImageView = (CircleImageView) findViewById(R.id.group_image_view);
         chatRoomButton = (LinearLayout) findViewById(R.id.chat_room_button);
-        myEventsFrame = (RelativeLayout) findViewById(R.id.active_events);
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floatingActionMenu);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_create_list);
         chatBackground = findViewById(R.id.chat_background);
 
         noMessages = (ImageView) findViewById(R.id.no_messages);
+
+        myEventsFrame = (RelativeLayout) findViewById(R.id.active_events);
+
+
 
     }
 

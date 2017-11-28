@@ -141,21 +141,19 @@
             android:id="@+id/fab_create_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="6dp"
+            fab:fab_progress_color="@color/grey"
             android:src="@drawable/ic_create_group"
             fab:menu_shadowColor="#33000000"
-            fab:menu_shadowRadius="5dp"
-            fab:menu_shadowXOffset="1dp"
-            fab:menu_shadowYOffset="4dp"
-            fab:menu_showShadow="true"
             fab:fab_progress_showBackground="true"
             fab:fab_showAnimation="@anim/fab_scale_up"
             fab:fab_label="Create Group"
             fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_size="mini"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
+
         />
 
 

@@ -226,7 +226,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         final String EventNum = getIntent().getStringExtra("eventNum");
 
         /**Code to add participants into adapter**/
-//      groupRef.child(groupKey).child(temp).child("participants").child("").addValueEventListener(new ValueEventListener() {
         groupRef.child(GroupKey).child(EventNum).child("participants").child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

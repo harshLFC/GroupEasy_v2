@@ -7,9 +7,7 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,47 +32,49 @@ import example.com.groupeasy.activities.EventDetailsActivity;
 import example.com.groupeasy.pojo.list_primary;
 import example.com.groupeasy.pojo.members_In;
 
-/**
+/*
  * Created by Harsh on 11-09-2017.
  */
+
+/**
+ * This Adapter is
+ * 1. Linked with activeEvents.java and
+ * 2. Inflates cardview for events_recycler_view**/
 
 public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     static List<list_primary> mList1;
-//    HashMap mList2;
+//  HashMap mList2;
     static List<members_In> mList2;
     Context mContext;
     LayoutInflater mInflater;
     View view;
     String GroupKey;
-//    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//    final DatabaseReference groupRef = database.getReference().child("Events").child("lists");
+//  FirebaseDatabase database = FirebaseDatabase.getInstance();
+//  final DatabaseReference groupRef = database.getReference().child("Events").child("lists");
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
-    private static final String VIEW_TYPE_OBJECT_VIEW_TRY = "THis list is empty";
+//    private static final String VIEW_TYPE_OBJECT_VIEW_TRY = "THis list is empty";
 
    public EventsAdapter(){
-
+        //empty constructor required
    }
 
+   //Get lists and context in the form of parameters from the activity
     public EventsAdapter(List<list_primary> mLstGroups, Context context, String Key)
-//    public EventsAdapter(List<list_primary> mLstGroups,Context context,HashMap<String, String> myMap)
     {
         this.mList1 = mLstGroups;
         this.mContext = context;
         this.GroupKey = Key;
-
-//        this.mList2 = mLstGroups2;
-//        this.mList2 = myMap;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
     return view;
     }
 
+    //onCreateViewHolder assigns a view for adapter to display in the activity
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -92,42 +92,35 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return new EventViewHolder(rootView);
     }
 
+    //onBindViewHolder adds data to pre-initialized ui elements
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
         final EventViewHolder viewHolder = (EventViewHolder) holder;
 
-        /**Set event details to card**/
+        /*Set event details to card**/
         viewHolder.eventName.setText(mList1.get(position).getName());
         String admin = mList1.get(position).getAdmin();
 
-
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//      String uid = user.getUid();
         DatabaseReference userImageRef = FirebaseDatabase.getInstance().getReference().child("members").child(admin);
 
         userImageRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if (dataSnapshot.hasChild("name"))
                 viewHolder.admin.setText(dataSnapshot.child("name").getValue().toString());
 //                else
-//                    viewHolder.admin.setText(mList1.get(position).getAdmin());
-
-
+//                viewHolder.admin.setText(mList1.get(position).getAdmin());
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
-
-
-
-//not used
+        //not used
         String event_id = mList1.get(position).getId();
 
         //the following 2 hidden views for eventDetails screen
@@ -143,8 +136,6 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
              * 1. Split string into day and month
              * 2. Check month with array and display accordingly**/
             String[] parts = myDate.split("/");
-//            String part1 = "1"; // 004
-//            String part2 = "10";
 
             String part1 = parts[0]; // 004
             String part2 = parts[1]; // 034556
@@ -176,13 +167,6 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
 
-       //tests
-        /* String test = mList2.get(position).getName();
-        String test2 = mList1.get(position).getId();
-
-        Log.d(test,"lala");
-        Log.d(test2,"yaya");*/
-
         //if no location has been provided dont show
     try{
         if((mList1.get(position).getLocation()).isEmpty()) {
@@ -191,22 +175,22 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                }
                else
             viewHolder.locationText.setText(mList1.get(position).getLocation());
-
     }
     catch (NullPointerException e){
         e.printStackTrace();
         }
 
-//        viewHolder.eventID.setText(mList1.get(position).getId());
+//      Failed code
+//      viewHolder.eventID.setText(mList1.get(position).getId());
 
        /* DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
-        final String key = eventRef.getKey();
+       final String key = eventRef.getKey();
 
         String uid = eventRef.getKey();
         Log.i("uid", uid);*/
 
         //what does this do?
-//        eventRef.addListenerForSingleValueEvent(eventListener);
+//      eventRef.addListenerForSingleValueEvent(eventListener);
 
         //set user image
         viewHolder.userImageRef.addValueEventListener(new ValueEventListener() {
@@ -226,22 +210,19 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             }
         });
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-
+//        Failed code
 //        if(!location.isEmpty()){
 //        viewHolder.locationText.setVisibility(View.VISIBLE);
 //        viewHolder.locationText.setText(mList2.get(position).getLocation());
 //            viewHolder.locationImage.setVisibility(View.VISIBLE);
 //        }
-
-//////
-
-
-        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
 //        LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
 //        view = mInflater.inflate(R.layout.row_view_for_members_events, null, false);
-
-        //for loop int =0; i<list2.size; i++
+//
+//        for loop int =0; i<list2.size; i++
 //            textview tv = new textview
 
       /** Tried a lot to display list of members and almost got it working
@@ -249,7 +230,8 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
        * spent 2 weeks trying to get this to work in the end am putting it on hold
        * as a result of having constant bugs for displaying data which is repeating
        * and not abiding to the respective event **/
-       /* for(int i=0;i<mList2.size();i++){
+       /* Failed code :(
+       for(int i=0;i<mList2.size();i++){
 
             int j = mList2.size();
             //code to add simple textView dynamically
@@ -261,7 +243,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.linearView.addView(textView);
             viewHolder.linearView.addView(textView2);*//*
 
-//            View view = new View(mContext);
+//          View view = new View(mContext);
             View view = mInflater.inflate(R.layout.row_view_for_members_events, null);
 
             TextView viewText = (TextView) view.findViewById(R.id.user_name);
@@ -271,19 +253,11 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewResponse.setText(mList2.get(position).getValue());
 
             viewHolder.linearView.addView(view);
-
 //            LayoutInflater.from(mContext).inflate(R.layout.row_view_for_members_events,null,false);
-
-
         }*/
-
         // add data by setText
 //        liearlayout.add(child)
-
 //        view = mInflater.inflate(R.layout.row_view_for_members_events, null);
-
-
-
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -299,6 +273,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
          * 2. set Text to ✘ if value is 'Out'
          * 3. set Text to ? if value is 'Maybe'
          * 4. Change color accordingly**/
+
         myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -310,7 +285,6 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         viewHolder.addMe.setText("✓ You are IN for this event");
                         viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#66bb6a"));
 
-
                     }
                     if (dataSnapshot.child("value").getValue().equals("Out")) {
                         viewHolder.addMe.setText("✘ You are OUT for this event");
@@ -321,72 +295,52 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     if (dataSnapshot.child("value").getValue().equals("Maybe")) {
                         viewHolder.addMe.setText("? You are UNSURE for this event");
                         viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#ffdf00"));
-
                     }
                 }
-
                 //user hasnt responded
                 else {
-
                     viewHolder.myLinearLayout.setBackgroundColor(Color.parseColor("#c0c0c0"));
-
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
-
-        //attempt to set favourites
-
+        //set favourites counter
         myRef.child("members").child(uid).child("favs").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-
                 //first check if child exists
                 if (dataSnapshot.hasChild(eventNum)) {
                     viewHolder.myHeart.setColorFilter(Color.RED);
-
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
-
-
     }
 
     @Override
     public int getItemCount() {
         return mList1.size();
 //        +mList2.size();
-
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView eventName;
-        public TextView eventID;
+        private TextView eventID;
         private TextView admin;
         private TextView addMe;
         private TextView locationText;
         private ImageView locationImage;
         private ImageView userImage;
-        private ImageView fullEvent;
-        private LinearLayout linearView;
-        private CardView myCard;
+//      private ImageView fullEvent;
+//      private LinearLayout linearView;
+//      private CardView myCard;
         private ConstraintLayout myCOnstrained;
 
         private ImageView myHeart;
@@ -402,7 +356,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         DatabaseReference eventRef = FirebaseDatabase.getInstance().getReference().child("Events").child("lists");
 
 
-        public EventViewHolder(View itemView) {
+        EventViewHolder(View itemView) {
             super(itemView);
 
             eventName = (TextView) itemView.findViewById(R.id.event_name);
@@ -412,9 +366,9 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             userImage = (ImageView) itemView.findViewById(R.id.user_dp);
             addMe = (TextView) itemView.findViewById(R.id.add_Me);
             eventID = (TextView) itemView.findViewById(R.id.event_key);
-            linearView = (LinearLayout) itemView.findViewById(R.id.list_view_event);
-//            fullEvent = (ImageView) itemView.findViewById(R.id.full_event);
-            myCard = (CardView) itemView.findViewById(R.id.my_card);
+//          linearView = (LinearLayout) itemView.findViewById(R.id.list_view_event);
+//          fullEvent = (ImageView) itemView.findViewById(R.id.full_event);
+//          myCard = (CardView) itemView.findViewById(R.id.my_card);
             myCOnstrained = (ConstraintLayout) itemView.findViewById(R.id.my_constrained);
 
             DetailsText = (TextView) itemView.findViewById(R.id.details_txt);
@@ -424,29 +378,22 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             myLinearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout3);
 
-
             eventName.setOnClickListener(this);
-            admin.setOnClickListener(this);
+//            admin.setOnClickListener(this);
             addMe.setOnClickListener(this);
 
             DetailsText.setOnClickListener(this);
             myHeart.setOnClickListener(this);
             myLinearLayout.setOnClickListener(this);
             userImage.setOnClickListener(this);
-//            fullEvent.setOnClickListener(this);
-
-
+//          fullEvent.setOnClickListener(this);
         }
 
         @Override
         public void onClick(final View v) {
 
-           if (v.getId() == admin.getId()) {
-                Toast.makeText(v.getContext(), "Admin", Toast.LENGTH_SHORT).show();
-//            clickListener.onItemClick(getAdapterPosition(),v);
-            }
-
-            else if (v.getId() == myHeart.getId()) {
+            //Handle onCLick on HEart icon
+            if (v.getId() == myHeart.getId()) {
 
                FirebaseDatabase database = FirebaseDatabase.getInstance();
                final DatabaseReference myRef = database.getReference();
@@ -483,6 +430,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                });
             }
 
+            //Handle onCLick on Details icon -> navigate user to event details activity
             else if (v.getId() == DetailsText.getId() || v.getId() == eventName.getId()){
 
                 Intent intent= new Intent(v.getContext(), EventDetailsActivity.class);
@@ -501,42 +449,35 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 String eventNum = EventNum.getText().toString();
                 intent.putExtra("eventNum",eventNum);
 
-               String eventDate = EventDate.getText().toString();
+                String eventDate = EventDate.getText().toString();
                 intent.putExtra("eventDate",eventDate);
 
-
                 v.getContext().startActivity(intent);
-
-
             }
 
+            //Handle onCLick on addMe icon-> open dialog and ask user for response
             else if (v.getId() == myLinearLayout.getId() || v.getId() == addMe.getId()|| v.getId() == userImage.getId() ){
 
                 final String key = eventRef.getKey();
-                Log.w("type_this",key);
 
-                String test = eventRef.child(key).getKey();
-                Log.w("type_this_test",key);
-
+//                String test = eventRef.child(key).getKey();
                 final DatabaseReference groupRef = eventRef.child("").child(key);
 
-                /**Code on respond to event**/
+                /*Code on respond to event**/
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Response");
-                        builder.setIcon(R.drawable.ic_add_members_group);
+                builder.setIcon(R.drawable.ic_add_members_group);
 
                 String temp = mList1.get(getAdapterPosition()).getName();
                 builder.setMessage("Event: "+temp);
 
-                /**On I'm in click**/
+                /*On I'm in click**/
                 builder.setPositiveButton("I'm In",
                         new DialogInterface.OnClickListener()
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
-//                                dialog.cancel();
-
-                                /**Code to respond to the event **/
+                                /*Code to respond to the event **/
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 final DatabaseReference myRef = database.getReference();
 
@@ -553,10 +494,9 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
-
                                     }
                                 });
-                                /**Code to respond end**/
+                                /*Code to respond end**/
 
                                 addMe.setText("✓ You are IN for this event");
                                 myLinearLayout.setBackgroundColor(Color.parseColor("#66bb6a"));
@@ -566,7 +506,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                         @Override
                                         public void onClick(final View view) {
 
-                                            /**Code to respond to the event **/
+                                            /*Code to respond to the event **/
                                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                                             final DatabaseReference myRef = database.getReference();
 
@@ -586,9 +526,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                                                 }
                                             });
-                                            /**Code to respond end**/
-
-
+                                            /*Code to respond end**/
 
                                             addMe.setText(R.string.click_to_respond_to_this_event);
                                             Snackbar snackbar1 = Snackbar.make(v, "You have been removed from the event!", Snackbar.LENGTH_SHORT);
@@ -598,9 +536,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                             textView.setTextColor(Color.YELLOW);
                                             textView.setTextSize(14);
                                             snackbar1.show();
-                                            /**write code to remove from event*/
-
-                                            /***/
+                                            /*write code to remove from event*/
                                         }
                                     });
 
@@ -623,7 +559,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             public void onClick(DialogInterface dialog, int id)
                             {
 
-                                /**Code to respond to the event **/
+                                /*Code to respond to the event **/
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 final DatabaseReference myRef = database.getReference();
 
@@ -643,15 +579,12 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                                     }
                                 });
-                                /**Code to respond end**/
+                                /*Code to respond end**/
 
-
-//                                        v.getContext().startActivity(new Intent(context, Setup.class));
+//                              v.getContext().startActivity(new Intent(context, Setup.class));
                                 //dialog.cancel();
                                 addMe.setText("? You are UNSURE for this event");
                                 myLinearLayout.setBackgroundColor(Color.parseColor("#ffdf00"));
-
-
                             }
                         });
 
@@ -660,7 +593,7 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         {
                             public void onClick(DialogInterface dialog, int id)
                             {
-                                /**Code to respond to the event **/
+                                /*Code to respond to the event **/
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 final DatabaseReference myRef = database.getReference();
 
@@ -674,14 +607,11 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                         myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("name").setValue(dataSnapshot.getValue().toString());
                                         myRef.child("Events").child("lists").child(Groupkey).child(eventNum).child("participants").child(uid).child("value").setValue("Out");
                                     }
-
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
-
                                     }
                                 });
-                                /**Code to respond end**/
-
+                                /*Code to respond end**/
 
                                 addMe.setText("✘ You are OUT for this event");
                                 myLinearLayout.setBackgroundColor(Color.parseColor("#ef5350"));
@@ -691,34 +621,26 @@ public class  EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         });
                 builder.create().show();
 
-
-
-
-              /** code should add user with status (in/out/maybe) to 1.db 2.ui*/
-                  userImageRef.addValueEventListener(new ValueEventListener() {
+              /* code should add user with status (in/out/maybe) to 1.db 2.ui*/
+/*                  userImageRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 //                        final String uName = dataSnapshot.child("name").getValue().toString();
 //                        addMe.setText(uName);
-
 //                        locationText.setText(mList1.get(position).getLocation());
                         int position = 0;
-
                         String event_id = eventID.getText().toString();
-
 //                        eventRef.child(event_id).child("members").child(uid).setValue(true);
-
-
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
-                });
+                });*/
             }
 
-            /** Code to change layout when arrow is clicked - expand view*/
+            /* Code to change layout when arrow is clicked - expand view*/
+            //Failed code
      /*       else if(v.getId() == fullEvent.getId()){
 
                 Toast.makeText(v.getContext(), "Clicked expand",Toast.LENGTH_SHORT).show();

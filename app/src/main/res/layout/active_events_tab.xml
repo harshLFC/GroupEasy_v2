@@ -133,6 +133,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.52" />-->
 
-
+    <TextView
+        android:id="@+id/my_circle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/my_circle_maroon"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="1"
+        android:visibility="visible"
+        android:layout_marginStart="8dp"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3" />
 
 </RelativeLayout>
