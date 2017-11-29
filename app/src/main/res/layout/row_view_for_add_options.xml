@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Future use for polling-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <EditText
-        android:textSize="@dimen/header_text_size"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:id="@+id/et_option"
-        android:hint="Your option"
-        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_weight="1"
+        android:hint="Your option"
+        android:textSize="@dimen/header_text_size" />
     <ImageView
         android:id="@+id/iv_delete_option"
-        android:src="@drawable/ic_delete"
+        android:layout_width="28dp"
         android:layout_height="28dp"
-        android:layout_width="28dp"/>
+        android:src="@drawable/ic_delete" />
 </LinearLayout>

@@ -1,16 +1,15 @@
 package example.com.groupeasy.pojo;
 
 /**
- * Created by Harsh on 23-10-2017.
+ * This is the POJO or Plain Old Java Object class
+ * for Getting and setting Member participants in an Event
  */
 
 public class members_In {
-
     String name;
     String value;
-
     public members_In(){
-
+        //Required Empty Constructor
     }
 
     public members_In(String name, String value) {

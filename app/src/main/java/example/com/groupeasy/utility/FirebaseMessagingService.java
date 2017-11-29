@@ -1,7 +1,6 @@
 package example.com.groupeasy.utility;
 
 import android.app.NotificationManager;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
@@ -9,7 +8,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import example.com.groupeasy.R;
 
 /**
- * Created by Harsh on 24-11-2017.
+ * This Util class is used to give notification to user, upon creation of an Event
  */
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService{

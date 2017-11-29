@@ -2,12 +2,10 @@ package example.com.groupeasy.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -16,11 +14,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,17 +22,22 @@ import java.util.List;
 import example.com.groupeasy.R;
 import example.com.groupeasy.pojo.users_list;
 
+/**
+ * This adapter class to display a list of members of the app
+ * It is linked with chooseUserActivity.java
+ * It displays members within a group to mListGroups
+ * User can select the members he wishes to add in group using the checkboxes
+ **/
 
 public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
+    private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
+    private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+    Context mContext;
     //init two ists, one of users data from firebase, second for search functionality
     private List<users_list> mLstGroups;
     private List<users_list> mFilteredList;
-    Context mContext;
     private int selectedPos = 0;
-
-    private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
-    private static final int VIEW_TYPE_OBJECT_VIEW = 1;
     private List<users_list> studentist;
 
     public UsersSelectAdapter(){
@@ -69,25 +67,16 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 return new UserViewHolder(rootView);
         }
-
-        // TODO: 30-08-2017 remove comments
-        //replace R.layout.group_view with your custom layout
-        //this file indicates how your custom view should look like (just remember to set parent tags height to wrap content)
-
-
         return new UserViewHolder(rootView);
     }
 
     /***Override the onBindViewHolder to specify the contents of each item of the RecyclerView.
     * This method is very similar to the getView method of a ListView's adapter.
-     * Here's where you have to set the values of the name, admin, and photo fields of the RecycleView.
-    **/
+     * Here's where I set the values of the name, admin, and photo fields of the RecycleView.
+     **/
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-
-
-
        final UserViewHolder viewHolder = (UserViewHolder) holder;
        final int pos = position;
 
@@ -103,7 +92,6 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         viewHolder.userStatus.setText(mFilteredList.get(pos).getStatus());
         viewHolder.userMagicId.setText(mFilteredList.get(pos).getId());
 
-
         /**Get current user id**/
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
@@ -116,9 +104,10 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         }
 
+        //Failed code
 // tring to implement the logic for having users already checked if in the group,
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+/*        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
         myRef.child("groups").child("-KvCqeoV8oR408WTPks9").child("members").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -126,37 +115,34 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 //this code is giving me the children who are set to true, but i dont know how to
                 // 1. check the right group
                 // 2. keep the checkbox selected
-
 //                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     if (mFilteredList.get(position).getId().equals(dataSnapshot.getValue().toString())) {
 
                         Log.w("userSelectedTest", dataSnapshot.getValue().toString());
                     }
-
 //                }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
-       viewHolder.myCheck.setOnClickListener(new View.OnClickListener() {
+        //Getting checkbox value by attaching a TAG
+        viewHolder.myCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
                 users_list contact = (users_list) cb.getTag();
                 contact.setSelected(cb.isChecked());
                 mFilteredList.get(pos).setSelected(cb.isChecked());
-
                 }
         });
 
-        // getting context from view object
 
+        //Setting user DP
         if (image.isEmpty()) {
             viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
         } else {
@@ -178,13 +164,11 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-
     public List<users_list> getUserId() {
         return mLstGroups;
     }
 
     /**Logic for filtering users in the below overriden method**/
-
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -226,12 +210,21 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //        return null;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (mLstGroups.isEmpty()) {
+            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
+        } else {
+            return VIEW_TYPE_OBJECT_VIEW;
+        }
+    }
+
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView userName;
         private TextView userStatus;
-        private TextView userLastSeen;
-        private CheckBox myCheck;
+//        private TextView userLastSeen;
+private CheckBox myCheck;
         private ImageView userDP;
 
         private TextView userMagicId;
@@ -244,12 +237,11 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userName = (TextView) itemView.findViewById(R.id.user_name);
             userStatus = (TextView) itemView.findViewById(R.id.user_status);
-            userLastSeen = (TextView) itemView.findViewById(R.id.last_seen);
-            myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
+//            userLastSeen = (TextView) itemView.findViewById(R.id.last_seen);
+                    myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
             userMagicId = (TextView) itemView.findViewById(R.id.magic_user_id);
 
                     userDP = (ImageView) itemView.findViewById(R.id.user_dp);
-
                     userName.setOnClickListener(this);
                     userDP.setOnClickListener(this);
 
@@ -271,15 +263,6 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //
 //                Toast.makeText(v.getContext(), "ClickedIMAGE", Toast.LENGTH_SHORT).show();
 //            }
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (mLstGroups.isEmpty()) {
-            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
-        } else {
-            return VIEW_TYPE_OBJECT_VIEW;
         }
     }
 }

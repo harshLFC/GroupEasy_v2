@@ -3,9 +3,9 @@ package example.com.groupeasy.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -40,6 +40,10 @@ import example.com.groupeasy.pojo.chatMessage;
 
 public class chatRoomActivity extends AppCompatActivity {
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference();
+    MessageAdapter adapter;
+    Context context = chatRoomActivity.this;
 //    Initialize elements
     private Toolbar mToolBar;
     private LinearLayout chatRoomButton;
@@ -56,17 +60,10 @@ public class chatRoomActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private ImageView noMessages;
     private TextView myCircle;
-
     //Initialize Firebase elements
     private DatabaseReference mUserDatabase,mGroupDatabase;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference();
     private FirebaseUser mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-
     String current_uid = mCurrentUser.getUid();
-
-    MessageAdapter adapter;
-    Context context = chatRoomActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +79,6 @@ public class chatRoomActivity extends AppCompatActivity {
         initElementWithIds();
         initElementsWithListeners();
         floatingActionMenu.close(true);
-//        myCircle.setText(4);
 
         //by default events frame is invisible, it will only be visible if event is created
         myEventsFrame.setVisibility(View.GONE);
@@ -124,9 +120,13 @@ public class chatRoomActivity extends AppCompatActivity {
         ActiveEvents(eventNum);
        }
 
+    //    Set number of active events in circle in active events tab, if 0 events are there set a s 1
     private void ActiveEvents(String eventNum) {
         View myEvent = findViewById(R.id.active_events);
         myCircle = (TextView) myEvent.findViewById(R.id.my_circle);
+        if (eventNum.equals("0")) {
+            myCircle.setText("1");
+        } else
         myCircle.setText(eventNum);
     }
 
@@ -162,7 +162,7 @@ public class chatRoomActivity extends AppCompatActivity {
                 String image = dataSnapshot.getValue().toString();
 
                 if(image.isEmpty()){
-                    groupImageView.setImageResource(R.drawable.ic_default_groups);
+                    groupImageView.setImageResource(R.drawable.multi_user);
                 }
                 else    {
                     //default

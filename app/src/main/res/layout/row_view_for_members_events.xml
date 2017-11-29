@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This xml being inflated by ParticipantAdapter
+    to display in mRecycleView for EventDetails
+    -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
     android:padding="10dp">
-
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:civ_border_width="0.5dp"
+        android:layout_weight="0"
         android:src="@drawable/single_user_nobg"
-        android:layout_weight="0"/>
+        app:civ_border_width="0.5dp" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:text="default name"
-        android:layout_weight="2"
         android:layout_marginLeft="10dp"
+        android:layout_weight="2"
+        android:maxLines="1"
+        android:text="@string/harsh_p"
         />
 
     <TextView
         android:id="@+id/user_response"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:maxLines="1"
-        android:text="Going!"
-        android:layout_weight="1"/>
-
+        android:text="@string/i_m_in" />
 </LinearLayout>

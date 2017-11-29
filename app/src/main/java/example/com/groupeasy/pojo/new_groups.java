@@ -3,7 +3,8 @@ package example.com.groupeasy.pojo;
 import java.io.Serializable;
 
 /**
- * Created by Harsh on 06-09-2017.
+ * This is the POJO or Plain Old Java Object class
+ * for Getting and setting New group details
  */
 
 public class new_groups implements Serializable{
@@ -16,7 +17,7 @@ public class new_groups implements Serializable{
     private String thumb_image;
 
     public new_groups(){
-
+        //Required Empty Constructor
     }
 
     public new_groups(String admin, String image, String last_msg, String name, String group_id, String thumb_image) {

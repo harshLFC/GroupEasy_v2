@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="350dp"
         android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/collapsingToolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
         android:fitsSystemWindows="true"
+        app:collapsedTitleTextAppearance="@color/black"
         app:contentScrim="@color/grey"
-        app:expandedTitleTextAppearance="@color/black"
-        app:expandedTitleMarginStart="48dp"
         app:expandedTitleMarginEnd="64dp"
-        app:title="collapsing_toolbar"
-        app:collapsedTitleTextAppearance="@color/black">
+        app:expandedTitleMarginStart="48dp"
+        app:expandedTitleTextAppearance="@color/black"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:title="collapsing_toolbar">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
        <RelativeLayout
@@ -44,14 +44,14 @@
             android:id="@+id/displayPic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="62dp"
             android:layout_marginTop="10dp"
-            app:civ_border_color="@color/black"
-            app:civ_border_width="1dp"
             android:padding="6dp"
             android:src="@drawable/single_user"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp" />
 
        </RelativeLayout>
 
@@ -60,11 +60,11 @@
 
 
     <android.support.v4.widget.NestedScrollView
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:padding="10dp">
+        android:background="@color/white"
+        android:padding="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,9 +73,9 @@
         android:paddingBottom="30dp">
 
         <LinearLayout
-            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="5dp"
             android:orientation="vertical"
             android:padding="10dp"
                 >
@@ -100,53 +100,53 @@
                     <!--android:maxLength="15"/>-->
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bio:"
-                style="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 />
 
             <TextView
-                android:paddingTop="10dp"
-                android:textAlignment="center"
-                    style="@android:style/TextAppearance.Medium"
-                    android:id="@+id/user_status"
+                android:id="@+id/user_status"
+                style="@android:style/TextAppearance.Medium"
                     android:layout_width="300dp"
-                android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:ellipsize="end"
                     android:gravity="start"
-                    android:text="StatusStatStatusStatusStatusStatusStatusStatus"
                     android:maxLength="45"
-                    android:ellipsize="end"
                 android:padding="10dp"
+                android:paddingTop="10dp"
+                android:text="StatusStatStatusStatusStatusStatusStatusStatus"
+                android:textAlignment="center"
                     />
             </LinearLayout>
 
         <LinearLayout
-            android:elevation="5dp"
             android:id="@+id/polls"
-            android:gravity="center|left"
-            android:background="@drawable/rounded_corners_shape"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners_shape"
+            android:elevation="5dp"
+            android:gravity="center|left">
             <TextView
-                android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:text="Events Created "
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
                 android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:text="Events Created "
                 android:textColor="@color/white"
                  />
 
             <RelativeLayout
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_width="1dp">
+                android:layout_weight="1">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -154,23 +154,23 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/my_circle"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:src="@drawable/my_circle" />
 
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/event_count"
-                android:layout_weight="0"
-                android:layout_marginRight="2dp"
-                android:textColor="@color/black"
-                android:textColorHint="#670309"
-                android:text="0"
-                android:gravity="center"
                 style="@android:style/TextAppearance.Small"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_width="30dp"/>
+                android:layout_marginRight="2dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textColorHint="#670309" />
         </LinearLayout>
 
         <!--list polls created    -->
@@ -223,29 +223,29 @@
 
         <!--hidden rosters layout-->
         <LinearLayout
-            android:elevation="5dp"
             android:id="@+id/rosters"
-            android:gravity="center|left"
-            android:background="@drawable/rounded_corners_shape"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone"
             android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners_shape"
+            android:elevation="5dp"
+            android:gravity="center|left"
+            android:visibility="gone">
             <TextView
-                android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:text="Rosters Created "
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
                 android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:text="Rosters Created "
                 android:textColor="@color/white"
                 />
             <RelativeLayout
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_width="1dp">
+                android:layout_weight="1">
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -253,47 +253,47 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/my_hexagon"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:src="@drawable/my_hexagon" />
             </RelativeLayout>
             <TextView
-                android:layout_weight="0"
-                android:layout_marginRight="2dp"
-                android:textColor="@color/white"
-                android:textColorHint="#670309"
-                android:text="0"
-                android:gravity="center"
                 style="@android:style/TextAppearance.Small"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_width="30dp"/>
+                android:layout_marginRight="2dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textColorHint="#670309" />
         </LinearLayout>
         <!--hidden rosters end-->
 
         <!--favourited events-->
         <LinearLayout
-            android:elevation="5dp"
             android:id="@+id/fav_events"
-            android:gravity="center|left"
-            android:background="@drawable/rounded_corners_shape"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners_shape"
+            android:elevation="5dp"
+            android:gravity="center|left">
             <TextView
-                android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:text="Events Favourited"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
                 android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:text="Events Favourited"
                 android:textColor="@color/white"
                 />
             <RelativeLayout
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_width="1dp">
+                android:layout_weight="1">
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -301,57 +301,57 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_heart"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:src="@drawable/ic_heart" />
             </RelativeLayout>
             <TextView
 
                 android:id="@+id/favs_count"
-                android:layout_weight="0"
-                android:layout_marginRight="2dp"
-                android:textColor="@color/black"
-                android:textColorHint="#670309"
-                android:text="0"
-                android:gravity="center"
                 style="@android:style/TextAppearance.Small"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_width="30dp"/>
+                android:layout_marginRight="2dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textColorHint="#670309" />
         </LinearLayout>
         <!--fav end-->
 
         <LinearLayout
-            android:gravity="center|left"
-            android:background="@drawable/rounded_corners_shape"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
+            android:id="@+id/help"
             android:layout_width="match_parent"
-            android:layout_marginRight="50dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="50dp"
-            android:visibility="visible"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners_shape"
             android:elevation="5dp"
-            android:id="@+id/help">
+            android:gravity="center|left"
+            android:visibility="visible">
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/log_in_out"
-                android:layout_margin="16dp"
-                android:text="Logout "
-                android:layout_marginLeft="10dp"
                 style="@android:style/TextAppearance.Medium"
-                android:layout_weight="4"
-                android:layout_height="30dp"
                 android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_margin="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:text="Logout "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:textColor="@color/white"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/ic_arrow_break"
-                android:padding="16dp"
                 android:gravity="center"
-                android:textSize="@dimen/group_header_text_size"
-                android:layout_height="30dp"
-                android:layout_width="30dp"/>
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/group_header_text_size" />
         </LinearLayout>
         <!--logout end-->
     </LinearLayout>
@@ -359,16 +359,16 @@
     </android.support.v4.widget.NestedScrollView>
 
     <com.github.clans.fab.FloatingActionButton
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
         android:id="@+id/user_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
+        android:elevation="6dp"
         android:src="@drawable/ic_edit_user"
-        app:pressedTranslationZ="0dp"
+        app:fab_colorNormal="@color/colorAccent"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"
-        app:fab_colorNormal="@color/colorAccent"
-        android:elevation="6dp"
+        app:pressedTranslationZ="0dp"
 
         />
 </android.support.design.widget.CoordinatorLayout>

@@ -4,13 +4,7 @@ package example.com.groupeasy.utility;
  * Created by Harsh on 14-11-2017.
  */
 
-
-        import java.util.ArrayList;
-
-/**
- * Created by Jaison on 25/08/16.
- */
-
+import java.util.ArrayList;
 
 interface PermissionResultCallback
 {

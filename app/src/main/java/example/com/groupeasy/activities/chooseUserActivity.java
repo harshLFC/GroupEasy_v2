@@ -1,9 +1,9 @@
 package example.com.groupeasy.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,31 +34,30 @@ import example.com.groupeasy.pojo.users_list;
 
 /**
  * This Class opens up a list of all users of all for adding into a group
- * Was one of the most complex pages of this app as it not only involved communicating with adaptet, but also checkboxes !
+ * Was one of the most complex pages of this app as it not only involved communicating with adaptet,
+ * but also transferring checkbox values of the mebers we wised to add on that exact row.
  * **/
 
 public class chooseUserActivity extends AppCompatActivity {
 
+    final DatabaseReference userRef = myRef.child("members");
+    final DatabaseReference groupRef = myRef.child("groups").child("");
     //initilize varaibles
     RecyclerView mUserRecyclerView;
     Toolbar mToolbar;
-    private TextView emptyView;
     String imagePic = "";
     String imageThumb = "";
     String group_id = "";
-
-    //adapter
-    private UsersSelectAdapter mUserAdapter;
-    //list
-    private List<users_list> mLstGroups;
-
     /**
      * Firebase db init
      */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-    final DatabaseReference userRef = myRef.child("members");
-    final DatabaseReference groupRef = myRef.child("groups").child("");
+    private TextView emptyView;
+    //adapter
+    private UsersSelectAdapter mUserAdapter;
+    //list
+    private List<users_list> mLstGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

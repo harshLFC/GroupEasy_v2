@@ -3,18 +3,17 @@ package example.com.groupeasy.pojo;
 import java.util.Date;
 
 /**
- * Created by Harsh on 05-09-2017.
+ * This is the POJO or Plain Old Java Object class
+ * for Getting and setting ChatMessages objects
  */
 
 public class chatMessage {
 
+    String grpid;
     private String content;
     private String msgFrom;
     private String messageUserId;
     private long time;
-    String grpid;
-
-
 
     public chatMessage(String content, String messageUserId, String msgFrom, String grpid) {
         this.content = content;
@@ -25,7 +24,7 @@ public class chatMessage {
     }
 
     public chatMessage(){
-
+        //Required Empty Constructor
     }
     public String getGrpid() {
         return grpid;

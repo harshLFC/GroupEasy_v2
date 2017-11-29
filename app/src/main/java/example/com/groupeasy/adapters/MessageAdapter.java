@@ -2,7 +2,6 @@ package example.com.groupeasy.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,8 +17,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import example.com.groupeasy.R;
 import example.com.groupeasy.activities.chatRoomActivity;
@@ -27,10 +24,18 @@ import example.com.groupeasy.pojo.chatMessage;
 import example.com.groupeasy.pojo.users_list;
 
 /**
- * Created by Harsh on 05-09-2017.
- */
+ * This Adapter is
+ * 1. Linked with chatRoomActivity.java and
+ * 2. Inflates view listView
+ * This class retrives chats from database
+ *  It checks if message is from sender
+ *  if it is, then inflates a msg_out view
+ *  else inflates msg_in view**/
 
 public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
+    Context mContext;
+    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = current_user.getUid();
     /**
      * @param activity    The activity containing the ListView
      * @param modelClass  Firebase will marshall the data at a location into an instance of a class that you provide
@@ -41,48 +46,31 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
      */
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private List<chatMessage> mLstChat;
-
-    Context mContext;
-
-    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = current_user.getUid();
-
-//    mDatabase = FirebaseDatabase.getInstance().getReference().child("Members").child(uid);
-
-
     private chatRoomActivity activity;
 
     public MessageAdapter(Activity activity, Class<chatMessage> modelClass, int modelLayout, Query ref) {
         super(activity, modelClass, modelLayout, ref);
-
         this.activity = (chatRoomActivity) activity;
-
     }
+
+    //populateView assigns a view for adapter to display in the activity
 
     @Override
     protected void populateView(final View v, final chatMessage model, int position) {
 
         TextView messageText = (TextView) v.findViewById(R.id.message_text);
         final TextView messageUser = (TextView) v.findViewById(R.id.message_user);
-        TextView messageTime = (TextView) v.findViewById(R.id.message_time);
-        TextView groupIdKey = (TextView) v.findViewById(R.id.group_id_key);
-//        final CircleImageView userImage = (CircleImageView) v.findViewById(R.id.imageView1);
-//        final CircleImageView sender_image = (CircleImageView) v.findViewById(R.id.senderImage);
-            final CircleImageView sender_image = (CircleImageView) v.findViewById(R.id.imageView2);
+        final CircleImageView sender_image = (CircleImageView) v.findViewById(R.id.imageView2);
 
         messageText.setText(model.getContent());
-//        messageUser.setText(model.getMessageUserId());
         String user = model.getMsgFrom();
 
-        //tried to do reg adapter shiz but crashed
+        //tried to do regular adapter init but crashed
 //        messageUser.setText(mLstChat.get(position).getMessageUserId());
-
 
         mDatabase.child("members").child(user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                users_list usersList = new users_list;
                 users_list usersList = dataSnapshot.getValue(users_list.class);
                 String name = usersList.getName();
                 String image = usersList.getImage();
@@ -110,8 +98,6 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
 
             }
         });
-
-//        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getTime()));
     }
 
     @Override
@@ -120,7 +106,6 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
 
             if (chat_message.getMsgFrom().equals(uid)) {
             view = activity.getLayoutInflater().inflate(R.layout.item_out_message, viewGroup, false);
-//            ImageView userImage = (ImageView) view.findViewById(R.id.imageView1);
         }
 
         else {
@@ -129,7 +114,6 @@ public class MessageAdapter extends FirebaseListAdapter<chatMessage> {
 
         //generating view
         populateView(view, chat_message, position);
-
         return view;
     }
 

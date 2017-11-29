@@ -18,30 +18,28 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.pojo.users_list;
 
 /**
- * Created by Harsh on 17-09-2017.
- */
-/**
- * This adapter class just to display a list of members of the app
+ * This adapter class to display a list of members of the app
+ * It is linked with aboutChatRoom.java
+ * Ir displays members within a group to mUserRecyclerView
  * **/
 
 public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<users_list> mLstGroups;
-    private static UserAdapter.UserViewHolder.ClickListener clickListener;
-    Context mContext;
-
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+    private static UserAdapter.UserViewHolder.ClickListener clickListener;
+    Context mContext;
+    private List<users_list> mLstGroups;
 
     public UserAdapter() {
-
+        //Compulsary Empty constructor
     }
 
     public UserAdapter(List<users_list> mLstGroups) {
         this.mLstGroups = mLstGroups;
     }
 
-
+    //onCreateViewHolder assigns a view for adapter to display in the activit
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -56,27 +54,20 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return new UserViewHolder(rootView);
         }
 
-        // TODO: 30-08-2017 remove comments
-        //replace R.layout.group_view with your custom layout
-        //this file indicates how your custom view should look like (just remember to set parent tags height to wrap content)
-
         return new UserViewHolder(rootView);
     }
 
-
+    //onBindViewHolder adds data to pre-initialized ui elements
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+        //Set data using pojo class's setter properties
         UserAdapter.UserViewHolder viewHolder = (UserAdapter.UserViewHolder) holder;
-
-        //set values to your views from mlstGroups here
-        //ex. viewHolder.txtGroupName.settext(mLstGroups.get(position).groupName)
         viewHolder.userName.setText(mLstGroups.get(position).getName());
         String image = (mLstGroups.get(position).getImage());
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
 
-        // getting context from view object
-
+        //Add user Display picture
         if (image.isEmpty()) {
             viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
         } else {
@@ -93,6 +84,15 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return mLstGroups.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (mLstGroups.isEmpty()) {
+            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
+        } else {
+            return VIEW_TYPE_OBJECT_VIEW;
+        }
+    }
+
     public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView userName;
@@ -105,14 +105,9 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             userName = (TextView) itemView.findViewById(R.id.user_name);
             userStatus = (TextView) itemView.findViewById(R.id.user_status);
-
             userDP = (ImageView) itemView.findViewById(R.id.user_dp);
             myCheck = (CheckBox) itemView.findViewById(R.id.my_check);
             myCheck.setVisibility(View.GONE);
-
-           /* userName.setOnClickListener(this);
-            userStatus.setOnClickListener(this);*/
-
         }
 
         @Override
@@ -134,15 +129,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public interface ClickListener {
 //            void onItemClick(int position, View v);
 //            void onItemLongClick(int position, View v);
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (mLstGroups.isEmpty()) {
-            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
-        } else {
-            return VIEW_TYPE_OBJECT_VIEW;
         }
     }
 }

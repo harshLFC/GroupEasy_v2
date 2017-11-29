@@ -40,7 +40,7 @@
     <!--<string name="slide_3_desc">Click on the Calender icon INSIDE the group to create an event, respond to Active Events within the same !</string>-->
 
     <string name="slide_4_title">Events at a glance !</string>
-    <string name="slide_4_desc">Look for the yellow bubble which will highlight the number of events in any group</string>
+    <string name="slide_4_desc">Look for the maroon bubble which will highlight the number of events in any group</string>
     <!--<string name="slide_4_desc">The number of active events in any group will be displayed instead of focusing on messages, So what are you waiting for?\n Lets Go !</string>-->
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
@@ -80,5 +80,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="harsh_p">Harshavardhan Phoujdar</string>
+    <string name="whats_the_craic">Whats the craic</string>
+    <string name="_10_56pm">10:56pm</string>
+    <string name="status">My Status My Status My status statusstatus</string>
 
 </resources>

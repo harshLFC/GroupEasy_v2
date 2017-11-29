@@ -1,17 +1,18 @@
 package example.com.groupeasy.pojo;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Created by Harsh on 11-09-2017.
+ * This is the POJO or Plain Old Java Object class
+ * for Getting and setting Event details
  */
-
-//TODO add extra children db
 
 public class list_primary {
 
 
+    String name;
+    String admin;
+    String location;
+    String id;
+    String fromDate;
     public list_primary(String name, String admin, String location, String id, String fromDate) {
 //    public list_primary(String name, String admin, String location, String id, members_In in, Out out, Maybe maybe) {
         this.name = name;
@@ -23,12 +24,7 @@ public class list_primary {
 //        this.maybe = maybe;
     }
 
-    String name;
-    String admin;
-    String location;
-    String id;
-    String fromDate;
-
+    //Failed code
 //    public members_In getIn() {
 //        return in;
 //    }
@@ -60,10 +56,8 @@ public class list_primary {
 //    Participants participants;
 
     public list_primary(){
-
+        //Required Empty Constructor
     }
-
-
 
 //    public Participants getParticipants() {
 //        return participants;
@@ -111,56 +105,5 @@ public class list_primary {
     public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
-//    public static class members_In{
-//        String in;
-//
-//        public members_In(){
-//
-//        }
-//
-//        public String getIn() {
-//            return in;
-//        }
-//
-//        public void setIn(String in) {
-//            this.in = in;
-//        }
-//
-//        public members_In(String in){
-//        this.in = in;
-//
-//    }
-//    }
 
-
-//   public static class Participants{
-//
-//        String name;
-//        String value;
-//
-//        public Participants(){
-//
-//        }
-//
-//        public Participants(String name, String value) {
-//            this.name = name;
-//            this.value = value;
-//        }
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//        public void setName(String name) {
-//            this.name = name;
-//        }
-//
-//        public String getValue() {
-//            return value;
-//        }
-//
-//        public void setValue(String value) {
-//            this.value = value;
-//        }
-//    }
 }

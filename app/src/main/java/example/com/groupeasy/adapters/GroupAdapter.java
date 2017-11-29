@@ -41,15 +41,13 @@ import static example.com.groupeasy.R.id.image_view;
 
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<new_groups> mLstGroups;
-    private static GroupViewHolder.ClickListener clickListener;
-    Context mContext;
-    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-    static FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    static FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private static GroupViewHolder.ClickListener clickListener;
+    Context mContext;
+    private List<new_groups> mLstGroups;
 
     public GroupAdapter(){
 
@@ -189,7 +187,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         // getting context from view object
         if(image.isEmpty()){
-            viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+            viewHolder.imageGroupView.setImageResource(R.drawable.multi_user);
             viewHolder.imageGroupView.setAlpha(0f);
         }
         else    {
@@ -206,6 +204,15 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemCount() {
         return mLstGroups.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mLstGroups.isEmpty()) {
+            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
+        } else {
+            return VIEW_TYPE_OBJECT_VIEW;
+        }
     }
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
@@ -315,15 +322,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public interface ClickListener {
             void onItemClick(int position, View v);
             void onItemLongClick(int position, View v);
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (mLstGroups.isEmpty()) {
-            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
-        } else {
-            return VIEW_TYPE_OBJECT_VIEW;
         }
     }
 }
