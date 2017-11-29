@@ -134,7 +134,6 @@ public class DashboardActivity extends AppCompatActivity {
         adapter = new DashboardPagerAdapter(getSupportFragmentManager());
 
         /** add more fragments if you want to**/
-//      adapter.addFragment(new UsersFragment(), "Users");
         adapter.addFragment(new GroupFragment(), "Groups");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);

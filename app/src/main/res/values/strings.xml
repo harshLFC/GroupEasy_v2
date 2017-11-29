@@ -83,5 +83,10 @@
     <string name="whats_the_craic">Whats the craic</string>
     <string name="_10_56pm">10:56pm</string>
     <string name="status">My Status My Status My status statusstatus</string>
+    <string name="_0">0</string>
+    <string name="bio">Bio:</string>
+    <string name="events_created">Events Created</string>
+    <string name="events_favourited">Events Favourited</string>
+    <string name="logout">Logout</string>
 
 </resources>

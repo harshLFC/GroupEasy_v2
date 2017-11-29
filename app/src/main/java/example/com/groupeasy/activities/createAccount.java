@@ -24,9 +24,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,6 +52,12 @@ import example.com.groupeasy.R;
 
 public class createAccount extends AppCompatActivity {
 
+    final DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference mUserBD = mDatabase1.child("members");
+    final DatabaseReference userRef = mDatabase1.child("members").child("");
+    final String user_push_id = userRef.push().getKey();
+    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    StorageReference mStorageRef;
     //initilize varaibles
     private Toolbar mToolBar;
     private TextInputLayout userName,password,email;
@@ -62,16 +65,9 @@ public class createAccount extends AppCompatActivity {
     private Button mCreateBtn;
     private CircleImageView userDp;
     private ProgressDialog mRegProcess;
-
     /** Firebase db init*/
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase ;
-    final DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference();
-    final DatabaseReference mUserBD = mDatabase1.child("members");
-    final DatabaseReference userRef = mDatabase1.child("members").child("");
-    final String user_push_id = userRef.push().getKey();
-    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-    StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -341,7 +337,7 @@ public class createAccount extends AppCompatActivity {
                 //Loads image onto the UI
                 Picasso.with(createAccount.this)
                         .load(image_uri)
-                        .resize(100,100)
+                        .resize(300, 300)
                         .into(userDp);
 
                 StorageReference filePath = mStorageRef.child("profile_images").child(user_push_id+".jpg");

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for the profile fragment-->
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -52,12 +56,9 @@
             android:src="@drawable/single_user"
             app:civ_border_color="@color/black"
             app:civ_border_width="1dp" />
-
        </RelativeLayout>
-
     </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -65,13 +66,11 @@
         android:background="@color/white"
         android:padding="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="30dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,8 +78,6 @@
             android:orientation="vertical"
             android:padding="10dp"
                 >
-
-
                 <!--<TextView-->
                     <!--style="@android:style/TextAppearance.Medium"-->
                     <!--android:gravity="start"-->
@@ -98,33 +95,30 @@
                     <!--android:layout_height="wrap_content"-->
                     <!--android:padding="10dp"-->
                     <!--android:maxLength="15"/>-->
-
             <TextView
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bio:"
+                android:text="@string/bio"
                 android:textColor="@color/black"
                 />
-
             <TextView
                 android:id="@+id/user_status"
                 style="@android:style/TextAppearance.Medium"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:ellipsize="end"
-                    android:gravity="start"
-                    android:maxLength="45"
+                android:gravity="start"
+                android:maxLength="45"
                 android:padding="10dp"
                 android:paddingTop="10dp"
-                android:text="StatusStatStatusStatusStatusStatusStatusStatus"
+                android:text="@string/status"
                 android:textAlignment="center"
                     />
             </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/polls"
+            android:id="@+id/user_events"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="50dp"
@@ -139,10 +133,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="4"
-                android:text="Events Created "
+                android:text="@string/events_created"
                 android:textColor="@color/white"
                  />
-
             <RelativeLayout
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
@@ -150,16 +143,16 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/my_circle_black"/>
+                android:src="@drawable/my_circle_black"
+                tools:ignore="ContentDescription" />
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/my_circle" />
-
+                android:src="@drawable/my_circle"
+                tools:ignore="ContentDescription" />
             </RelativeLayout>
-
             <TextView
                 android:id="@+id/event_count"
                 style="@android:style/TextAppearance.Small"
@@ -220,57 +213,56 @@
                 <!--android:layout_width="30dp"/>-->
         <!--</LinearLayout>-->
 
-
         <!--hidden rosters layout-->
-        <LinearLayout
-            android:id="@+id/rosters"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corners_shape"
-            android:elevation="5dp"
-            android:gravity="center|left"
-            android:visibility="gone">
-            <TextView
-                style="@android:style/TextAppearance.Medium"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="4"
-                android:text="Rosters Created "
-                android:textColor="@color/white"
-                />
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/my_circle_black"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/my_hexagon" />
-            </RelativeLayout>
-            <TextView
-                style="@android:style/TextAppearance.Small"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="2dp"
-                android:layout_weight="0"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textColorHint="#670309" />
-        </LinearLayout>
+        <!-- <LinearLayout
+             android:id="@+id/rosters"
+             android:layout_width="match_parent"
+             android:layout_height="30dp"
+             android:layout_marginLeft="50dp"
+             android:layout_marginRight="50dp"
+             android:layout_marginTop="20dp"
+             android:background="@drawable/rounded_corners_shape"
+             android:elevation="5dp"
+             android:gravity="center|left"
+             android:visibility="gone">
+             <TextView
+                 style="@android:style/TextAppearance.Medium"
+                 android:layout_width="1dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                 android:layout_weight="4"
+                 android:text="Rosters Created "
+                 android:textColor="@color/white"
+                 />
+             <RelativeLayout
+                 android:layout_width="1dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1">
+                 <ImageView
+                     android:layout_width="40dp"
+                     android:layout_height="40dp"
+                     android:src="@drawable/my_circle_black"/>
+                 <ImageView
+                     android:layout_width="20dp"
+                     android:layout_height="20dp"
+                     android:layout_centerHorizontal="true"
+                     android:layout_centerVertical="true"
+                     android:src="@drawable/my_hexagon" />
+             </RelativeLayout>
+             <TextView
+                 style="@android:style/TextAppearance.Small"
+                 android:layout_width="30dp"
+                 android:layout_height="30dp"
+                 android:layout_marginRight="2dp"
+                 android:layout_weight="0"
+                 android:gravity="center"
+                 android:text="0"
+                 android:textColor="@color/white"
+                 android:textColorHint="#670309" />
+         </LinearLayout>-->
         <!--hidden rosters end-->
-
         <!--favourited events-->
+
         <LinearLayout
             android:id="@+id/fav_events"
             android:layout_width="match_parent"
@@ -287,7 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="4"
-                android:text="Events Favourited"
+                android:text="@string/events_favourited"
                 android:textColor="@color/white"
                 />
             <RelativeLayout
@@ -297,16 +289,17 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/my_circle_black"/>
+                    android:src="@drawable/my_circle_black"
+                    tools:ignore="ContentDescription" />
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_heart" />
+                    android:src="@drawable/ic_heart"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
             <TextView
-
                 android:id="@+id/favs_count"
                 style="@android:style/TextAppearance.Small"
                 android:layout_width="30dp"
@@ -314,7 +307,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:text="0"
+                android:text="@string/_0"
                 android:textColor="@color/black"
                 android:textColorHint="#670309" />
         </LinearLayout>
@@ -340,7 +333,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="4"
                 android:gravity="center_vertical"
-                android:text="Logout "
+                android:text="@string/logout"
                 android:textColor="@color/white"
                 />
             <TextView

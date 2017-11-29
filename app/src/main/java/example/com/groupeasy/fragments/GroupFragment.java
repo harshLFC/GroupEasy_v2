@@ -12,10 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,27 +30,30 @@ import example.com.groupeasy.activities.CreateGroupActivity;
 import example.com.groupeasy.adapters.GroupAdapter;
 import example.com.groupeasy.pojo.new_groups;
 
+/**
+ * This Fragment is a part of the Dashboard,
+ * It displays a list of groups for the user to inteact with
+ **/
+
 
 public class GroupFragment extends Fragment {
 
+    /**
+     * Firebase db init
+     */
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference();
+    final DatabaseReference userRef = myRef.child("members");
+    final DatabaseReference groupRef = myRef.child("groups").child("");
     /** Ui elements init */
     //Declare list, view, and adapter
     private RecyclerView mGroupRecyclerView;
     private GroupAdapter mGroupAdapter;
     private List<new_groups> mLstGroups;
     private ImageView emptyView;
-
-    private FloatingActionMenu floatingActionMenu;
+    //    private FloatingActionMenu floatingActionMenu;
     private View backgroundView;
     private FloatingActionButton fabCreateGroup;
-
-    /** Firebase db init*/
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference();
-
-    final DatabaseReference userRef = myRef.child("members");
-
-    final DatabaseReference groupRef = myRef.child("groups").child("");
 
     @Nullable
     @Override
@@ -62,8 +63,13 @@ public class GroupFragment extends Fragment {
         final Context mcontext = getActivity();
 
         //inflate is used to populate the recycler view in this case
-        View rootView = inflater.inflate(R.layout.fragment_group,container,false);
+        /*Link to XML layout*/
+        View rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Generating a custom group list for each member
+        3. Initialising elements with Listeners*/
         initElementsWithIds(rootView);
         createListView();
         initElementsWithListeners();
@@ -96,9 +102,9 @@ public class GroupFragment extends Fragment {
     }
 
     /** handle your all on click events */
-    private void initElementsWithListeners()
-    {
+    private void initElementsWithListeners() {
 
+        //The previous idea of having 3 types of events pop open from the main FAB was skipped, hence the code commented
 /*        floatingActionMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
             public void onMenuToggle(boolean opened) {
@@ -142,6 +148,7 @@ public class GroupFragment extends Fragment {
         });
         */
 
+        //Create group on FAB click
         fabCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,10 +166,9 @@ public class GroupFragment extends Fragment {
         groupRef.keepSynced(true);
 
         final FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-
         final String uid = current_user.getUid();
 
-
+        //Gather list of groups
         userRef.child(uid).child("groupsIn").child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,15 +189,12 @@ public class GroupFragment extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-//                            mLstGroups.removeAll(mLstGroups);
-
                                 new_groups newGroups = dataSnapshot.getValue(new_groups.class);
                                 mLstGroups.add(0,newGroups);
 
                             mGroupAdapter.notifyDataSetChanged();
 
                             //COde for displaying something when RecyclerView data is empty
-
                             if(mLstGroups.isEmpty()){
                                 emptyView.setVisibility(View.VISIBLE);
                                 mGroupRecyclerView.setVisibility(View.GONE);
