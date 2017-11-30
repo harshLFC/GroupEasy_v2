@@ -2,11 +2,12 @@
 
 <!--This is the xml for Login activity-->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="@dimen/activity_horizontal_margin"
     tools:context="example.com.groupeasy.activities.LoginActivity"
     android:clickable="true"
@@ -16,34 +17,75 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/groupeasy"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif"
-        android:id="@+id/btn_login"
-        android:layout_marginTop="137dp"
+        android:text="@string/tap_the_icon_for_quick_login_once_you_have_signed_up"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/login_logo"
+        android:layout_above="@+id/textView"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.508" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_text"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView7"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/login_logo"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView" />
+
+    <!--   <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/groupeasy"
+           android:textSize="40sp"
+           android:textStyle="bold"
+           android:fontFamily="sans-serif"
+           android:id="@+id/btn_login"
+           android:layout_marginTop="24dp"
+           android:layout_alignParentTop="true"
+           android:layout_centerHorizontal="true" />-->
 
     <ImageView
         android:id="@+id/login_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@mipmap/ic_launcher"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/imageView7"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/log_in_for_existing_users"
-        android:layout_marginTop="28dp"
         android:textColor="@color/black"
-        android:layout_below="@+id/btn_login"
+        android:layout_above="@+id/user_email"
+        android:id="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/user_email"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/Register"
@@ -51,13 +93,19 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/all_btn_rect_shape"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/sign_in"
-        android:layout_below="@+id/user_password"
+        android:layout_above="@+id/btn_login_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="8dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        android:layout_marginBottom="47dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login_email" />
 
     <!--<TextView-->
         <!--android:id="@+id/sign_in_with_google"-->
@@ -74,50 +122,67 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/all_btn_rect_shape_red"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/new_user_sign_up"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <android.support.design.widget.TextInputLayout
-        app:counterEnabled="true"
-        app:counterMaxLength="33"
-        android:id="@+id/user_email"
-        android:layout_width="match_parent"
+        android:id="@+id/user_password"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btn_login"
-        android:layout_marginTop="58dp"
-        >
+        android:layout_below="@+id/user_email"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/Register">
+
+        <android.support.design.widget.TextInputEditText
+            android:width="0dp"
+            android:id="@+id/user_pass_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="15" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/user_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="28"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/user_password">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/user_email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:maxLength="33"/>
+            android:maxLength="28" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        app:counterEnabled="true"
-        app:counterMaxLength="15"
-        android:id="@+id/user_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_email"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        >
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/user_pass_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:maxLength="15"/>
-    </android.support.design.widget.TextInputLayout>
-</RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

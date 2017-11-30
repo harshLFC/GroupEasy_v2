@@ -178,6 +178,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         if(id == R.id.log_out){
             Intent intent = new Intent(this,LoginActivity.class);
+            intent.putExtra("keyname", "value");
             startActivity(intent);
 
             Toast toast = Toast.makeText(this,"You have been logged out", Toast.LENGTH_LONG);

@@ -115,6 +115,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                intent.putExtra("keyname", "value");
                     startActivity(intent);
                     getActivity().finish();
 

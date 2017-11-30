@@ -88,5 +88,6 @@
     <string name="events_created">Events Created</string>
     <string name="events_favourited">Events Favourited</string>
     <string name="logout">Logout</string>
+    <string name="tap_the_icon_for_quick_login_once_you_have_signed_up">Tap the icon for quick-login once you have signed-up</string>
 
 </resources>

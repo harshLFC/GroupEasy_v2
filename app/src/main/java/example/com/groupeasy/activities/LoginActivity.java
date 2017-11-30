@@ -97,6 +97,15 @@ public class LoginActivity extends AppCompatActivity {
 
         try {
             String CurrentUser = current_user.getUid();
+            Log.w(CurrentUser, "currentUSer");
+
+            try {
+                String test = getIntent().getExtras().getString("keyName");
+            } catch (Exception e) {
+                BtnLogin.performClick();
+            }
+
+
         } catch (Exception e) {
 
             Log.w("no user", "currentUSer");
