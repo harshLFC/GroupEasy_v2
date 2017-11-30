@@ -40,8 +40,7 @@ import example.com.groupeasy.pojo.users_list;
 
 public class chooseUserActivity extends AppCompatActivity {
 
-    final DatabaseReference userRef = myRef.child("members");
-    final DatabaseReference groupRef = myRef.child("groups").child("");
+
     //initilize varaibles
     RecyclerView mUserRecyclerView;
     Toolbar mToolbar;
@@ -53,6 +52,8 @@ public class chooseUserActivity extends AppCompatActivity {
      */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
+    final DatabaseReference userRef = myRef.child("members");
+    final DatabaseReference groupRef = myRef.child("groups").child("");
     private TextView emptyView;
     //adapter
     private UsersSelectAdapter mUserAdapter;

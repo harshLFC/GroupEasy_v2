@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="4"
     package="example.com.groupeasy">
 
     <!--Asking users permissions for storage and location-->
@@ -63,10 +63,10 @@
 
         <!--<activity android:name=".activities.GroupDetailsActivity" />-->
 
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- <activity
+             android:name=".Main2Activity"
+             android:label="@string/title_activity_main2"
+             android:theme="@style/AppTheme.NoActionBar" />-->
 
         <activity
             android:name=".activities.CreateGroupActivity"

@@ -143,15 +143,15 @@ public class UsersSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
         //Setting user DP
-        if (image.isEmpty()) {
-            viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
-        } else {
+//        if (image.isEmpty()) {
+//            viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
+//        } else {
             Picasso.with(mContext)
                     .load(image)
                     .placeholder(R.drawable.single_user)
                     .resize(100, 100)
                     .into(((UserViewHolder) holder).userDP);
-        }
+//        }
 
         viewHolder.itemView.setSelected(selectedPos == position);
 

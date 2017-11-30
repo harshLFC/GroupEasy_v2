@@ -68,15 +68,15 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         viewHolder.userStatus.setText(mLstGroups.get(position).getStatus());
 
         //Add user Display picture
-        if (image.isEmpty()) {
-            viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
-        } else {
+//        if (image.isEmpty()) {
+//            viewHolder.userDP.setImageResource(R.drawable.ic_default_user_single);
+//        } else {
             Picasso.with(viewHolder.itemView.getContext())
                     .load(image)
                     .placeholder(R.drawable.single_user)
                     .resize(100, 100)
                     .into(((UserViewHolder) holder).userDP);
-        }
+//        }
     }
 
     @Override

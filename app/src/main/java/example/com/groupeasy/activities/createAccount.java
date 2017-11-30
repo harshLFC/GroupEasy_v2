@@ -184,7 +184,7 @@ public class createAccount extends AppCompatActivity {
                 if(task.isSuccessful()){
                     if(current_user != null)
 
-                    /** Two codes for registering and sending user data 1. if image is uploaded, 2.if no image is uploaded***/
+                    /**Two codes for registering and sending user data 1. if image is uploaded, 2.if no image is uploaded***/
                     {
                         //we need a device token for notification service
                         final String device_token = FirebaseInstanceId.getInstance().getToken();

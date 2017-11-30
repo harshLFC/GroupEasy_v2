@@ -10,12 +10,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -42,6 +43,7 @@ import example.com.groupeasy.utility.prefManager;
  *  Entry point of the app .
  *  Login using email & password
  * */
+
 public class LoginActivity extends AppCompatActivity {
 
     //initilize varaibles
@@ -66,33 +68,72 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Tried to use Preference Manager to stop user from coming to this screen everytime he opens up
         //This featuer is Still buggy, as the user still ends up on this screen if he removes app from the navigation drawer
-        PrefManager = new prefManager(this);
+      /*  PrefManager = new prefManager(this);
         if (!PrefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
-        }
+        }*/
 
         /*Link to XML layout*/
         setContentView(R.layout.activity_login);
 
         // initialize the context
-
         this.context = LoginActivity.this;
         /* Calling methods for
         1. Initialising elements by IDs
         2. Initialising elements with Listeners*/
         initElementsWithIds();
         initElementsWithListeners();
-
-        mRegProgress = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
+        mRegProgress = new ProgressDialog(this);
+        checkUser();
+
+    }
+
+    private void checkUser() {
+
+
+        try {
+            String CurrentUser = current_user.getUid();
+        } catch (Exception e) {
+
+            Log.w("no user", "currentUSer");
+            String email = "peter@peter.com";
+            String password = "password";
+
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful()) {
+                    } else {
+                        mRegProgress.hide();
+                        String error;
+                        try {
+                            throw task.getException();
+                        } catch (FirebaseAuthWeakPasswordException e) {
+                            error = "Password is weak";
+                        } catch (FirebaseAuthInvalidUserException e) {
+                            error = "Invalid Email!";
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            error = "Please check if you do not have an account, or the entered details are right";
+                        } catch (Exception e) {
+                            error = "Unknown error!";
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(LoginActivity.this, R.string.check_details_or_resigistered, Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+        }
+
     }
 
     private void launchHomeScreen() {
-        PrefManager.setFirstTimeLaunch(false);
+//        PrefManager.setFirstTimeLaunch(false);
         startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
         finish();
     }
@@ -118,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 else
-                    Toast.makeText(LoginActivity.this, "Make sure you are logged in",Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(LoginActivity.this, "Make sure you are logged in", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -226,7 +267,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-                     mRegProgress.dismiss();
+                    mRegProgress.dismiss();
                     String device_token = FirebaseInstanceId.getInstance().getToken();
                     String current_user = mAuth.getCurrentUser().getUid();
 
