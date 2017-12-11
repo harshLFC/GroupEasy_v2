@@ -40,11 +40,54 @@
     <!--<string name="slide_3_desc">Click on the Calender icon INSIDE the group to create an event, respond to Active Events within the same !</string>-->
 
     <string name="slide_4_title">Events at a glance !</string>
-    <string name="slide_4_desc">See the number of active events for each group at a glance shown by the number in yellow</string>
+    <string name="slide_4_desc">Look for the maroon bubble which will highlight the number of events in any group</string>
     <!--<string name="slide_4_desc">The number of active events in any group will be displayed instead of focusing on messages, So what are you waiting for?\n Lets Go !</string>-->
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
     <string name="click_to_respond_to_this_event">+ Click to respond to this event</string>
+    <string name="you_have_entered_nothing">You have entered nothing</string>
+    <string name="add_members">Will give the users option to add or remove members in future</string>
+    <string name="error">An error occurred:</string>
+    <string name="errordel">An error occurred:</string>
+    <string name="admin">Creator:</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="group_name">Group Name</string>
+    <string name="image_updated">Image updated</string>
+    <string name="i_m_out">I\'m Out</string>
+    <string name="event_name">Event Name</string>
+    <string name="location">Location</string>
+    <string name="oct">OCT</string>
+    <string name="_30">30</string>
+    <string name="maybe">Maybe</string>
+    <string name="i_m_in">I\'m In</string>
+    <string name="number_of_participants_1">Number of participants: 1</string>
+    <string name="no_participants_in_this_event">No Participants in this event</string>
+    <string name="max">Max:</string>
+    <string name="min">Min:</string>
+    <string name="not_specified">Not specified</string>
+    <string name="created_by">Created by</string>
+    <string name="description">Description</string>
+    <string name="time">Time and Date</string>
+    <string name="no_event_description_provided">No Event Description Provided</string>
+    <string name="_7_00pm">7:00Pm</string>
+    <string name="admin_name">Admin Name</string>
+    <string name="email_pass_req">Please enter email and password</string>
+    <string name="groupeasy">GroupEasy</string>
+    <string name="log_in_for_existing_users">Log in for existing users:</string>
+    <string name="sign_in">Sign In</string>
+    <string name="new_user_sign_up">New user? Sign Up !</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="harsh_p">Harshavardhan Phoujdar</string>
+    <string name="whats_the_craic">Whats the craic</string>
+    <string name="_10_56pm">10:56pm</string>
+    <string name="status">My Status My Status My status statusstatus</string>
+    <string name="_0">0</string>
+    <string name="bio">Bio:</string>
+    <string name="events_created">Events Created</string>
+    <string name="events_favourited">Events Favourited</string>
+    <string name="logout">Logout</string>
+    <string name="tap_the_icon_for_quick_login_once_you_have_signed_up">Tap the icon for quick-login once you have signed-up</string>
 
 </resources>

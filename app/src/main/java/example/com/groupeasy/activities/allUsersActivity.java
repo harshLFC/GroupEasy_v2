@@ -23,8 +23,11 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.UserAdapter;
 import example.com.groupeasy.pojo.users_list;
 
-public class allUsersActivity extends AppCompatActivity {
+/**
+ * This class just to display a list of members of the app
+ * **/
 
+public class allUsersActivity extends AppCompatActivity {
 
     /** Ui elements init */
     private RecyclerView mUserRecyclerView;
@@ -48,12 +51,9 @@ public class allUsersActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("All Users");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         initElementsWithIds();
         createListView();
         initElementsWithListeners();
-
 
         mLstGroups = new ArrayList<>();
         // initialize adapter to our List of <group>
@@ -67,20 +67,15 @@ public class allUsersActivity extends AppCompatActivity {
         //a RecyclerView needs an adapter to access its data
         mUserRecyclerView.setAdapter(mUserAdapter);
         mUserRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
     private void initElementsWithIds() {
         emptyView = (TextView) findViewById(R.id.empty_view_users);
-
     }
 
     private void createListView() {
 
-
-
         userRef.keepSynced(true);
-
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -91,7 +86,6 @@ public class allUsersActivity extends AppCompatActivity {
                     users_list usersList = snapshot.getValue(users_list.class);
                     mLstGroups.add(usersList);
                 }
-
                 mUserAdapter.notifyDataSetChanged();
 
                 if(mLstGroups.isEmpty()){
@@ -102,20 +96,14 @@ public class allUsersActivity extends AppCompatActivity {
 
                     emptyView.setVisibility(View.GONE);
                     mUserRecyclerView.setVisibility(View.VISIBLE);
-
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
-
     private void initElementsWithListeners() {
-
     }
 }

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="4"
     package="example.com.groupeasy">
 
+    <!--Asking users permissions for storage and location-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+<!--
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+-->
 
     <application
         android:name=".activities.groupeasy"
@@ -40,10 +43,9 @@
         <activity
             android:name=".activities.DashboardActivity"
             android:screenOrientation="portrait"
-
             />
 
-        <activity
+       <!-- <activity
             android:name=".activities.CreatePollActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -52,25 +54,26 @@
         <activity
             android:name=".activities.CreateRosterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
 
         <activity
             android:name=".activities.CreateEventActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activities.GroupDetailsActivity" />
+        <!--<activity android:name=".activities.GroupDetailsActivity" />-->
 
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- <activity
+             android:name=".Main2Activity"
+             android:label="@string/title_activity_main2"
+             android:theme="@style/AppTheme.NoActionBar" />-->
 
         <activity
             android:name=".activities.CreateGroupActivity"
             android:label="@string/title_activity_create_group"
             android:parentActivityName=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activities.chatRoomActivity"
@@ -81,12 +84,14 @@
         <activity
             android:name=".activities.createAccount"
             android:parentActivityName=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activities.editProfileActivity"
             android:parentActivityName=".activities.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -98,13 +103,10 @@
             android:screenOrientation="portrait"
             />
 
-        <!--<activity-->
-            <!--android:name=".activities.chooseGroup"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
-
         <activity
             android:name=".activities.chooseUserActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activities.aboutChatRoom"
@@ -113,21 +115,17 @@
         <activity
             android:name=".activities.editGroupActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activities.allUsersActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
 
         <activity android:name=".activities.EventDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
-
 
         <activity android:name=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -135,17 +133,15 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.WelcomeActivity"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
-            >
-
+            android:screenOrientation="portrait">
         </activity>
 
         <service
@@ -156,7 +152,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
 
     </application>
 

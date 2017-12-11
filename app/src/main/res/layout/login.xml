@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Google login DEPRECIATED-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
@@ -8,8 +11,9 @@
     android:orientation="vertical"
     android:weightSum="4">
 
-    <include layout="@layout/app_bar_layout"
-        android:id="@+id/create_acc_tool">
+    <include
+        android:id="@+id/create_acc_tool"
+        layout="@layout/app_bar_layout">
 
     </include>
 
@@ -32,10 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_bottom_margin"
-            android:text="welcome"
-            android:theme="@style/ThemeOverlay.MyTitleText"
+            android:clickable="true"
             android:onClick="GoToApp"
-            android:clickable="true"/>
+            android:text="welcome"
+            android:theme="@style/ThemeOverlay.MyTitleText" />
 
         <TextView
             android:id="@+id/status"
@@ -94,24 +98,24 @@
             android:id="@+id/sign_in_button"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:visibility="visible"
             android:layout_above="@+id/sign_out_and_disconnect"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/sign_out_and_disconnect"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-
-            tools:visibility="visible"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="23dp">
+
+            android:layout_marginBottom="23dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            tools:visibility="visible">
 
 
         </LinearLayout>

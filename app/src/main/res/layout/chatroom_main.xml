@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:orientation="vertical" android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
+
+<!--This is the xml for Chat room layout made up of
+    1. Group name and icon toolbar
+    2. Active Events tab
+    3. Dynamic Listview
+    4. chatbox at bottom -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -10,18 +13,14 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="1"
-    android:clipToPadding="false">
-
-
-    <!--<include layout="@layout/toolbar"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:id="@+id/mToolBar">-->
-
-    <!--</include>-->
-
+    android:clipToPadding="false"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <ListView
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@color/light_grey"
         android:id="@+id/list"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -43,28 +42,28 @@
         android:visibility="visible"
         android:layout_below="@+id/toolbar_chat"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        >
+        android:layout_alignParentStart="true">
     </include>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_chat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:weightSum="1"
+        app:theme="@style/ToolBarStyle"
         android:background="@color/colorPrimary"
-        android:elevation="30dp">
-
+        android:elevation="8dp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/chat_room_button"
-            >
-
+            android:orientation="horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Group Name"
+                android:text="@string/group_name"
                 android:layout_weight="4"
                 android:id="@+id/room_name"
                 android:visibility="visible"
@@ -73,36 +72,24 @@
                 android:maxLength="26"
                 android:ellipsize="end"
                 android:layout_gravity="center_vertical"
-                android:textSize="20dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textSize="20sp"
+                />
+            <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/group_image_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/multi_user"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="0.5dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/group_id_key"
-                android:text="sample"
+                android:text="@string/sample"
                 android:layout_weight="0"
                 android:visibility="gone"/>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/group_image_view"
-                android:layout_weight="1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:civ_border_color="@color/white"
-                android:src="@drawable/multi_user"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
-                app:civ_border_width="0.5dp"/>
-
-            <!--<Button
-                android:id="@+id/chat_room_button"
-                android:background="@android:color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />-->
-
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -112,7 +99,7 @@
         android:background="#4D000000"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="40dp"/>
+        />
 
     <ImageView
         android:layout_width="match_parent"
@@ -123,7 +110,7 @@
 
     <include
         android:id="@+id/input"
-        android:elevation = "7dp"
+        android:elevation = "8dp"
         layout="@layout/activity_chat_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

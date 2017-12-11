@@ -1,6 +1,5 @@
 package example.com.groupeasy.activities;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,23 +19,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import example.com.groupeasy.R;
-import example.com.groupeasy.activities.DashboardActivity;
-import example.com.groupeasy.utility.prefManager;
+
+/**
+ * The Welcome/Tutorial screen of the app
+ * This screen hosts 4 xml pages which can be swiped through or skipped
+ * **/
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    //initilize varaibles
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    private prefManager PrefManager;
+//    private prefManager PrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //This code was working but commented for use in other files
         // Checking for first time launch - before calling setContentView()
    /*     PrefManager = new prefManager(this);
         if (!PrefManager.isFirstTimeLaunch()) {
@@ -44,13 +48,15 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
         }*/
 
-        // Making notification bar transparent
+        // Making notification bar transparent if host sdk will be greater than 21
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
+        /*Link to XML layout*/
         setContentView(R.layout.activity_welcome);
 
+        /*Initialize ui elements by linking to xml ids*/
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
@@ -74,6 +80,7 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
+        /*Handling all onclick events(listeners)*/
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +106,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        //empty method to disallow user pressing back
     }
 
     private void addBottomDots(int currentPage) {

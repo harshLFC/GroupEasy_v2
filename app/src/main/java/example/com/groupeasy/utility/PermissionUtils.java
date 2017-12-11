@@ -15,21 +15,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * Created by Harsh on 14-11-2017.
+ * This util class is for handling all app related premissions
  */
-
-
-
 
 public class PermissionUtils
 {
 
     Context context;
     Activity current_activity;
-
     PermissionResultCallback permissionResultCallback;
-
-
     ArrayList<String> permission_list=new ArrayList<>();
     ArrayList<String> listPermissionsNeeded=new ArrayList<>();
     String dialog_content="";
@@ -42,7 +36,6 @@ public class PermissionUtils
 
         permissionResultCallback= (PermissionResultCallback) context;
     }
-
 
     /**
      * Check the API Level & Permission
@@ -74,9 +67,7 @@ public class PermissionUtils
             Log.i("all permissions", "granted");
             Log.i("proceed", "to callback");
         }
-
     }
-
 
     /**
      * Check and request the Permissions
@@ -99,7 +90,6 @@ public class PermissionUtils
                 if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                     listPermissionsNeeded.add(permissions.get(i));
                 }
-
             }
 
             if (!listPermissionsNeeded.isEmpty())
@@ -171,8 +161,6 @@ public class PermissionUtils
                                                     permissionResultCallback.PartialPermissionGranted(req_code,pending_permissions);
                                                 break;
                                         }
-
-
                                     }
                                 });
 
@@ -182,11 +170,7 @@ public class PermissionUtils
                         Log.i("all","permissions granted");
                         Log.i("proceed","to next step");
                         permissionResultCallback.PermissionGranted(req_code);
-
                     }
-
-
-
                 }
                 break;
         }

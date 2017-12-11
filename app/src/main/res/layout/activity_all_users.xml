@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Displays a list of app users-->
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -11,22 +14,21 @@
 
     </include>
 
-    <SearchView
+<!--    <SearchView
         android:padding="8dp"
         android:layout_below="@id/all_users_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         >
-
-    </SearchView>
+    </SearchView>-->
 
     <android.support.v7.widget.RecyclerView
+        android:paddingTop="60dp"
         android:id="@+id/users_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/searchView">
-
     </android.support.v7.widget.RecyclerView>
 
     <TextView

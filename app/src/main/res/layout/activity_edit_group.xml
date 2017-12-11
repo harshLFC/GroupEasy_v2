@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for
+    1. Change Group image
+    2. Change Group name-->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="example.com.groupeasy.activities.editProfileActivity">
-
+    tools:context="example.com.groupeasy.activities.editProfileActivity"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/edit_group_tool"
@@ -49,7 +55,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/circleImageView"
         app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginStart="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
     <android.support.design.widget.TextInputLayout
@@ -66,46 +72,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
-
-        <EditText
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/group_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Group Name"
+            android:hint="@string/group_name"
             android:maxLines="1"
             android:maxLength="22"
             android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
 
-    <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:maxLines="1"-->
-        <!--android:layout_width="344dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="38dp"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/user_name"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--android:id="@+id/user_status"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginEnd="8dp">-->
-
-        <!--<EditText-->
-            <!--android:maxLines="1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="Status"-->
-            <!--android:maxLength="45"-->
-            <!--android:inputType="text"-->
-            <!--/>-->
-    <!--</android.support.design.widget.TextInputLayout>-->
-
     <Button
         android:id="@+id/save_changes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Changes"
+        android:text="@string/save_changes"
         android:background="@drawable/all_btn_rect_shape_red"
         android:textColor="@color/white"
         android:padding="10dp"
@@ -121,6 +103,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintVertical_bias="0.0" />
-
 
 </android.support.constraint.ConstraintLayout>

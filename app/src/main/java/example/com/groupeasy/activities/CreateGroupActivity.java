@@ -1,15 +1,16 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,26 +58,25 @@ public class CreateGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*Link to XML layout*/
         setContentView(R.layout.content_create_group);
         context = CreateGroupActivity.this;
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mThumbRef = FirebaseStorage.getInstance().getReference();
 
+        //Progess Dialog
         mRegProcess = new ProgressDialog(CreateGroupActivity.this);
         mRegProcess.setTitle("Generating users list");
         mRegProcess.setMessage("Please Wait");
         mRegProcess.setCancelable(true);
         mRegProcess.setCanceledOnTouchOutside(false);
 
-//        this.mRegProcess = ProgressDialog.show(this, "Fancy App",
-//                "Loading...Please wait...", true, false);
-//        // Start a new thread that will download all the data
-//        new IAmABackgroundTask().execute();
-
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Initialising elements with Listeners*/
         initElementsWithIds();
         initElementsWithListeners();
-
     }
 
     private void initElementsWithListeners() {
@@ -86,15 +86,16 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //If a user clicks on create group and uploads an image, then he goes back, the image and related temp data is deleted
+
                 StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
                 StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
 
                 //If user changes his mind and cancels group creation, and if he had already uploaded image, This method deletes it
                 if(!filePath.toString().isEmpty()){
                     filePath.delete();
-            //add an optional onSuccesslistner
+             //add an optional onSuccesslistner
                 }
-
                 Intent intent = new Intent(context,DashboardActivity.class);
                 startActivity(intent);
                 finish();
@@ -105,7 +106,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1,1)
@@ -125,38 +125,24 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                     Toast.makeText(context, "Please enter a Name for the Group",Toast.LENGTH_LONG).show();
                 }
-
                 else if(groupDP == null){
                     Toast.makeText(CreateGroupActivity.this, "group is null put code here",Toast.LENGTH_LONG).show();
                 }
-
                 // else the entered string will be pushed to the firebase database reference
                 else {
                     mRegProcess.show();
-
                     final StorageReference filePath = mStorageRef.child("group_image").child(group_id+".jpg");
                     final StorageReference mThumbRef = mStorageRef.child("group_thumb").child(group_id+".jpg");
 
-/**If image is selected
- * The image is already uploaded to server
- * this part sends the image to next activity via an intent
- *
- */
+            /**If image is selected
+             * The image is already uploaded to server
+             * this part sends the image to next activity via an intent
+             */
                     filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
 
-//                            String download_url = taskSnapshot.getDownloadUrl().toString();
                             final Intent intent = new Intent(context,chooseUserActivity.class);
-
-//                            new_groups newGroups = new new_groups(admin,uri.toString(),last_msg,groupName,group_id);
-//                            groupRef.child(group_id).setValue(newGroups);
-//                            msgRef.child(group_id).setValue(true);
-//                            intent.putExtra("groupName",groupName);
-//                            startActivity(intent);
-//                            groupRef.push().setValue(newGroups);
-//                            Intent intent = new Intent(context,chooseUserActivity.class);
-
                             intent.putExtra("imagePic",uri.toString());
 
                             mThumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -168,23 +154,20 @@ public class CreateGroupActivity extends AppCompatActivity {
                                     mRegProcess.dismiss();
 
                                     startActivity(intent);
-
                                 }
                             });
                         }
                     });
 
-
-/**If image is NOT selected
- * There is no image uploaded to server
- * this part sends the default image to next activity via an intent
- */
+            /**If image is NOT selected
+             * There is no image uploaded to server
+             * this part sends the default image to next activity via an intent
+             */
                     filePath.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
                             final String imagePic = getString(R.string.default_firebase_groups);
-;
 
                             mThumbRef.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -204,6 +187,21 @@ public class CreateGroupActivity extends AppCompatActivity {
                 }
             }
         });
+
+        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
+
+    private void hideKeyboard(View v) {
+
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     private void initElementsWithIds() {
@@ -264,7 +262,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 Picasso.with(CreateGroupActivity.this)
                         .load(image_uri)
-                        .resize(100,100)
+                        .resize(300,300)
                         .onlyScaleDown()
                         .into(groupDP);
 
@@ -279,27 +277,13 @@ public class CreateGroupActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                // Get a URL to the uploaded content
-
-//                                @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
-                                Toast.makeText(CreateGroupActivity.this, "Image Successfully uploaded to Database",Toast.LENGTH_SHORT).show();
-
-//                                UploadTask uploadTask = mThumbRef.putBytes(thumb_byte);
-//                                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                                    @Override
-//                                    public void onSuccess(UploadTask.TaskSnapshot task) {
-//                                        String download_url = task.getDownloadUrl().toString();
-//                                        Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
-//                                    }
-//                                });
-
+                                // Get a URL to the uploaded content and do something with it
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle unsuccessful uploads
-                                // ...
                                 Toast.makeText(CreateGroupActivity.this, "Error"+exception,Toast.LENGTH_LONG).show();
                             }
                         });
@@ -308,7 +292,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot task) {
                         String download_url = task.getDownloadUrl().toString();
-                        Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
+//                        Toast.makeText(CreateGroupActivity.this, "Thumb Successfully uploaded to Database",Toast.LENGTH_LONG).show();
                     }
                 });}
                 catch (Exception e){
@@ -324,42 +308,30 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
 
-  /*  class IAmABackgroundTask extends
+  /*  Failed code
+        class IAmABackgroundTask extends
             AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             // showDialog(AUTHORIZING_DIALOG);
         }
-
         @Override
         protected void onPostExecute(Void result) {
-
             // Pass the result data back to the main activity
 //            CreateGroupActivity.this.data = result;
-
             if (CreateGroupActivity.this.mRegProcess != null) {
                 CreateGroupActivity.this.mRegProcess.dismiss();
             }
-
             if (mRegProcess.isShowing()) {
                 mRegProcess.dismiss();
             }
-
 //            setContentView(R.layout.main);
-
-
-
         }
-
         @Override
         protected Void doInBackground(Void... params) {
-
             //Do all your slow tasks here but dont set anything on UI
             //ALL ui activities on the main thread
-
             return null;
-
         }
-
     }*/
 }

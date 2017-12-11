@@ -1,5 +1,6 @@
 package example.com.groupeasy.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -9,7 +10,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,10 +31,14 @@ import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.UserAdapter;
 import example.com.groupeasy.pojo.users_list;
 
-import static example.com.groupeasy.R.id.room_name;
+
+/**
+ * This Class shows group name & list of members in a recyclerview
+ * **/
 
 public class aboutChatRoom extends AppCompatActivity {
 
+    //initilize varaibles
     /**import RecyclerView, Custom Adapter, and List */
     private RecyclerView mUserRecyclerView;
     private UserAdapter mUserAdapter;
@@ -50,6 +54,8 @@ public class aboutChatRoom extends AppCompatActivity {
     final DatabaseReference myRef = database.getReference();
     final DatabaseReference groupRef = myRef.child("groups");
 
+    private Context context = aboutChatRoom.this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +64,13 @@ public class aboutChatRoom extends AppCompatActivity {
         String roomKey = getIntent().getExtras().get("groupkey").toString();
         setName(roomKey);
 
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Generating the listview using custom adapter
+        2. Initialising elements with Listeners using roomKey as Parameter*/
         initElementsWithIds();
-//      groupName.setText(room_name);
-        createListView();        initElementsWithListeners(roomKey);
+        createListView();
+        initElementsWithListeners(roomKey);
 
         mLstGroups = new ArrayList<>();
 
@@ -102,8 +112,10 @@ public class aboutChatRoom extends AppCompatActivity {
         });
     }
 
+    //Handling all onclick events(listeners)
     private void initElementsWithListeners(final String roomKey) {
 
+        //Will navigate user to editGroupActivity
         editGroupDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,24 +136,21 @@ public class aboutChatRoom extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }
         });
 
+        /*For future use*/
         addMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(aboutChatRoom.this, "Will give the users option to add or remove members",Toast.LENGTH_SHORT).show();
-
-//                Intent intent = new Intent(aboutChatRoom.this,chooseUserActivity.class);
-//                startActivity(intent);
+                Toast.makeText(context, getString(R.string.add_members), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //Generats a list of members added in group
     private void createListView() {
         final String group_key = getIntent().getExtras().get("groupkey").toString();
 
@@ -151,17 +160,12 @@ public class aboutChatRoom extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 ArrayList tempList = new ArrayList();
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
                     String temp = snapshot.getKey();
-                    Log.w("leyz",temp);
                     tempList.add(temp);
-
                 }
 
                 for(int i = 0; i<tempList.size(); i++){
-
                         myRef.child("members").child((String) tempList.get(i)).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot ds) {
@@ -169,10 +173,6 @@ public class aboutChatRoom extends AppCompatActivity {
                             mLstGroups.add(usersList);
 
                             mUserAdapter.notifyDataSetChanged();
-                            Log.w("leyz",ds.toString());
-
-
-
                         }
 
                         @Override
@@ -181,10 +181,6 @@ public class aboutChatRoom extends AppCompatActivity {
                     });
                 }
                 mUserAdapter.notifyDataSetChanged();
-
-
-
-
             }
 
             @Override
@@ -192,15 +188,14 @@ public class aboutChatRoom extends AppCompatActivity {
             }
         });
 
-
-                //COde to display group details like name
+                //Code to display group details
                 groupRef.child(group_key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         String image = dataSnapshot.child("image").getValue().toString();
+
                         Picasso.with(getApplicationContext())
-//// mContext where Context mContext;
                         .load(image)
                         .resize(500,500)
                         .placeholder(R.drawable.multi_user_main)
@@ -211,10 +206,8 @@ public class aboutChatRoom extends AppCompatActivity {
                                 groupDP.setPadding(5,5,5,5);
                                 groupDP.setBackgroundColor(Color.BLACK);
                             }
-
                             @Override
                             public void onError() {
-
                             }
                         });
 
@@ -231,26 +224,22 @@ public class aboutChatRoom extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
                             }
                         });
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }
 
     private void initElementsWithIds() {
+        /*Initialize all ui elements by linking to xml ids*/
 
         groupDP = (ImageView) findViewById(R.id.group_image);
-//        groupName = (TextView) findViewById(R.id.group_name);
         adminName = (TextView) findViewById(R.id.admin_name);
         addMembers = (FloatingActionButton) findViewById(R.id.add_members);
         editGroupDetails = (ImageButton) findViewById(R.id.edit_group);
-        mainImage = (ImageView) findViewById(R.id.group_image);
-
     }
 }

@@ -293,15 +293,17 @@ public class CreateEventActivity extends AppCompatActivity {
                         }
                     });*/
 
-                    //trying for notification
+                    /**Sending data to the database to be heard for notification FUNCTION**/
                     HashMap<String,String> notifyMap = new HashMap<>();
                     notifyMap.put("event_name",EventName);
                     notifyMap.put("group_name",groupName);
+                    notifyMap.put("group_key",groupKey);
 
+                    // path will be notifications-> user_id-> unique push_id of event
                     myRef.child("notifications").child(uid).child(push_id).setValue(notifyMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(CreateEventActivity.this, "Notification sent !", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(CreateEventActivity.this, "Notification sent !", Toast.LENGTH_SHORT).show();
 
                         }
                     });

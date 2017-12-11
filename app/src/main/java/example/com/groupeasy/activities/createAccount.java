@@ -1,16 +1,19 @@
 package example.com.groupeasy.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,9 +24,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,56 +44,82 @@ import example.com.groupeasy.R;
  * Created by Harsh on 31-08-2017.
  */
 
+/**
+ * This Class asks for user details, sends them to firebase auth server,
+ * if approved, data is pushed to database and user is navigated to welcome page of app
+ * This page when the usr presses on new user signup from the login page of the app
+ * **/
+
 public class createAccount extends AppCompatActivity {
-
-    private Toolbar mToolBar;
-    private TextInputLayout userName,password,email;
-    private Button mCreateBtn;
-    private CircleImageView userDp;
-
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase ;
 
     final DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference();
     final DatabaseReference mUserBD = mDatabase1.child("members");
     final DatabaseReference userRef = mDatabase1.child("members").child("");
     final String user_push_id = userRef.push().getKey();
-
     FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     StorageReference mStorageRef;
-
+    //initilize varaibles
+    private Toolbar mToolBar;
+    private TextInputLayout userName,password,email;
+    private TextInputEditText editText, Username,Password;
+    private Button mCreateBtn;
+    private CircleImageView userDp;
     private ProgressDialog mRegProcess;
-
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        System.out.println("Inside opOptionsItemSelected");
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                onBackPressed();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    /** Firebase db init*/
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*Link to XML layout*/
         setContentView(R.layout.activity_create_account);
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+        //Toolbar intialization
         mToolBar = (Toolbar) findViewById(R.id.create_acc_tool);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle("Create An Account");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Initialising elements with Listeners*/
         initElementsWithIds();
         initElementsWithListeners();
     }
 
     private void initElementsWithListeners() {
 
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        Password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        Username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                  }
+                }
+                });
+
+        //this method validates user input, if all is valid, sends it to register_user method
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +146,7 @@ public class createAccount extends AppCompatActivity {
             }
         });
 
-
+        //user can upload an image as an avatar
         userDp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,8 +158,14 @@ public class createAccount extends AppCompatActivity {
         });
     }
 
+    private void hideKeyboard(View v) {
 
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
+    }
+
+    //after validation user is registered with GroupEasy
     private void register_user(final String mUserEmail, final String mUserName, String mUserPass) {
 
         mAuth.createUserWithEmailAndPassword(mUserEmail,mUserPass)
@@ -145,7 +177,6 @@ public class createAccount extends AppCompatActivity {
                     }
                 })
 
-
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -153,10 +184,10 @@ public class createAccount extends AppCompatActivity {
                 if(task.isSuccessful()){
                     if(current_user != null)
 
-                    /** Two codes for registering and sending user data 1. if image is uploaded, 2.if no image is uploaded***/
+                    /**Two codes for registering and sending user data 1. if image is uploaded, 2.if no image is uploaded***/
                     {
+                        //we need a device token for notification service
                         final String device_token = FirebaseInstanceId.getInstance().getToken();
-
 
                         final String uid = current_user.getUid();
 
@@ -204,10 +235,6 @@ public class createAccount extends AppCompatActivity {
                                                 }
                                             }
                                         });
-
-
-
-
                             }
                         });
 
@@ -235,7 +262,6 @@ public class createAccount extends AppCompatActivity {
 
                                         if(task.isSuccessful()){
 
-
                                             mUserBD.child(uid).child("device_token").setValue(device_token).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
@@ -247,7 +273,6 @@ public class createAccount extends AppCompatActivity {
 
                                                 }
                                             });
-
                                         }
                                         else{
                                             mRegProcess.hide();
@@ -257,26 +282,9 @@ public class createAccount extends AppCompatActivity {
                                         }
                                     }
                                 });
-
-
                             }
                         });
                     }
-/*
-                    Toast.makeText(createAccount.this,
-                            "????", Toast.LENGTH_LONG)
-                            .show();*/
-                    Log.w("userIssue","?????");
-//                    else
-//                        {
-//                        mRegProcess.hide();
-//
-//                        Toast.makeText(createAccount.this,
-//                                "Please check if you already have an account, or the entered details are right", Toast.LENGTH_LONG)
-//                                .show();
-//                    }
-
-
 
                 }
                 else if (!task.isSuccessful()){
@@ -285,7 +293,7 @@ public class createAccount extends AppCompatActivity {
                     mRegProcess.hide();
                 }
 
-                //the below code is not required as the above else if handles all errors
+                //the below code is not required at the moment as the above code handles all errors
             /*    else
                 {
                     mRegProcess.hide();
@@ -312,35 +320,26 @@ public class createAccount extends AppCompatActivity {
                 }*/
             }
         });
-
-
-
     }
 
 
+    //handles image uploads
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (resultCode == RESULT_OK) {
-
                 Uri resultUri = result.getUri();
                 String image_uri = resultUri.toString();
-
-//                String uid = current_user.getUid();
-//                mDatabase = FirebaseDatabase.getInstance().getReference().child("members").child(uid);
-
 
                 //Loads image onto the UI
                 Picasso.with(createAccount.this)
                         .load(image_uri)
-                        .resize(100,100)
+                        .resize(300, 300)
                         .into(userDp);
 
-//                Uri file = Uri.fromFile(new File(image_uri));
                 StorageReference filePath = mStorageRef.child("profile_images").child(user_push_id+".jpg");
 
                 filePath.putFile(resultUri)
@@ -350,34 +349,20 @@ public class createAccount extends AppCompatActivity {
                                 // Get a URL to the uploaded content
 
                                 @SuppressWarnings("VisibleForTests") String download_url = taskSnapshot.getDownloadUrl().toString();
-                                Toast.makeText(createAccount.this, "Success",Toast.LENGTH_LONG).show();
+                                Toast.makeText(createAccount.this, "Image uploaded !",Toast.LENGTH_LONG).show();
 
-//                                mDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if(task.isSuccessful()){
-//                                            Toast.makeText(createAccount.this, "Success Uploading image in database",Toast.LENGTH_LONG).show();
-//                                        }
-//                                        else{
-//                                            Toast.makeText(createAccount.this, "There was some error",Toast.LENGTH_LONG).show();
-//                                        }
-//                                    }
-//                                });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle unsuccessful uploads
-                                // ...
                                 Toast.makeText(createAccount.this, "Error",Toast.LENGTH_LONG).show();
                             }
                         });
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-
                 Exception error = result.getError();
-
             }
         }
     }
@@ -388,5 +373,9 @@ public class createAccount extends AppCompatActivity {
         password = (TextInputLayout) findViewById(R.id.text_input_password);
         userDp = (CircleImageView) findViewById(R.id.userDP);
         mCreateBtn = (Button) findViewById(R.id.btn_create_acc);
+
+        editText = (TextInputEditText) findViewById(R.id.editText);
+        Password = (TextInputEditText) findViewById(R.id.email);
+        Username = (TextInputEditText) findViewById(R.id.user_name);
     }
 }

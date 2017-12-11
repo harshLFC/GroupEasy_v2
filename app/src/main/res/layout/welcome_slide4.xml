@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for welcome screen #4 -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,8 +23,8 @@
         -->
         <ImageView
             android:layout_marginTop="50dp"
-        android:layout_width="@dimen/img_width_height"
-        android:layout_height="@dimen/img_width_height"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:background="@drawable/simple_events"
         android:layout_marginBottom="30dp"/>
 
@@ -44,7 +47,5 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_desc" />
-
     </LinearLayout>
-
 </RelativeLayout>

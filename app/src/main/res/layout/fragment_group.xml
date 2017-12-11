@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--This is the xml for the group fragment
+which hosts the recyclerview
+which populates group data-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <View
         android:id="@+id/group_background"
-        android:visibility="gone"
-        android:background="#4D000000"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-   <!--<ListView
-        android:id="@+id/lv_for_groups"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>-->
-<ScrollView
+        android:background="#4D000000"
+        android:visibility="gone" />
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -25,10 +27,9 @@
         android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/groupRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/groupRecyclerView"
-
         >
 
     </android.support.v7.widget.RecyclerView>
@@ -44,19 +45,13 @@
     </LinearLayout>
     </ScrollView>
 
-    <!--<TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="visible"
-        android:text="@string/no_data_msg" />-->
 <ImageView
     android:id="@+id/empty_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:src="@drawable/empty_groups"/>
+    android:src="@drawable/empty_groups"
+    tools:ignore="ContentDescription" />
 
 <!--<android.support.design.widget.FloatingActionButton
     android:layout_width="40dp"
@@ -70,9 +65,9 @@
     android:elevation="8dp"
     android:background="@color/colorAccent"
     android:src="@drawable/ic_plus_white_48dp"
-    />-->
+    />
 
-    <!--<com.github.clans.fab.FloatingActionMenu
+    <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,56 +103,46 @@
         fab:menu_shadowYOffset="4dp"
         fab:menu_showShadow="true"
         android:layout_marginBottom="-5dp"
-
         >
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_create_poll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rectangle_shape"
+            fab:fab_label="Create Poll"
+            fab:fab_size="mini" />
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_create_roaster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hexagon_shape"
+            fab:fab_label="Create Roster"
+            fab:fab_size="mini" />
 
-        &lt;!&ndash;<com.github.clans.fab.FloatingActionButton&ndash;&gt;
-            &lt;!&ndash;android:id="@+id/fab_create_poll"&ndash;&gt;
-            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
-            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
-            &lt;!&ndash;android:src="@drawable/rectangle_shape"&ndash;&gt;
-            &lt;!&ndash;fab:fab_label="Create Poll"&ndash;&gt;
-            &lt;!&ndash;fab:fab_size="mini" />&ndash;&gt;
-
-        &lt;!&ndash;<com.github.clans.fab.FloatingActionButton&ndash;&gt;
-            &lt;!&ndash;android:id="@+id/fab_create_roaster"&ndash;&gt;
-            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
-            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
-            &lt;!&ndash;android:src="@drawable/hexagon_shape"&ndash;&gt;
-            &lt;!&ndash;fab:fab_label="Create Roster"&ndash;&gt;
-            &lt;!&ndash;fab:fab_size="mini" />&ndash;&gt;
-
-        &lt;!&ndash;<com.github.clans.fab.FloatingActionButton&ndash;&gt;
-            &lt;!&ndash;android:id="@+id/fab_create_list"&ndash;&gt;
-            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
-            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
-            &lt;!&ndash;android:src="@drawable/circle_shape"&ndash;&gt;
-            &lt;!&ndash;fab:fab_label="Create List"&ndash;&gt;
-            &lt;!&ndash;fab:fab_size="mini" />&ndash;&gt;
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_create_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle_shape"
+            fab:fab_label="Create List"
+            fab:fab_size="mini" />
 </com.github.clans.fab.FloatingActionMenu>-->
-
     <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_create_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_create_group"
-            fab:menu_shadowColor="#33000000"
-            fab:menu_shadowRadius="5dp"
-            fab:menu_shadowXOffset="1dp"
-            fab:menu_shadowYOffset="4dp"
-            fab:menu_showShadow="true"
-            fab:fab_progress_showBackground="true"
-            fab:fab_showAnimation="@anim/fab_scale_up"
-            fab:fab_label="Create Group"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_size="mini"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_create_group"
+        fab:fab_colorNormal="@color/colorAccent"
+        fab:fab_label="Create Group"
+        fab:fab_progress_color="@color/grey"
+        fab:fab_progress_showBackground="true"
+        fab:fab_showAnimation="@anim/fab_scale_up"
+        fab:menu_shadowColor="#33000000"
         />
-
-
-
 </RelativeLayout>

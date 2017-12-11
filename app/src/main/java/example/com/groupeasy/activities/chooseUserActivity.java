@@ -1,10 +1,9 @@
 package example.com.groupeasy.activities;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,43 +27,46 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import example.com.groupeasy.R;
 import example.com.groupeasy.adapters.UsersSelectAdapter;
 import example.com.groupeasy.pojo.new_groups;
 import example.com.groupeasy.pojo.users_list;
 
+/**
+ * This Class opens up a list of all users of all for adding into a group
+ * Was one of the most complex pages of this app as it not only involved communicating with adaptet,
+ * but also transferring checkbox values of the mebers we wised to add on that exact row.
+ * **/
+
 public class chooseUserActivity extends AppCompatActivity {
 
+
+    //initilize varaibles
     RecyclerView mUserRecyclerView;
     Toolbar mToolbar;
-    private TextView emptyView;
     String imagePic = "";
     String imageThumb = "";
     String group_id = "";
-
-    //adapter
-    private UsersSelectAdapter mUserAdapter;
-    //list
-    private List<users_list> mLstGroups;
-
     /**
      * Firebase db init
      */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference();
-
     final DatabaseReference userRef = myRef.child("members");
     final DatabaseReference groupRef = myRef.child("groups").child("");
-
-//    final String group_id = groupRef.push().getKey();
-
+    private TextView emptyView;
+    //adapter
+    private UsersSelectAdapter mUserAdapter;
+    //list
+    private List<users_list> mLstGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*Link to XML layout*/
         setContentView(R.layout.activity_choose_user);
 
+        //Toolbar intialization
         mToolbar = (Toolbar) findViewById(R.id.choose_users_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Add members");
@@ -76,49 +78,40 @@ public class chooseUserActivity extends AppCompatActivity {
             }
         });
 
-        //            groupName = getIntent().getStringExtra("groupName");
-
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null) {
-//
-//        }
+        /* Calling methods for
+        1. Initialising elements by IDs
+        2. Populating users data into a listview
+        3. Initialising elements with Listeners*/
         initElementsWithIds();
         createListView();
         initElementsWithListeners();
 
+        //Initialize arraylist and attach adapter to dynamic recyclerview
         mLstGroups = new ArrayList<>();
         // initialize adapter to our List of <group>
         mUserAdapter = new UsersSelectAdapter(mLstGroups);
-
         mUserRecyclerView = (RecyclerView) findViewById(R.id.choose_users_recyclerview);
         mUserRecyclerView.setHasFixedSize(true);
-
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
         //a RecyclerView needs an adapter to access its data
         mUserRecyclerView.setAdapter(mUserAdapter);
         mUserRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
 
-
     private void initElementsWithListeners() {
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
-
         MenuItem search = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
         search(searchView);
 
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,7 +123,6 @@ public class chooseUserActivity extends AppCompatActivity {
         imageThumb = getIntent().getStringExtra("imageThumb");
         group_id = getIntent().getStringExtra("group_id");
 
-
         //code for on 'done' button click
         int id = item.getItemId();
 
@@ -139,11 +131,8 @@ public class chooseUserActivity extends AppCompatActivity {
 
             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = current_user.getUid();
-
-//            String data = "";
             List<users_list> uList = mUserAdapter
                     .getUserId();
-
             final HashMap<String, Boolean> myMap = new HashMap<>();
 
             //Loop to put groupsIn the members list and set value to true
@@ -151,9 +140,7 @@ public class chooseUserActivity extends AppCompatActivity {
                 users_list singleUser = uList.get(i);
                 if (singleUser.isSelected()) {
 
-//                    data = data + "\n" + singleUser.getId();
                     myMap.put(singleUser.getId(), true);
-
                     //Update Users DB with groupsIn TRUE value
                     userRef.child(singleUser.getId()).child("groupsIn").child(group_id).setValue(true);
                 }
@@ -166,13 +153,9 @@ public class chooseUserActivity extends AppCompatActivity {
 
             //set Value of members in group to all in myMap
             groupRef.child(group_id).child("members").child("").setValue(myMap);
-
             userRef.child(uid).child("groupsIn").child(group_id).setValue(true);
-
             //initiate a msgRef for pushing sample data
             final DatabaseReference msgRef = myRef.child("messages").child("");
-
-
 
             //code to push create group data to firebase
             myRef.child("members").child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -180,8 +163,6 @@ public class chooseUserActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     final String admin = dataSnapshot.getValue().toString();
-                    String members = "";
-                    final String icon = "";
                     final String last_msg = "You have no messages in the group";
 
                     //if the user does not get an intent with an image in it then it will go as an empty string
@@ -208,11 +189,8 @@ public class chooseUserActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
-
-
             //end code push
 
         }
@@ -225,29 +203,23 @@ public class chooseUserActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 mUserAdapter.getFilter().filter(newText);
                 return true;
             }
         });
     }
 
-
     private void initElementsWithIds() {
-
         emptyView = (TextView) findViewById(R.id.empty_view_users);
-
     }
 
     private void createListView() {
 
-//        userRef.keepSynced(true);
         //THis code loops through all members in the app and shows them in list
         //what i want to do is 1. check if user is in group, if he is keep his checkbox ticked
 
@@ -269,7 +241,7 @@ public class chooseUserActivity extends AppCompatActivity {
                 //this is how the adapter gets its db reference
                 mUserAdapter.notifyDataSetChanged();
 
-                //code for showing something if there are no users for the app, which is highly unlikely
+//              code for showing something if there are no users for the app, which is highly unlikely
 //                if(mLstGroups.isEmpty()){
 //                    emptyView.setVisibility(View.VISIBLE);
 //                    mUserRecyclerView.setVisibility(View.GONE);

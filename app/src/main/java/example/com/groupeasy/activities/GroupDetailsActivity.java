@@ -1,3 +1,4 @@
+/*
 package example.com.groupeasy.activities;
 
 import android.content.Context;
@@ -28,3 +29,4 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
     }
 }
+*/

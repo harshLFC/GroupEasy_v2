@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,17 +34,20 @@ import example.com.groupeasy.pojo.new_groups;
 
 import static example.com.groupeasy.R.id.image_view;
 
+/**
+ * This Adapter is
+ * 1. Linked with groupFragment.java and
+ * 2. Inflates view mGroupRecyclerView**/
+
 public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private List<new_groups> mLstGroups;
-    private static GroupViewHolder.ClickListener clickListener;
-    Context mContext;
-    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-    static FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
     private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
     private static final int VIEW_TYPE_OBJECT_VIEW = 1;
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    static FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private static GroupViewHolder.ClickListener clickListener;
+    Context mContext;
+    private List<new_groups> mLstGroups;
 
     public GroupAdapter(){
 
@@ -76,15 +80,13 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //replace R.layout.group_view with your custom layout
         //this file indicates how your custom view should look like (just remember to set parent tags height to wrap content)
 
-
         return new GroupViewHolder(rootView);
     }
 
     /***Override the onBindViewHolder to specify the contents of each item of the RecyclerView.
-    * This method is very similar to the getView method of a ListView's adapter.
+     * This method is very similar to the getView method of a ListView's adapter.
      * Here's where you have to set the values of the name, admin, and photo fields of the RecycleView.
     **/
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
@@ -106,17 +108,14 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         }
 
-
+        // Failed code
         //Code to display last seen message by Referencing the message database and looping through its children
-
-
 
 //        mDatabase.child("messages").child(groupID).child("groupMsgs").child("").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //
 //                if (dataSnapshot.child("").exists()){
-//
 //                    Query query = mDatabase.child("messages").child(groupID).child("groupMsgs").orderByKey().limitToLast(1);
 //                    query.addValueEventListener(new ValueEventListener() {
 //                        @Override
@@ -124,34 +123,27 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //
 ////                String msg = dataSnapshot.child("content").getValue().toString();
 ////                Log.w(msg,"msg");
-//
-//
 //                            for(DataSnapshot child : dataSnapshot.getChildren()){
 //
 //                                Log.d("Testing", child.child("content").getValue().toString());
 //                                viewHolder.textLastMessage.setText(child.child("content").getValue().toString());
 //                                viewHolder.textLastMessage.setTextColor(Color.BLACK);
-//
 //                            }
 //                        }
-//
 //                        @Override
 //                        public void onCancelled(DatabaseError databaseError) {
-//
 //                        }
 //                    });
-//
 //                }
 //                else
 //                    viewHolder.textLastMessage.setText("No messages in group");
-//
 //            }
 //
 //            @Override
 //            public void onCancelled(DatabaseError databaseError) {
-//
 //            }
 //        });
+
         /**code for showing rectangle and setting value according to the number of events present**/
         mDatabase.child("Events").child("lists").child(groupID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -159,50 +151,47 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 if(dataSnapshot!= null) {
                     //trying to introduce i variable to loop hw many events are there and display that number
+                    //but failed code
 //                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                    int numOfEvents = (int) dataSnapshot.getChildrenCount();
+                    Log.w(String.valueOf(numOfEvents),"nsdhajksdajsd");
+
+
                         viewHolder.myCircle.setVisibility(View.VISIBLE);
-
                         viewHolder.myCircle.setText(String.valueOf((int) (dataSnapshot.getChildrenCount())));
-//                        viewHolder.myCircle.setTextColor(Color.GRAY);
-
+                        viewHolder.myCircle.setTextColor(Color.WHITE);
 //                    }
                     //note : remove the above for loop for showing 0 events across all rows
+
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
-
-//code to set name as admin, but for some reason its crashing when logge don as com?
+        //code to set name as admin, but for some reason its crashing randomly
         //solved error by having a if condition
         mDatabase.child("members").child(mLstGroups.get(position).getAdmin()).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if(dataSnapshot.getValue()!=null) {
-
                     viewHolder.Admin.setText(dataSnapshot.getValue().toString());
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
         // getting context from view object
-
         if(image.isEmpty()){
-            viewHolder.imageGroupView.setImageResource(R.drawable.ic_default_groups);
+            viewHolder.imageGroupView.setImageResource(R.drawable.multi_user);
             viewHolder.imageGroupView.setAlpha(0f);
-
         }
         else    {
+            //Handling image display
             Picasso.with(mContext)
                     .load(image)
                     .placeholder(R.drawable.multi_user)
@@ -217,16 +206,24 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mLstGroups.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (mLstGroups.isEmpty()) {
+            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
+        } else {
+            return VIEW_TYPE_OBJECT_VIEW;
+        }
+    }
+
     public static class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
-        //declare views of your custom class here
-        //ex. TextView txtGroupName
+        //declaring views of your custom class
         private TextView textView;
         private TextView Admin;
         private ImageView imageGroupView;
         private TextView textLastMessage;
         private TextView groupKey;
         private LinearLayout groupLinear;
-        private TextView myCircle, Hex, Circle;
+        private TextView myCircle;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -249,21 +246,22 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public void onClick(View v) {
+            //Handling click actions
             if (v.getId() == groupLinear.getId() |v.getId() == imageGroupView.getId() ) {
-//            clickListener.onItemClick(getAdapterPosition(),v);
                 Context context = v.getContext();
 
                 Intent i = new Intent(context,chatRoomActivity.class);
 //                i.putExtra("room_name",((textView.getText().toString())));
                 i.putExtra("groupKey",((groupKey.getText().toString())));
+                i.putExtra("eventNum",((myCircle.getText().toString())));
 
                 context.startActivity(i);
                 ((Activity)context).finish();
 
             }
 //            else if (v.getId() == imageGroupView.getId()) {
-//                Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
-////            clickListener.onItemClick(getAdapterPosition(),v);
+//            Toast.makeText(v.getContext(), "Will open up the image", Toast.LENGTH_SHORT).show();
+//            clickListener.onItemClick(getAdapterPosition(),v);
 //            }
                     }
 
@@ -274,26 +272,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (v.getId() == groupLinear.getId()) {
 //            clickListener.onItemClick(getAdapterPosition(),v);
                 final Context context = v.getContext();
-
-//                Toast.makeText(context, "Long Clicked",Toast.LENGTH_SHORT).show();
-
-                //create dialoug and promt to leave gorup
-
-
-                //attempt to create a dialoug with options like 'delete' and 'other' then when delete is selected do the following
-//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                builder.setTitle("Choose an option")
-//                        .setItems(R.array.groups_detail_array, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // The 'which' argument contains the index position
-//                                // of the selected item
-//                                if(which == leave_group)
-//
-//
-//                            }
-//                        });
-//                builder.create().show();
-
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("Are you sure you wish to Exit this group?")
@@ -313,14 +291,10 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         dataSnapshot.getRef().removeValue();
-
                         Toast.makeText(context, "Group Left !",Toast.LENGTH_SHORT).show();
-
                         Intent i = new Intent(context,DashboardActivity.class);
-
                         context.startActivity(i);
                         ((Activity)context).finish();
-
                     }
 
                     @Override
@@ -328,7 +302,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                     }
                 });
-                            }
+                 }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -337,9 +311,7 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         });
                 // Create the AlertDialog object and return it
                 builder.create().show();
-
             }
-
             return true;
         }
 
@@ -350,17 +322,6 @@ public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public interface ClickListener {
             void onItemClick(int position, View v);
             void onItemLongClick(int position, View v);
-
-        }
-
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (mLstGroups.isEmpty()) {
-            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
-        } else {
-            return VIEW_TYPE_OBJECT_VIEW;
         }
     }
 }

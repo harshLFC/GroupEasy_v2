@@ -1,3 +1,4 @@
+/*
 package example.com.groupeasy.adapters;
 
 import android.content.Context;
@@ -33,15 +34,19 @@ public class GroupSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    /**add a constructor to the custom adapter to handle data that
-     RecyclerView displays.data is in the form of a List of <Group> objects**/
+    */
+/**add a constructor to the custom adapter to handle data that
+ RecyclerView displays.data is in the form of a List of <Group> objects**//*
+
     public GroupSelectAdapter(List<new_groups> mLstGroups)
     {
         this.mLstGroups = mLstGroups;
     }
 
-    /**We specify the layout that each item of the RecyclerView should use.This is done by
-     inflating the layout using LayoutInflater, passing the output to the constructor of the custom ViewHolder**/
+    */
+/**We specify the layout that each item of the RecyclerView should use.This is done by
+ inflating the layout using LayoutInflater, passing the output to the constructor of the custom ViewHolder**//*
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -64,10 +69,12 @@ public class GroupSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return new GroupViewHolder(rootView);
     }
 
-    /***Override the onBindViewHolder to specify the contents of each item of the RecyclerView.
+    */
+/***Override the onBindViewHolder to specify the contents of each item of the RecyclerView.
     * This method is very similar to the getView method of a ListView's adapter.
      * Here's where you have to set the values of the name, admin, and photo fields of the RecycleView.
-    **/
+ **//*
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -151,3 +158,4 @@ public class GroupSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 }
+*/

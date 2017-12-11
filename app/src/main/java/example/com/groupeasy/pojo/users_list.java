@@ -1,9 +1,8 @@
 package example.com.groupeasy.pojo;
 
-import java.util.Map;
-
 /**
- * Created by Harsh on 17-09-2017.
+ * This is the POJO or Plain Old Java Object class
+ * for Getting and setting list of users in a group
  */
 
 public class users_list {
@@ -21,7 +20,7 @@ public class users_list {
     boolean selected;
 
     public users_list(){
-
+        //Required Empty Constructor
     }
 
     public users_list(String name, String status, String image, String rosters, String polls,
@@ -109,7 +108,6 @@ public class users_list {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public boolean isSelected() {
         return selected;

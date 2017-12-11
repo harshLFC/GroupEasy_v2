@@ -1,7 +1,8 @@
 package example.com.groupeasy.pojo;
 
 /**
- * Created by Harsh on 09-09-2017.
+ * This is the POJO or Plain Old Java Object class
+ * for Getting and setting Event details
  */
 
 public class list_details {
@@ -12,10 +13,10 @@ public class list_details {
     private String min;
     private String max;
     private boolean oneDay;
-//    private boolean global;
+    private String toTime;
 
     public list_details(){
-
+        //Required Empty Constructor
     }
 
     public list_details(String details, String min, String  max, boolean oneDay,
@@ -28,10 +29,7 @@ public class list_details {
         this.min = min;
         this.max = max;
         this.oneDay = oneDay;
-//        this.global = global;
     }
-
-    private String toTime;
 
     public String getDetails() {
         return details;
@@ -89,11 +87,4 @@ public class list_details {
         this.oneDay = oneDay;
     }
 
-//    public boolean isGlobal() {
-//        return global;
-//    }
-//
-//    public void setGlobal(boolean global) {
-//        this.global = global;
-//    }
 }
