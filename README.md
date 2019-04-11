@@ -11,7 +11,7 @@ and
 
 ![](https://user-images.githubusercontent.com/25711956/30968212-77dbfe4c-a456-11e7-9981-5e15483ecb2f.jpg)
 ![](https://user-images.githubusercontent.com/25711956/30968227-82ac8738-a456-11e7-97f3-8d21aebee331.jpg)
-
+![] (https://youtu.be/52yFz1fbBio)
 It is an individual Major project for my Msc in Creative Digital media.
 The app will be on play store expected 30/11/2017
 
