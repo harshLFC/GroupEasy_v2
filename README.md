@@ -1,4 +1,4 @@
-# GroupEasy_v2
+# GroupEasy
 GroupEasy with Updated Ui
 
 Group Easy is a Native android Social messaging application.
